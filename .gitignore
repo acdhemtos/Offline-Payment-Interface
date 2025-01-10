@@ -1,9 +1,5 @@
-<<<<<<< Updated upstream
 client/*/node_modules/
 account/
 app/
-=======
-./client/*/node_modules/
->>>>>>> Stashed changes
 
 # ./api/connection.php
