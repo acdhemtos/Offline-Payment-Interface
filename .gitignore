@@ -1,3 +1,5 @@
 client/*/node_modules/
+account/
+app/
 
 # ./api/connection.php
