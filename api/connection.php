@@ -12,8 +12,6 @@
  try {
   $conn = new mysqli($servername, $username, $password, $dbname);
  }catch(Exception $e) {
-  $message['code'] = 1;
-  $message['message'] = 1;
   $message['debug'] .= "Cannot Connect to Database.\n".$e->getMessage();
   die(json_encode($message));
  }
