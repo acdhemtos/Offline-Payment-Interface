@@ -10,6 +10,7 @@ import SendPage from './components/SendPage';
 import ReceivePage from './components/ReceivePage';
 import StatusPage from './components/StatusPage';
 import CommunicatePage from './components/CommunicatePage';
+import TransactionHistory from './components/TransactionHistory';
 import { getRelativePath } from "./utils/utils";
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
           <Route path={getRelativePath("/app/opi-pin")} element={<OPIPINVerification />} />
           <Route path={getRelativePath("/app/status")} element={<StatusPage />} />
           <Route path={getRelativePath("/app/communicate")} element={<CommunicatePage />} />
+          <Route path={getRelativePath("/app/transactions")} element={<TransactionHistory/>}/>
           <Route path={getRelativePath("/app/home")} element={<Home />} />
         </Routes>
       </div>

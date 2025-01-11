@@ -63,7 +63,7 @@ const LoginSignupForm = () => {
         <p className="mt-4 lg:mt-6 text-center text-gray-600">
           {isLogin ? "Don't have an account?" : "Already have an account?"}
           <NavLink
-            to={getRelativePath(isLogin ? "/signup" : "/login")}
+            to={getRelativePath(isLogin ? "/account/signup" : "/account/login")}
             className="ml-2 text-purple-600 hover:text-purple-500 font-medium"
           >
             <button

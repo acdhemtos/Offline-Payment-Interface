@@ -14,6 +14,7 @@
 
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { base } from './src/config'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -21,7 +22,7 @@ export default defineConfig({
   //   host: '0.0.0.0', // This allows access from other devices
   //   port: 5173
   // },
-  base: 'opi/',
+  base: base,
   plugins: [react()],
   build: {
     outDir: "..",

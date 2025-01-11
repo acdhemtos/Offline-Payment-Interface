@@ -31,7 +31,7 @@ const SignupForm = () => {
               </form>
               <p className="mt-6 text-center text-gray-600">
           Already have an account?
-          <NavLink to={getRelativePath("/login")}  className="ml-2 text-purple-600 hover:text-purple-500 font-medium">
+          <NavLink to={getRelativePath("/account/login")}  className="ml-2 text-purple-600 hover:text-purple-500 font-medium">
                 <button type="button" onClick={toggleForm} className="ml-2 text-purple-600 hover:text-purple-500 font-medium">
                   Login
             </button>

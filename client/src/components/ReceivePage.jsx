@@ -115,7 +115,7 @@ const ReceivePage = () => {
     <div className="flex flex-col min-h-screen items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 w-full px-4">
       <button
         className="absolute top-4 left-4 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition"
-        onClick={() => navigate(getRelativePath("/home"))}
+        onClick={() => navigate(-1)}
       >
         <FaArrowLeft className="text-2xl" />
       </button>

@@ -10,7 +10,7 @@ const StatusPage = () => {
     <div className="flex flex-col min-h-screen items-center justify-center bg-green-200 w-full">
       <button
         className="absolute top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded-lg"
-        onClick={() => navigate(getRelativePath('/home'))}
+        onClick={() => navigate(-1)}
       >
         Back
       </button>

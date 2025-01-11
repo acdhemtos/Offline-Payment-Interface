@@ -14,7 +14,7 @@ const BottomBar = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="flex flex-col items-center justify-center text-sm text-gray-700 transition"
-                    onClick={() => navigate(getRelativePath('/send'))}
+                    onClick={() => navigate(getRelativePath('/app/send'))}
                 >
                     <div className="flex items-center justify-center">
                         <FaPaperPlane className="text-xl mb-1 transition text-white fill-gray-600" />
@@ -25,7 +25,7 @@ const BottomBar = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="flex flex-col items-center justify-center text-sm text-gray-600 transition"
-                    onClick={() => navigate(getRelativePath('/recieve'))}
+                    onClick={() => navigate(getRelativePath('/app/recieve'))}
                 >
                     <div className="flex items-center justify-center">
                         <TbMoneybag className="text-2xl mb-1 transition text-white fill-gray-600" />
@@ -40,7 +40,7 @@ const BottomBar = () => {
                         animate={{ y: [0, -10, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
                         className="absolute bottom-0 w-16 h-16 bg-gradient-to-r from-blue-400 via-blue-500 to-purple-600 text-white font-semibold rounded-full flex items-center justify-center shadow-xl transition border-4 border-white"
-                        onClick={() => navigate(getRelativePath('/scan'))}
+                        onClick={() => navigate(getRelativePath('/app/scan'))}
                     >
                         <FaQrcode className="text-2xl transform transition-all" />
                     </motion.button>
@@ -49,7 +49,7 @@ const BottomBar = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="flex flex-col items-center justify-center text-sm text-gray-600 transition"
-                    onClick={() => navigate(getRelativePath('/status'))}
+                    onClick={() => navigate(getRelativePath('/app/status'))}
                 >
                     <div className="flex items-center justify-center">
                         <FaHistory className="text-xl mb-1 transition text-white fill-gray-600" />
@@ -60,7 +60,7 @@ const BottomBar = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="flex flex-col items-center justify-center text-sm text-gray-700 transition"
-                    onClick={() => navigate(getRelativePath('/communicate'))}
+                    onClick={() => navigate(getRelativePath('/app/communicate'))}
                 >
                     <div className="flex items-center justify-center">
                         <FaComments className="text-xl mb-1 transition text-white fill-gray-600" />
