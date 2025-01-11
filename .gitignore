@@ -1,4 +1,4 @@
 client/node_modules/
 index.html
 assets/
-api/connection.php
+/api/connection.php

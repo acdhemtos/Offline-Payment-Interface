@@ -24,7 +24,7 @@
   }catch(Exception $e) {
    $message['code'] = 1;
    $message['message'] = 1;
-   $message['debug'] = "Cannot Parse Data.\n".$e->getMessage();
+   $message['debug'] = "Cannot Parse Username.\n".$e->getMessage();
   }
   die(json_encode($message));
  }
