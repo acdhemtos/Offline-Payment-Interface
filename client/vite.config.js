@@ -21,7 +21,7 @@ export default defineConfig({
   //   host: '0.0.0.0', // This allows access from other devices
   //   port: 5173
   // },
-  base: './',
+  base: 'opi/',
   plugins: [react()],
   build: {
     outDir: "..",
