@@ -18,10 +18,10 @@ import { base } from './src/config'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // server: {
-  //   host: '0.0.0.0', // This allows access from other devices
-  //   port: 5173
-  // },
+  server: {
+    host: '0.0.0.0', // This allows access from other devices
+    port: 5173
+  },
   base: base,
   plugins: [react()],
   build: {

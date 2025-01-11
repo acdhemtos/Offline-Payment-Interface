@@ -107,6 +107,7 @@ const SendPage = () => {
           placeholder="Enter Amount"
           onFocus={(e) => setCursorPosition(e.target.selectionStart)}
           onKeyUp={(e) => setCursorPosition(e.target.selectionStart)}
+          readOnly
         />
       </div>
 
@@ -128,7 +129,7 @@ const SendPage = () => {
         <div className="flex flex-col items-center w-full max-w-md">
           <button
             className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition w-full mb-2"
-            onClick={() => handleOptionClick('/upi-pin')}
+            onClick={() => handleOptionClick('/app/upi-pin')}
           >
             UPI
           </button>
@@ -139,7 +140,7 @@ const SendPage = () => {
           </div>
           <button
             className="bg-green-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-green-600 transition w-full"
-            onClick={() => handleOptionClick('/opi-pin')}
+            onClick={() => handleOptionClick('/app/opi-pin')}
           >
             OPI
           </button>
