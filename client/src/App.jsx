@@ -18,16 +18,16 @@ const App = () => {
       <div className="min-h-screen flex items-center justify-center">
         <Routes>
           <Route path={getRelativePath("/")} element={<LoginPage />} />
-          <Route path={getRelativePath("/signup")} element={<SignupPage />} />
-          <Route path={getRelativePath("/login")} element={<LoginPage />} />
-          <Route path={getRelativePath("/send")} element={<SendPage />} />
-          <Route path={getRelativePath("/recieve")} element={<ReceivePage />} />
-          <Route path={getRelativePath("/scan")} element={<ScanQR />} />
-          <Route path={getRelativePath("/upi-pin")} element={<UPIPINVerification />} />
-          <Route path={getRelativePath("/opi-pin")} element={<OPIPINVerification />} />
-          <Route path={getRelativePath("/status")} element={<StatusPage />} />
-          <Route path={getRelativePath("/communicate")} element={<CommunicatePage />} />
-          <Route path={getRelativePath("/home")} element={<Home />} />
+          <Route path={getRelativePath("/account/signup")} element={<SignupPage />} />
+          <Route path={getRelativePath("/account/login")} element={<LoginPage />} />
+          <Route path={getRelativePath("/app/send")} element={<SendPage />} />
+          <Route path={getRelativePath("/app/recieve")} element={<ReceivePage />} />
+          <Route path={getRelativePath("/app/scan")} element={<ScanQR />} />
+          <Route path={getRelativePath("/app/upi-pin")} element={<UPIPINVerification />} />
+          <Route path={getRelativePath("/app/opi-pin")} element={<OPIPINVerification />} />
+          <Route path={getRelativePath("/app/status")} element={<StatusPage />} />
+          <Route path={getRelativePath("/app/communicate")} element={<CommunicatePage />} />
+          <Route path={getRelativePath("/app/home")} element={<Home />} />
         </Routes>
       </div>
     </BrowserRouter>
