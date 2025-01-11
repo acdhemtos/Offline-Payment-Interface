@@ -24,7 +24,7 @@ export default defineConfig({
   base: './',
   plugins: [react()],
   build: {
-    outDir: "../../account",
-    emptyOutDir:true,
+    outDir: "..",
+    emptyOutDir:false,
   }
 })
