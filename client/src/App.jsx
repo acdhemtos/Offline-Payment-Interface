@@ -12,6 +12,7 @@ import StatusPage from './components/StatusPage';
 import CommunicatePage from './components/CommunicatePage';
 import TransactionHistory from './components/TransactionHistory';
 import { getRelativePath } from "./utils/utils";
+import Settings from "./components/Settings";
 
 const App = () => {
   return (
@@ -28,7 +29,8 @@ const App = () => {
           <Route path={getRelativePath("/app/opi-pin")} element={<OPIPINVerification />} />
           <Route path={getRelativePath("/app/status")} element={<StatusPage />} />
           <Route path={getRelativePath("/app/communicate")} element={<CommunicatePage />} />
-          <Route path={getRelativePath("/app/transactions")} element={<TransactionHistory/>}/>
+          <Route path={getRelativePath("/app/transactions")} element={<TransactionHistory />} />
+          <Route path={getRelativePath("/app/settings")} element={<Settings/>}/>
           <Route path={getRelativePath("/app/home")} element={<Home />} />
         </Routes>
       </div>

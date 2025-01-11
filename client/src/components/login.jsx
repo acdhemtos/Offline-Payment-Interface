@@ -5,7 +5,7 @@ import { getRelativePath } from "../utils/utils";
 
 const LoginSignupForm = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
 
   const toggleForm = () => {
@@ -22,11 +22,11 @@ const LoginSignupForm = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const { email, password } = form;
-    if (email === "abc@example.com" && password === "1234") {
+    const { username, password } = form;
+    if (username === "user" && password === "1234") {
       navigate(getRelativePath("/app/home"));
     } else {
-      alert("Invalid email or password");
+      alert("Invalid username or password");
     }
   };
 
@@ -49,16 +49,16 @@ const LoginSignupForm = () => {
         <form onSubmit={handleLogin}>
           <div className="input-group mb-4 lg:mb-6">
             <label
-              htmlFor="email"
+              htmlFor="username"
               className="block text-sm font-medium text-gray-700"
             >
-              Email
+              Username
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              value={form.email}
+              type="text"
+              id="username"
+              name="username"
+              value={form.username}
               onChange={handleChange}
               className="mt-2 block w-full px-4 py-2 lg:py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
             />

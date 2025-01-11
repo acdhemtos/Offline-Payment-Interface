@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
-import { getRelativePath } from "../utils/utils";
 import CustomKeyboard from "./CustomKeyboard";
 import { FaRupeeSign, FaArrowLeft } from "react-icons/fa";
 
@@ -113,25 +112,23 @@ const ReceivePage = () => {
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 w-full px-4">
-      <button
-        className="absolute top-4 left-4 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition"
-        onClick={() => navigate(-1)}
-      >
-        <FaArrowLeft className="text-2xl" />
-      </button>
+      <header className="fixed top-0 left-0 right-0 p-4 bg-blue-600 text-white text-xl font-semibold shadow-md text-center w-full z-10">
+        <button
+          className="absolute top-3 left-4 text-white p-2 rounded-lg hover:bg-blue-600 transition"
+          onClick={() => navigate(-1)}
+          style={{ background: 'none' }}
+        >
+          <FaArrowLeft className="text-2xl" />
+        </button>
+        Receive Money
+      </header>
 
       {/* QR Code Display */}
       <div className="p-4 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg mt-20 shadow-lg">
         <QRCodeSVG value={qrData} size={256} />
       </div>
 
-      {/* Scanned ID Display */}
-      <div className="mt-4 p-3 w-full max-w-md border border-gray-300 rounded-lg text-center text-lg bg-white bg-opacity-20 backdrop-blur-lg">
-        Scanned ID: {scannedId}
-      </div>
-
-      {/* Amount Input */}
-      <div className="relative mt-4 w-full max-w-md">
+      <div className="relative mb-4 w-full max-w-md mt-4">
         <FaRupeeSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
         <input
           ref={inputRef}
@@ -174,6 +171,11 @@ const ReceivePage = () => {
           Generate QR Code
         </button>
       )}
+
+      {/* Scanned ID Display */}
+      <div className="mt-4 p-3 w-full max-w-md border border-gray-300 rounded-lg text-center text-lg bg-white bg-opacity-20 backdrop-blur-lg">
+        Scanned ID: {scannedId}
+      </div>
 
       {/* Camera Feed & Canvas for Scanning */}
       <div className="mt-6 w-full max-w-md">

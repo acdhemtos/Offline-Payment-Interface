@@ -37,7 +37,7 @@
    }
   }
  }
- if(basename(__FILE__)=="username.php"){
+ if(basename(__FILE__)=="validateUsername.php"){
   try{
    $response = validateUsername(json_decode(file_get_contents("php://input"),true)["username"]);
    if($response == true){
@@ -49,7 +49,7 @@
    $message['message'] = 1;
    $message['debug'] = "Cannot Parse Username.\n".$e->getMessage();
   }
-  die(json_encode($message));
+  echo json_encode($message);
  }
  
 ?>

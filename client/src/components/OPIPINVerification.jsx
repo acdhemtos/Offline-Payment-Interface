@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CustomKeyboard from './CustomKeyboard'; 
+import CustomKeyboard from './CustomKeyboard';
+import PinDisplay from './PinDisplay';
 import { motion } from 'framer-motion';
 
 const OPIPINVerification = () => {
@@ -44,28 +45,11 @@ const OPIPINVerification = () => {
       <h1 className="text-3xl font-bold text-blue-500 mb-8">Enter OPI PIN</h1>
 
       {/* PIN Display */}
-      <div
-        className={`flex space-x-4 mb-6 cursor-pointer ${pin.length === 0 ? 'bg-gray-200' : ''}`}
-        onClick={() => {
-          if (pin.length < 4) {
-            setIsKeyboardVisible(true);
-          }
-        }}
-      >
-        {Array(4)
-          .fill('')
-          .map((_, index) => (
-            <div
-              key={index}
-              className={`w-16 h-16 flex items-center justify-center text-center text-3xl font-semibold border-2 border-gray-300 rounded-lg ${pin.length === 0 ? 'bg-gray-200' : ''}`}
-            >
-              {/* Animated dot or placeholder */}
-              <span className={`animated-dot ${pin[index] ? '' : 'text-gray-400'}`}>
-                {pin[index] ? '•' : '•'}
-              </span>
-            </div>
-          ))}
-      </div>
+      <PinDisplay pin={pin} onClick={() => {
+        if (pin.length < 4) {
+          setIsKeyboardVisible(true); // Show keyboard when clicking on the PIN display
+        }
+      }} />
 
       {/* Show custom keyboard */}
       {isKeyboardVisible && pin.length < 4 && (

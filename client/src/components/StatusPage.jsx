@@ -1,6 +1,4 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getRelativePath } from '../utils/utils';
 import { FaCheckCircle } from 'react-icons/fa';
 
 const StatusPage = () => {
