@@ -49,7 +49,7 @@
    $message['message'] = 1;
    $message['debug'] = "Cannot Parse Username.\n".$e->getMessage();
   }
-  echo json_encode($message);
+  die(json_encode($message));
  }
  
 ?>
