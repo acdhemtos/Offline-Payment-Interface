@@ -1,1 +1,3 @@
 Internal Server Error.
+Username Not Available.
+Username Available.
