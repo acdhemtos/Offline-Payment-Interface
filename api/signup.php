@@ -9,18 +9,19 @@
   $data = json_decode(file_get_contents("php://input"),true);
   
   $name = $data["name"];
-  if (!@include('isValidName.php')) { display(1,"Cannot Include connection.php"); }
+  if (!@include('isValidName.php')) { display(1,"Cannot Include isValidName.php"); }
   $response = isValidName($name);
   if($response != 0){ display($response); }
   
   $password = $data["password"];
-  if (!@include('isValidPassword.php')) { display(1,"Cannot Include connection.php"); }
+  if (!@include('isValidPassword.php')) { display(1,"Cannot Include isValidPassword.php"); }
   $response = isValidPassword($password);
   if($response != 0){ display($response); }
   
   $password = $data["username"];
-  if (!@include('validateUsername.php')) { display(1,"Cannot Include connection.php"); }
-  $response = validateUsername($username, $false);
+  if (!@include('validateSignupUsername.php')) { display(1,"Cannot Include validateSignupUsername"); }
+  $response = validateSignupUsername($username);
+  if($response != 0){ display($response); }
   
   if (!@include('connection.php')) { display(1,"Cannot Include connection.php"); }
   
@@ -31,9 +32,11 @@
   } else {
    display(1,"Cannot Execute Query.\n" . $stmt->error);
   }
+  $stmt->close();
+  $conn->close();
   
  }catch(Exception $e) {
   display(1,"Cannot Parse data.\n".$e->getMessage());
-  }
+ }
  
 ?>
