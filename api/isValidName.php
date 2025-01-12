@@ -1,4 +1,5 @@
 <?php
+ 
  if (!@include_once('display.php')) {
   header('Content-Type: application/json; charset=utf-8');
   die('{"code":1,"debug":"Cannot Include message.php"}');
@@ -20,7 +21,6 @@
   if (!preg_match('/^[a-z ]+$/', $name)) {
    return 15;
   }
-  
   return 0;
  }
 
