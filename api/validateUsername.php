@@ -19,7 +19,7 @@
     return 4;
    }
   }
-  if (!@include_once('connection.php')) {
+  if (!@include('connection.php')) {
    display(1,"Cannot Include connection.php");
   }
   try{
