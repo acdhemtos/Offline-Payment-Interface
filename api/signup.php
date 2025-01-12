@@ -19,19 +19,24 @@
   if($response != 0){ display($response); }
   
   $password = $data["username"];
-  if (!@include('validateSignupUsername.php')) { display(1,"Cannot Include validateSignupUsername"); }
+  if (!@include('validateSignupUsername.php')) { display(1,"Cannot Include validateSignupUsername.php"); }
   $response = validateSignupUsername($username);
   if($response != 0){ display($response); }
   
   if (!@include('connection.php')) { display(1,"Cannot Include connection.php"); }
   
-  $stmt = $conn->prepare("INSERT INTO users (username, password, name) VALUES (?, ?)");
-  $stmt->bind_param("ss", $username, md5($password), $name);
-  if ($stmt->execute()) {
-   display(0);
-  } else {
-   display(1,"Cannot Execute Query.\n" . $stmt->error);
+  try{
+   $stmt = $conn->prepare("INSERT INTO users (username, password, name) VALUES (?, ?)");
+   $stmt->bind_param("ss", $username, md5($password), $name);
+   if ($stmt->execute()) {
+    display(0);
+   } else {
+    display(1,"Cannot Execute Query.\n" . $stmt->error);
+   } 
+  }catch(Exception $e) {
+   display(1,"Cannot Execute Query.\n".$e->getMessage());
   }
+  
   $stmt->close();
   $conn->close();
   

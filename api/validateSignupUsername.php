@@ -14,7 +14,7 @@
  
  if(basename(__FILE__)=="validateSignupUsername.php"){
   try{
-   display(validateSignupUsername(json_decode(file_get_contents("php://input"),true)["username"],false));
+   display(validateSignupUsername(json_decode(file_get_contents("php://input"),true)["username"]));
   }catch(Exception $e) {
    display(1,"Cannot Parse Username.\n".$e->getMessage());
   }
