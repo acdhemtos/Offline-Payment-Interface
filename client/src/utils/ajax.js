@@ -5,3 +5,5 @@ function AJAX(url,data) {
   body: JSON.stringify(data)
  });
 }
+
+export { AJAX };

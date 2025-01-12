@@ -1,17 +1,33 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import CustomKeyboard from './CustomKeyboard';
 import { getRelativePath } from '../utils/utils';
-import { FaRupeeSign, FaArrowLeft } from 'react-icons/fa';
+import { FaRupeeSign, FaArrowLeft, FaUser, FaIdCard } from 'react-icons/fa';
 
 const SendPage = () => {
+  const [id, setId] = useState('');
+  const [username, setUsername] = useState('');
   const [amount, setAmount] = useState('');
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [dotDisabled, setDotDisabled] = useState(false); // Track if dot is used
   const [cursorPosition, setCursorPosition] = useState(0); // Track cursor position
   const [isAmountEntered, setIsAmountEntered] = useState(false); // Track if amount is entered
+  const [isDataFetched, setIsDataFetched] = useState(false); // Track if data is fetched from QR or database
   const navigate = useNavigate();
+  const location = useLocation();
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    // Check if data is passed from QR code scanning
+    if (location.state) {
+      const { id, username, amount } = location.state;
+      setId(id || '');
+      setUsername(username || '');
+      setAmount(amount || '');
+      setIsAmountEntered(!!amount);
+      setIsDataFetched(true);
+    }
+  }, [location.state]);
 
   const handleAmountChange = (value) => {
     let updatedAmount = amount;
@@ -69,6 +85,33 @@ const SendPage = () => {
     setAmount(value);
   };
 
+  const handleUsernameChange = async (e) => {
+    const value = e.target.value;
+    setUsername(value);
+
+    // Fetch user data from the database
+    if (value) {
+      try {
+        const response = await fetch(`/api/get-user?username=${value}`);
+        const data = await response.json();
+        if (data && data.id) {
+          setId(data.id);
+          setIsDataFetched(true);
+        } else {
+          setId('');
+          setIsDataFetched(false);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        setId('');
+        setIsDataFetched(false);
+      }
+    } else {
+      setId('');
+      setIsDataFetched(false);
+    }
+  };
+
   const handleOptionClick = (path) => {
     if (amount) {
       navigate(getRelativePath(path));
@@ -88,27 +131,74 @@ const SendPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center bg-gray-100 w-full px-4">
-      <button
-        className="absolute top-4 left-4 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition"
-        onClick={() => navigate(-1)}
-      >
-        <FaArrowLeft className="text-2xl" />
-      </button>
-      <h1 className="text-2xl font-bold text-blue-500 mb-6">Send Money</h1>
+      <header className="fixed top-0 left-0 right-0 p-4 bg-blue-600 text-white text-xl font-semibold shadow-md text-center w-full z-10">
+        <button
+          className="absolute top-3 left-4 text-white p-2 rounded-lg hover:bg-blue-600 transition"
+          onClick={() => navigate(-1)}
+          style={{ background: 'none' }}
+        >
+          <FaArrowLeft className="text-2xl" />
+        </button>
+        Send Money
+      </header>
+      
+      <div className="relative mb-4 w-full max-w-md mt-20">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="id">
+          ID
+        </label>
+        <div className="relative">
+          <FaIdCard className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            id="id"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            className="pl-10 p-3 w-full border border-gray-300 rounded-lg text-center text-lg bg-white cursor-pointer"
+            placeholder="Enter ID"
+            disabled={isDataFetched}
+          />
+        </div>
+      </div>
+
       <div className="relative mb-4 w-full max-w-md">
-        <FaRupeeSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-        <input
-          ref={inputRef}
-          type="tel"
-          value={amount}
-          onChange={handleInputChange}
-          onClick={() => setIsKeyboardVisible(true)}
-          className="pl-10 p-3 w-full border border-gray-300 rounded-lg text-center text-lg bg-white cursor-pointer"
-          placeholder="Enter Amount"
-          onFocus={(e) => setCursorPosition(e.target.selectionStart)}
-          onKeyUp={(e) => setCursorPosition(e.target.selectionStart)}
-          readOnly
-        />
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+          Username
+        </label>
+        <div className="relative">
+          <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={handleUsernameChange}
+            className="pl-10 p-3 w-full border border-gray-300 rounded-lg text-center text-lg bg-white cursor-pointer"
+            placeholder="Enter Username"
+            disabled={isDataFetched}
+          />
+        </div>
+      </div>
+
+      <div className="relative mb-4 w-full max-w-md">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+          Amount
+        </label>
+        <div className="relative">
+          <FaRupeeSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <input
+            ref={inputRef}
+            type="tel"
+            id="amount"
+            value={amount}
+            onChange={handleInputChange}
+            onClick={() => setIsKeyboardVisible(true)}
+            className="pl-10 p-3 w-full border border-gray-300 rounded-lg text-center text-lg bg-white cursor-pointer"
+            placeholder="Enter Amount"
+            onFocus={(e) => setCursorPosition(e.target.selectionStart)}
+            onKeyUp={(e) => setCursorPosition(e.target.selectionStart)}
+            readOnly
+            disabled={isDataFetched}
+          />
+        </div>
       </div>
 
       {/* Custom Keyboard */}

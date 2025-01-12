@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { getRelativePath } from '../utils/utils';
-import { FaPaperPlane, FaQrcode, FaHistory, FaComments } from 'react-icons/fa';
+import { FaPaperPlane, FaQrcode, FaHistory, FaCog } from 'react-icons/fa'; // Updated import
 import { TbMoneybag } from "react-icons/tb";
 import { motion } from 'framer-motion';
 
@@ -60,12 +60,12 @@ const BottomBar = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="flex flex-col items-center justify-center text-sm text-gray-700 transition"
-                    onClick={() => navigate(getRelativePath('/app/communicate'))}
+                    onClick={() => navigate(getRelativePath('/app/settings'))} // Updated path
                 >
                     <div className="flex items-center justify-center">
-                        <FaComments className="text-xl mb-1 transition text-white fill-gray-600" />
+                        <FaCog className="text-xl mb-1 transition text-white fill-gray-600" /> {/* Updated icon */}
                     </div>
-                    <span className="text-xs mt-1">Chat</span>
+                    <span className="text-xs mt-1">Settings</span> {/* Updated label */}
                 </motion.button>
             </div>
         </div>

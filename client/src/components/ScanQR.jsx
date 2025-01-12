@@ -99,7 +99,7 @@ const ScanQR = () => {
 
       {/* Back Button */}
       <button
-        className="absolute top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded-lg"
+        className="absolute top-4 left-4  text-white px-4 py-2 rounded-lg"
         style={{ zIndex: 100 }}
         onClick={() => navigate(getRelativePath("/app/home"))}
       >
