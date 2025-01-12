@@ -5,7 +5,9 @@
  }
  
  function validateUsername($username, $shouldExist) {
-  global $message;
+  if(!is_string($username)){
+   display(1,"$username is not string.");
+  }
   if (strlen($username) < 8 || strlen($username) > 15) {
    return 2;
   }
@@ -18,24 +20,22 @@
    }
   }
   if (!@include_once('connection.php')) {
-   $message['debug'] = "Cannot Include connection.php";
-   return 1;
-  }else{
-   try{
-    $stmt = $conn->prepare("SELECT username FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->store_result();
-    if ($stmt->num_rows > 0 xor $shouldExist) {
-     return 0;
-    }else if($shouldExist){
-     return 6;
-    }else{
-     return 5;
-    }
-   }catch(Exception $e) {
-    display(1,"Cannot Execute Query.\n".$e->getMessage());
+   display(1,"Cannot Include connection.php");
+  }
+  try{
+   $stmt = $conn->prepare("SELECT username FROM users WHERE username = ?");
+   $stmt->bind_param("s", $username);
+   $stmt->execute();
+   $stmt->store_result();
+   if ($stmt->num_rows > 0 xor $shouldExist) {
+    return 0;
+   }else if($shouldExist){
+    return 6;
+   }else{
+    return 5;
    }
+  }catch(Exception $e) {
+   display(1,"Cannot Execute Query.\n".$e->getMessage());
   }
  }
  if(basename(__FILE__)=="validateUsername.php"){

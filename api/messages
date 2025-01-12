@@ -4,3 +4,12 @@ Username must start with a lowercase letter.
 Username can only contain lowercase letters and numbers.
 Username not available.
 Username doesn't exist.
+Password must be between 8 and 30 characters long.
+Password must contain at least one lowercase letter.
+Password must contain at least one uppercase letter.
+Password must contain at least one digit.
+Password must contain at least one special symbol.
+Name must be between 8 and 60 characters long.
+Name must be between 8 and 60 characters long.
+Name must not have leading or trailing spaces.
+Name must contain only lowercase alphabets and spaces.
