@@ -4,31 +4,36 @@
   die('{"code":1,"debug":"Cannot Include message.php"}');
  }
  
- //if (!@include_once('connection.php')) { display(1,"Cannot Include connection.php"); }
-
-
- if(basename(__FILE__)=="signup.php"){
-  try{
-   $data = json_decode(file_get_contents("php://input"),true);
-   
-   $name = $data["name"];
-   if (!@include('isValidName.php')) { display(1,"Cannot Include connection.php"); }
-   $response = isValidName($name);
-   if($response != 0){ display($response); }
-   
-   $password = $data["password"];
-   if (!@include('isValidPassword.php')) { display(1,"Cannot Include connection.php"); }
-   $response = isValidPassword($password);
-   if($response != 0){ display($response); }
-   
-   $password = $data["username"];
-   if (!@include('validateUsername.php')) { display(1,"Cannot Include connection.php"); }
-   $response = validateUsername($username, $false);
-   
+ 
+ try{
+  $data = json_decode(file_get_contents("php://input"),true);
+  
+  $name = $data["name"];
+  if (!@include('isValidName.php')) { display(1,"Cannot Include connection.php"); }
+  $response = isValidName($name);
+  if($response != 0){ display($response); }
+  
+  $password = $data["password"];
+  if (!@include('isValidPassword.php')) { display(1,"Cannot Include connection.php"); }
+  $response = isValidPassword($password);
+  if($response != 0){ display($response); }
+  
+  $password = $data["username"];
+  if (!@include('validateUsername.php')) { display(1,"Cannot Include connection.php"); }
+  $response = validateUsername($username, $false);
+  
+  if (!@include('connection.php')) { display(1,"Cannot Include connection.php"); }
+  
+  $stmt = $conn->prepare("INSERT INTO users (username, password, name) VALUES (?, ?)");
+  $stmt->bind_param("ss", $username, md5($password), $name);
+  if ($stmt->execute()) {
    display(0);
-  }catch(Exception $e) {
-   display(1,"Cannot Parse data.\n".$e->getMessage());
+  } else {
+   display(1,"Cannot Execute Query.\n" . $stmt->error);
   }
- }
+  
+ }catch(Exception $e) {
+  display(1,"Cannot Parse data.\n".$e->getMessage());
+  }
  
 ?>

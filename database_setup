@@ -1,0 +1,9 @@
+CREATE TABLE `pp`.`users` (
+ `id` INT NOT NULL AUTO_INCREMENT ,
+ `username` VARCHAR(15) NOT NULL ,
+ `password` CHAR(32) NOT NULL ,
+ `name` VARCHAR(60) NOT NULL ,
+ `session_key` CHAR(32) NULL ,
+ `pin` INT(6) NULL ,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB; 
