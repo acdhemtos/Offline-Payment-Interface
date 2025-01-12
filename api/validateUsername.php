@@ -1,10 +1,10 @@
 <?php
- if (!@include_once('message.php')) {
+ if (!@include_once('display.php')) {
   header('Content-Type: application/json; charset=utf-8');
-  die('{"code":1,"message":1,"debug":"Cannot Include message.php"}');
+  die('{"code":1,"debug":"Cannot Include message.php"}');
  }
  
- function validateUsername($username) {
+ function validateUsername($username, $shouldExist) {
   global $message;
   if (strlen($username) < 8 || strlen($username) > 15) {
    return 2;
@@ -26,30 +26,24 @@
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->store_result();
-    if ($stmt->num_rows > 0) {
-     return true;
+    if ($stmt->num_rows > 0 xor $shouldExist) {
+     return 0;
+    }else if($shouldExist){
+     return 6;
     }else{
      return 5;
     }
    }catch(Exception $e) {
-    $message['debug'] = "Cannot Execute Query.\n".$e->getMessage();
-    return 1;
+    display(1,"Cannot Execute Query.\n".$e->getMessage());
    }
   }
  }
  if(basename(__FILE__)=="validateUsername.php"){
   try{
-   $response = validateUsername(json_decode(file_get_contents("php://input"),true)["username"]);
-   if($response == true){
-    $message['code'] = 0;
-   }else{
-    $message['message'] = $response;
-   }
+   display(validateUsername(json_decode(file_get_contents("php://input"),true)["username"],false));
   }catch(Exception $e) {
-   $message['message'] = 1;
-   $message['debug'] = "Cannot Parse Username.\n".$e->getMessage();
+   display(1,"Cannot Parse Username.\n".$e->getMessage());
   }
-  die(json_encode($message));
  }
  
 ?>
