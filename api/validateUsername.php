@@ -2,9 +2,7 @@
  
  function usernameExists($username){
   @require_once('connection.php');
-  $stmt = $GLOBALS['conn']->prepare("SELECT username FROM users WHERE username = ?");
-  $stmt->execute([$username]);
-  return ($stmt->rowCount() > 0);
+  return ($GLOBALS['conn']->query("SELECT username FROM users WHERE username = '$username'")->rowCount() > 0);
  }
  
  function validUsername($username) {

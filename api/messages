@@ -14,3 +14,5 @@ Name must be between 1 and 60 characters long.
 Name must not have leading or trailing spaces.
 Name must contain only lowercase alphabets and spaces.
 Wrong Password
+Invalid Key
+Wrong Key

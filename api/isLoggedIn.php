@@ -1,16 +1,26 @@
 <?php
 
  function isLoggedIn($username,$session_key){
-  if (!@include('validateLoginUsername.php')) { display(1,"Cannot Include validateLoginUsername.php"); }
-  $response = validateLoginUsername($username);
-  if($response!=0) { display($response); }
-  
-  if (!@include('key.php')) { display(1,"Cannot Include key.php"); }
-  if(validateKey($session_key);
-  if($response!=0) { display($response); }
-  
+  @require_once('connection.php');
+  if($GLOBALS['conn']->query("SELECT * FROM users WHERE username='$username' AND session_key='".md5($session_key)."'")->rowCount() > 0){
+   return 0;
+  }
+  return 18;
  }
  
+ if(self(__FILE__)){
+  $data = json_decode(file_get_contents("php://input"),true);
+  
+  $username = $data["username"]; validate('validateLoginUsername', $username);
+  
+  $session_key = $data['session_key'];
+  @require_once('key.php');
+  if(!validKey($session_key)){display(17);}
+  
+  display(isLoggedIn($username,$session_key));
+  
+  display(0,array("name" => getName($username)));
+ }
  
 
 ?>

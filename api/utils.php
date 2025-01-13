@@ -16,7 +16,7 @@
  }
  
  function validate($file,...$params){
-  @require_once($file."php");
+  @require_once("$file.php");
   $response = $function(...$params);
   if ($response != 0) { display($response); }
   return $response;

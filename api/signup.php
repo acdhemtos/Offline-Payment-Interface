@@ -10,15 +10,8 @@
   
  @require_once('connection.php');
   
- $stmt = $GLOBALS['conn']->prepare("INSERT INTO users (username, password, name) VALUES (?, ?)");
- $stmt->bind_param("ss", $username, md5($password), $name);
- if ($stmt->execute()) {
-  display(0, "msg");
- } else {
-  display(1,"Cannot Execute Query.\n" . $stmt->error);
- } 
-  
-  $stmt->close();
-  
+ $GLOBALS['conn']->query("INSERT INTO users (username, password, name) VALUES ('$username', '$hashed_password', '$name')");
+ 
+ display(0); 
  
 ?>

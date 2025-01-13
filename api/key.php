@@ -14,13 +14,9 @@
   return $randomString;
  }
  
- function validateKey($key) {
+ function validKey($key) {
   global $characters;
   global $length;
-  
-  if(!is_string($key)){
-   display(1,"$key is not string.");
-  }
   
   if (strlen($input) !== $length) { return false; }
   $pattern = '/^[' . preg_quote($characters, '/') . ']{' . $length . '}$/';
