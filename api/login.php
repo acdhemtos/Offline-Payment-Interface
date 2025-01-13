@@ -1,43 +1,27 @@
 <?php
- if (!@include_once('display.php')) {
-  header('Content-Type: application/json; charset=utf-8');
-  die('{"code":1,"debug":"Cannot Include message.php"}');
- }
- 
- function generateSessionKey($length = 20) {
-  $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()-_=+[]{}|;:,.<>?';
-  $charactersLength = strlen($characters);
-  $randomString = '';
-  for ($i = 0; $i < $length; $i++) {
-      $randomString .= $characters[rand(0, $charactersLength - 1)];
-  }
-  return $randomString;
- }
  
  try{
   $data = json_decode(file_get_contents("php://input"),true);
   
   $password = $data["password"];
-  if (!@include('isValidPassword.php')) { display(1,"Cannot Include isValidPassword.php"); }
-  $response = isValidPassword($password);
-  if($response != 0){ display($response); }
+  validate('isValidPassword',$password);
   
-  $password = $data["username"];
-  if (!@include('validateLoginUsername.php')) { display(1,"Cannot Include validateLoginUsername.php"); }
-  $response = validateLoginUsername($username);
-  if($response != 0){ display($response); }
+  $username = $data["username"];
+ validate('validateLoginUsername', $username);
   
-  if (!@include('connection.php')) { display(1,"Cannot Include connection.php"); }
+  requireFile('connection');
   
   try{
    $sql = "SELECT * FROM users WHERE username = ? AND password = ?";
-   $stmt = $conn->prepare($sql);
+   $stmt = $GLOBALS['conn']->prepare($sql);
    $stmt->bind_param("ss", $input_username, $input_password);
    $stmt->execute();
    $result = $stmt->get_result();
 
    if ($result->num_rows > 0) {
-    $session_key = generateSessionString();
+    if (!@include('key.php')) { display(1,"Cannot Include key.php"); }
+    
+    $session_key = generateKey();
     
     try{
      $sql = "UPDATE users SET session_key = ? WHERE username = ?";

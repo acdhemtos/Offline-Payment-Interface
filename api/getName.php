@@ -1,8 +1,4 @@
 <?php
- if (!@include_once('display.php')) {
-  header('Content-Type: application/json; charset=utf-8');
-  die('{"code":1,"debug":"Cannot Include message.php"}');
- }
  
  function getName($username){
   try{
@@ -16,10 +12,13 @@
   }
  }
  
- if(basename(__FILE__)=="getName.php"){
+ if(self(__FILE__)){
   try{
    $username = json_decode(file_get_contents("php://input"),true)["username"];
+   
+   if (!@include('validateLoginUsername.php')) { display(1,"Cannot Include validateLoginUsername.php"); }
    $response = validateLoginUsername($username);
+   
    if($response != 0){ display($response); }
    display(0,null,array("name" => getName($username)));
   }catch(Exception $e) {
