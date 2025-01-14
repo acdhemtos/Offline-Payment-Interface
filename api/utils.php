@@ -10,7 +10,13 @@
  function handleException(Throwable $exception) {
   display(1,array("debug" => $exception->getMessage()));
  }
- 
+
+ set_error_handler("customWarningHandler", E_WARNING);
+ function customWarningHandler($errno, $errstr, $errfile, $errline) {
+  display(1,array("debug" => "Warning [$errno]: $errstr in $errfile on line $errline"));  
+  return true;
+ }
+
  function self($__FILE__){
   return basename($_SERVER['PHP_SELF']) == basename($__FILE__);
  }

@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getRelativePath } from "../utils/utils";
 import { FaArrowLeft } from "react-icons/fa";
 import jsQR from "jsqr"; 
 import { motion } from "framer-motion";
@@ -43,7 +42,7 @@ const ScanQR = () => {
       if (streamRef.current) {
         streamRef.current.getTracks().forEach((track) => track.stop());
       }
-      navigate(getRelativePath("/send")); // Redirect to the send route after scan
+      navigate("/send"); // Redirect to the send route after scan
     }
   };
 
@@ -101,7 +100,7 @@ const ScanQR = () => {
       <button
         className="absolute top-4 left-4  text-white px-4 py-2 rounded-lg"
         style={{ zIndex: 100 }}
-        onClick={() => navigate(getRelativePath("/app/home"))}
+        onClick={() => navigate("/app/home")}
       >
         <FaArrowLeft className="text-xl" />
       </button>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Illustration from "/src/assets/illustration.png";
-import { getRelativePath } from "../utils/utils";
 
 const LoginSignupForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -24,7 +23,7 @@ const LoginSignupForm = () => {
     e.preventDefault();
     const { username, password } = form;
     if (username === "user" && password === "1234") {
-      navigate(getRelativePath("/app/home"));
+      navigate("/app/home");
     } else {
       alert("Invalid username or password");
     }
@@ -89,7 +88,7 @@ const LoginSignupForm = () => {
         <p className="mt-4 lg:mt-6 text-center text-gray-600">
           {isLogin ? "Don't have an account?" : "Already have an account?"}
           <NavLink
-            to={getRelativePath("/account/signup")}
+            to={"/account/signup"}
             className="ml-1 text-purple-600 hover:text-purple-500 font-medium"
           >
             <button

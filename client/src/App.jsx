@@ -11,7 +11,6 @@ import ReceivePage from './components/ReceivePage';
 import StatusPage from './components/StatusPage';
 import CommunicatePage from './components/CommunicatePage';
 import TransactionHistory from './components/TransactionHistory';
-import { getRelativePath } from "./utils/utils";
 import Settings from "./components/Settings";
 
 const App = () => {
@@ -19,19 +18,19 @@ const App = () => {
     <BrowserRouter>
       <div className="min-h-screen flex items-center justify-center">
         <Routes>
-          <Route path={getRelativePath("/")} element={<LoginPage />} />
-          <Route path={getRelativePath("/account/signup")} element={<SignupPage />} />
-          <Route path={getRelativePath("/account/login")} element={<LoginPage />} />
-          <Route path={getRelativePath("/app/send")} element={<SendPage />} />
-          <Route path={getRelativePath("/app/recieve")} element={<ReceivePage />} />
-          <Route path={getRelativePath("/app/scan")} element={<ScanQR />} />
-          <Route path={getRelativePath("/app/upi-pin")} element={<UPIPINVerification />} />
-          <Route path={getRelativePath("/app/opi-pin")} element={<OPIPINVerification />} />
-          <Route path={getRelativePath("/app/status")} element={<StatusPage />} />
-          <Route path={getRelativePath("/app/communicate")} element={<CommunicatePage />} />
-          <Route path={getRelativePath("/app/transactions")} element={<TransactionHistory />} />
-          <Route path={getRelativePath("/app/settings")} element={<Settings/>}/>
-          <Route path={getRelativePath("/app/home")} element={<Home />} />
+          <Route path={"/"} element={<LoginPage />} />
+          <Route path={"/account/signup"} element={<SignupPage />} />
+          <Route path={"/account/login"} element={<LoginPage />} />
+          <Route path={"/app/send"} element={<SendPage />} />
+          <Route path={"/app/recieve"} element={<ReceivePage />} />
+          <Route path={"/app/scan"} element={<ScanQR />} />
+          <Route path={"/app/upi-pin"} element={<UPIPINVerification />} />
+          <Route path={"/app/opi-pin"} element={<OPIPINVerification />} />
+          <Route path={"/app/status"} element={<StatusPage />} />
+          <Route path={"/app/communicate"} element={<CommunicatePage />} />
+          <Route path={"/app/transactions"} element={<TransactionHistory />} />
+          <Route path={"/app/settings"} element={<Settings/>}/>
+          <Route path={"/app/home"} element={<Home />} />
         </Routes>
       </div>
     </BrowserRouter>

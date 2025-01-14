@@ -1,9 +1,12 @@
-CREATE TABLE `pp`.`users` (
+DROP DATABASE IF EXISTS `opi`;
+CREATE DATABASE `opi`;
+
+CREATE TABLE `opi`.`users` (
  `id` INT NOT NULL AUTO_INCREMENT ,
  `username` VARCHAR(15) NOT NULL ,
  `password` CHAR(32) NOT NULL ,
  `name` VARCHAR(60) NOT NULL ,
  `session_key` CHAR(32) NULL ,
- `pin` INT(6) NULL ,
+ `pin` CHAR(32) NULL ,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; 

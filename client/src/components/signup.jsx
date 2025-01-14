@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Illustration from "/src/assets/illustration_2.svg";
-import { getRelativePath } from "../utils/utils";
 import { AJAX } from "../utils/ajax";
 import { messages } from "../utils/loadMessages";
 
@@ -91,8 +90,8 @@ const SignupForm = () => {
       }));
     }
 
+    const isNameValid = await validateField('/api/isValidName.php', { name: formattedName }, 'name');
     const isUsernameValid = await validateField('/opi/api/validateSignupUsername.php', { username: formattedUsername }, 'username');
-    const isNameValid = await validateField('/opi/api/isValidName.php', { name: formattedName }, 'name');
     const isPasswordValid = await validateField('/opi/api/isValidPassword.php', { password: formState.password }, 'password');
 
     if (isUsernameValid && isNameValid && isPasswordValid) {
@@ -165,7 +164,7 @@ const SignupForm = () => {
         <p className="mt-6 text-center text-gray-600">
           Already have an account?
           <NavLink
-            to={getRelativePath("/account/login")}
+            to={"/account/login"}
             className="ml-1 text-purple-600 hover:text-purple-500 font-medium"
           >
             Login

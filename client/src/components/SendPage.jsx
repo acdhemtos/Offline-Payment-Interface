@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import CustomKeyboard from './CustomKeyboard';
-import { getRelativePath } from '../utils/utils';
 import { FaRupeeSign, FaArrowLeft, FaUser, FaIdCard } from 'react-icons/fa';
 
 const SendPage = () => {
@@ -114,7 +113,7 @@ const SendPage = () => {
 
   const handleOptionClick = (path) => {
     if (amount) {
-      navigate(getRelativePath(path));
+      navigate(path);
     } else {
       alert('Please enter an amount');
     }
