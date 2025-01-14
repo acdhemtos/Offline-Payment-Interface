@@ -23,7 +23,7 @@
  
  function validate($file,...$params){
   @require_once("$file.php");
-  $response = $function(...$params);
+  $response = $file(...$params);
   if ($response != 0) { display($response); }
   return $response;
  }

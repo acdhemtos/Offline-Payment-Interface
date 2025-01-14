@@ -5,6 +5,7 @@
  $name = $data["name"]; validate('isValidName',$name);
  
  $password = $data["password"]; validate('isValidPassword',$password);
+ $hashed_password = md5($password);
  
  $username = $data["username"]; validate('validateSignupUsername', $username);
   
