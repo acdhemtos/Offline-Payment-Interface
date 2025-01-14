@@ -1,11 +1,6 @@
 <?php
   
- $servername = "localhost";
- $username = "root";
- $password = "";
- $dbname = "opi";
-
- $GLOBALS['conn'] = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+ $GLOBALS['conn'] = new PDO("mysql:host=localhost;dbname=opi", "root", "");
  $GLOBALS['conn']->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 ?>

@@ -91,8 +91,8 @@ const SignupForm = () => {
     }
 
     const isNameValid = await validateField('/api/isValidName.php', { name: formattedName }, 'name');
-    const isUsernameValid = await validateField('/opi/api/validateSignupUsername.php', { username: formattedUsername }, 'username');
-    const isPasswordValid = await validateField('/opi/api/isValidPassword.php', { password: formState.password }, 'password');
+    const isUsernameValid = await validateField('/api/validateSignupUsername.php', { username: formattedUsername }, 'username');
+    const isPasswordValid = await validateField('/api/isValidPassword.php', { password: formState.password }, 'password');
 
     if (isUsernameValid && isNameValid && isPasswordValid) {
       console.log('All validations passed successfully!');
