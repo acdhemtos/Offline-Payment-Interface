@@ -98,7 +98,7 @@ const SignupForm = () => {
       console.log('All validations passed successfully!');
 
       // Send data to signup.php
-      const signupResponse = await AJAX('/opi/api/signup.php', {
+      const signupResponse = await AJAX('/api/signup.php', {
         name: formattedName,
         username: formattedUsername,
         password: formState.password
