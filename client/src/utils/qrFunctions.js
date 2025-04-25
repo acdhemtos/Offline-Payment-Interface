@@ -93,9 +93,9 @@ export const decode = (() => {
     console.error(err.message)
     return false;
    }
-   if (username.length < 8 || username.length > 15) { return false; }
-   if (!/^[a-z]/.test(username)) { return false; }
-   if (!/^[a-z0-9]+$/.test(username)) { return false; }
+   if (str.length < 8 || str.length > 15) { return false; }
+   if (!/^[a-z]/.test(str)) { return false; }
+   if (!/^[a-z0-9]+$/.test(str)) { return false; }
    
    return str;
   },
@@ -124,9 +124,9 @@ export const decode = (() => {
     console.error(err.message)
     return false;
    }
-   if (name.length < 1 || name.length > 60) { return false; }
-   if (name !== name.trim()) { return false; }
-   if (!/^[a-z\s]+$/.test(name)) { return false; }
+   if (str.length < 1 || str.length > 60) { return false; }
+   if (str !== str.trim()) { return false; }
+   if (!/^[a-z\s]+$/.test(str)) { return false; }
    
    return str;
   }
