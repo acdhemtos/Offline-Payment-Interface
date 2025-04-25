@@ -14,19 +14,15 @@ const index = {
 }
 
 export const encode = (() => {
- function arrayToString(arr){
-  return String.fromCharCode(...arr);
- }
- 
  function number(num, size) {
-  let arr = [];
+  let str = "";
   num = BigInt(num)
   while (size > 0) {
-   arr.unshift(Number(num%BigInt(256)));
+   str = String.fromCharCode(num%BigInt(256)) + str;
    num /= BigInt(256);
    --size;
   }
-  return arrayToString(arr);
+  return str;
  }
  
  function makeIndexArray(str,limits,size){
@@ -59,24 +55,17 @@ export const encode = (() => {
   },
   name: (str) => {
     return makeIndexArray(str,index.name,37)
-  },
-  hash: (arr) => {
-   return arrayToString(arr);
   }
  };
 })();
 
 export const decode = (() => {
- function stringToArray(str){
-  return Array.from(str).map(char => char.charCodeAt(0));
- }
  
  function number(str) {
-  let arr = stringToArray(str);
   let num = BigInt(0);
   for (let i = 0; i < arr.length; i++) {
     num *= BigInt(256);
-    num += BigInt(arr[i]);
+    num += BigInt(str[i].charCodeAt(0));
   }
   return num;
  }
@@ -142,9 +131,6 @@ export const decode = (() => {
    if (!/^[a-z\s]+$/.test(str)) { return false; }
    
    return str;
-  },
-  hash: (str) => {
-   return stringToArray(str);
   }
  };
 })();
