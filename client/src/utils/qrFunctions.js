@@ -1,6 +1,6 @@
 const map = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ']
 
-const tc = 1000000000;
+const tc = 10000;
 
 const index = {
  username : {
@@ -15,13 +15,14 @@ const index = {
 
 export const encode = (() => {
  function number(num, size) {
-  let arr = [];
+  let arr = [];\
+  num = BigInt(num)
   while (size > 0) {
    arr.unshift(Number(num%BigInt(256)));
    num /= BigInt(256);
    --size;
   }
-  return arr;
+  return String.fromCharCode(...arr);
  }
  
  function makeIndexArray(str,limits,size){
@@ -47,7 +48,7 @@ export const encode = (() => {
    return number(amt, 3);
   },
   time: () => {
-    return number(Date.now()%tc, 4);
+    return number(Date.now()%tc, 2);
   },
   trans_id: (id) => {
     return number(id, 4);
@@ -60,6 +61,7 @@ export const encode = (() => {
 
 export const decode = (() => {
  function number(arr) {
+  arr = Array.from(arr).map(char => char.charCodeAt(0));
   let num = BigInt(0);
   for (let i = 0; i < arr.length; i++) {
     num *= BigInt(256);

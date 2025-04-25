@@ -10,3 +10,9 @@ function sha256(...messages){
   )
  );
 }
+
+function equal(array1, array2) {
+ if (array1.length !== array2.length) { return false; }
+
+ return array1.every((value, index) => value === array2[index]);
+}
