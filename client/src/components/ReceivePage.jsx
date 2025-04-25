@@ -5,6 +5,8 @@ import { FaRupeeSign, FaArrowLeft } from "react-icons/fa";
 import Cookies from "js-cookie";
 import { encode } from "../utils/qrFunctions";
 import { AJAX } from "../utils/ajax";
+import jsQR from "jsqr";
+
 
 
 const ReceivePage = () => {
@@ -54,85 +56,93 @@ const ReceivePage = () => {
    
   };
 
+ 
+
   const generateQRCode = async () => {
     const name = localStorage.getItem("name");
-    console.log(name);
     const amount = uamount;
-    console.log("amount", amount);
     setQrData(generateReceiveQR(amount, name));
-    setIsAmountDisabled(true); // Disable the amount input and hide input/button
-
-    // Access camera for scanning
+    setIsAmountDisabled(true);
+  
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "user" },
       });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-
-        // Use BarcodeDetector to detect QR codes or barcodes
-        const barcodeDetector = new BarcodeDetector({ formats: ["qr_code"] });
-        const detectBarcode = async () => {
-          if (videoRef.current) {
-            const video = videoRef.current;
-            const canvas = document.createElement("canvas");
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            try {
-              const barcodes = await barcodeDetector.detect(canvas);
-              if (barcodes.length > 0) {
-                // QR code detected
-                try {
-                  const amount = uamount * 100;
-                  var thing = barcodes[0].rawValue.split("\n");
-                  var sender = thing[1];
-                  var time = parseInt(thing[2]);
-                  var details_hash = thing[3];
-                  // const amount = thing[4];
-                  console.log(barcodes[0].rawValue, sender, time, details_hash);
-                  const session_key = Cookies.get("session_key");
-                  const username = Cookies.get("username");
-
-                  console.log(amount);
-                  const response = await fetch("/api/receive.php", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ username, session_key, amount, sender, time, details_hash }),
-                  });
-                  const data = await response.json();
-                  console.log(data);
-                  if (data.code == 0) {
-                    setQrData("0");
-                    setBackgroundColor("bg-green-500");
-                    //stop process  
-                  }
-                  // Change background to light green
-                } catch (error) {
-                  console.log(error);
-                }
-
-              } else {
-                requestAnimationFrame(detectBarcode);
-              }
-            } catch (error) {
-              console.error("Error detecting barcode:", error);
-              requestAnimationFrame(detectBarcode);
+  
+      const video = videoRef.current;
+      if (!video) return;
+      video.srcObject = stream;
+      video.play();
+  
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+  
+      const scan = async () => {
+        if (video.readyState !== 4) {
+          requestAnimationFrame(scan);
+          return;
+        }
+  
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  
+        const qrCode = jsQR(imageData.data, canvas.width, canvas.height);
+        if (qrCode) {
+          const rawValue = qrCode.data;
+          console.log(rawValue);
+          try {
+            
+            const parsed = rawValue.split("\n");
+            const sender = parsed[1];
+            const time = parseInt(parsed[2]);
+            const details_hash = parsed[3];
+            const amt = uamount * 100;
+            const session_key = Cookies.get("session_key");
+            const username = Cookies.get("username");
+  
+            const response = await fetch("/api/receive.php", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ username, session_key, amount: amt, sender, time, details_hash }),
+            });
+  
+            const data = await response.json();
+            if (data.code === 0) {
+              setQrData("0");
+              setBackgroundColor("bg-green-500");
+  
+              // Stop all video tracks
+              stream.getTracks().forEach(track => track.stop());
             }
+          } catch (err) {
+            console.error("QR data parsing error:", err);
           }
-        };
-
-        detectBarcode();
-      }
-    } catch (error) {
-      console.error("Error accessing camera:", error);
-
+        } else {
+          requestAnimationFrame(scan); // keep scanning
+        }
+      };
+  
+      requestAnimationFrame(scan);
+  
+      // Clean up on component unmount
+      const stopStream = () => {
+        stream.getTracks().forEach(track => track.stop());
+      };
+  
+      window.addEventListener("beforeunload", stopStream); // clean up if user closes window
+      return () => {
+        stopStream();
+        window.removeEventListener("beforeunload", stopStream);
+      };
+    } catch (err) {
+      console.error("Error accessing camera:", err);
     }
   };
+  
 
   return (
     <div className={`flex flex-col min-h-screen items-center justify-center ${backgroundColor} w-full px-4`}>
