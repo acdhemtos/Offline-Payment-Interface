@@ -2,12 +2,13 @@
  $data = json_decode(file_get_contents("php://input"),true);
  
  
+ 
  $details_hash = $data["details_hash"];
  @require_once('connection.php');
  
  $sender = $data["sender"];
  
- $stmt = $GLOBALS['conn']->prepare('SELECT session_key FROM users WHERE username = :username');
+ $stmt = $GLOBALS['conn']->prepare('SELECT private_key FROM users WHERE username = :username');
  $stmt->execute([':username' => $sender]);
  $private_key = $stmt->fetchColumn();
  
@@ -21,8 +22,6 @@
   display($int,array('verification_hash' => md5($details_hash.$int.$private_key)));
  }
  
- $username = $data["username"];
- validate('validateLoginUsername', $username);
  $session_key = $data['session_key'];
  @require_once('key.php');
  if(!validKey($session_key)){display(16);}
@@ -30,22 +29,26 @@
  $amount = $data["amount"];
  @require_once('isValidAmount.php');
  if(!isValidAmount($amount)){display(37);}
-  
+ 
  $time = $data["time"];
  if(!isValidAmount($time)){display(38);}
  
- 
  $sender = $data["sender"];
- 
  if($sender==$username){display(31);}
  @require_once('validateUsername.php');
  if(validUsername($sender)!=0){display(32);}
+ 
+ $username = $data["username"];
+ validate('validateLoginUsername', $username);
+ 
  if(!usernameExists($sender)){display(33);}
  
  validate('isLoggedIn',$username,$session_key);
  
  $TL = 5;
  //if (round(microtime(true) * 1000) - $time > 5*1000){handle(34);}
+ 
+ @require_once 'hash.php';
  
  $details_hash = $data["details_hash"];
  if(!preg_match('/^[a-f0-9]{32}$/i', $details_hash)){handle(36);}

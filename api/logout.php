@@ -13,7 +13,8 @@
  $GLOBALS['conn']->query("
   UPDATE users 
   SET 
-   session_key = NULL, 
+   session_key = NULL,
+   private_key = NULL, 
    last_active = NULL
   WHERE 
    username = '$username'

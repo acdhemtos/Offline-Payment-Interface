@@ -1,6 +1,6 @@
 const map = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ']
 
-const tc = 1000000000;
+const tc = 10000;
 
 const index = {
  username : {
@@ -14,15 +14,18 @@ const index = {
 }
 
 export const encode = (() => {
+ function arrayToString(arr){
+  return String.fromCharCode(...arr);
+ }
+ 
  function number(num, size) {
-   let arr = [];
-   num = BigInt(num)
+  let arr = [];
   while (size > 0) {
    arr.unshift(Number(num%BigInt(256)));
    num /= BigInt(256);
    --size;
   }
-  return arr;
+  return arrayToString(arr);
  }
  
  function makeIndexArray(str,limits,size){
@@ -48,19 +51,27 @@ export const encode = (() => {
    return number(amt, 3);
   },
   time: () => {
-    return number(Date.now()%tc, 4);
+    return number(Date.now()%tc, 2);
   },
   trans_id: (id) => {
     return number(id, 4);
   },
   name: (str) => {
     return makeIndexArray(str,index.name,37)
+  },
+  hash: (arr) => {
+   return arrayToString(arr);
   }
  };
 })();
 
 export const decode = (() => {
- function number(arr) {
+ function stringToArray(str){
+  return Array.from(str).map(char => char.charCodeAt(0));
+ }
+ 
+ function number(str) {
+  arr = stringToArray(str);
   let num = BigInt(0);
   for (let i = 0; i < arr.length; i++) {
     num *= BigInt(256);
@@ -130,6 +141,9 @@ export const decode = (() => {
    if (!/^[a-z\s]+$/.test(str)) { return false; }
    
    return str;
+  },
+  hash: (str) => {
+   return stringToArray(str);
   }
  };
 })();

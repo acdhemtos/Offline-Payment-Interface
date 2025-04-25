@@ -3,22 +3,25 @@ CREATE DATABASE `opi`;
 
 CREATE TABLE `opi`.`users` (
  `id` INT NOT NULL AUTO_INCREMENT ,
- `username` VARCHAR(15) NOT NULL ,
+ `username` CHAR(15) NOT NULL ,
  `password` CHAR(32) NOT NULL ,
- `name` VARCHAR(60) NOT NULL ,
+ `name` CHAR(60) NOT NULL ,
+ `balance` INT NOT NULL DEFAULT 50000,
+ `min_balance` INT NOT NULL DEFAULT 50000,
+ `max_balance` INT NOT NULL DEFAULT 200000,
  `session_key` CHAR(32) NULL ,
+ `private_key` CHAR(32) NULL ,
  `pin` CHAR(32) NULL ,
+ `last_active` DATETIME NULL,
  PRIMARY KEY (`id`)
-) ENGINE = InnoDB; 
-DROP DATABASE IF EXISTS `opi`;
-CREATE DATABASE `opi`;
+) ENGINE = InnoDB;
 
-CREATE TABLE `opi`.`users` (
+CREATE TABLE `opi`.`transactions` (
  `id` INT NOT NULL AUTO_INCREMENT ,
- `username` VARCHAR(15) NOT NULL ,
- `password` CHAR(32) NOT NULL ,
- `name` VARCHAR(60) NOT NULL ,
- `session_key` CHAR(32) NULL ,
- `pin` CHAR(32) NULL ,
+ `sender` INT NOT NULL ,
+ `receiver` INT NOT NULL ,
+ `amount` INT NOT NULL ,
+ `type` INT NOT NULL ,
+ `time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
  PRIMARY KEY (`id`)
-) ENGINE = InnoDB; 
+) ENGINE = InnoDB;

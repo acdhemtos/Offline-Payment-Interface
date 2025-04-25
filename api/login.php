@@ -11,18 +11,18 @@
  if($GLOBALS['conn']->query("SELECT * FROM users WHERE username='$username' AND password='$password_hash'")->rowCount() > 0){
   @require_once('key.php');
   $session_key = generateKey();
+  $private_key = generateKey();
   
-  
-  $GLOBALS['conn']->query("UPDATE users SET session_key = '".$session_key."' WHERE username = '$username'");
   $GLOBALS['conn']->query("
    UPDATE users 
    SET 
-    session_key = '$session_key', 
+    session_key = '$session_key',
+    private_key = '$private_key',
     last_active = NOW() 
    WHERE 
     username = '$username'
   ");
-  display(0,array("session_key" => $session_key));
+  display(0,array("session_key" => $session_key,"private_key" => $private_key));
  }else {
   display(15);
  }
