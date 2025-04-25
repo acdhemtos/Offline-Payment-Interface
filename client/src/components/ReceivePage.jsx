@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
 import { FaRupeeSign, FaArrowLeft } from "react-icons/fa";
 import Cookies from "js-cookie";
+import { encode } from "../utils/qrFunctions";
+import { AJAX } from "../utils/ajax";
 
 const ReceivePage = () => {
   const [uamount, setUamount] = useState("");
@@ -13,29 +15,27 @@ const ReceivePage = () => {
   const videoRef = useRef(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  
+  const generateReceiveQR = (amount = "", name=false) => {
+    // Encode username
+    let qrString = encode.username(Cookies.get("username"));
+    if (amount != "" ) {
+      console.log(amount,amount*100)
+      qrString += encode.amount(amount * 100);
+      if (name !== false) {
+        qrString += encode.name(name);
+      }
+    }
+  
+    console.log("Generated QR Data:", qrString);
+    return qrString;
+  };
 
   // Fetch username from API and set it in state
   useEffect(() => {
     const fetchUsername = async () => {
-      try {
-        const username = Cookies.get("username");
-        const response = await fetch("/api/getName.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username }),
-        });
-        const data = await response.json();
-        if (data && data.name) {
-          setUsername(data.name);
-
-          // Initialize QR data with username
-          setQrData(`$\n${username}\n$`);
-        }
-      } catch (error) {
-        console.error("Error fetching username:", error);
-      }
+      setQrData(generateReceiveQR());
+      
     };
 
     fetchUsername();
@@ -43,20 +43,25 @@ const ReceivePage = () => {
 
   // Handle input change and dynamically update QR code
   const handleInputChange = (e) => {
-    const usersname = Cookies.get("username");
     const value = e.target.value;
     const [integerPart, decimalPart] = value.split(".");
     if (decimalPart && decimalPart.length > 2) {
       return; // Prevent input if there are already 2 decimal places
     }
     setUamount(value);
+    const qrData = generateReceiveQR(value);
+  setQrData(qrData);
 
     // Update QR code data with amount
-    if (value) {
-      setQrData(`$\n${usersname}\n${value}\n${username}\n$`);
-    } else {
-      setQrData(`$\n${usersname}\n$`);
-    }
+    // const encodedUsername = encode.username(username);
+    // const binaryData = String.fromCharCode(...encodedUsername);
+    // if (value) {
+    //   setQrData(encodedUsername,`${value}`);
+    // } else {
+    //   let t = String.fromCharCode(...encodedUsername) + String.fromCharCode(...encode.amount(123))+String.fromCharCOde(...encode.name("hello"))
+    //   console.log(t,"here");
+    //   setQrData(t);
+    // }
   };
 
   const generateQRCode = async () => {
@@ -86,7 +91,7 @@ const ReceivePage = () => {
               if (barcodes.length > 0) {
                 // QR code detected
                 try {
-                  const amount = uamount * 100; 
+                  const amount = uamount * 100;
                   var thing = barcodes[0].rawValue.split("\n");
                   var sender = thing[1];
                   var time = parseInt(thing[2]);
@@ -95,27 +100,27 @@ const ReceivePage = () => {
                   console.log(barcodes[0].rawValue, sender, time, details_hash);
                   const session_key = Cookies.get("session_key");
                   const username = Cookies.get("username");
-                  
+
                   console.log(amount);
                   const response = await fetch("/api/receive.php", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ username, session_key, amount, sender,time, details_hash }),
+                    body: JSON.stringify({ username, session_key, amount, sender, time, details_hash }),
                   });
                   const data = await response.json();
                   console.log(data);
                   if (data.code == 0) {
                     setQrData("0");
                     setBackgroundColor("bg-green-500");
-                  //stop process  
+                    //stop process  
                   }
-                   // Change background to light green
+                  // Change background to light green
                 } catch (error) {
                   console.log(error);
                 }
-                
+
               } else {
                 requestAnimationFrame(detectBarcode);
               }
@@ -130,7 +135,7 @@ const ReceivePage = () => {
       }
     } catch (error) {
       console.error("Error accessing camera:", error);
-      
+
     }
   };
 
@@ -149,7 +154,7 @@ const ReceivePage = () => {
 
       {/* QR Code Display */}
       <div className="p-4 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg mt-20 shadow-lg">
-        <QRCodeSVG value={qrData} size={320} />
+        <QRCodeSVG value={qrData} size={320} level="H" />
       </div>
 
       {/* Input Box and Button */}

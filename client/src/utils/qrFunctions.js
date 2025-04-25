@@ -20,6 +20,7 @@ export const encode = (() => {
  
  function number(num, size) {
   let arr = [];
+  num = BigInt(num)
   while (size > 0) {
    arr.unshift(Number(num%BigInt(256)));
    num /= BigInt(256);
@@ -71,7 +72,7 @@ export const decode = (() => {
  }
  
  function number(str) {
-  arr = stringToArray(str);
+  let arr = stringToArray(str);
   let num = BigInt(0);
   for (let i = 0; i < arr.length; i++) {
     num *= BigInt(256);
@@ -147,6 +148,3 @@ export const decode = (() => {
   }
  };
 })();
-
-
-
