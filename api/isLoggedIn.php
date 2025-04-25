@@ -2,10 +2,25 @@
 
  function isLoggedIn($username,$session_key){
   @require_once('connection.php');
-  if($GLOBALS['conn']->query("SELECT * FROM users WHERE username='$username' AND session_key='".md5($session_key)."'")->rowCount() > 0){
+  $result = $GLOBALS['conn']->query("
+   SELECT last_active 
+   FROM users 
+   WHERE username = '$username' 
+   AND session_key = '$session_key' 
+   AND last_active >= NOW() - INTERVAL 7 DAY
+  ");
+
+  if ($result->rowCount() > 0) {
+   $GLOBALS['conn']->query("
+    UPDATE users 
+    SET  
+     last_active = NOW() 
+    WHERE 
+     username = '$username'
+   ");
    return 0;
   }
-  return 18;
+  return 17;
  }
  
  if(self(__FILE__)){
@@ -15,11 +30,9 @@
   
   $session_key = $data['session_key'];
   @require_once('key.php');
-  if(!validKey($session_key)){display(17);}
+  if(!validKey($session_key)){display(16);}
   
   display(isLoggedIn($username,$session_key));
-  
-  display(0,array("name" => getName($username)));
  }
  
 

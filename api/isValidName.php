@@ -2,13 +2,13 @@
  
  function isValidName($name) {
   if (strlen($name) < 1 || strlen($name) > 60) {
-   return 13;
+   return 12;
   }
   if (preg_match('/^\s|\s$/', $name)) {
-   return 14;
+   return 13;
   }
   if (!preg_match('/^[a-z ]+$/', $name)) {
-   return 15;
+   return 14;
   }
   return 0;
  }

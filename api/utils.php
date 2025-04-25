@@ -7,8 +7,15 @@
  
  set_exception_handler('handleException');
  
- function handleException(Throwable $exception) {
-  display(1,array("debug" => $exception->getMessage()));
+ function handleException(Throwable $e) {
+  $debug = array();
+  $debug['Message'] = $e->getMessage();
+  $debug['Code'] = $e->getCode();
+  $debug['File'] = $e->getFile();
+  $debug['Line'] = $e->getLine();
+  $debug['Tract'] = $e->getTraceAsString();
+   
+  display(1,array("debug" => $debug));
  }
 
  set_error_handler("customWarningHandler", E_WARNING);
@@ -25,7 +32,6 @@
   @require_once("$file.php");
   $response = $file(...$params);
   if ($response != 0) { display($response); }
-  return $response;
  }
  
 ?>
