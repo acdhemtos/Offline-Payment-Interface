@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Illustration from "/src/assets/illustration_2.svg";
 import { AJAX } from "../utils/ajax";
 import { messages } from "../utils/loadMessages";
@@ -17,6 +17,8 @@ const SignupForm = () => {
     password: "",
     reenterPassword: ""
   });
+
+  const navigate = useNavigate();
 
   const formatName = (name) => {
     return name
@@ -109,6 +111,7 @@ const SignupForm = () => {
         const parsedSignupData = JSON.parse(signupData);
         if (parsedSignupData.code === 0) {
           console.log('Signup successful!');
+          navigate('/');
         } else {
           console.error('Signup failed:', messages[parsedSignupData.code - 1]);
         }

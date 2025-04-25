@@ -2,6 +2,8 @@ import { useState } from "react";
 import PinDisplay from "./PinDisplay";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import { AJAX } from "../utils/ajax";
+import Cookies from "js-cookie";
 
 const Settings = () => {
   const [upiPin, setUpiPin] = useState("");
@@ -78,7 +80,45 @@ const Settings = () => {
     setShowOpiInput(false);
     alert("OPI PIN has been reset.");
   };
+  
 
+    const handleLogout = async () => {
+    try {
+      // Get cookies
+      const username = Cookies.get("username");
+      const session_key = Cookies.get("session_key");
+
+      console.log("Logout Payload:", { username, session_key }); // Debugging line
+
+      if (!session_key || !username) {
+        alert("Session key or username is missing. Unable to log out.");
+        return;
+      }
+  
+      // Send logout request to the backend
+      const response = await fetch("/api/logout.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, session_key }),
+      });
+  
+      const data = await response.json();
+      console.log("Logout response:", data); // Debugging line
+  
+      if (data.code === 0) {
+        // Clear cookies using js-cookie
+        Cookies.remove("session_key", { path: "/" });
+        Cookies.remove("username", { path: "/" });
+        alert("You have been logged out.");
+        navigate("/"); // Redirect to the home page
+      } else {
+        alert("An error occurred during logout. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during logout:", error); // Debugging line
+      alert("An error occurred. Please try again later.");
+    }
+  };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-br from-blue-500 to-purple-600 p-8 text-white">
       <header className="fixed top-0 left-0 right-0 p-4 bg-blue-600 text-white text-xl font-semibold shadow-md text-center w-full z-10">
@@ -91,6 +131,15 @@ const Settings = () => {
         </button>
         Settings
       </header>
+
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 text-gray-900 mb-8 transform transition-all hover:scale-105">
+        <button
+          onClick={handleLogout}
+          className="w-full py-3 px-6 rounded-xl font-semibold bg-red-500 hover:bg-red-600 text-white transition-transform transform hover:scale-105 shadow-lg"
+        >
+          Logout
+        </button>
+      </div>
 
       {/* Set or Reset UPI PIN */}
       {!showOpiInput && (

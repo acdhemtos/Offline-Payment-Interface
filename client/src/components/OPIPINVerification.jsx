@@ -1,74 +1,158 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import CustomKeyboard from './CustomKeyboard';
-import PinDisplay from './PinDisplay';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { QRCodeSVG } from "qrcode.react";
+import Cookies from "js-cookie";
+import md5 from "md5";
+import jsQR from "jsqr"; // Import jsQR for QR code scanning
 
-const OPIPINVerification = () => {
-  const [pin, setPin] = useState('');
-  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+const OPIQRCodeSVG = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null); // Add a canvas reference for QR code scanning
+  const [qrData, setQrData] = useState("");
+  const [receiverName, setReceiverName] = useState("");
 
-  const handlePinChange = (value) => {
-    if (value === '←') {
-      setPin(pin.slice(0, -1)); // Handle backspace
-    } else if (pin.length < 4) {
-      const newPin = pin + value;
-      setPin(newPin); // Add digit to pin if there's space
-      if (newPin.length === 4) {
-        setIsKeyboardVisible(false); // Hide keyboard automatically once PIN is filled
+  const { receiver, amount } = location.state || {};
+  const adjustedAmount = amount ? amount * 100 : 0; 
+
+  const fetchReceiverName = async (username) => {
+    try {
+      const response = await fetch("/api/getName.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username }),
+      });
+      const data = await response.json();
+      if (data && data.name) {
+        setReceiverName(data.name);
       }
+    } catch (error) {
+      console.error("Error fetching receiver name:", error);
     }
   };
 
-  const verifyPin = () => {
-    const devicePassword = '1234'; // Replace with actual device password logic
-    if (pin === devicePassword) {
-      alert('OPI PIN verified successfully');
-      navigate('/home');
-    } else {
-      alert('Invalid OPI PIN');
-      setPin(''); // Clear the PIN inputs if incorrect
+  useEffect(() => {
+    if (receiver) {
+      fetchReceiverName(receiver);
     }
-  };
+  }, [receiver]);
 
-  // Check if the PIN is filled with 4 digits and the keyboard is not visible
-  const shouldShowVerifyButton = pin.length === 4 && !isKeyboardVisible;
+  useEffect(() => {
+    const generateQRData = () => {
+      const username = Cookies.get("username");
+      const recipientUsername = receiver; 
+      const time = Date.now();
+      const privateKey = Cookies.get("session_key");
+      const hash = md5(`${recipientUsername}${receiverName}${adjustedAmount}${time}${privateKey}`);
+      
+      
+    // Use recipient's username in the QR code data
+    const qrDataString = `$\n${username}\n${time}\n${hash}\n$`;
+    
+    setQrData(qrDataString);
+    };
+
+    if (receiverName && amount) {
+      generateQRData();
+    }
+  }, [receiverName, amount]);
+
+  useEffect(() => {
+    const startCamera = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user" },
+        });
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (error) {
+        console.error("Error accessing webcam:", error);
+        alert("Unable to access the webcam.");
+      }
+    };
+
+    const scanQRCode = () => {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+
+      if (video && canvas && video.videoWidth > 0 && video.videoHeight > 0) {
+        const context = canvas.getContext("2d", { willReadFrequently: true });
+        if (context) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+
+          // Draw video frame onto the canvas
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+          // Get image data from the canvas
+          const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+          const code = jsQR(imageData.data, canvas.width, canvas.height);
+
+          if (code) {
+            console.log("QR Code Data:", code.data);
+            if (code.data.includes("0")) {
+              alert("Success"); // Show success prompt if QR code contains "0"
+            }
+          }
+        }
+      }
+
+      // Repeat the scan every animation frame
+      requestAnimationFrame(scanQRCode);
+    };
+
+    startCamera();
+    scanQRCode();
+
+    return () => {
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach((track) => track.stop());
+      }
+    };
+  }, []);
 
   return (
-    <motion.div
-      className="flex flex-col min-h-screen items-center justify-center bg-gray-100 w-full px-4"
-      initial={{ x: '100vw' }}
-      animate={{ x: 0 }}
-      transition={{ type: 'spring', stiffness: 50 }}
-    >
-      <h1 className="text-3xl font-bold text-blue-500 mb-8">Enter OPI PIN</h1>
+    <div className="relative flex flex-col items-center justify-start min-h-screen bg-gray-100">
+      {/* Back Button at top-left */}
+      <button
+        className="absolute top-4 left-4 bg-red-500 text-white px-6 py-2 rounded-lg text-lg shadow-md hover:bg-red-600 transition"
+        onClick={() => navigate(-1)}
+      >
+        Back
+      </button>
 
-      {/* PIN Display */}
-      <PinDisplay pin={pin} onClick={() => {
-        if (pin.length < 4) {
-          setIsKeyboardVisible(true); // Show keyboard when clicking on the PIN display
-        }
-      }} />
-
-      {/* Show custom keyboard */}
-      {isKeyboardVisible && pin.length < 4 && (
-        <div className="w-full max-w-md mb-4">
-          <CustomKeyboard onKeyPress={handlePinChange} />
+      {/* QR Code */}
+      {qrData && (
+        <div className="mt-20">
+          <QRCodeSVG
+            value={qrData}
+            size={300}
+            className="mb-6"
+          />
         </div>
       )}
 
-      {/* Verify PIN button */}
-      {shouldShowVerifyButton && (
-        <button
-          className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-xl hover:scale-105 hover:from-blue-600 hover:to-indigo-600 transition-transform duration-300"
-          onClick={verifyPin}
-        >
-          Verify PIN
-        </button>
-      )}
-    </motion.div>
+      {/* Webcam Feed */}
+      <video
+        ref={videoRef}
+        autoPlay
+        playsInline
+        className="w-full max-w-md border border-gray-300 rounded-lg opacity-[30%]"
+      />
+
+      {/* Canvas for QR Code Scanning */}
+      <canvas
+        ref={canvasRef}
+        className="absolute top-0 left-0 w-full h-full opacity-0 pointer-events-none"
+      />
+    </div>
   );
 };
 
-export default OPIPINVerification;
+export default OPIQRCodeSVG;

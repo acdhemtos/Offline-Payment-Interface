@@ -12,6 +12,7 @@ import StatusPage from './components/StatusPage';
 import CommunicatePage from './components/CommunicatePage';
 import TransactionHistory from './components/TransactionHistory';
 import Settings from "./components/Settings";
+import SetPin from "./components/setPin";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path={"/app/upi-pin"} element={<UPIPINVerification />} />
           <Route path={"/app/opi-pin"} element={<OPIPINVerification />} />
           <Route path={"/app/status"} element={<StatusPage />} />
+          <Route path={"/app/set-pin"} element={<SetPin />} />
           <Route path={"/app/communicate"} element={<CommunicatePage />} />
           <Route path={"/app/transactions"} element={<TransactionHistory />} />
           <Route path={"/app/settings"} element={<Settings/>}/>

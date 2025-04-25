@@ -1,17 +1,19 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
-import jsQR from "jsqr"; 
+import jsQR from "jsqr";
 import { motion } from "framer-motion";
+import parseInput from "../utils/backqrValid"; // Import the validation function
+
 
 const ScanQR = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const streamRef = useRef(null);
   const navigate = useNavigate();
+  const [error, setError] = useState(null); // State to store error message
 
   useEffect(() => {
-
     // Access camera for scanning
     const startCamera = async () => {
       try {
@@ -24,6 +26,7 @@ const ScanQR = () => {
         }
       } catch (error) {
         console.error("Error accessing camera:", error);
+        setError("Unable to access camera.");
       }
     };
     startCamera();
@@ -38,11 +41,21 @@ const ScanQR = () => {
 
   const handleScanComplete = (data) => {
     if (data) {
-      // QR code is successfully scanned
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track) => track.stop());
+      // Validate the QR code data
+      const validationResult = parseInput(data);
+      console.log(data,validationResult);
+      console.log("Validation Result Data:", validationResult.data);
+      if (validationResult.matchType == 0) {
+        //setError("Invalid QR code. Please try again.");
+      } else {
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach((track) => track.stop());
+        }
+  
+        
+        navigate("/app/send", { state: { qrData: validationResult.data, name:validationResult.data.name, receiver: validationResult.data.username, username: validationResult.data.username } }); // Pass validated data to the next page
       }
-      navigate("/send"); // Redirect to the send route after scan
+      
     }
   };
 
@@ -72,7 +85,7 @@ const ScanQR = () => {
           const code = jsQR(imageData.data, boxSize, boxSize);
 
           if (code) {
-            handleScanComplete(code);
+            handleScanComplete(code.data); // Pass the scanned QR data for validation
           }
         }
       }
@@ -98,7 +111,7 @@ const ScanQR = () => {
 
       {/* Back Button */}
       <button
-        className="absolute top-4 left-4  text-white px-4 py-2 rounded-lg"
+        className="absolute top-4 left-4 text-white px-4 py-2 rounded-lg"
         style={{ zIndex: 100 }}
         onClick={() => navigate("/app/home")}
       >
@@ -111,9 +124,12 @@ const ScanQR = () => {
         className="absolute top-0 left-0 w-full h-full z-20"
       />
 
-            <div className="absolute top-[20%] left-1/2 transform -translate-x-1/2 text-white text-3xl font-bold z-50">
-        Scan
-      </div>
+      {/* Error Message */}
+      {error && (
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg z-50">
+          {error}
+        </div>
+      )}
 
       {/* Animated Scanner Box */}
       <motion.div
@@ -122,7 +138,7 @@ const ScanQR = () => {
           width: "250px",
           height: "250px",
           top: "30%",
-          left: "17%",
+          left: "18%",
           transform: "translate(-50%, -50%)",
           zIndex: 30,
         }}

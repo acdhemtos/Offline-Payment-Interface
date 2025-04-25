@@ -1,15 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import CustomKeyboard from './CustomKeyboard';
-import { FaRupeeSign, FaArrowLeft, FaUser, FaIdCard } from 'react-icons/fa';
+import { useState, useEffect, useRef } from "react";
+import Cookies from "js-cookie";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FaRupeeSign, FaArrowLeft, FaUser, FaIdCard } from "react-icons/fa";
 
 const SendPage = () => {
-  const [id, setId] = useState('');
-  const [username, setUsername] = useState('');
-  const [amount, setAmount] = useState('');
-  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-  const [dotDisabled, setDotDisabled] = useState(false); // Track if dot is used
-  const [cursorPosition, setCursorPosition] = useState(0); // Track cursor position
+  const [id, setId] = useState("");
+  const [username, setUsername] = useState("");
+  const [amount, setAmount] = useState("");
   const [isAmountEntered, setIsAmountEntered] = useState(false); // Track if amount is entered
   const [isDataFetched, setIsDataFetched] = useState(false); // Track if data is fetched from QR or database
   const navigate = useNavigate();
@@ -17,72 +14,66 @@ const SendPage = () => {
   const inputRef = useRef(null);
 
   useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const qrData = location.state?.qrData; // Get QR data passed from ScanQR
+        if (qrData?.username) {
+          setId(qrData.username); // Set the ID from QR data
+      console.log("ID set to:", qrData.username);
+          const response = await fetch("/api/getName.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username: qrData.username }),
+          });
+          const data = await response.json();
+          if (data && data.name) {
+            const capitalizedUsername = data.name.charAt(0).toUpperCase() + data.name.slice(1);
+            setUsername(capitalizedUsername); // Set the fetched username
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching username:", error);
+      }
+    };
+
+    fetchUsername();
+  }, [location.state]);
+
+    useEffect(() => {
     // Check if data is passed from QR code scanning
-    if (location.state) {
-      const { id, username, amount } = location.state;
-      setId(id || '');
-      setUsername(username || '');
-      setAmount(amount || '');
+    if (location.state?.qrData) {
+      const { username, amount } = location.state.qrData; // Extract `username` from `qrData`
+      setId(username || ""); // Set `id` to `username` from `qrData`
+      setUsername(username || ""); // Optionally set `username` as well
+      setAmount(amount || "");
       setIsAmountEntered(!!amount);
       setIsDataFetched(true);
     }
   }, [location.state]);
 
-  const handleAmountChange = (value) => {
-    let updatedAmount = amount;
-    let newCursorPosition = cursorPosition;
-
-    if (value === '←') {
-      // Handle backspace
-      if (cursorPosition > 0) {
-        updatedAmount = updatedAmount.slice(0, cursorPosition - 1) + updatedAmount.slice(cursorPosition);
-        newCursorPosition = cursorPosition - 1;
-
-        // Re-enable the dot if it's removed
-        if (updatedAmount.indexOf('.') === -1) {
-          setDotDisabled(false);
-        }
-      }
-    } else if (value === '.') {
-      if (!dotDisabled) {
-        updatedAmount = updatedAmount.slice(0, cursorPosition) + '.' + updatedAmount.slice(cursorPosition);
-        setDotDisabled(true); // Disable dot after first use
-        newCursorPosition++;
-      }
-    } else {
-      // Limit decimal digits to 2 after dot
-      if (dotDisabled) {
-        const [integerPart, decimalPart] = updatedAmount.split('.');
-        if (decimalPart && decimalPart.length >= 2) {
-          return; // Prevent input if there are already 2 decimal places
-        }
-      }
-      updatedAmount = updatedAmount.slice(0, cursorPosition) + value + updatedAmount.slice(cursorPosition);
-      newCursorPosition = cursorPosition + 1;
-    }
-
-    setAmount(updatedAmount);
-    setCursorPosition(newCursorPosition);
-
-    // Check if amount is entered and update state
-    if (updatedAmount) {
-      setIsAmountEntered(true);
-    }
-
-    // Update the input field cursor position
-    setTimeout(() => {
-      inputRef.current.setSelectionRange(newCursorPosition, newCursorPosition);
-    }, 0);
-  };
-
   const handleInputChange = (e) => {
     const value = e.target.value;
-    const [integerPart, decimalPart] = value.split('.');
+    const [integerPart, decimalPart] = value.split(".");
+    if (decimalPart && decimalPart.length > 2) {
+      return; // Prevent input if there are already 2 decimal places
+    }
+    setAmount(value);
+
+    // Check if amount is entered and update state
+    setIsAmountEntered(!!value);
+  };
+
+  const handleAmountChange = (e) => {
+    const value = e.target.value.replace(/[^0-9.]/g, ""); // Allow only numbers and dot
+    const [integerPart, decimalPart] = value.split(".");
     if (decimalPart && decimalPart.length > 2) {
       return; // Prevent input if there are already 2 decimal places
     }
     setAmount(value);
   };
+  
 
   const handleUsernameChange = async (e) => {
     const value = e.target.value;
@@ -97,36 +88,28 @@ const SendPage = () => {
           setId(data.id);
           setIsDataFetched(true);
         } else {
-          setId('');
+          setId("");
           setIsDataFetched(false);
         }
       } catch (error) {
-        console.error('Error fetching user data:', error);
-        setId('');
+        console.error("Error fetching user data:", error);
+        setId("");
         setIsDataFetched(false);
       }
     } else {
-      setId('');
+      setId("");
       setIsDataFetched(false);
     }
   };
 
   const handleOptionClick = (path) => {
     if (amount) {
-      navigate(path);
+      const qrData = `$ ${id} ${amount} ${username} $`;
+      navigate(path, { state: { qrData, receiver: id,  amount,  } }); 
     } else {
-      alert('Please enter an amount');
+      alert("Please enter an amount");
     }
   };
-
-  // Close the keyboard when two decimal digits are entered
-  useEffect(() => {
-    if (amount.includes('.') && amount.split('.')[1]?.length === 2) {
-      setTimeout(() => {
-        setIsKeyboardVisible(false);
-      }, 500); // Minor delay before closing keyboard
-    }
-  }, [amount]);
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center bg-gray-100 w-full px-4">
@@ -134,13 +117,13 @@ const SendPage = () => {
         <button
           className="absolute top-3 left-4 text-white p-2 rounded-lg hover:bg-blue-600 transition"
           onClick={() => navigate(-1)}
-          style={{ background: 'none' }}
+          style={{ background: "none" }}
         >
           <FaArrowLeft className="text-2xl" />
         </button>
         Send Money
       </header>
-      
+
       <div className="relative mb-4 w-full max-w-md mt-20">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="id">
           ID
@@ -154,7 +137,7 @@ const SendPage = () => {
             onChange={(e) => setId(e.target.value)}
             className="pl-10 p-3 w-full border border-gray-300 rounded-lg text-center text-lg bg-white cursor-pointer"
             placeholder="Enter ID"
-            disabled={isDataFetched}
+            readOnly={!!id}
           />
         </div>
       </div>
@@ -173,6 +156,7 @@ const SendPage = () => {
             className="pl-10 p-3 w-full border border-gray-300 rounded-lg text-center text-lg bg-white cursor-pointer"
             placeholder="Enter Username"
             disabled={isDataFetched}
+            readOnly={!!username}
           />
         </div>
       </div>
@@ -189,36 +173,19 @@ const SendPage = () => {
             id="amount"
             value={amount}
             onChange={handleInputChange}
-            onClick={() => setIsKeyboardVisible(true)}
             className="pl-10 p-3 w-full border border-gray-300 rounded-lg text-center text-lg bg-white cursor-pointer"
             placeholder="Enter Amount"
-            onFocus={(e) => setCursorPosition(e.target.selectionStart)}
-            onKeyUp={(e) => setCursorPosition(e.target.selectionStart)}
-            readOnly
-            disabled={isDataFetched}
+            readOnly={!!amount}
           />
         </div>
       </div>
 
-      {/* Custom Keyboard */}
-      {isKeyboardVisible && (
-        <div className="w-full max-w-md mb-4">
-          <CustomKeyboard onKeyPress={handleAmountChange} dotDisabled={dotDisabled} />
-          <button
-            className="mt-2 bg-red-500 text-white px-4 py-2 rounded-lg w-full"
-            onClick={() => setIsKeyboardVisible(false)}
-          >
-            Hide Keyboard
-          </button>
-        </div>
-      )}
-
       {/* Conditionally render UPI/OPI buttons */}
-      {!isKeyboardVisible && isAmountEntered && (
+      {isAmountEntered && (
         <div className="flex flex-col items-center w-full max-w-md">
           <button
             className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition w-full mb-2"
-            onClick={() => handleOptionClick('/app/upi-pin')}
+            onClick={() => handleOptionClick("/app/upi-pin")}
           >
             UPI
           </button>
@@ -229,7 +196,7 @@ const SendPage = () => {
           </div>
           <button
             className="bg-green-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-green-600 transition w-full"
-            onClick={() => handleOptionClick('/app/opi-pin')}
+            onClick={() => handleOptionClick("/app/opi-pin")}
           >
             OPI
           </button>

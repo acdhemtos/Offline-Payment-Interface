@@ -1,14 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Illustration from "/src/assets/illustration.png";
+import { messages } from "../utils/loadMessages";
+import { AJAX } from "../utils/ajax";
+import { isLogin } from "../utils/isLogin"; // Import the isLogin utility
 
 const LoginSignupForm = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLoginForm, setIsLoginForm] = useState(true); // Renamed state variable
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const checkLogin = async () => {
+      const loggedIn = await isLogin();
+      if (loggedIn) {
+        navigate("/app/home"); // Redirect to home if session is valid
+      }
+    };
+    checkLogin();
+  }, [navigate]);
+
   const toggleForm = () => {
-    setIsLogin(!isLogin);
+    setIsLoginForm(!isLoginForm); // Updated to use the renamed state variable
   };
 
   const handleChange = (e) => {
@@ -19,15 +32,36 @@ const LoginSignupForm = () => {
     }));
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const { username, password } = form;
-    if (username === "user" && password === "1234") {
-      navigate("/app/home");
-    } else {
-      alert("Invalid username or password");
-    }
-  };
+        const handleLogin = async (e) => {
+      e.preventDefault();
+      const { username, password } = form;
+    
+      try {
+        const response = await fetch('/api/login.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password }),
+          credentials: 'include',
+        });
+  
+        const data = await response.json();
+        console.log("Login response:", data); // Debugging line
+    
+        if (data.code === 0) {
+          console.log("Session Key:", data.session_key); // Debugging line
+          document.cookie = `session_key=${data.session_key}; path=/; max-age=604800; `;
+          document.cookie = `username=${username}; path=/; max-age=604800; `;
+          alert("Login successful!");
+          navigate("/app/home");
+        } else {
+          console.error("Login failed with code:", data.code); // Debugging line
+          alert(messages[data.code - 1] || "Login failed. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error during login:", error); // Debugging line
+        alert("An error occurred. Please try again later.");
+      }
+    };
 
   return (
     <main className="flex flex-col lg:flex-row rounded-lg overflow-hidden p-4 max-w-5xl mx-auto md:p-0 shadow-[7px_7px_0px_4px_rgb(191,64,191)] min-h-screen lg:h-auto">
@@ -86,7 +120,7 @@ const LoginSignupForm = () => {
           </button>
         </form>
         <p className="mt-4 lg:mt-6 text-center text-gray-600">
-          {isLogin ? "Don't have an account?" : "Already have an account?"}
+          {isLoginForm ? "Don't have an account?" : "Already have an account?"}
           <NavLink
             to={"/account/signup"}
             className="ml-1 text-purple-600 hover:text-purple-500 font-medium"

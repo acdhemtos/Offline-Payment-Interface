@@ -1,94 +1,66 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
-import CustomKeyboard from "./CustomKeyboard";
 import { FaRupeeSign, FaArrowLeft } from "react-icons/fa";
+import Cookies from "js-cookie";
 
 const ReceivePage = () => {
-  const [amount, setAmount] = useState("");
-  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-  const [dotDisabled, setDotDisabled] = useState(false); // Track if dot is used
-  const [cursorPosition, setCursorPosition] = useState(0); // Track cursor position
-  const [qrData, setQrData] = useState("₹1000");
-  const [scannedId, setScannedId] = useState("");
+  const [uamount, setUamount] = useState("");
+  const [qrData, setQrData] = useState("");
+  const [username, setUsername] = useState("");
   const [isAmountDisabled, setIsAmountDisabled] = useState(false); // Track if amount input is disabled
+  const [backgroundColor, setBackgroundColor] = useState("bg-gradient-to-b from-blue-50 to-blue-100"); // Background color state
   const videoRef = useRef(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
-  const handleAmountChange = (value) => {
-    let updatedAmount = amount;
-    let newCursorPosition = cursorPosition;
+  // Fetch username from API and set it in state
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const username = Cookies.get("username");
+        const response = await fetch("/api/getName.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username }),
+        });
+        const data = await response.json();
+        if (data && data.name) {
+          setUsername(data.name);
 
-    if (value === "←") {
-      // Handle backspace
-      if (cursorPosition > 0) {
-        updatedAmount =
-          updatedAmount.slice(0, cursorPosition - 1) +
-          updatedAmount.slice(cursorPosition);
-        newCursorPosition = cursorPosition - 1;
-
-        // Re-enable the dot if it's removed
-        if (updatedAmount.indexOf(".") === -1) {
-          setDotDisabled(false);
+          // Initialize QR data with username
+          setQrData(`$\n${username}\n$`);
         }
+      } catch (error) {
+        console.error("Error fetching username:", error);
       }
-    } else if (value === ".") {
-      if (!dotDisabled) {
-        updatedAmount =
-          updatedAmount.slice(0, cursorPosition) +
-          "." +
-          updatedAmount.slice(cursorPosition);
-        setDotDisabled(true); // Disable dot after first use
-        newCursorPosition++;
-      }
-    } else {
-      // Limit decimal digits to 2 after dot
-      if (dotDisabled) {
-        const [integerPart, decimalPart] = updatedAmount.split(".");
-        if (decimalPart && decimalPart.length >= 2) {
-          return; // Prevent input if there are already 2 decimal places
-        }
-      }
-      updatedAmount =
-        updatedAmount.slice(0, cursorPosition) +
-        value +
-        updatedAmount.slice(cursorPosition);
-      newCursorPosition = cursorPosition + 1;
-    }
+    };
 
-    setAmount(updatedAmount);
-    setCursorPosition(newCursorPosition);
+    fetchUsername();
+  }, []);
 
-    // Update the input field cursor position
-    setTimeout(() => {
-      inputRef.current.setSelectionRange(newCursorPosition, newCursorPosition);
-    }, 0);
-
-    // Close keyboard if 2 numbers are input after dot
-    if (dotDisabled) {
-      const [integerPart, decimalPart] = updatedAmount.split(".");
-      if (decimalPart && decimalPart.length === 2) {
-        setTimeout(() => {
-          setIsKeyboardVisible(false);
-        }, 500); // Short delay before closing the keyboard
-      }
-    }
-  };
-
+  // Handle input change and dynamically update QR code
   const handleInputChange = (e) => {
+    const usersname = Cookies.get("username");
     const value = e.target.value;
     const [integerPart, decimalPart] = value.split(".");
     if (decimalPart && decimalPart.length > 2) {
       return; // Prevent input if there are already 2 decimal places
     }
-    setAmount(value);
+    setUamount(value);
+
+    // Update QR code data with amount
+    if (value) {
+      setQrData(`$\n${usersname}\n${value}\n${username}\n$`);
+    } else {
+      setQrData(`$\n${usersname}\n$`);
+    }
   };
 
   const generateQRCode = async () => {
-    // Mock QR code generation
-    setQrData(`Receive ₹${amount}`);
-    setIsAmountDisabled(true); // Disable the amount input
+    setIsAmountDisabled(true); // Disable the amount input and hide input/button
 
     // Access camera for scanning
     try {
@@ -97,26 +69,78 @@ const ReceivePage = () => {
       });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+
+        // Use BarcodeDetector to detect QR codes or barcodes
+        const barcodeDetector = new BarcodeDetector({ formats: ["qr_code"] });
+        const detectBarcode = async () => {
+          if (videoRef.current) {
+            const video = videoRef.current;
+            const canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            try {
+              const barcodes = await barcodeDetector.detect(canvas);
+              if (barcodes.length > 0) {
+                // QR code detected
+                try {
+                  const amount = uamount * 100; 
+                  var thing = barcodes[0].rawValue.split("\n");
+                  var sender = thing[1];
+                  var time = parseInt(thing[2]);
+                  var details_hash = thing[3];
+                  // const amount = thing[4];
+                  console.log(barcodes[0].rawValue, sender, time, details_hash);
+                  const session_key = Cookies.get("session_key");
+                  const username = Cookies.get("username");
+                  
+                  console.log(amount);
+                  const response = await fetch("/api/receive.php", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ username, session_key, amount, sender,time, details_hash }),
+                  });
+                  const data = await response.json();
+                  console.log(data);
+                  if (data.code == 0) {
+                    setQrData("0");
+                    setBackgroundColor("bg-green-500");
+                  //stop process  
+                  }
+                   // Change background to light green
+                } catch (error) {
+                  console.log(error);
+                }
+                
+              } else {
+                requestAnimationFrame(detectBarcode);
+              }
+            } catch (error) {
+              console.error("Error detecting barcode:", error);
+              requestAnimationFrame(detectBarcode);
+            }
+          }
+        };
+
+        detectBarcode();
       }
     } catch (error) {
       console.error("Error accessing camera:", error);
-      alert("Error accessing camera: " + error.message);
+      
     }
   };
 
-  const handleScan = () => {
-    // Mock scan action
-    const mockScannedId = "123456"; // Replace with actual scanning logic
-    setScannedId(mockScannedId);
-  };
-
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 w-full px-4">
+    <div className={`flex flex-col min-h-screen items-center justify-center ${backgroundColor} w-full px-4`}>
       <header className="fixed top-0 left-0 right-0 p-4 bg-blue-600 text-white text-xl font-semibold shadow-md text-center w-full z-10">
         <button
           className="absolute top-3 left-4 text-white p-2 rounded-lg hover:bg-blue-600 transition"
           onClick={() => navigate(-1)}
-          style={{ background: 'none' }}
+          style={{ background: "none" }}
         >
           <FaArrowLeft className="text-2xl" />
         </button>
@@ -125,68 +149,50 @@ const ReceivePage = () => {
 
       {/* QR Code Display */}
       <div className="p-4 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg mt-20 shadow-lg">
-        <QRCodeSVG value={qrData} size={256} />
+        <QRCodeSVG value={qrData} size={320} />
       </div>
 
-      <div className="relative mb-4 w-full max-w-md mt-4">
-        <FaRupeeSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-        <input
-          ref={inputRef}
-          type="tel"
-          className={`pl-10 p-3 w-full border border-gray-300 rounded-lg text-center text-lg bg-white bg-opacity-20 backdrop-blur-lg cursor-pointer ${
-            isAmountDisabled ? "bg-gray-200" : ""
-          }`}
-          placeholder="Enter Amount"
-          value={amount}
-          onChange={handleInputChange}
-          onClick={() => setIsKeyboardVisible(true)}
-          onFocus={(e) => setCursorPosition(e.target.selectionStart)}
-          onKeyUp={(e) => setCursorPosition(e.target.selectionStart)}
-          disabled={isAmountDisabled}
-        />
-      </div>
+      {/* Input Box and Button */}
+      {!isAmountDisabled && (
+        <>
+          <div className="relative mb-4 w-full max-w-md mt-4">
+            <FaRupeeSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input
+              ref={inputRef}
+              type="tel"
+              className="pl-10 p-3 w-full border border-gray-300 rounded-lg text-center text-lg bg-white bg-opacity-20 backdrop-blur-lg cursor-pointer"
+              placeholder="Enter Amount"
+              value={uamount}
+              onChange={handleInputChange}
+            />
+          </div>
 
-      {/* Custom Keyboard */}
-      {isKeyboardVisible && (
-        <div className="w-full max-w-md mb-4">
-          <CustomKeyboard
-            onKeyPress={handleAmountChange}
-            dotDisabled={dotDisabled}
-          />
           <button
-            className="mt-2 bg-red-500 text-white px-4 py-2 rounded-lg w-full hover:bg-red-600 transition"
-            onClick={() => setIsKeyboardVisible(false)}
+            className="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition mb-4"
+            onClick={generateQRCode}
           >
-            Hide Keyboard
+            Offline Sender
           </button>
+        </>
+      )}
+
+      {/* Camera Feed */}
+      {isAmountDisabled && (
+        <div className="w-full max-w-md">
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            className="rounded-lg border border-gray-300"
+            style={{
+              width: "100vw",
+              height: "150px",
+              maxHeight: "100vh",
+              objectFit: "cover",
+            }}
+          />
         </div>
       )}
-
-      {/* Generate QR Code and Start Camera Button */}
-      {!isKeyboardVisible && (
-        <button
-          className="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition mb-4"
-          onClick={generateQRCode}
-        >
-          Generate QR Code
-        </button>
-      )}
-
-      {/* Scanned ID Display */}
-      <div className="mt-4 p-3 w-full max-w-md border border-gray-300 rounded-lg text-center text-lg bg-white bg-opacity-20 backdrop-blur-lg">
-        Scanned ID: {scannedId}
-      </div>
-
-      {/* Camera Feed & Canvas for Scanning */}
-      <div className="mt-6 w-full max-w-md">
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          className="w-full rounded-lg border border-gray-300"
-          onClick={handleScan}
-        />
-      </div>
     </div>
   );
 };
