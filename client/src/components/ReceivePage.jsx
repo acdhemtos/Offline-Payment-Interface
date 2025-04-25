@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { encode } from "../utils/qrFunctions";
 import { AJAX } from "../utils/ajax";
 
+
 const ReceivePage = () => {
   const [uamount, setUamount] = useState("");
   const [qrData, setQrData] = useState("");
@@ -54,7 +55,11 @@ const ReceivePage = () => {
   };
 
   const generateQRCode = async () => {
-    //setQrData(generateReceiveQR(amount,name))
+    const name = localStorage.getItem("name");
+    console.log(name);
+    const amount = uamount;
+    console.log("amount", amount);
+    setQrData(generateReceiveQR(amount, name));
     setIsAmountDisabled(true); // Disable the amount input and hide input/button
 
     // Access camera for scanning
@@ -184,7 +189,7 @@ const ReceivePage = () => {
               height: "200px",
               maxHeight: "100vh",
               objectFit: "cover",
-              transform: "rotateY(180deg),"
+              transform: "rotateY(180deg)",
             }}
           />
         </div>

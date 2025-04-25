@@ -36,16 +36,7 @@ const Home = () => {
     };
     const fetchBalance = async () => {
       try {
-        const username = Cookies.get("username");
-        const sessionKey = Cookies.get("session_key");
-        const response = await fetch("/api/getBalance.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, session_key: sessionKey }),
-        });
-        const data = await response.json();
+        const data =  await AJAX("/api/getBalance.php");
         console.log(data);
         if (data && data.balance !== undefined) {
           setBalance(data.balance/100);
@@ -56,16 +47,8 @@ const Home = () => {
     };
     const checkPinSet = async () => {
       try {
-        const username = Cookies.get("username");
-        const sessionKey = Cookies.get("session_key");
-        const response = await fetch("/api/isPinSet.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, session_key: sessionKey }),
-        });
-        const data = await response.json();
+        const data = await fetch("/api/isPinSet.php");
+        
         if (data && data.code === 0) {
           setIsPinSet(data.pinSet);
         }

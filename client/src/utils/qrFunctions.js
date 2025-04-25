@@ -18,7 +18,7 @@ export const encode = (() => {
   let str = "";
   num = BigInt(num)
   while (size > 0) {
-   str = String.fromCharCode(num%BigInt(256)) + str;
+   str = String.fromCharCode(Number(num%BigInt(256))) + str;
    num /= BigInt(256);
    --size;
   }
