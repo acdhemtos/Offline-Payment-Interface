@@ -48,6 +48,8 @@
  $TL = 5;
  //if (round(microtime(true) * 1000) - $time > 5*1000){handle(34);}
  
+ @require_once 'hash.php';
+ 
  $details_hash = $data["details_hash"];
  if(!preg_match('/^[a-f0-9]{32}$/i', $details_hash)){handle(36);}
  

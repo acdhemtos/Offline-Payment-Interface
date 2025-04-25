@@ -14,15 +14,19 @@ const index = {
 }
 
 export const encode = (() => {
+ function arrayToString(arr){
+  return String.fromCharCode(...arr);
+ }
+ 
  function number(num, size) {
-  let arr = [];\
+  let arr = [];
   num = BigInt(num)
   while (size > 0) {
    arr.unshift(Number(num%BigInt(256)));
    num /= BigInt(256);
    --size;
   }
-  return String.fromCharCode(...arr);
+  return arrayToString(arr);
  }
  
  function makeIndexArray(str,limits,size){
@@ -55,13 +59,20 @@ export const encode = (() => {
   },
   name: (str) => {
     return makeIndexArray(str,index.name,37)
+  },
+  hash: (arr) => {
+   return arrayToString(arr);
   }
  };
 })();
 
 export const decode = (() => {
- function number(arr) {
-  arr = Array.from(arr).map(char => char.charCodeAt(0));
+ function stringToArray(str){
+  return Array.from(str).map(char => char.charCodeAt(0));
+ }
+ 
+ function number(str) {
+  arr = stringToArray(str);
   let num = BigInt(0);
   for (let i = 0; i < arr.length; i++) {
     num *= BigInt(256);
@@ -131,6 +142,9 @@ export const decode = (() => {
    if (!/^[a-z\s]+$/.test(str)) { return false; }
    
    return str;
+  },
+  hash: (str) => {
+   return stringToArray(str);
   }
  };
 })();
