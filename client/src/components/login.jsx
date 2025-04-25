@@ -43,23 +43,29 @@ const LoginSignupForm = () => {
           body: JSON.stringify({ username, password }),
           credentials: 'include',
         });
+
+        if (!response.ok) {
+          console.error(`Server error: ${response.status} ${response.statusText}`);
+          alert("An error occurred on the server. Please try again later.");
+          return;
+        }
   
         const data = await response.json();
-        console.log("Login response:", data); // Debugging line
+        console.log("Login response:", data); 
     
         if (data.code === 0) {
-          console.log("Session Key:", data.session_key); // Debugging line
+          console.log("Session Key:", data.session_key); 
           document.cookie = `session_key=${data.session_key}; path=/; max-age=604800; `;
           document.cookie = `username=${username}; path=/; max-age=604800; `;
+          
           alert("Login successful!");
           navigate("/app/home");
         } else {
-          console.error("Login failed with code:", data.code); // Debugging line
+          console.error("Login failed with code:", data.code); 
           alert(messages[data.code - 1] || "Login failed. Please try again.");
         }
       } catch (error) {
-        console.error("Error during login:", error); // Debugging line
-        alert("An error occurred. Please try again later.");
+        console.error("Error during login:", error); 
       }
     };
 

@@ -49,22 +49,12 @@ const ReceivePage = () => {
       return; // Prevent input if there are already 2 decimal places
     }
     setUamount(value);
-    const qrData = generateReceiveQR(value);
-  setQrData(qrData);
-
-    // Update QR code data with amount
-    // const encodedUsername = encode.username(username);
-    // const binaryData = String.fromCharCode(...encodedUsername);
-    // if (value) {
-    //   setQrData(encodedUsername,`${value}`);
-    // } else {
-    //   let t = String.fromCharCode(...encodedUsername) + String.fromCharCode(...encode.amount(123))+String.fromCharCOde(...encode.name("hello"))
-    //   console.log(t,"here");
-    //   setQrData(t);
-    // }
+    setQrData(generateReceiveQR(value));
+   
   };
 
   const generateQRCode = async () => {
+    //setQrData(generateReceiveQR(amount,name))
     setIsAmountDisabled(true); // Disable the amount input and hide input/button
 
     // Access camera for scanning
@@ -153,7 +143,7 @@ const ReceivePage = () => {
       </header>
 
       {/* QR Code Display */}
-      <div className="p-4 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg mt-20 shadow-lg">
+      <div className="p-4 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg mt-10 shadow-lg">
         <QRCodeSVG value={qrData} size={320} level="H" />
       </div>
 
@@ -191,9 +181,10 @@ const ReceivePage = () => {
             className="rounded-lg border border-gray-300"
             style={{
               width: "100vw",
-              height: "150px",
+              height: "200px",
               maxHeight: "100vh",
               objectFit: "cover",
+              transform: "rotateY(180deg),"
             }}
           />
         </div>

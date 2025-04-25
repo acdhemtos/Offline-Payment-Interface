@@ -4,6 +4,7 @@ import { FaCog, FaQrcode, FaMobileAlt, FaUserPlus, FaMoneyBillWave, FaChartLine,
 import { BsCreditCard2Front, BsArrowUpCircle, BsBank2, BsLightningCharge, BsChevronRight } from "react-icons/bs";
 import People from "./People"; 
 import { NavLink, useNavigate } from "react-router-dom";
+import { AJAX } from "../utils/ajax";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -21,15 +22,11 @@ const Home = () => {
     const fetchUsername = async () => {
       try {
         const username = Cookies.get("username");
-        const response = await fetch("/api/getName.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username }), 
-        });
-        const data = await response.json();
+        const data = await AJAX("/api/getName.php", { name_username: username });
+    
         if (data && data.name) {
+          console.log("S", data);
+          localStorage.setItem("name", data.name);
           const capitalizedUsername = data.name.charAt(0).toUpperCase() + data.name.slice(1);
           setUsername(capitalizedUsername);
         }
