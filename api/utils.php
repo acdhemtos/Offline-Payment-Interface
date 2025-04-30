@@ -2,7 +2,12 @@
  header('Content-Type: application/json');
  
  function display($code, $additional=array()){
-  die(json_encode(array_merge(array("code" => $code), $additional)));
+  $str = (array_merge(array("code" => $code), $additional));
+  //print_r ($str);
+  
+  $str = json_encode($str);
+  //echo $str;
+  die($str);
  }
  
  set_exception_handler('handleException');

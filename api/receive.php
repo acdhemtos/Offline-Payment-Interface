@@ -1,10 +1,11 @@
 <?php
+ 
  $data = json_decode(file_get_contents("php://input"),true);
- 
- 
  
  $details_hash = $data["details_hash"];
  @require_once('connection.php');
+ @require_once('hash.php');
+ 
  
  $sender = $data["sender"];
  
@@ -15,11 +16,10 @@
  function handle($int, $Id=""){
   global $private_key;
   global $details_hash;
-  
   if($int==0){
-   display(0,array('id'=>$Id,'verification_hash' => md5($details_hash."0".$Id.$private_key)));
+   display(0,array('id'=>(int)$Id,'verification_hash' => sha256($details_hash."0".$Id.$private_key)));
   }
-  display($int,array('verification_hash' => md5($details_hash.$int.$private_key)));
+  display($int,array('verification_hash' => sha256($details_hash.$int.$private_key)));
  }
  
  $session_key = $data['session_key'];
@@ -33,34 +33,45 @@
  $time = $data["time"];
  if(!isValidAmount($time)){display(38);}
  
+ $username = $data["username"];
  $sender = $data["sender"];
  if($sender==$username){display(31);}
  @require_once('validateUsername.php');
  if(validUsername($sender)!=0){display(32);}
  
- $username = $data["username"];
  validate('validateLoginUsername', $username);
  
  if(!usernameExists($sender)){display(33);}
  
  validate('isLoggedIn',$username,$session_key);
  
- $TL = 5;
- //if (round(microtime(true) * 1000) - $time > 5*1000){handle(34);}
- 
- @require_once 'hash.php';
  
  $details_hash = $data["details_hash"];
- if(!preg_match('/^[a-f0-9]{32}$/i', $details_hash)){handle(36);}
+ if(!isValidHash($details_hash)){display(36);}
  
  @require_once('getName.php');
  $name = getName($username);
  
- if($details_hash!=md5($username.$name.$amount.$time.$private_key)){handle(35);}
+ //debug
  
+ if($details_hash!=sha256($username.$amount.$name.$time.$private_key)){display(35);}
+ 
+ $TL = 10;
+ //if (round(microtime(true) * 1000) - $time > 10*1000){display(34);}
+ 
+ $sql = "SELECT COUNT(*) FROM past_hashes WHERE sender = :sender AND receiver = :receiver AND hash = :hash";
+ $stmt = $GLOBALS['conn']->prepare($sql);
+ $stmt->bindParam(':sender', $sender, PDO::PARAM_STR);
+ $stmt->bindParam(':receiver', $username, PDO::PARAM_STR);
+ $stmt->bindParam(':hash', $details_hash, PDO::PARAM_STR);
+ $stmt->execute();
+
+ if ($stmt->fetchColumn() > 0) { display(34); }
+
+
  @require_once('getBalance.php');
  if(getBalance($sender)<$amount){handle(30);}
-
+ 
 
  $GLOBALS['conn']->beginTransaction();
 
@@ -101,9 +112,29 @@
   ':amount' => $amount,
   ':receiverUsername' => $username
  ]);
+ $sql = "INSERT INTO past_hashes (sender, receiver, hash, time) VALUES (:sender, :receiver, :hash, :time)";
+ $stmt = $GLOBALS['conn']->prepare($sql);
+ $stmt->bindParam(':sender', $sender, PDO::PARAM_STR);
+ $stmt->bindParam(':receiver', $username, PDO::PARAM_STR);
+ $stmt->bindParam(':hash', $details_hash, PDO::PARAM_STR);
+ $stmt->bindParam(':time', $time, PDO::PARAM_INT);
+ $stmt->execute();
 
  $GLOBALS['conn']->commit();
- //auto TopUp
+
+
+
+ @require_once('getTopUp.php');
+ $data = getTopUp($sender);
+ $min = $data['min_balance'];
+ $max = $data['max_balance'];
+ 
+ @require_once('getBalance.php');
+ $balance = getBalance($sender);
+ if($balance<$min){
+  @require_once('topUp.php');
+  topUp($sender,$max-$balance);
+ }
  handle(0,$Id);
  
 ?>

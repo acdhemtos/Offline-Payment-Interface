@@ -15,7 +15,7 @@
    ':pin' => $pinHash
   ]);
 
-  return ($stmt->rowCount() > 0);
+  return ($stmt->fetchColumn() > 0);
  }
  
 ?>
