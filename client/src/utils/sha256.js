@@ -17,7 +17,6 @@ async function sha256(...messages) {
     )
     );
   console.log(s);
-  // file save kyu nhi kri
     return s;
 }
 
