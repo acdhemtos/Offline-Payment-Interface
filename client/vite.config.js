@@ -25,7 +25,7 @@ export default defineConfig({
       }
     },
     host: '0.0.0.0', // This allows access from other devices
-    port: 5173
+    port: 443
   },
   base: './',
   plugins: [react()],
