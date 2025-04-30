@@ -1,0 +1,42 @@
+DROP DATABASE IF EXISTS `opi`;
+CREATE DATABASE `opi`;
+
+CREATE TABLE `opi`.`users` (
+ `id` INT NOT NULL AUTO_INCREMENT ,
+ `username` CHAR(15) NOT NULL ,
+ `password` CHAR(32) NOT NULL ,
+ `name` CHAR(60) NOT NULL ,
+ `balance` INT NOT NULL DEFAULT 50000,
+ `min_balance` INT NOT NULL DEFAULT 50000,
+ `max_balance` INT NOT NULL DEFAULT 200000,
+ `session_key` CHAR(32) NULL ,
+ `private_key` CHAR(32) NULL ,
+ `pin` CHAR(32) NULL ,
+ `last_active` DATETIME NULL,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
+
+CREATE TABLE `opi`.`transactions` (
+ `id` INT NOT NULL AUTO_INCREMENT ,
+ `sender` INT NOT NULL ,
+ `receiver` INT NOT NULL ,
+ `amount` INT NOT NULL ,
+ `type` INT NOT NULL ,
+ `time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
+
+CREATE TABLE `opi`.`past_hashes` (
+ `sender` CHAR(15) NOT NULL ,
+ `receiver` CHAR(15) NOT NULL ,
+ `hash` CHAR(64) NOT NULL,
+ `time` INT NOT NULL
+) ENGINE = InnoDB;
+
+SET GLOBAL event_scheduler = ON;
+
+CREATE EVENT delete_old_hashes
+ON SCHEDULE EVERY 1 SECOND
+DO
+DELETE FROM past_hashes
+WHERE time < (UNIX_TIMESTAMP(CURRENT_TIMESTAMP) * 1000 - 10000);

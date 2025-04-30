@@ -1,0 +1,34 @@
+<?php
+
+ const characters =  '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()-_=+[]{}|;:,.<>?';
+ const length = 20;
+ 
+ function generateKey() {
+  $c = '0123456789abcdefghijklmnopqrstuvwxyz';
+  $charactersLength = strlen($c);
+  
+  
+  $randomString = '';
+  for ($i = 0; $i < length; $i++) {
+      $randomString .= $c[rand(0, $charactersLength - 1)];
+  }
+  return $randomString;
+ }
+ 
+ /*
+ function generateKey() {
+  $charactersLength = strlen(characters);
+  $randomString = '';
+  for ($i = 0; $i < length; $i++) {
+      $randomString .= characters[rand(0, $charactersLength - 1)];
+  }
+  return $randomString;
+ }*/
+ 
+ function validKey($key) {
+  if (strlen($key) !== length) { return false; }
+  $pattern = '/^[' . preg_quote(characters, '/') . ']{' . length . '}$/';
+  return preg_match($pattern, $key) === 1;
+ }
+
+?>
