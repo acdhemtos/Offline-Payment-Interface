@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import PinDisplay from "./PinDisplay";
-import Cookies from "js-cookie";
+import { AJAX } from "../utils/ajax";
+import { messages } from "../utils/loadMessages";
 
 const SetPin = () => {
   const [pin, setPin] = useState("");
@@ -10,7 +11,7 @@ const SetPin = () => {
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ""); // Allow only numeric input
+    const value = e.target.value.replace(/\D/g, "");
     if (value.length <= 4) {
       setPin(value);
     }
@@ -23,24 +24,13 @@ const SetPin = () => {
     }
 
     try {
-      const username = Cookies.get("username");
-      const sessionKey = Cookies.get("session_key");
+      const data = await AJAX("/api/setPin.php", { pin });
 
-      const response = await fetch("/api/setPin.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, session_key: sessionKey, pin }),
-      });
-
-      const data = await response.json();
-
-      if (data.code === 0) {
+      if (data && data.code === 0) {
         alert("PIN set successfully!");
         setPin("");
         setError("");
-        navigate("/"); // Navigate back to home after successful PIN set
+        navigate("/app/home");
       } else {
         setError(data.message || "Failed to set PIN. Please try again.");
       }
@@ -51,10 +41,9 @@ const SetPin = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 w-full">
-      {/* Back Button */}
+    <div className="flex flex-col items-center justify-start pt-52  min-h-screen bg-gray-100 w-full">
       <button
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/app/home")}
         className="absolute top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600"
       >
         Back
@@ -62,7 +51,6 @@ const SetPin = () => {
 
       <h1 className="text-2xl font-bold mb-6">Set Your PIN</h1>
 
-      {/* Hidden Input Field */}
       <input
         type="text"
         inputMode="numeric"
@@ -73,10 +61,9 @@ const SetPin = () => {
         className="absolute opacity-0 pointer-events-none"
       />
 
-      {/* Pin Display */}
       <PinDisplay
         pin={pin}
-        onClick={() => inputRef.current && inputRef.current.focus()} // Focus input on click
+        onClick={() => inputRef.current && inputRef.current.focus()}
       />
 
       {error && <p className="text-red-500 mb-4">{error}</p>}

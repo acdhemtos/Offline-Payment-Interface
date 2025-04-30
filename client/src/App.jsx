@@ -13,6 +13,7 @@ import CommunicatePage from './components/CommunicatePage';
 import TransactionHistory from './components/TransactionHistory';
 import Settings from "./components/Settings";
 import SetPin from "./components/setPin";
+import SuccessPage from "./components/Success";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
           <Route path={"/app/transactions"} element={<TransactionHistory />} />
           <Route path={"/app/settings"} element={<Settings/>}/>
           <Route path={"/app/home"} element={<Home />} />
+          <Route path={"/app/success"} element={<SuccessPage/>}/>
         </Routes>
       </div>
     </BrowserRouter>

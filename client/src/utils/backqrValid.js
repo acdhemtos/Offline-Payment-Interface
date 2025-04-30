@@ -9,7 +9,6 @@ function parseInput(input) {
     };
 
     const lines = input.trim().split('\n').map(line => line.trim()).filter(line => line !== '$');
-    // Early exit if no lines
     if (lines.length < 1 || lines.length > 3) return result;
 
     const usernameRegex = /^[a-z][a-z0-9]{7,14}$/;
@@ -18,7 +17,6 @@ function parseInput(input) {
 
     const [username, amount, name] = lines;
 
-    // Case 1: Only username
     if (lines.length >0 && usernameRegex.test(username)) {
         result.matchType = 1;
         result.data.username = username;

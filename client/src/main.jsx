@@ -2,11 +2,10 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
-import { loadMessages, messages } from './utils/loadMessages.js';
+import { loadMessages } from './utils/loadMessages.js';
 
 async function init() {
   await loadMessages();
-  console.log("Messages after loading:", messages);
   createRoot(document.getElementById('root')).render(
     <StrictMode>
       <App />
@@ -15,3 +14,21 @@ async function init() {
 }
 
 init();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log("Service Worker registered with scope:", registration.scope);
+      })
+      .catch((error) => {
+        console.error("Service Worker registration failed:", error);
+      });
+  });
+}
+
+// window.addEventListener('beforeinstallprompt', (event) => {
+//   event.preventDefault(); 
+//   alert("HELLO");
+// });

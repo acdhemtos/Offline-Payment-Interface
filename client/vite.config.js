@@ -20,17 +20,18 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://192.168.137.202:8081/',
+        target: 'http://192.168.213.145:8081/',
         changeOrigin: true
       }
     },
     host: '0.0.0.0', // This allows access from other devices
     port: 5173
   },
-  base: '/',
+  base: './',
   plugins: [react()],
   build: {
-    outDir: "..",
-    emptyOutDir: false,
+    outDir: "dist",
+    emptyOutDir: true,
   },
+  publicDir: "public",
 })

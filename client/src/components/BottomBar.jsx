@@ -31,7 +31,6 @@ const BottomBar = () => {
                     </div>
                     <span className="text-xs mt-1">Receive</span>
                 </motion.button>
-                {/* Central Stylish Scan Button */}
                 <div className="relative flex justify-center items-center w-full">
                     <motion.button 
                         whileHover={{ scale: 1.1 }}
@@ -59,12 +58,12 @@ const BottomBar = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="flex flex-col items-center justify-center text-sm text-gray-700 transition"
-                    onClick={() => navigate('/app/settings')} // Updated path
+                    onClick={() => navigate('/app/settings')} 
                 >
                     <div className="flex items-center justify-center">
-                        <FaCog className="text-xl mb-1 transition text-white fill-gray-600" /> {/* Updated icon */}
+                        <FaCog className="text-xl mb-1 transition text-white fill-gray-600" /> 
                     </div>
-                    <span className="text-xs mt-1">Settings</span> {/* Updated label */}
+                    <span className="text-xs mt-1">Settings</span> 
                 </motion.button>
             </div>
         </div>

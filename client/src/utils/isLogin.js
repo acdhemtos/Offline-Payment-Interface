@@ -1,21 +1,18 @@
 export const isLogin = async () => {
-  // Parse cookies into an object
   const cookies = document.cookie.split(";").reduce((acc, cookie) => {
     const [key, value] = cookie.trim().split("=");
     acc[key] = value;
     return acc;
   }, {});
 
-  console.log("Cookies:", cookies); // Debugging line
+  console.log("Cookies:", cookies);
 
-  // Check if session_key and username exist in cookies
   if (!cookies.session_key || !cookies.username) {
     console.log("No session key or username found in cookies.");
     return false;
   }
 
   try {
-    // Send fetch request to validate session
     const response = await fetch("/api/isLoggedIn.php", {
       method: "POST",
       headers: {
@@ -32,15 +29,13 @@ export const isLogin = async () => {
     }
 
     const data = await response.json();
-    console.log("isLogin response:", data); // Debugging line
+    console.log("isLogin response:", data);
 
     if (data.code === 0) {
-      // Session is valid, refresh cookies
       document.cookie = `session_key=${cookies.session_key}; path=/; max-age=604800; secure`;
       document.cookie = `username=${cookies.username}; path=/; max-age=604800; secure`;
       return true;
     } else {
-      // Session is invalid, clear cookies
       document.cookie = "session_key=; path=/; max-age=0;";
       document.cookie = "username=; path=/; max-age=0;";
       console.log("Session is invalid. Cookies cleared.");

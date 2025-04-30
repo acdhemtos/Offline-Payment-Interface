@@ -88,7 +88,7 @@ const Settings = () => {
       const username = Cookies.get("username");
       const session_key = Cookies.get("session_key");
 
-      console.log("Logout Payload:", { username, session_key }); // Debugging line
+      console.log("Logout Payload:", { username, session_key }); 
 
       if (!session_key || !username) {
         alert("Session key or username is missing. Unable to log out.");
@@ -103,19 +103,19 @@ const Settings = () => {
       });
   
       const data = await response.json();
-      console.log("Logout response:", data); // Debugging line
+      console.log("Logout response:", data); 
   
       if (data.code === 0) {
-        // Clear cookies using js-cookie
+       
         Cookies.remove("session_key", { path: "/" });
         Cookies.remove("username", { path: "/" });
         alert("You have been logged out.");
-        navigate("/"); // Redirect to the home page
+        navigate("/"); 
       } else {
         alert("An error occurred during logout. Please try again.");
       }
     } catch (error) {
-      console.error("Error during logout:", error); // Debugging line
+      console.error("Error during logout:", error); 
       alert("An error occurred. Please try again later.");
     }
   };
@@ -141,7 +141,6 @@ const Settings = () => {
         </button>
       </div>
 
-      {/* Set or Reset UPI PIN */}
       {!showOpiInput && (
         <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 text-gray-900 mb-8 transform transition-all hover:scale-105">
           {showUpiInput ? (
@@ -218,7 +217,6 @@ const Settings = () => {
         </div>
       )}
 
-      {/* Set or Reset OPI PIN */}
       {!showUpiInput && (
         <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 text-gray-900 transform transition-all hover:scale-105">
           {showOpiInput ? (

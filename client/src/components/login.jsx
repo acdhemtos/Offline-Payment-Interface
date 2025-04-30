@@ -3,10 +3,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Illustration from "/src/assets/illustration.png";
 import { messages } from "../utils/loadMessages";
 import { AJAX } from "../utils/ajax";
-import { isLogin } from "../utils/isLogin"; // Import the isLogin utility
+import { isLogin } from "../utils/isLogin"; 
 
 const LoginSignupForm = () => {
-  const [isLoginForm, setIsLoginForm] = useState(true); // Renamed state variable
+  const [isLoginForm, setIsLoginForm] = useState(true); 
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
 
@@ -14,14 +14,14 @@ const LoginSignupForm = () => {
     const checkLogin = async () => {
       const loggedIn = await isLogin();
       if (loggedIn) {
-        navigate("/app/home"); // Redirect to home if session is valid
+        navigate("/app/home"); 
       }
     };
     checkLogin();
   }, [navigate]);
 
   const toggleForm = () => {
-    setIsLoginForm(!isLoginForm); // Updated to use the renamed state variable
+    setIsLoginForm(!isLoginForm); 
   };
 
   const handleChange = (e) => {
@@ -57,6 +57,7 @@ const LoginSignupForm = () => {
           console.log("Session Key:", data.session_key); 
           document.cookie = `session_key=${data.session_key}; path=/; max-age=604800; `;
           document.cookie = `username=${username}; path=/; max-age=604800; `;
+          document.cookie = `private_key=${data.private_key}; path=/; max-age=604800; `;
           
           alert("Login successful!");
           navigate("/app/home");
@@ -71,7 +72,7 @@ const LoginSignupForm = () => {
 
   return (
     <main className="flex flex-col lg:flex-row rounded-lg overflow-hidden p-4 max-w-5xl mx-auto md:p-0 shadow-[7px_7px_0px_4px_rgb(191,64,191)] min-h-screen lg:h-auto">
-      {/* Illustration Section */}
+      
       <div className="illustration-container w-full lg:w-1/2 rounded-t-lg border-2 border-solid lg:mb-0 h-64 lg:h-auto">
         <img
           src={Illustration}
@@ -80,7 +81,7 @@ const LoginSignupForm = () => {
         />
       </div>
 
-      {/* Form Section */}
+      
       <div className="form-container flex-1 p-4 lg:p-12 bg-gray-50 h-2/3 lg:h-auto rounded-b-lg">
         <h1 className="text-2xl lg:text-3xl font-bold lg:mb-6 text-gray-800 mb-10 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 drop-shadow-lg">
           Login

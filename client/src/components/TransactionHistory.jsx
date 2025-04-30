@@ -1,53 +1,37 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-
-const transactionHistory = [
-  { id: 1, name: "John Doe", amount: 500, type: "Sent" },
-  { id: 2, name: "Alice Smith", amount: 250, type: "Received" },
-  { id: 3, name: "Bob Johnson", amount: 100, type: "Sent" },
-];
+import { useEffect, useRef } from "react";
+import { loadTransactions, renderTransactions } from "../utils/transactions";
+import { useNavigate } from "react-router-dom";
 
 const TransactionHistory = () => {
+  const transactionsDiv = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    loadTransactions().then(() => {
+      if (transactionsDiv.current) {
+        renderTransactions(transactionsDiv.current);
+      }
+    });
+  }, []);
+
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 w-full">
-      {/* Header Section */}
-      <header className="p-4 bg-blue-600 text-white text-xl font-semibold shadow-md text-center w-full">
-        Transaction History
+    <div className="min-h-screen min-w-[100vw] bg-gray-100 flex flex-col items-center p-4">
+      <header className="w-full bg-transparent text-white text-center py-4  relative">
+        <button
+          className="absolute left-1 top-1 bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-gray-200"
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </button>
       </header>
 
-      {/* Search Bar */}
-      <div className="p-4 w-full">
-        <input
-          type="text"
-          className="w-full p-3 border border-gray-300 rounded-lg text-lg shadow-sm"
-          placeholder="Search transactions..."
-        />
+      <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg mt-6 p-4">
+        <h2 className="text-xl font-semibold mb-4">Your Transactions</h2>
+        <div
+          ref={transactionsDiv}
+          className="transactions-container divide-y divide-gray-200"
+        ></div>
       </div>
-
-      {/* Transaction History Section */}
-      <section className="flex-1 overflow-y-auto p-4 w-full">
-        <ul className="space-y-3">
-          {transactionHistory.map((item) => (
-            <motion.li
-              key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className={`p-4 rounded-lg shadow-md flex justify-between items-center ${
-                item.type === "Sent" ? "bg-red-200" : "bg-green-200"
-              }`}
-            >
-              <div className="flex flex-col">
-                <span className="text-gray-800 font-medium">{item.name}</span>
-                <span className="text-sm text-gray-600">{item.type}</span>
-              </div>
-              <span className="font-bold text-lg text-gray-800">
-                {item.amount} ₹
-              </span>
-            </motion.li>
-          ))}
-        </ul>
-      </section>
     </div>
   );
 };

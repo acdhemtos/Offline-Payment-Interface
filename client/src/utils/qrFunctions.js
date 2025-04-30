@@ -24,6 +24,21 @@ export const encode = (() => {
   }
   return str;
  }
+
+ function base16ToBase256(base16String) {
+  // Ensure the input is valid
+  if (base16String.length % 2 !== 0) {
+    throw new Error("Invalid base-16 string. Length must be even.");
+  }
+
+  const base256Array = [];
+  for (let i = 0; i < base16String.length; i += 2) {
+    const byte = parseInt(base16String.substr(i, 2), 16);
+    base256Array.push(byte);
+  }
+
+  return String.fromCharCode(...base256Array);
+}
  
  function makeIndexArray(str,limits,size){
   let {from,to} = limits
@@ -47,15 +62,21 @@ export const encode = (() => {
   amount: (amt) => {
    return number(amt, 3);
   },
-  time: () => {
-    return number(Date.now()%tc, 2);
+  time: (t) => {
+    return number(t%tc, 2);
   },
   trans_id: (id) => {
     return number(id, 4);
   },
   name: (str) => {
     return makeIndexArray(str,index.name,37)
-  }
+  },
+  code: (amt) => {
+   return number(amt, 1);
+  },
+  hash: (base16String) => {
+      return base16ToBase256(base16String);
+  },
  };
 })();
 
@@ -63,7 +84,7 @@ export const decode = (() => {
  
  function number(str) {
   let num = BigInt(0);
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     num *= BigInt(256);
     num += BigInt(str[i].charCodeAt(0));
   }
@@ -88,7 +109,7 @@ export const decode = (() => {
  return {
   username: (arr) => {
    let str = "";
-   try{
+  try {
     str = makeStr(arr,index.username).split('').reverse().join('');
     
    }catch(err){
@@ -102,11 +123,11 @@ export const decode = (() => {
    return str;
   },
   amount: (arr) => {
-   let ret = number(arr);
+   let ret = Number(number(arr));
    return ret==0 ? false : ret;
   },
   time: (arr) => {
-    let ret = Math.floor(Date.now()/tc)*tc+number(arr);
+    let ret = Math.floor(Date.now()/tc)*tc+Number(number(arr));
     console.log(ret);
     if(ret>Date.now()){
      ret -= tc;
@@ -131,6 +152,20 @@ export const decode = (() => {
    if (!/^[a-z\s]+$/.test(str)) { return false; }
    
    return str;
+   },
+   code: (arr) => {
+    return number(arr);
+   },
+   hash : (base256String) => {
+    let base16String = '';
+    
+    // Convert each byte of the base 256 string to its hexadecimal representation
+    for (let i = 0; i < base256String.length; i++) {
+      const byte = base256String.charCodeAt(i);
+      base16String += byte.toString(16).padStart(2, '0'); // Ensure each byte is two digits
+    }
+    
+    return base16String;
   }
- };
+ }
 })();
