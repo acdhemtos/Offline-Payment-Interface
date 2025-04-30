@@ -9,16 +9,16 @@
   @require_once('key.php');
   if(!validKey($session_key)){display(16);}
 
-  $receiver = $data["receiver"];
-  
   $amount = $data["amount"];
   @require_once('isValidAmount.php');
-  if(!isValidAmount($amount)){display(37);}
+  if(!isValidAmount($receiver)){display(37);}
   
   
   $pin = $data['pin'];
   @require_once('isValidPin.php');
   if(!isValidPin($pin)){display(21);}
+  
+  $receiver = $data["receiver"];
   
   if($receiver==$username){display(27);}
   
