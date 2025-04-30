@@ -10,17 +10,17 @@ dotenv.config();
 export default defineConfig({
   server: {
     https: process.env.VITE_HTTPS === 'true' && {
-      key: fs.readFileSync(process.env.VITE_SSL_KEY_FILE), // Read the key file
-      cert: fs.readFileSync(process.env.VITE_SSL_CRT_FILE), // Read the certificate file
+      key: fs.readFileSync(process.env.VITE_SSL_KEY_FILE), 
+      cert: fs.readFileSync(process.env.VITE_SSL_CRT_FILE), 
     },
     proxy: {
       '/api': {
-        target: process.env.VITE_API_BASE_URL, // Use the API base URL from .env
+        target: process.env.VITE_API_BASE_URL, 
         changeOrigin: true,
       },
     },
-    host: '0.0.0.0', // This allows access from other devices
-    port: parseInt(process.env.VITE_PORT, 10) || 3000, // Use the port from .env or default to 3000
+    host: '0.0.0.0',
+    port: parseInt(process.env.VITE_PORT, 10) || 3000, 
   },
   base: './',
   plugins: [react()],
