@@ -27,5 +27,9 @@ server.on('error', (err) => {
   console.error('DNS Server Error:', err);
 });
 
+server.on('listening', () => {
+  console.log('DNS server is actively listening for requests.');
+});
+
 server.serve(53, '0.0.0.0'); // Listen on all interfaces
 console.log('DNS server running on port 53');
