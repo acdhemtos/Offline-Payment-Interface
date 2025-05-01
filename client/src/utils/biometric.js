@@ -4,19 +4,18 @@ async function biometric() {
   try {
     await navigator.credentials.create({
       publicKey: {
-        challenge: new Uint8Array(16),
+        challenge: crypto.getRandomValues(new Uint8Array(32)),
         rp: {
-          name: "My App"
-          //id:"192.168.137.1"
-         },
+          name: "My App",
+          // id: "localhost" // Optional, remove if not needed
+        },
         user: {
-          id: new Uint8Array(8),
+          id: crypto.getRandomValues(new Uint8Array(16)),
           name: "user@example.com",
           displayName: "User",
         },
         pubKeyCredParams: [
           { type: "public-key", alg: -7 },
-          // { type: "public-key", alg: -257 },
         ],
         authenticatorSelection: {
           authenticatorAttachment: "platform",
@@ -33,5 +32,6 @@ async function biometric() {
   }
   return true;
 }
+
 
 export default biometric;
