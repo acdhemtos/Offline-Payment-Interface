@@ -10,6 +10,7 @@ C = IN
 ST = Delhi
 O = LocalDev
 CN = 192.168.137.1
+SAN = 192.168.137.1
 
 [req_ext]
 subjectAltName = @alt_names
