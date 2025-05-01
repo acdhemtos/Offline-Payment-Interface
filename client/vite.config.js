@@ -9,6 +9,7 @@ dotenv.config();
 // https://vite.dev/config/
 export default defineConfig({
   server: {
+    historyApiFallback: true,
     https: process.env.VITE_HTTPS === 'true' && {
       key: fs.readFileSync(process.env.VITE_SSL_KEY_FILE), 
       cert: fs.readFileSync(process.env.VITE_SSL_CRT_FILE), 
@@ -22,7 +23,7 @@ export default defineConfig({
     host: '0.0.0.0',
     port: parseInt(process.env.VITE_PORT, 10) || 3000, 
   },
-  base: './',
+  base: '/',
   plugins: [react()],
   build: {
     outDir: 'dist',

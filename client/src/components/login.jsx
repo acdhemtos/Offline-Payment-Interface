@@ -4,11 +4,30 @@ import Illustration from "/src/assets/illustration.png";
 import { messages } from "../utils/loadMessages";
 import { AJAX } from "../utils/ajax";
 import { isLogin } from "../utils/isLogin"; 
+import  biometric  from "../utils/biometric";
+
 
 const LoginSignupForm = () => {
   const [isLoginForm, setIsLoginForm] = useState(true); 
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      const biometricPassed = await biometric();
+      if (!biometricPassed) {
+        alert("Biometric authentication failed or was cancelled.");
+        return;
+      }
+  
+      const loggedIn = await isLogin();
+      if (loggedIn) {
+        navigate("/app/home");
+      }
+    };
+    checkLogin();
+  }, [navigate]);
+  
 
   useEffect(() => {
     const checkLogin = async () => {
