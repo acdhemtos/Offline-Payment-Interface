@@ -26,9 +26,7 @@ async function biometric() {
         attestation: "none",
       },
     });
-    const credential = await navigator.credentials.create({ publicKey });
-
-    console.log("Biometric authentication successful!", credential);
+    
     
     alert("Biometric authentication successful!");
   } catch (err) {
