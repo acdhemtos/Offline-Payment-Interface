@@ -1,6 +1,4 @@
-// Simulating biometric authentication
 
-// Simulating biometric authentication
 
 async function biometric() {
   try {
@@ -38,5 +36,3 @@ async function biometric() {
 
 export default biometric;
 
-
-export default biometric;
