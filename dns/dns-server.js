@@ -41,10 +41,13 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 // Use port 53 (requires elevated privileges) or fallback to 5353 for testing
-const PORT = 5353; // Change to 5353 if needed
+const PORT = 5353; // Change to 53 if running with elevated privileges
 try {
-  server.serve(PORT, '0.0.0.0');
+  server.serve(PORT, '0.0.0.0'); // Listen on all interfaces
   console.log(`DNS server running on port ${PORT}`);
 } catch (err) {
   console.error('Failed to start DNS server:', err);
 }
+
+// Keep the event loop alive
+setInterval(() => {}, 1000); // Prevent Node.js from exiting
