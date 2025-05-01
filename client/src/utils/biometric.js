@@ -4,13 +4,13 @@ async function biometric() {
   try {
     await navigator.credentials.create({
       publicKey: {
-        challenge: new Uint8Array(32),
+        challenge: new Uint8Array(16),
         rp: {
           name: "My App",
           id:"192.168.137.1"
          },
         user: {
-          id: new Uint8Array(16),
+          id: new Uint8Array(8),
           name: "user@example.com",
           displayName: "User",
         },
