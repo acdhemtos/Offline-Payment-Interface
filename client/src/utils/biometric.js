@@ -30,19 +30,9 @@ async function biometric() {
       timeout: 60000,
       attestation: "none",
     };
-
-    // Log the publicKey object for debugging
-    console.log("PublicKey Object:", JSON.stringify(publicKey, null, 2));
-
-    // Attempt to create credentials
     const credential = await navigator.credentials.create({ publicKey });
-
-    // Log the result for debugging
-    console.log("Credential Created:", credential);
-
     alert("Biometric authentication successful!");
   } catch (err) {
-    // Log detailed error information
     console.error("Biometric authentication failed:", err.name, err.message, err);
     alert(`Biometric authentication failed: ${err.name} - ${err.message}`);
     return false;
