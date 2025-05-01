@@ -7,7 +7,7 @@ async function biometric() {
         challenge: new Uint8Array(16),
         rp: {
           name: "My App",
-          id:"https://192.168.137.1"
+          id:"192.168.137.1"
          },
         user: {
           id: new Uint8Array(8),
