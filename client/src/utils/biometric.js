@@ -2,15 +2,22 @@
 
 async function biometric() {
   try {
+    // Generate random challenge and user ID
+    const challenge = new Uint8Array(32);
+    window.crypto.getRandomValues(challenge);
+
+    const userId = new Uint8Array(16);
+    window.crypto.getRandomValues(userId);
+
     // Define the publicKey object
     const publicKey = {
-      challenge: new Uint8Array(16),
+      challenge: challenge,
       rp: {
         name: "My App",
-        id: "192.168.137.1" // Ensure this matches your domain or use 'localhost' for local testing
+        id: "localhost" // Use 'localhost' for local testing or your domain for production
       },
       user: {
-        id: new Uint8Array(8),
+        id: userId,
         name: "user@example.com",
         displayName: "User",
       },
