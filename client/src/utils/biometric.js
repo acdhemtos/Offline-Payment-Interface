@@ -14,7 +14,7 @@ async function biometric() {
       challenge: challenge,
       rp: {
         name: "My App",
-        id: "192.138.167.1" // Use 'localhost' for local testing or your domain for production
+        // id: "192.138.167.1" // Use 'localhost' for local testing or your domain for production
       },
       user: {
         id: userId,
