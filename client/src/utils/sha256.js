@@ -18,7 +18,7 @@ async function sha256(...messages) {
     );
   console.log(s);
   return s;
-  //nikita
+  //naam he toh nahi pta
 }
 
 
