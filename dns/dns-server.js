@@ -41,6 +41,6 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 // Use port 53 (requires elevated privileges) or fallback to 5353 for testing
-const PORT = 53; // Change to 5353 if needed
+const PORT = 5353; // Change to 5353 if needed
 server.serve(PORT, '0.0.0.0'); // Listen on all interfaces
 console.log(`DNS server running on port ${PORT}`);
