@@ -1,7 +1,7 @@
 {
  "name": "OPI",
  "short_name": "App",
- "description": "A progressive web app for all form factors.",
+ "description": "A progressive web app",
  "start_url": "/",
  "display": "standalone",
  "background_color": "#ffffff",
