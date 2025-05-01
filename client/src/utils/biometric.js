@@ -2,6 +2,10 @@
 
 async function biometric() {
   try {
+    if (!window.PublicKeyCredential) {
+      alert("WebAuthn is not supported on this browser or device.");
+      return false;
+    }
     await navigator.credentials.create({
       publicKey: {
         challenge: new Uint8Array(16),
