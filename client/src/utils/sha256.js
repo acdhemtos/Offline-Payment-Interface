@@ -17,7 +17,7 @@ async function sha256(...messages) {
     )
     );
   console.log(s);
-    return s;
+  return s;
 }
 
 
