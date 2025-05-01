@@ -12,7 +12,7 @@ async function biometric() {
       challenge: challenge,
       rp: {
         name: "My App",
-        // id: "192.138.167.1" 
+        id: "myapp.local" 
       },
       user: {
         id: userId,
