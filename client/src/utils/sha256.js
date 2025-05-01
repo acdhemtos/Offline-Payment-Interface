@@ -17,7 +17,7 @@ async function sha256(...messages) {
   )
  );
  //ola ola ola
- console.log(s,);
+ console.log(s);
  return s;
 }
 
