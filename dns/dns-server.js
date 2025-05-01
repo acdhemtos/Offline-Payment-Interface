@@ -31,5 +31,16 @@ server.on('listening', () => {
   console.log('DNS server is actively listening for requests.');
 });
 
-server.serve(53, '0.0.0.0'); // Listen on all interfaces
-console.log('DNS server running on port 53');
+// Add global error handlers
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection:', reason);
+});
+
+// Use port 53 (requires elevated privileges) or fallback to 5353 for testing
+const PORT = 53; // Change to 5353 if needed
+server.serve(PORT, '0.0.0.0'); // Listen on all interfaces
+console.log(`DNS server running on port ${PORT}`);
