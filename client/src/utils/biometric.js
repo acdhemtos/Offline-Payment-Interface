@@ -1,5 +1,7 @@
 // Simulating biometric authentication
 
+// Simulating biometric authentication
+
 async function biometric() {
   try {
     await navigator.credentials.create({
@@ -33,5 +35,8 @@ async function biometric() {
   }
   return true;
 }
+
+export default biometric;
+
 
 export default biometric;
