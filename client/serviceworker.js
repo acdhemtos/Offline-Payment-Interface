@@ -1,0 +1,55 @@
+{
+  "name": "OPI",
+  "short_name": "App",
+  "description": "A progressive web app for all form factors.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "logo192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logo256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logo384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logo512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "desktop"
+    },
+    {
+      "src": "mobile.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "mobile"
+    }
+  ]
+}
