@@ -12,7 +12,7 @@ const urlsToCache = [
   "/mobile.png",
   "static/js/main.chunk.js",
   "static/js/0.chunk.js",
-  "static"
+  "static/js/0.bundle.js"
 ];
 
 // Install the service worker and cache resources
