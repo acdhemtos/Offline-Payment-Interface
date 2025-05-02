@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Illustration from "/src/assets/illustration_2.svg";
 import { AJAX } from "../utils/ajax";
 import { messages } from "../utils/loadMessages";
 
