@@ -9,6 +9,7 @@ dotenv.config();
 // https://vite.dev/config/
 export default defineConfig({
   server: {
+    hmr: false,
     historyApiFallback: true,
     https: process.env.VITE_HTTPS === 'true' && {
       key: fs.readFileSync(process.env.VITE_SSL_KEY_FILE), 
