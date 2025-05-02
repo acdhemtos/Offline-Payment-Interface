@@ -93,7 +93,7 @@ const LoginSignupForm = () => {
       
       <div className="illustration-container w-full lg:w-1/2 rounded-t-lg border-2 border-solid lg:mb-0 h-64 lg:h-auto">
         <img
-          src={Illustration}
+          src="/illustration.png"
           alt="illustration"
           className="w-full h-full object-cover rounded-sm"
         />
