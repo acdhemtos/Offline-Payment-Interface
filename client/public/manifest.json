@@ -43,13 +43,13 @@
      "src": "desktop.png",
      "sizes": "1920x720",
      "type": "image/png",
-     "form_factor": "desktop"
+     "form_factor": "wide"
    },
    {
      "src": "mobile.png",
      "sizes": "720x1280",
      "type": "image/png",
-     "form_factor": "mobile"
+     "form_factor": "narrow"
    }
  ]
 }
