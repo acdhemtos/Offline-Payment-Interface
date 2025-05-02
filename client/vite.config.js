@@ -24,8 +24,8 @@ export default defineConfig({
     hmr: {
       protocol: 'wss',
       host: 'myapp.local',
-      port: 3000,
-      clientPort: 3000
+      port: 443,
+      clientPort: 443
     },
   base: '/',
   plugins: [react()],
