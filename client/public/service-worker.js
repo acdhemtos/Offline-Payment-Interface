@@ -14,7 +14,10 @@ const urlsToCache = [
   "/static/js/0.chunk.js",
   "/static/js/0.bundle.js",
   "/assets/illustration_2.svg",
-  "/assets/illustration.png"
+  "/assets/illustration.png",
+  "/android-chrome-192x192.png",
+  "/android-chrome-512x512.png",
+  "/android-chrome-192x192.png"
 ];
 
 // Install the service worker and cache resources
