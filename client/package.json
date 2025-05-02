@@ -5,7 +5,7 @@
   "homepage": "./",
   "type": "module",
   "scripts": {
-    "dev": "vite VITE_HOST=myapp.local",
+    "dev": "vite --host myapp.local",
     "build": "vite build && npm run generate-sw",
     "generate-sw": "npx workbox generateSW workbox-config.cjs",
     "lint": "eslint .",
