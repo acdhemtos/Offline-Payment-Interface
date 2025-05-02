@@ -20,6 +20,7 @@ const urlsToCache = [
   "/apple-touch-icon.png",
   "/favicon.ico",
   "/account/signup",
+  "/account/login", 
 ];
 
 // Install the service worker and cache resources
