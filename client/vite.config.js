@@ -22,7 +22,7 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-    host: '0.0.0.0',
+    // host: '0.0.0.0',
     port: parseInt(process.env.VITE_PORT, 10) || 3000, 
   },
   base: '/',
