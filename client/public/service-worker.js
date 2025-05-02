@@ -18,7 +18,7 @@ const urlsToCache = [
   "/android-chrome-192x192.png",
   "/android-chrome-512x512.png",
   "/apple-touch-icon.png",
-  "/favicon.ico"
+  "/favicon.ico",
 ];
 
 // Install the service worker and cache resources
