@@ -27,6 +27,7 @@ export default defineConfig({
       port: 443,
       clientPort: 443
     },
+  },
   base: '/',
   plugins: [react()],
   build: {
