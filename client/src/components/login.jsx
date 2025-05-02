@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Illustration from "/src/assets/illustration.png";
 import { messages } from "../utils/loadMessages";
 import { AJAX } from "../utils/ajax";
 import { isLogin } from "../utils/isLogin"; 
