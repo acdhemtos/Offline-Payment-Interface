@@ -10,9 +10,9 @@ const urlsToCache = [
   "/maskable.png",
   "/desktop.png",
   "/mobile.png",
-  "static/js/main.chunk.js",
-  "static/js/0.chunk.js",
-  "static/js/0.bundle.js"
+  "/static/js/main.chunk.js",
+  "/static/js/0.chunk.js",
+  "/static/js/0.bundle.js"
 ];
 
 // Install the service worker and cache resources
