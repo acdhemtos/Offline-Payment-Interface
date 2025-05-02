@@ -35,6 +35,13 @@ self.addEventListener("install", (event) => {
 self.addEventListener("fetch", (event) => {
   const apiUrl = "/api/";
 
+  if (
+    event.request.url.includes("@vite") ||
+    event.request.url.includes("src/main.jsx")
+  ) {
+    return; // Ignore these requests
+  }
+
   event.respondWith(
     fetch(event.request)
       .then((response) => {
