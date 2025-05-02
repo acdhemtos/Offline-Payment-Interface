@@ -21,6 +21,7 @@ const urlsToCache = [
   "/favicon.ico",
 ];
 
+// Install the service worker and cache resources
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -30,43 +31,41 @@ self.addEventListener("install", (event) => {
   );
 });
 
+// Fetch event: Network First strategy
 self.addEventListener("fetch", (event) => {
-  const apiUrl = "/api/"; 
+  const apiUrl = "/api/";
 
-  if (event.request.url.includes(apiUrl)) {
-    event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
-          });
-          return response;
-        })
-        .catch(() => {
-          return caches.match(event.request).then((cachedResponse) => {
-            if (cachedResponse) {
-              return cachedResponse;
-            }
-            return new Response("API data not available offline", { status: 503 });
-          });
-        })
-    );
-  } else {
-    event.respondWith(
-      caches.match(event.request).then((response) => {
-        return (
-          response ||
-          fetch(event.request).catch((error) => {
-            console.error("Fetch failed for:", event.request.url, error);
-            return new Response("Resource not available", { status: 404 });
-          })
-        );
+  event.respondWith(
+    fetch(event.request)
+      .then((response) => {
+        // If the request is successful, clone and cache the response
+        const responseClone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseClone);
+        });
+        return response;
       })
-    );
-  }
+      .catch(() => {
+        // If the network is unavailable, serve from cache
+        return caches.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          // Return a fallback response for API requests
+          if (event.request.url.includes(apiUrl)) {
+            return new Response(
+              JSON.stringify({ error: "Offline API access not available" }),
+              { status: 503, headers: { "Content-Type": "application/json" } }
+            );
+          }
+          // Return a generic fallback for other requests
+          return new Response("Resource not available", { status: 404 });
+        });
+      })
+  );
 });
 
+// Activate the service worker and clean up old caches
 self.addEventListener("activate", (event) => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
