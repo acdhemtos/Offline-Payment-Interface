@@ -12,21 +12,21 @@ const LoginSignupForm = () => {
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const checkLogin = async () => {
-      const biometricPassed = await biometric();
-      if (!biometricPassed) {
-        alert("Biometric authentication failed or was cancelled.");
-        return;
-      }
+  // useEffect(() => {
+  //   const checkLogin = async () => {
+  //     const biometricPassed = await biometric();
+  //     if (!biometricPassed) {
+  //       alert("Biometric authentication failed or was cancelled.");
+  //       return;
+  //     }
   
-      const loggedIn = await isLogin();
-      if (loggedIn) {
-        navigate("/app/home");
-      }
-    };
-    checkLogin();
-  }, [navigate]);
+  //     const loggedIn = await isLogin();
+  //     if (loggedIn) {
+  //       navigate("/app/home");
+  //     }
+  //   };
+  //   checkLogin();
+  // }, [navigate]);
   
 
   useEffect(() => {
