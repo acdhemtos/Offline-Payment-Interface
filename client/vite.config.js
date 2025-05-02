@@ -9,8 +9,6 @@ dotenv.config();
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-    // hmr: false,
-    historyApiFallback: true,
     host: "myapp.local",
     https: process.env.VITE_HTTPS === 'true' && {
       key: fs.readFileSync(process.env.VITE_SSL_KEY_FILE), 
@@ -22,9 +20,14 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-    // host: '0.0.0.0',
-    port: parseInt(process.env.VITE_PORT, 10) || 3000, 
-    
+    port: parseInt(process.env.VITE_PORT, 10) || 3000,
+    hmr: process.env.VITE_HTTPS === 'true'
+      ? {
+          protocol: 'wss',
+          host: 'myapp.local',
+          port: parseInt(process.env.VITE_PORT, 10) || 3000, // same as dev server port
+        }
+      : undefined,
   },
   base: '/',
   plugins: [react()],
