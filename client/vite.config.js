@@ -9,7 +9,7 @@ dotenv.config();
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-    hmr: false,
+    // hmr: false,
     historyApiFallback: true,
     host: "myapp.local",
     https: process.env.VITE_HTTPS === 'true' && {
