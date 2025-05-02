@@ -36,7 +36,13 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
       // Return the cached resource if available, otherwise fetch from network
-      return response || fetch(event.request);
+      return (
+        response ||
+        fetch(event.request).catch((error) => {
+          console.error("Fetch failed for:", event.request.url, error);
+          return new Response("Resource not available", { status: 404 });
+        })
+      );
     })
   );
 });
