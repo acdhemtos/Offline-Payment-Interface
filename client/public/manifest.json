@@ -41,13 +41,13 @@
  "screenshots": [
    {
      "src": "desktop.png",
-     "sizes": "1920x1080",
+     "sizes": "1920x720",
      "type": "image/png",
      "form_factor": "desktop"
    },
    {
      "src": "mobile.png",
-     "sizes": "1080x1920",
+     "sizes": "720x1280",
      "type": "image/png",
      "form_factor": "mobile"
    }
