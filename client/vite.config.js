@@ -21,15 +21,12 @@ export default defineConfig({
       },
     },
     port: parseInt(process.env.VITE_PORT, 10) || 3000,
-    hmr: process.env.VITE_HTTPS === 'true'
-      ? {
-          protocol: 'wss',
-          host: 'myapp.local',
-        port: parseInt(process.env.VITE_PORT, 10) || 3000,
-        clientPort: parseInt(process.env.VITE_PORT, 10) || 3000, // same as dev server port
-        }
-      : undefined,
-  },
+    hmr: {
+      protocol: 'wss',
+      host: 'myapp.local',
+      port: 3000,
+      clientPort: 3000
+    },
   base: '/',
   plugins: [react()],
   build: {
