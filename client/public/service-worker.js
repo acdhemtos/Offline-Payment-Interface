@@ -21,7 +21,6 @@ const urlsToCache = [
   "/favicon.ico",
 ];
 
-// Install the service worker and cache resources
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -31,16 +30,13 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Intercept fetch requests and serve cached resources or handle API requests
 self.addEventListener("fetch", (event) => {
-  const apiUrl = "/api/"; // Adjust this to match your backend API base path
+  const apiUrl = "/api/"; 
 
   if (event.request.url.includes(apiUrl)) {
-    // Handle API requests
     event.respondWith(
       fetch(event.request)
         .then((response) => {
-          // Clone the response and store it in the cache
           const responseClone = response.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, responseClone);
@@ -48,7 +44,6 @@ self.addEventListener("fetch", (event) => {
           return response;
         })
         .catch(() => {
-          // Serve cached API response if available
           return caches.match(event.request).then((cachedResponse) => {
             if (cachedResponse) {
               return cachedResponse;
@@ -58,7 +53,6 @@ self.addEventListener("fetch", (event) => {
         })
     );
   } else {
-    // Handle other requests (e.g., static assets)
     event.respondWith(
       caches.match(event.request).then((response) => {
         return (
@@ -73,7 +67,6 @@ self.addEventListener("fetch", (event) => {
   }
 });
 
-// Activate the service worker and clean up old caches
 self.addEventListener("activate", (event) => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
