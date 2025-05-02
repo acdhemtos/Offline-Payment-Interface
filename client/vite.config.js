@@ -11,6 +11,7 @@ export default defineConfig({
   server: {
     hmr: false,
     historyApiFallback: true,
+    host: "myapp.local",
     https: process.env.VITE_HTTPS === 'true' && {
       key: fs.readFileSync(process.env.VITE_SSL_KEY_FILE), 
       cert: fs.readFileSync(process.env.VITE_SSL_CRT_FILE), 
