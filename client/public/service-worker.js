@@ -31,20 +31,46 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Intercept fetch requests and serve cached resources
+// Intercept fetch requests and serve cached resources or handle API requests
 self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      // Return the cached resource if available, otherwise fetch from network
-      return (
-        response ||
-        fetch(event.request).catch((error) => {
-          console.error("Fetch failed for:", event.request.url, error);
-          return new Response("Resource not available", { status: 404 });
+  const apiUrl = "/api/"; // Adjust this to match your backend API base path
+
+  if (event.request.url.includes(apiUrl)) {
+    // Handle API requests
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          // Clone the response and store it in the cache
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+          return response;
         })
-      );
-    })
-  );
+        .catch(() => {
+          // Serve cached API response if available
+          return caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+            return new Response("API data not available offline", { status: 503 });
+          });
+        })
+    );
+  } else {
+    // Handle other requests (e.g., static assets)
+    event.respondWith(
+      caches.match(event.request).then((response) => {
+        return (
+          response ||
+          fetch(event.request).catch((error) => {
+            console.error("Fetch failed for:", event.request.url, error);
+            return new Response("Resource not available", { status: 404 });
+          })
+        );
+      })
+    );
+  }
 });
 
 // Activate the service worker and clean up old caches
