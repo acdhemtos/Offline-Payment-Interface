@@ -143,7 +143,7 @@ const SignupForm = () => {
     <main className="flex flex-col lg:flex-row rounded-lg overflow-hidden p-4 max-w-5xl mx-auto md:p-0 shadow-lg min-h-screen lg:h-auto">
       <div className="illustration-container w-full lg:w-1/2 rounded-t-lg border-2 border-solid lg:mb-0 h-64 lg:h-auto">
         <img
-          src={Illustration}
+          src="/illustration_2.svg"
           alt="illustration"
           className="w-full h-full object-cover rounded-sm"
         />
