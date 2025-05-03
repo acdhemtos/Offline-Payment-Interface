@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
 import { FaRupeeSign, FaArrowLeft } from "react-icons/fa";
 import Cookies from "js-cookie";
-import { encode, decode } from "../utils/qrFunctions";
+import { QR } from "../utils/qrFunctions";
 import { AJAX } from "../utils/ajax";
 import jsQR from "jsqr";
 import { ClipLoader } from "react-spinners";
