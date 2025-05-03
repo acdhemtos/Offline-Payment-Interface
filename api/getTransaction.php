@@ -30,7 +30,7 @@ function getTransactions($username,$last_id){
   $id = $data["id"];
   if(!is_int($id)){display(39);}
   
-  display(0, array('ids' => getTransactions($username,$last_id)));
+  display(0, array('data' => getTransactions($username,$last_id)));
  }
  
 ?>
