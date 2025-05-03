@@ -337,7 +337,7 @@ const QR = {
 
     function resetEver(){
       document.querySelector('#camera-container').removeEventListener('click', resetEver);
-      generateQR(QR.encode("username+name",username,name));\
+      generateQR(QR.encode("username+name",username,name));
       document.body.removeAttribute("class");
       looking = true;
     }
