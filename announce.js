@@ -41,3 +41,9 @@ function announce(amt){
  return ret;
 
 }
+
+console.log(announce(123.45));
+console.log(announce(1234.5));
+console.log(announce(0.45));
+console.log(announce(123.45));
+console.log(announce(123.45));
