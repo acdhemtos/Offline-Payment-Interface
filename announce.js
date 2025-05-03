@@ -1,7 +1,7 @@
 function getTwo(digits){
  const l = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
  if(digits<20){
-  return l[digits];
+  return [l[digits]];
  }
  const ones = digits%10;
  const tens = Math.floor(digits/10)-2;
