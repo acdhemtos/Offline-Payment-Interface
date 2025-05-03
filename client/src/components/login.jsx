@@ -68,6 +68,7 @@ const LoginSignupForm = () => {
                 if (type === "updateConnectionStatus") {
                   setIsConnected(isConnected);
                 } else if (type === "logout") {
+                  console.log("Received logout message from service worker.");
                   alert("Your session has expired or you logged in on another device. Logging out.");
                   // Clear cookies and redirect to login
                   document.cookie = "session_key=; path=/; max-age=0;";
