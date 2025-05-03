@@ -169,3 +169,12 @@ export const decode = (() => {
   }
  }
 })();
+
+export const QR = (
+  encode : function(encodeFormat, ...values){
+
+  },
+  decode : function(){
+
+  }
+);
