@@ -210,7 +210,13 @@ export const QR = {
     }
     if(n!=decodeString.length){return false;}
     let ret = {};
-    let i = 0;
+    let k = 0;
+    for(let i=0;i<decodeFormat.length;++i){
+    let j = k + lengths[decodeFormat[i]];
+    
+    k = j;
+    n += lengths[decodeFormat[i]];
+    }
   }
 };
 */
