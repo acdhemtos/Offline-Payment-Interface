@@ -59,14 +59,16 @@ const OPIQRCodeSVG = () => {
       const privateKey = Cookies.get("private_key");
       
 
-      const hash = sha256(receiver+adjustedAmount+rN+time+privateKey).then(hash => {
+      sha256(receiver+adjustedAmount+rN+time+privateKey).then(hash => {
         console.log(receiver, adjustedAmount, rN, time, privateKey);
-        
+        detailsHashRef.current = QR.decode("hash",hash);
+        const qrDataString = QR.encode("username+time",username,time) + hash;
+        setQrData(qrDataString);
       });
-      detailsHashRef.current = QR.decode("hash",hash);
-      const qrDataString = QR.encode("username+time",username,time) + hash;
+      
+      
 
-      setQrData(qrDataString);
+      
     };
 
     if (receiver && amount) {
