@@ -5,7 +5,7 @@
   "homepage": "./",
   "type": "module",
   "scripts": {
-    "dev": "vite ",
+    "dev": "vite --host acdhemtos.duckdns.org",
     "build": "vite build && npm run generate-sw",
     "generate-sw": "npx workbox generateSW workbox-config.cjs",
     "lint": "eslint .",
