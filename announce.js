@@ -88,7 +88,7 @@ function announce(amt){
   }
   ret = [...ret, ...getTwo(amt),'paisa'];
  }
- return ret;
+ playNumberSequence(ret);
 
 }
 
