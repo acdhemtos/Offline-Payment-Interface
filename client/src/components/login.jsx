@@ -107,13 +107,13 @@ const LoginSignupForm = () => {
             name: "Private Key Credential",
           });
 
-          let abc = navigator.credentials
+           navigator.credentials
             .store(credential)
-            .then((res) => {
-              console.log(res);
-              console.log("Private key stored in credentials");
-              console.log(abc);
-            })
+            // .then((res) => {
+            //   console.log(res);
+            //   console.log("Private key stored in credentials");
+            //   console.log(abc);
+            // })
           
             .catch((error) => {
               console.error("Error storing private key in credentials:", error);
