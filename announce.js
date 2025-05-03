@@ -6,7 +6,11 @@ function getTwo(digits){
  const ones = digits%10;
  const tens = Math.floor(digits/10)-2;
  const t = ['twenty','thirty','fourty','fifty','sixty','seventy','eighty','ninety'];
- let ret = [t[tens]]; 
+ let ret = [t[tens]];
+ if(ones!=0){
+  ret = [...ret, l[ones]]
+ }
+ return ret; 
 }
 
 for(let i=0;i<100;++i){
