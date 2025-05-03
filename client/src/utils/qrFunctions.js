@@ -220,7 +220,7 @@ export const QR = {
       ret[decodeFormat[i]] = o;
       k = j;
     }
-    console.log("DECODED",ret);
+    console.log("DECODED",decodeString,decodeFormat,ret);
     return ret;
   }
 };
