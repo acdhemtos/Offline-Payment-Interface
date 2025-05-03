@@ -1,32 +1,45 @@
 <?php
  
- function transaction($username,$amount){
-  $GLOBALS['conn']->beginTransaction();
+ function transact($senderUsername, $receiverUsername, $amount, $type) {
+  $senderId = 0;
+  $receiverId = 0;
+
+  if (!is_null($senderUsername)) {
+   $stmt = $GLOBALS['conn']->prepare("SELECT id FROM users WHERE username = ?");
+   $stmt->bind_param("s", $senderUsername);
+   $stmt->execute();
+   $stmt->bind_result($senderId);
+   $stmt->fetch();
+   $stmt->close();
+  }
+
+  if (!is_null($receiverUsername)) {
+  $stmt = $GLOBALS['conn']->prepare("SELECT id FROM users WHERE username = ?");
+  $stmt->bind_param("s", $receiverUsername);
+  $stmt->execute();
+  $stmt->bind_result($receiverId);
+  $stmt->fetch();
+  $stmt->close();
+  }
+
+  $stmt = $GLOBALS['conn']->prepare("INSERT INTO transactions (sender, receiver, amount, type) VALUES (?, ?, ?, ?)");
+  $stmt->bind_param("iiii", $senderId, $receiverId, $amount, $type);
+  $stmt->execute();
+  $stmt->close();
   
-  $GLOBALS['conn']->prepare('
-   UPDATE users 
-   SET 
-    balance = balance + :amount 
-   WHERE 
-    username = :username
-  ')->execute([
-   ':amount' => $amount,
-   ':username' => $username
-  ]);
-  
-  $GLOBALS['conn']->prepare('
-   INSERT INTO transactions (receiver, amount, type)
-   VALUES (
-    (SELECT id FROM users WHERE username = :receiverUsername),
-    :amount,
-    :type
-   )
-  ')->execute([
-   ':receiverUsername' => $username,
-   ':amount' => $amount,
-   ':type' => 0
-  ]);
-  
-  $GLOBALS['conn']->commit();
+  if ($senderId !== 0) {
+   $stmt = $conn->prepare("UPDATE users SET balance = balance - ? WHERE id = ?");
+   $stmt->bind_param("ii", $amount, $senderId);
+   if (!$stmt->execute()) throw new Exception("Sender update failed: " . $stmt->error);
+   $stmt->close();
+  }
+
+  $stmt = $conn->prepare("UPDATE users SET balance = balance + ? WHERE id = ?");
+  $stmt->bind_param("ii", $amount, $receiverId);
+  $stmt->execute();
+  $stmt->close();
  }
+
+
+
 ?>
