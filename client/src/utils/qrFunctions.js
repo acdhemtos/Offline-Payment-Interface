@@ -107,6 +107,7 @@ const decode = (() => {
  }
 
  return {
+  //...Object.fromEntries(['username', 'receiver', 'sender'].map(k => [k, 10])),
   username: (arr) => {
    let str = "";
   try {
