@@ -107,7 +107,7 @@ const ReceivePage = () => {
           console.log("here");
           let dat = QR.decode("username+time+hash", rawValue);
           console.log("Decoded data:", dat);
-          console.log("raw", raw);
+          console.log("raw", rawValue);
           
           console.log(dat);
 
