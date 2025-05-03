@@ -339,7 +339,9 @@ const QR = {
       if(looking){
         let ret = QR.decode("sender+amount+time+details_hash");
         if(ret!=false){
-          
+          looking = false;
+          document.body.setAttribute("class","yellow");
+          //send Request
         }
       }
       
