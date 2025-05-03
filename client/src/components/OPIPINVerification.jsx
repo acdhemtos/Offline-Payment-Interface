@@ -110,8 +110,10 @@ const OPIQRCodeSVG = () => {
                   canvas.height
                 );
                 const code = jsQR(imageData.data, canvas.width, canvas.height);
+                
 
                 if (code) {
+                  console.log("code", code);
                   const private_key = Cookies.get("private_key");
                   const string = code.data;
                   const n = string.length;
