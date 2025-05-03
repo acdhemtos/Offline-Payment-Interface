@@ -63,6 +63,7 @@ const LoginSignupForm = () => {
               
               navigator.serviceWorker.addEventListener("message", (event) => {
                 const { type, isConnected } = event.data;
+                console.log(event.data);
 
                 if (type === "updateConnectionStatus") {
                   setIsConnected(isConnected);
