@@ -342,6 +342,21 @@ const QR = {
           looking = false;
           document.body.setAttribute("class","yellow");
           //send Request
+          fetch("./api/soundBox.php" + "?" + new Date().getTime().toString(), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({...ret,"username":username}),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.code !== 0) {
+                console.error("Error:", data.message || "Unknown error", data);
+              }
+              return data;
+            })
+            .catch((error) => {
+              console.error("AJAX Error:", error);
+            });
         }
       }
       
