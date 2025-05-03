@@ -13,7 +13,7 @@ const index = {
  }
 }
 
-export const encode = (() => {
+const encode = (() => {
  function number(num, size) {
   let str = "";
   num = BigInt(num)
@@ -80,7 +80,7 @@ export const encode = (() => {
  };
 })();
 
-export const decode = (() => {
+const decode = (() => {
  
  function number(str) {
   let num = BigInt(0);
