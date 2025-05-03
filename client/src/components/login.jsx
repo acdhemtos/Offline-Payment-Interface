@@ -90,13 +90,10 @@ const LoginSignupForm = () => {
         document.cookie = `username=${username}; path=/; max-age=604800; `;
         //document.cookie = `private_key=${data.private_key}; path=/; max-age=604800; `;
 
-        if ("Notification" in window) {
-          const permission = await Notification.requestPermission();
-          if (permission === "granted") {
-            console.log("Notification permission granted.");
-          } else {
-            console.warn("Notification permission denied.");
-          }
+        if (navigator.credentials && window.PasswordCredential) {
+          console.log("Credential Management API is supported.");
+        } else {
+          console.warn("Credential Management API is not supported in this browser.");
         }
         if (navigator.credentials && window.PasswordCredential) {
           const credential = new PasswordCredential({
