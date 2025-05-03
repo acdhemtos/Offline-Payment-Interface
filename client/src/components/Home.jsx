@@ -30,7 +30,8 @@ const Home = () => {
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const username = decodeURIComponent(Cookies.get("username"));
+        const rawUsername = Cookies.get("username");
+      const username = rawUsername ? decodeURIComponent(rawUsername) : "";
         const data = await AJAX("/api/getName.php", {
           name_username: username,
         });
