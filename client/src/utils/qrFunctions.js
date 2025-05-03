@@ -170,23 +170,41 @@ export const decode = (() => {
   }
  }
 })();
+
 /*
+```
+Username 10 (26+10+1)^15
+Amount    3 10^7
+Time      2 10^4
+Trans_ID   4 
+Name     37 (26+1+1)^60
+Hash     32
+```
+*/
+
+/*
+const lengths = {
+ "username" : 10,
+ "amount" : 3,
+ "time" : 2,
+ "trans_id" : 4,
+ "name" : 37,
+
+}
+
 export const QR = {
   encode : function(encodeFormat, ...values){
     encodeFormat = encodeFormat.split('+');
     if(encodeFormat.length!==values.length){ throw "MisMatched Parameters"; }
     let str = "";
     for(let i=0;i<encodeFormat.length;++i){
-     let s = encode[encodeFormat[i]](values(i));
-     if(s===false){
-      return false;
-     }
-     str += s;
+     str += encode[encodeFormat[i]](values(i));
     }
     return str;
   },
-  decode : function(){
-    console.log("HHEL");
+  decode : function(decodeFormat,decodeString){
+    let n = 0;
+    decodeFormat = decodeFormat.split('+');
   }
 };
 */
