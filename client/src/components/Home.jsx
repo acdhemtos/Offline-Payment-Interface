@@ -262,7 +262,7 @@ const Home = () => {
             Manage services
           </h2>
 
-          <div className="bg-[#f5f7ff] rounded-2xl shadow-sm border border-gray-200 px-3 py-6">
+          <div className="bg-[#f5f7ff] rounded-2xl shadow-sm border border-blue-300 px-3 py-6">
             <div className="grid grid-cols-4 gap-2 text-center">
               {services.map((service) => (
                 <div
@@ -290,7 +290,7 @@ const Home = () => {
           <h2 className="text-base font-semibold text-gray-800 mb-3 px-1">
             Transactions
           </h2>
-          <div className="bg-[#f5f7ff] rounded-2xl shadow-sm border border-gray-200 px-3 py-2">
+          <div className="bg-[#f5f7ff] rounded-2xl shadow-sm border border-blue-300 px-3 py-2">
             <button
               className="w-full flex items-center justify-between rounded-xl px-4 py-3 hover:bg-white transition-all duration-300"
               onClick={() => navigate("/app/transactions")}
@@ -310,7 +310,10 @@ const Home = () => {
           </div>
         </section>
 
-        <div className="px-6 w-full max-w-md"></div>
+        <div className="px-6 w-full max-w-md">
+
+        <h1>sdfwfgr</h1>
+        </div>
       </div>
     </div>
   );
