@@ -61,8 +61,8 @@
  if(getBalance($sender)<$amount){handle(30);}
 
  @require_once('transaction.php');
- transaction($sender, $username, $amount, 2);
- 
+ $Id = transaction($sender, $username, $amount, 2);
+
  //auto TopUp
  handle(0,$Id);
  
