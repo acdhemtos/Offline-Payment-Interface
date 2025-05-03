@@ -217,9 +217,8 @@ export const QR = {
       if(o===false){return false;}
       ret[decodeFormat[i]] = o;
       k = j;
-      
     }
-      return ret;
+    return ret;
   }
 };
 */
