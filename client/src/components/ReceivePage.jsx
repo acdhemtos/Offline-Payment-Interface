@@ -103,13 +103,14 @@ const ReceivePage = () => {
             requestAnimationFrame(scan);
             return;
           }
-          let sender = decode.username(rawValue.slice(0, 10));
-          let time = decode.time(rawValue.slice(10, 12));
-          let details_hash = decode.hash(rawValue.slice(12, 44));
-          if (sender === false || time == false || details_hash === false) {
+          let dat = QR.decode("username+time+hash",rawValue);
+          
+
+          if (dat===false) {
             requestAnimationFrame(scan);
             return;
           }
+          let {sender,time,details_hash} = dat;
           //close webcam
           const stopStream = () => {
             if (video.srcObject) {
