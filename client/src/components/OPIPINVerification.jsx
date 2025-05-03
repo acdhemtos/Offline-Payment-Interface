@@ -32,7 +32,7 @@ const OPIQRCodeSVG = () => {
 
   useEffect(() => {
     const generateQRData = async () => {
-      const username = encode.username(encodeURIComponent(Cookies.get("username")));
+      const username = encode.username(decodeURIComponent(Cookies.get("username")));
       const tt = Date.now();
       const time = encode.time(tt);
       ti.current = time;
