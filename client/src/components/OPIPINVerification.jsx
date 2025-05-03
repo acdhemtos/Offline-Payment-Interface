@@ -113,7 +113,7 @@ const OPIQRCodeSVG = () => {
                 
 
                 if (code) {
-                  console.log("code",code);
+                  console.log("code", code);
                   const private_key = Cookies.get("private_key");
                   const string = code.data;
                   const n = string.length;
