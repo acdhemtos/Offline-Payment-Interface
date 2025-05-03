@@ -3,7 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { messages } from "../utils/loadMessages";
 import { AJAX } from "../utils/ajax";
 import { isLogin } from "../utils/isLogin"; 
-import  biometric  from "../utils/biometric";
+import biometric from "../utils/biometric";
+
 
 
 const LoginSignupForm = () => {
@@ -11,21 +12,21 @@ const LoginSignupForm = () => {
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const checkLogin = async () => {
-  //     const biometricPassed = await biometric();
-  //     if (!biometricPassed) {
-  //       alert("Biometric authentication failed or was cancelled.");
-  //       return;
-  //     }
+  useEffect(() => {
+    const checkLogin = async () => {
+      const biometricPassed = await biometric();
+      if (!biometricPassed) {
+        alert("Biometric authentication failed or was cancelled.");
+        return;
+      }
   
-  //     const loggedIn = await isLogin();
-  //     if (loggedIn) {
-  //       navigate("/app/home");
-  //     }
-  //   };
-  //   checkLogin();
-  // }, [navigate]);
+      const loggedIn = await isLogin();
+      if (loggedIn) {
+        navigate("/app/home");
+      }
+    };
+    checkLogin();
+  }, [navigate]);
   
 
   useEffect(() => {
