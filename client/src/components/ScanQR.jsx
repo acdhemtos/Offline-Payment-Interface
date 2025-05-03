@@ -57,12 +57,13 @@ const ScanQR = () => {
       if(obj!==false){
         navigate("/app/send", {
           state: {
-            qrData: ua,
+            qrData: obj,
             disableUserId: true,
             disableName: true,
             disableAmount: false,
           },
         });
+        return;
       }
 
       let username = "";
