@@ -192,9 +192,9 @@ const Home = () => {
         <div className="mt-20 mb-10 px-6 w-full max-w-md mx-auto">
           <div className="flex gap-4 justify-center">
             <div className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/20">
-              <p className="text-sm font-medium text-black/80">Welcome</p>
+              <p className="text-sm font-medium text-black/80">Welcome,</p>
               <h2 className="text-xl font-bold text-gray mt-1">
-                Hi, {username}!
+                {username}!
               </h2>
             </div>
 
