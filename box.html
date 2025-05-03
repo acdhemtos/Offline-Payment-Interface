@@ -360,8 +360,7 @@ const QR = {
               if (data.code == 0) {
                 let id = data.id;
                 let verification_hash = data.verification_hash;
-                
-                //qr
+                generateQR("trans_id+verification_hash",id,verification_hash);
                 document.body.setAttribute("green");
               }else{
                 //qr
