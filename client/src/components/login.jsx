@@ -93,13 +93,12 @@ const LoginSignupForm = () => {
         document.cookie = `username=${username}; path=/; max-age=604800; `;
         //document.cookie = `private_key=${data.private_key}; path=/; max-age=604800; `;
 
-        if (navigator.credentials && window.PasswordCredential) {
-          console.log("Credential Management API is supported.");
-        } else {
+        if (!navigator.credentials && window.PasswordCredential) {
           console.warn(
             "Credential Management API is not supported in this browser."
           );
         }
+
         if (navigator.credentials && window.PasswordCredential) {
           console.log("Credential Management API is supported.");
           const credential = new PasswordCredential({
@@ -108,12 +107,13 @@ const LoginSignupForm = () => {
             name: "Private Key Credential",
           });
 
-          navigator.credentials
+          let abc = navigator.credentials
             .store(credential)
             .then((res) => {
               console.log(res);
               console.log("Private key stored in credentials");
             })
+          console.log(abc);
             .catch((error) => {
               console.error("Error storing private key in credentials:", error);
             });
