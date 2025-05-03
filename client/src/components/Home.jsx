@@ -102,6 +102,13 @@ const Home = () => {
 
       if (data.code === 0) {
         // Clear cookies using js-cookie
+        if ("serviceWorker" in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          for (const registration of registrations) {
+            await registration.unregister();
+            console.log("Service Worker unregistered.");
+          }
+        }
         Cookies.remove("session_key", { path: "/" });
         Cookies.remove("username", { path: "/" });
         alert("You have been logged out.");
