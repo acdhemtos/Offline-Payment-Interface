@@ -25,4 +25,5 @@ function announce(amt){
  while(amt>999){
   amt -= 1000;
  }
+ 
 }
