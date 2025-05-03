@@ -80,6 +80,10 @@ const Home = () => {
       const username = Cookies.get("username");
       const session_key = Cookies.get("session_key");
 
+      if (navigator.credentials) {
+        await navigator.credentials.preventSilentaccess();
+      }
+
       console.log("Logout Payload:", { username, session_key });
 
       if (!session_key || !username) {
