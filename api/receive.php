@@ -60,48 +60,8 @@
  @require_once('getBalance.php');
  if(getBalance($sender)<$amount){handle(30);}
 
-
- $GLOBALS['conn']->beginTransaction();
-
- $stmt = $GLOBALS['conn']->prepare('
-  INSERT INTO transactions (sender, receiver, amount, type)
-  VALUES (
-   (SELECT id FROM users WHERE username = :senderUsername),
-   (SELECT id FROM users WHERE username = :receiverUsername),
-   :amount,
-   :type
-  )
- ');
- $stmt->execute([
-  ':senderUsername' => $sender,
-  ':receiverUsername' => $username,
-  ':amount' => $amount,
-  ':type' => 2
- ]);
- 
- $Id = $GLOBALS['conn']->lastInsertId();
- 
- $stmt = $GLOBALS['conn']->prepare('
-  UPDATE users
-  SET balance = balance - :amount
-  WHERE username = :senderUsername
- ');
- $stmt->execute([
-  ':amount' => $amount,
-  ':senderUsername' => $sender
- ]);
- 
- $stmt = $GLOBALS['conn']->prepare('
-  UPDATE users
-  SET balance = balance + :amount
-  WHERE username = :receiverUsername
- ');
- $stmt->execute([
-  ':amount' => $amount,
-  ':receiverUsername' => $username
- ]);
-
- $GLOBALS['conn']->commit();
+ @require_once('transaction.php');
+ transaction($sender, $username, $amount, 2);
  //auto TopUp
  handle(0,$Id);
  
