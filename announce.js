@@ -22,7 +22,7 @@ function announce(amt){
   amt -= 100000;
  }
  if(amt>9999){
-  ret = [...ret, ...getTwo(Math.floor(amt/100), 'hundred')];
+  ret = [...ret, ...getTwo(Math.floor(amt/10000), 'hundred')];
  }
  while(amt>99){
   amt -= 100;
