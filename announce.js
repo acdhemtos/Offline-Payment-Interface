@@ -1,3 +1,5 @@
+let audios = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty','thirty','fourty','fifty','sixty','seventy','eighty','ninety','thousand','hundred','rupees','and','paisa'];
+
 function getTwo(digits){
  const l = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
  if(digits<20){
@@ -13,7 +15,7 @@ function getTwo(digits){
  return ret; 
 }
 
-function announce(amt){
+async function announce(amt){
  let ret = []
  if(amt>99999){
   ret = [...getTwo(Math.floor(amt/100000)),'thousand'];
