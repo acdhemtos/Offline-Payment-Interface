@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 
 function AJAX(url, data) {
-  const username = Cookies.get("username");
-  const sessionKey = Cookies.get("session_key");
+  const username = decodeURIComponent(Cookies.get("username") || "");
+  const sessionKey = decodeURIComponent(Cookies.get("session_key") || "");
 
   const requestData = { ...data, username, session_key: sessionKey };
 
