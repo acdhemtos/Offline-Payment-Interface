@@ -39,8 +39,6 @@
   @require_once('transaction.php');
   $Id = transaction($username, $receiver, $amount, 1);
   
-  
-  
   display(0, array('id' => $Id));
  }
  
