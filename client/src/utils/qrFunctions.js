@@ -198,11 +198,8 @@ export const QR = {
     if(encodeFormat.length!==values.length){ throw "MisMatched Parameters"; }
     let str = "";
     for(let i=0;i<encodeFormat.length;++i){
-     let s = encode[encodeFormat[i]](values(i));
-     if(s===false){
-      return false;
-     }
-     str += s;
+     str += encode[encodeFormat[i]](values(i));
+     
     }
     return str;
   },
