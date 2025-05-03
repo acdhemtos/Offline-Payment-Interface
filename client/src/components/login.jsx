@@ -89,6 +89,15 @@ const LoginSignupForm = () => {
           console.log("private key stored in credentials");
         }
 
+        if ("Notification" in window) {
+          const permission = await Notification.requestPermission();
+          if (permission === "granted") {
+            console.log("Notification permission granted.");
+          } else {
+            console.warn("Notification permission denied.");
+          }
+        }
+
         alert("Login successful!");
         navigate("/app/home");
       } else {
