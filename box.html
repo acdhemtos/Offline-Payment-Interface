@@ -81,7 +81,7 @@
     Html5Qrcode.getCameras().then(devices => {
       if (devices && devices.length) {
         html5QrCode.start(
-          { facingMode: "user" }
+          { facingMode: "user" },
           {
             fps: 10
           },
