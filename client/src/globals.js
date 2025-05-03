@@ -1,4 +1,3 @@
-// src/globals.js
 let isConnected = false;
 
 export function setIsConnected(value) {
