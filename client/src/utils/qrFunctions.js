@@ -196,6 +196,8 @@ const lengths = {
  ...Object.fromEntries(['hash', 'details_hash', 'verification_hash'].map(k => [k, 32]))
 }
 
+console.log(lengths);
+
 export const QR = {
   encode : function(encodeFormat, ...values){
     encodeFormat = encodeFormat.split('+');
