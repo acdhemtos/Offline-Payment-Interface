@@ -2,38 +2,36 @@ import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { messages } from "../utils/loadMessages";
 import { AJAX } from "../utils/ajax";
-import { isLogin } from "../utils/isLogin"; 
+import { isLogin } from "../utils/isLogin";
 import biometric from "../utils/biometric";
-import { setIsConnected } from '../globals';
-
+import { setIsConnected } from "../globals";
 
 const LoginSignupForm = () => {
-  const [isLoginForm, setIsLoginForm] = useState(true); 
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const checkLogin = async () => {
-      const biometricPassed = await biometric();
-      // if (!biometricPassed) {
-      //   alert("Biometric authentication failed or was cancelled.");
-      //   return;
-      // }
-  
-      const loggedIn = await isLogin();
-      if (loggedIn) {
-        navigate("/app/home");
-      }
-    };
-    checkLogin();
-  }, [navigate]);
-  
+  // useEffect(() => {
+  //   const checkLogin = async () => {
+  //     const biometricPassed = await biometric();
+  //     // if (!biometricPassed) {
+  //     //   alert("Biometric authentication failed or was cancelled.");
+  //     //   return;
+  //     // }
+
+  //     const loggedIn = await isLogin();
+  //     if (loggedIn) {
+  //       navigate("/app/home");
+  //     }
+  //   };
+  //   checkLogin();
+  // }, [navigate]);
 
   useEffect(() => {
     const checkLogin = async () => {
       const loggedIn = await isLogin();
       if (loggedIn) {
-        navigate("/app/home"); 
+        navigate("/app/home");
         setIsConnected(true);
       }
     };
@@ -41,7 +39,7 @@ const LoginSignupForm = () => {
   }, [navigate]);
 
   const toggleForm = () => {
-    setIsLoginForm(!isLoginForm); 
+    setIsLoginForm(!isLoginForm);
   };
 
   const handleChange = (e) => {
@@ -52,47 +50,48 @@ const LoginSignupForm = () => {
     }));
   };
 
-        const handleLogin = async (e) => {
-      e.preventDefault();
-      const { username, password } = form;
-    
-      try {
-        const response = await fetch('/api/login.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
-          credentials: 'include',
-        });
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const { username, password } = form;
 
-        if (!response.ok) {
-          console.error(`Server error: ${response.status} ${response.statusText}`);
-          alert("An error occurred on the server. Please try again later.");
-          return;
-        }
-  
-        const data = await response.json();
-        console.log("Login response:", data); 
-    
-        if (data.code === 0) {
-          console.log("Session Key:", data.session_key); 
-          document.cookie = `session_key=${data.session_key}; path=/; max-age=604800; `;
-          document.cookie = `username=${username}; path=/; max-age=604800; `;
-          document.cookie = `private_key=${data.private_key}; path=/; max-age=604800; `;
-          
-          alert("Login successful!");
-          navigate("/app/home");
-        } else {
-          console.error("Login failed with code:", data.code); 
-          alert(messages[data.code - 1] || "Login failed. Please try again.");
-        }
-      } catch (error) {
-        console.error("Error during login:", error); 
+    try {
+      const response = await fetch("/api/login.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        console.error(
+          `Server error: ${response.status} ${response.statusText}`
+        );
+        alert("An error occurred on the server. Please try again later.");
+        return;
       }
-    };
+
+      const data = await response.json();
+      console.log("Login response:", data);
+
+      if (data.code === 0) {
+        console.log("Session Key:", data.session_key);
+        document.cookie = `session_key=${data.session_key}; path=/; max-age=604800; `;
+        document.cookie = `username=${username}; path=/; max-age=604800; `;
+        document.cookie = `private_key=${data.private_key}; path=/; max-age=604800; `;
+
+        alert("Login successful!");
+        navigate("/app/home");
+      } else {
+        console.error("Login failed with code:", data.code);
+        alert(messages[data.code - 1] || "Login failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
 
   return (
     <main className="flex flex-col lg:flex-row rounded-lg overflow-hidden p-4 max-w-5xl mx-auto md:p-0 shadow-[7px_7px_0px_4px_rgb(191,64,191)] min-h-screen lg:h-auto">
-      
       <div className="illustration-container w-full lg:w-1/2 rounded-t-lg border-2 border-solid lg:mb-0 h-64 lg:h-auto">
         <img
           src="/illustration.png"
@@ -101,7 +100,6 @@ const LoginSignupForm = () => {
         />
       </div>
 
-      
       <div className="form-container flex-1 p-4 lg:p-12 bg-gray-50 h-2/3 lg:h-auto rounded-b-lg">
         <h1 className="text-2xl lg:text-3xl font-bold lg:mb-6 text-gray-800 mb-10 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 drop-shadow-lg">
           Login
