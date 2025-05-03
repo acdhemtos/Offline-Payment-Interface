@@ -1,7 +1,7 @@
 
 async function sha256(...messages) {
-    let str = messages.join("")
-    console.log(str)
+  let str = messages.join("")
+  console.log(str)
   let s = String.fromCharCode(
     ...(
       new Uint8Array(
