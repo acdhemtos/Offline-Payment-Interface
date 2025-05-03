@@ -12,9 +12,7 @@ import biometric from "../utils/biometric";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
-  loadTransactions,
   addTransaction,
-  renderTransactions,
 } from "../utils/transactions";
 
 const ReceivePage = () => {
