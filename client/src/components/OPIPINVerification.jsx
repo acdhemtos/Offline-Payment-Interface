@@ -59,8 +59,11 @@ const OPIQRCodeSVG = () => {
       const privateKey = Cookies.get("private_key");
       
 
-      const hash = await sha256(receiver, adjustedAmount, rN, time, privateKey);
+      const hash = sha256(receiver, adjustedAmount, rN, time, privateKey).then(hash => {
+        console.log(hash);
+      });
       
+
       console.log(receiver, adjustedAmount, rN, time, privateKey);
       detailsHashRef.current = QR.decode("hash",hash);
 
