@@ -103,15 +103,17 @@ const ReceivePage = () => {
             requestAnimationFrame(scan);
             return;
           }
+          
+          console.log("here");
           let dat = QR.decode("username+time+hash",rawValue);
           
+          console.log(dat);
 
           if (dat===false) {
             requestAnimationFrame(scan);
             return;
           }
           let { sender, time, details_hash } = dat;
-          console.log(dat);
           console.log(details_hash )
           //close webcam
           const stopStream = () => {
