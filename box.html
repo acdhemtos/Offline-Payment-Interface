@@ -105,6 +105,8 @@
       qrOutput.src = img.src;
     }
 
+    generateQR(QR.encode("username+name",username,name));
+
     function onScanSuccess(decodedText) {
       if(looking){
         let ret = QR.decode("sender+amount+time+details_hash");
