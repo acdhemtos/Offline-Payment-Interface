@@ -51,11 +51,9 @@
     $balance = getBalance($senderUsername);
     if($balance<$min){
      @require_once('topUp.php');
-     topUp(0,$senderUsername,$max-$balance,0);
+     transaction(0,$senderUsername,$max-$balance,0);
     }
   }
-
-  
 
   return $Id;
  }
