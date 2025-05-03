@@ -38,7 +38,8 @@ const ScanQR = () => {
 
   const handleScanComplete = (data) => {
     if (data) {
-      let obj = QR.decode("username",data);//QR.decode("username+amount+name",data);
+      let obj = QR.decode("username",data);//
+      // ;
       const ua = QR.decode("username+amount",data);
       const u = QR.decode("username",data);
       
@@ -65,6 +66,20 @@ const ScanQR = () => {
         });
         return;
       }
+
+      obj = QR.decode("username+amount+name",data)
+      if(obj!==false){
+        navigate("/app/send", {
+          state: {
+            qrData: onj,
+            disableUserId: true,
+            disableName: true,
+            disableAmount: true,
+            showOpiOption: true,
+          },
+        });
+      }
+
 
       let username = "";
       if (data.length >= 10) {
@@ -105,15 +120,7 @@ const ScanQR = () => {
         return;
       }
 
-      navigate("/app/send", {
-        state: {
-          qrData: { username, amount, name },
-          disableUserId: true,
-          disableName: true,
-          disableAmount: true,
-          showOpiOption: true,
-        },
-      });
+      
     }
   };
 
