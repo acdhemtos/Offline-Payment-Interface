@@ -111,6 +111,8 @@ const ReceivePage = () => {
             return;
           }
           let { sender, time, details_hash } = dat;
+          console.log(dat);
+          console.log(details_hash )
           //close webcam
           const stopStream = () => {
             if (video.srcObject) {
