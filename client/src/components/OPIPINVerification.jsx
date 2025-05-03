@@ -35,8 +35,10 @@ const OPIQRCodeSVG = () => {
       const username = encode.username(Cookies.get("username"));
       const tt = Date.now();
       const time = encode.time(tt);
-      const privateKey = Cookies.get("private_key");
       ti.current = time;
+      //const privateKey = Cookies.get("private_key");
+      let privateKey = null;
+      
 
       const hash = await sha256(receiver, adjustedAmount, rN, tt, privateKey);
       detailsHashRef.current = hash;
