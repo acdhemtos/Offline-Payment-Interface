@@ -174,6 +174,7 @@ export const QR = {
   encode : function(encodeFormat, ...values){
     encodeFormat = encodeFormat.split('+');
     if(encodeFormat.length!==values.length){ throw "MisMatched Parameters"; }
+    
   },
   decode : function(){
     console.log("HHEL");
