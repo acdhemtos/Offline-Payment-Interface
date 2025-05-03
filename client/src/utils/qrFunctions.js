@@ -107,22 +107,21 @@ const decode = (() => {
  }
 
  return {
-  //...Object.fromEntries(['username', 'receiver', 'sender'].map(k => [k, 10])),
-  username: (arr) => {
-   let str = "";
-  try {
-    str = makeStr(arr,index.username).split('').reverse().join('');
+  ...Object.fromEntries(['username', 'receiver', 'sender'].map(k => [k, (arr) => {
+    let str = "";
+   try {
+     str = makeStr(arr,index.username).split('').reverse().join('');
+     
+    }catch(err){
+     console.error(err.message)
+     return false;
+    }
+    if (str.length < 8 || str.length > 15) { return false; }
+    if (!/^[a-z]/.test(str)) { return false; }
+    if (!/^[a-z0-9]+$/.test(str)) { return false; }
     
-   }catch(err){
-    console.error(err.message)
-    return false;
-   }
-   if (str.length < 8 || str.length > 15) { return false; }
-   if (!/^[a-z]/.test(str)) { return false; }
-   if (!/^[a-z0-9]+$/.test(str)) { return false; }
-   
-   return str;
-  },
+    return str;
+   }])),
   amount: (arr) => {
    let ret = Number(number(arr));
    return ret==0 ? false : ret;
@@ -157,7 +156,7 @@ const decode = (() => {
    code: (arr) => {
     return number(arr);
    },
-   hash : (base256String) => {
+  ...Object.fromEntries(['hash', 'details_hash', 'verification_hash'].map(k => [k, (base256String) => {
     let base16String = '';
     
     // Convert each byte of the base 256 string to its hexadecimal representation
@@ -168,7 +167,7 @@ const decode = (() => {
     
 
     return base16String;
-  }
+  }]))
  }
 })();
 
