@@ -30,7 +30,7 @@ const Home = () => {
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const username = decodeURIComponent(Cookies.get("username"));
+        const username = Cookies.get("username");
         const data = await AJAX("/api/getName.php", {
           name_username: username,
         });
@@ -77,9 +77,9 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       // Get cookies
-      const username = decodeURIComponent(Cookies.get("username"));
-      const session_key = decodeURIComponent(Cookies.get("session_key"));
-      const private_key = decodeURIComponent(Cookies.get("private_key"));
+      const username = Cookies.get("username");
+      const session_key = Cookies.get("session_key");
+      const private_key = Cookies.get("private_key");
 
       console.log("Logout Payload:", { username, session_key });
 
