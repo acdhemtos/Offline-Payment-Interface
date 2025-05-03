@@ -44,9 +44,15 @@
   if($transaction["sender"]===$username){
    $transaction["other"] = $transaction["receiver"];
    $transaction["type"] *= -1;
-  }else
-  $transaction["other"] = $transaction["sender"];
- }
+  }else{
+   $transaction["other"] = $transaction["sender"];
+  }
+  unset($transaction['sender']);
+  unset($transaction['receiver']);
+  if($transaction["type"]==0){
+   unset($transaction['other']);
+  }
+
   display(0, array('data' => getTransactions($username,$last_id)));
  }
  
