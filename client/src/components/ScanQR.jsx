@@ -171,8 +171,8 @@ const ScanQR = () => {
         style={{
           width: "230px",
           height: "230px",
-          top: "30%",
-          left: "12%",
+          top: "50%",
+          left: "50%",
           transform: "translate(-50%, -50%)",
           zIndex: 30,
         }}
