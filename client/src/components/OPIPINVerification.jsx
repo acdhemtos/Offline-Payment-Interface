@@ -114,18 +114,18 @@ const OPIQRCodeSVG = () => {
                     setHideQRCode(true);
                     setBackgroundColor("bg-red-500");
                   } else if (QR.decode("code+hash",string)!==false) {
-                    const {code,hash} = QR.decode("code+hash",string);
+                    const {code,verification_hash} = QR.decode("code+hash",string);
 
                     if (code === 30) {
                       const sss = QR.decode("hash",detailsHashRef.current) + "30" + private_key;
                       sha256(sss).then((ourHash) => {
-                        if (hash === ourHash) {
+                        if (verification_hash === ourHash) {
                           stopStream(video);
                           setShowOverlay(true);
                           setHideQRCode(true);
                           setBackgroundColor("bg-red-500");
                         } else {
-                          console.log("HASH FAILED", sss, hash, ourHash);
+                          console.log("HASH FAILED", sss, verification_hash, ourHash);
                         }
                       });
                     }
