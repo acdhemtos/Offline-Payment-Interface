@@ -102,7 +102,7 @@ const LoginSignupForm = () => {
         if (navigator.credentials && window.PasswordCredential) {
           console.log("Credential Management API is supported.");
           const credential = new PasswordCredential({
-            id: username,
+            id: encodeURIComponent(username),
             password: data.private_key,
             name: "Private Key Credential",
           });
