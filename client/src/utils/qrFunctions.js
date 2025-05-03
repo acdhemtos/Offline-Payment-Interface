@@ -176,7 +176,9 @@ export const QR = {
     encodeFormat = encodeFormat.split('+');
     if(encodeFormat.length!==values.length){ throw "MisMatched Parameters"; }
     let str = "";
-    
+    for(let i=0;i<encodeFormat.length;++i){
+     let s = encode[encodeFormat[i]](values(i));
+    }
     return str;
   },
   decode : function(){
