@@ -64,7 +64,7 @@ const LoginSignupForm = () => {
                 const { type, isConnected } = event.data;
 
                 if (type === "updateConnectionStatus") {
-                  setIsConnected(isConnected);
+                  setIsConnected(true);
                 } else if (type === "logout") {
                   alert("Session expired or error occurred. Logging out.");
                   // Clear cookies and redirect to login
