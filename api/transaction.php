@@ -31,6 +31,18 @@
    $stmt = $conn->prepare("UPDATE users SET balance = balance - ? WHERE id = ?");
    $stmt->bind_param("ii", $amount, $senderId);
    $stmt->close();
+   
+   @require_once('getTopUp.php');
+   $data = getTopUp($senderUsername);
+   $min = $data['min_balance'];
+   $max = $data['max_balance'];
+   
+   @require_once('getBalance.php');
+   $balance = getBalance($senderUsername);
+   if($balance<$min){
+    @require_once('topUp.php');
+    transaction(0,$senderUsername,$max-$balance,0);
+   }
   }
 
   $stmt = $conn->prepare("UPDATE users SET balance = balance + ? WHERE id = ?");
@@ -39,17 +51,7 @@
   $stmt->close();
 
   if($senderId!=0){
-    @require_once('getTopUp.php');
-    $data = getTopUp($senderUsername);
-    $min = $data['min_balance'];
-    $max = $data['max_balance'];
     
-    @require_once('getBalance.php');
-    $balance = getBalance($senderUsername);
-    if($balance<$min){
-     @require_once('topUp.php');
-     transaction(0,$senderUsername,$max-$balance,0);
-    }
   }
 
   return $Id;
