@@ -3,8 +3,6 @@
  if(self(__FILE__)){
   
   $data = json_decode(file_get_contents("php://input"),true);
-  //echo $data;
-
   $username = $data["username"]; validate('validateLoginUsername', $username);
  
   $session_key = $data['session_key'];
