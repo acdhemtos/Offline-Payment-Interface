@@ -358,6 +358,8 @@ const QR = {
             .then((response) => response.json())
             .then((data) => {
               if (data.code == 0) {
+                let id = data.id;
+                let verification_hash = data.verification_hash;
                 
                 //qr
                 document.body.setAttribute("green");
