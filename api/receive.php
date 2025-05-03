@@ -55,7 +55,7 @@
  @require_once('getName.php');
  $name = getName($username);
  
- if($details_hash!=md5($username.$name.$amount.$time.$private_key)){display(35);}
+ if($details_hash!=sha256($username.$name.$amount.$time.$private_key)){display(35);}
  
  @require_once('getBalance.php');
  if(getBalance($sender)<$amount){handle(30);}
