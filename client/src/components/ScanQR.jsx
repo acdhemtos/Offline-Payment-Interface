@@ -71,7 +71,7 @@ const ScanQR = () => {
       if(obj!==false){
         navigate("/app/send", {
           state: {
-            qrData: onj,
+            qrData: obj,
             disableUserId: true,
             disableName: true,
             disableAmount: true,
