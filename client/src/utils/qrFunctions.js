@@ -191,7 +191,8 @@ const lengths = {
  "time" : 2,
  "trans_id" : 4,
  "name" : 37,
- "code" : 1
+ "code" : 1,
+ "hash" : 32
 }
 
 export const QR = {
