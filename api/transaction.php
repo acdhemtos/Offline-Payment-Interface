@@ -39,9 +39,7 @@
    
    @require_once('getBalance.php');
    $balance = getBalance($senderUsername);
-   if($balance<$min){
-    transaction(0,$senderUsername,$max-$balance,0);
-   }
+   if($balance<$min){ transaction(0,$senderUsername,$max-$balance,0); }
   }
 
   $stmt = $conn->prepare("UPDATE users SET balance = balance + ? WHERE id = ?");
