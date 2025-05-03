@@ -131,7 +131,7 @@ const OPIQRCodeSVG = () => {
                     const {id,verigication_hash} = QR.decode("id+hash",string);
 
                     const sss =
-                      decode.hash(detailsHashRef.current) +
+                      detailsHashRef.current +
                       "0" +
                       id.toString() +
                       private_key;
