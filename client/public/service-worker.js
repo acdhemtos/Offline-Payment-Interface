@@ -133,7 +133,13 @@ function logoutUser() {
 
 function postMessageToClients(message) {
   self.clients.matchAll().then((clients) => {
-    clients.forEach((client) => client.postMessage(message));
+    if (clients.length === 0) {
+      console.error("No clients available to send message.");
+    }
+    clients.forEach((client) => {
+      console.log("Sending message to client:", message);
+      client.postMessage(message);
+    });
   });
 }
 
