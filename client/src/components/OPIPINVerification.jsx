@@ -235,7 +235,7 @@ const OPIQRCodeSVG = () => {
         ref={videoRef}
         autoPlay
         playsInline
-        className="w-full max-w-md border border-gray-300 rounded-lg opacity-[30%] "
+        className="w-full max-w-md border border-gray-300 rounded-lg opacity-[30%]"
       />
 
       <canvas
