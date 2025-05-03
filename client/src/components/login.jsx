@@ -60,21 +60,7 @@ const LoginSignupForm = () => {
             .register("/service-worker.js")
             .then((registration) => {
               console.log("Service Worker registered with scope:", registration.scope);
-              navigator.serviceWorker.addEventListener("message", (event) => {
-                const { type, isConnected } = event.data;
-
-                if (type === "updateConnectionStatus") {
-                  setIsConnected(isConnected);
-                } else if (type === "logout") {
-                  alert("Session expired or error occurred. Logging out.");
-                  // Clear cookies and redirect to login
-                  document.cookie = "session_key=; path=/; max-age=0;";
-                  document.cookie = "username=; path=/; max-age=0;";
-                  document.cookie = "private_key=; path=/; max-age=0;";
-                  window.location.href = "/";
-                }
-              });
-            })
+              
             })
             .catch((error) => {
               console.error("Service Worker registration failed:", error);
