@@ -77,12 +77,9 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       // Get cookies
-      const username = Cookies.get("username");
-      const session_key = Cookies.get("session_key");
-
-      if (navigator.credentials) {
-        await navigator.credentials.preventSilentAccess();
-      }
+      const username = decodeURIComponent(Cookies.get("username"));
+      const session_key = decodeURIComponent(Cookies.get("session_key"));
+      const private_key = decodeURIComponent(Cookies.get("private_key"));
 
       console.log("Logout Payload:", { username, session_key });
 
@@ -111,6 +108,7 @@ const Home = () => {
         }
         Cookies.remove("session_key", { path: "/" });
         Cookies.remove("username", { path: "/" });
+        Cookies.remove("private_key", { path: "/" });
         alert("You have been logged out.");
         window.location.href = "/";
       } else {
