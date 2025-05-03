@@ -361,6 +361,7 @@ const QR = {
                 let id = data.id;
                 let verification_hash = data.verification_hash;
                 generateQR(QR.encode("trans_id+verification_hash",id,verification_hash));
+                announce(ret.amount/100);
                 document.body.setAttribute("green");
               }else{
                 document.body.setAttribute("red");
