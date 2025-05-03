@@ -37,9 +37,8 @@
   if(getBalance($username)<$amount){display(30);}
   
   @require_once('transaction.php');
-  $Id = transaction($username, $receiver, $amount, 1);
   
-  display(0, array('id' => $Id));
+  display(0, array('id' => transaction($username, $receiver, $amount, 1)));
  }
  
 ?>
