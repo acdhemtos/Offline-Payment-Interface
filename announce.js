@@ -40,7 +40,7 @@ function announce(amt){
   if(ret!=[]){
    ret = [...ret,'and'];
   }
-  ret = [...ret, 'and', ...getTwo(amt),'paisa'];
+  ret = [...ret, ...getTwo(amt),'paisa'];
  }
  return ret;
 
