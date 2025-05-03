@@ -3,4 +3,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.html [QSA,L]
 
-php_value auto_prepend_file ./api/utils.php
+php_value auto_prepend_file utils.php
