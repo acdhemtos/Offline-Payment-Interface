@@ -32,7 +32,7 @@ const ReceivePage = () => {
   const [failureMessage, setFailureMessage] = useState("");
 
   const generateReceiveQR = (amount = "", name = false) => {
-    const username = decodeURIComponent(Cookies.get("username"));
+    const username = Cookies.get("username");
     if (amount != "") {
       let amt = amount * 100;
       if (name !== false) {
