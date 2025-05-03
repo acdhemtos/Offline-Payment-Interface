@@ -22,4 +22,7 @@ function announce(amt){
  if(amt>999){
   ret = [...getTwo(Math.floor(amt/1000)),'thousand'];
  }
+ while(amt>999){
+  amt -= 1000;
+ }
 }
