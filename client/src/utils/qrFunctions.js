@@ -170,7 +170,7 @@ export const decode = (() => {
  }
 })();
 
-export const QR = (
+export const QR = {
   encode : function(encodeFormat, ...values){
     encodeFormat = encodeFormat.split('+');
     if(encodeFormat.length!==values.length){ throw "MisMatched Parameters";  }
@@ -178,4 +178,4 @@ export const QR = (
   decode : function(){
 
   }
-);
+};
