@@ -3,8 +3,18 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
 import { loadMessages } from './utils/loadMessages.js';
+import { isLogin } from "./utils/isLogin";
 
 async function init() {
+  const loggedIn = await isLogin();
+
+  if (!loggedIn && "serviceWorker" in navigator) {
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    for (const registration of registrations) {
+      await registration.unregister();
+      console.log("Service Worker unregistered for unauthenticated user.");
+    }
+  }
   await loadMessages();
   createRoot(document.getElementById('root')).render(
     <StrictMode>
