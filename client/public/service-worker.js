@@ -99,71 +99,71 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-const fetchInterval = 2000;
+// const fetchInterval = 2000;
 
-async function fetchBalance() {
-  try {
-    const sessionKey = await getCookie("session_key");
-    const username = await getCookie("username");
+// async function fetchBalance() {
+//   try {
+//     const sessionKey = await getCookie("session_key");
+//     const username = await getCookie("username");
 
-    if (!sessionKey || !username) {
-      console.error("Session key or username missing. Logging out.");
-      logoutUser();
-      return;
-    }
+//     if (!sessionKey || !username) {
+//       console.error("Session key or username missing. Logging out.");
+//       logoutUser();
+//       return;
+//     }
 
-    const response = await fetch("/api/getBalance.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, session_key: sessionKey }),
-    });
+//     const response = await fetch("/api/getBalance.php", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ username, session_key: sessionKey }),
+//     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
 
-    const data = await response.json();
+//     const data = await response.json();
 
-    if (data.code === 0) {
-      postMessageToClients({ type: "updateConnectionStatus", isConnected: true });
-      console.log("Balance fetched successfully:", data.balance);
-    } else {
-      console.error("Invalid response from server:", data);
-      logoutUser();
-    }
-  } catch (error) {
-    console.error("Network error or invalid response:", error);
-    postMessageToClients({ type: "updateConnectionStatus", isConnected: false });
-  }
-}
+//     if (data.code === 0) {
+//       postMessageToClients({ type: "updateConnectionStatus", isConnected: true });
+//       console.log("Balance fetched successfully:", data.balance);
+//     } else {
+//       console.error("Invalid response from server:", data);
+//       logoutUser();
+//     }
+//   } catch (error) {
+//     console.error("Network error or invalid response:", error);
+//     postMessageToClients({ type: "updateConnectionStatus", isConnected: false });
+//   }
+// }
 
-function logoutUser() {
-  postMessageToClients({ type: "logout" });
-}
+// function logoutUser() {
+//   postMessageToClients({ type: "logout" });
+// }
 
-function postMessageToClients(message) {
-  self.clients.matchAll().then((clients) => {
-    clients.forEach((client) => client.postMessage(message));
-  });
-}
+// function postMessageToClients(message) {
+//   self.clients.matchAll().then((clients) => {
+//     clients.forEach((client) => client.postMessage(message));
+//   });
+// }
 
-function getCookie(name) {
-  return new Promise((resolve) => {
-    self.clients.matchAll().then((clients) => {
-      if (clients.length > 0) {
-        clients[0].postMessage({ type: "getCookie", name });
-        self.addEventListener("message", function listener(event) {
-          if (event.data.type === "cookieValue" && event.data.name === name) {
-            self.removeEventListener("message", listener);
-            resolve(event.data.value);
-          }
-        });
-      } else {
-        resolve(null);
-      }
-    });
-  });
-}
+// function getCookie(name) {
+//   return new Promise((resolve) => {
+//     self.clients.matchAll().then((clients) => {
+//       if (clients.length > 0) {
+//         clients[0].postMessage({ type: "getCookie", name });
+//         self.addEventListener("message", function listener(event) {
+//           if (event.data.type === "cookieValue" && event.data.name === name) {
+//             self.removeEventListener("message", listener);
+//             resolve(event.data.value);
+//           }
+//         });
+//       } else {
+//         resolve(null);
+//       }
+//     });
+//   });
+// }
 
-// Start periodic fetch
-setInterval(fetchBalance, fetchInterval);
+// // Start periodic fetch
+// setInterval(fetchBalance, fetchInterval);
