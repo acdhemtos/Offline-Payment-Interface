@@ -112,9 +112,8 @@ const OPIQRCodeSVG = () => {
                     setShowOverlay(true);
                     setHideQRCode(true);
                     setBackgroundColor("bg-red-500");
-                  } else if (n === 33) {
-                    const code = decode.code(string.slice(0, 1));
-                    const hash = string.slice(1, 33);
+                  } else if (QR.decode("code+hash",string) !== false) {
+                    const {code,hash} = QR.decode("code+hash",string);
 
                     if (code === 30) {
                       const sss = detailsHashRef.current + "30" + private_key;
