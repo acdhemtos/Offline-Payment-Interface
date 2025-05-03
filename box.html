@@ -75,11 +75,7 @@
     Html5Qrcode.getCameras().then(devices => {
       if (devices && devices.length) {
         html5QrCode.start(
-          { facingMode: "user" }, // use rear camera if available
-          {
-            fps: 10,
-            qrbox: { width: 250, height: 250 }
-          },
+          { facingMode: "user" }
           onScanSuccess
         ).catch(err => console.error("Start failed", err));
       }
