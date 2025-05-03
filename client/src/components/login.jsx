@@ -74,22 +74,22 @@ const LoginSignupForm = () => {
         document.cookie = `private_key=${encodeURIComponent(data.private_key)}; path=/; max-age=604800;`;
 
         // Store credentials using Credential Management API
-        if (navigator.credentials && window.PasswordCredential) {
-          const credential = new PasswordCredential({
-            id: username,
-            password: data.private_key,
-            name: "Private Key Credential",
-          });
+        // if (navigator.credentials && window.PasswordCredential) {
+        //   const credential = new PasswordCredential({
+        //     id: username,
+        //     password: data.private_key,
+        //     name: "Private Key Credential",
+        //   });
 
-          navigator.credentials
-            .store(credential)
-            .then(() => {
-              console.log("Private key stored in credentials.");
-            })
-            .catch((error) => {
-              console.error("Error storing private key in credentials:", error);
-            });
-        }
+        //   navigator.credentials
+        //     .store(credential)
+        //     .then(() => {
+        //       console.log("Private key stored in credentials.");
+        //     })
+        //     .catch((error) => {
+        //       console.error("Error storing private key in credentials:", error);
+        //     });
+        // }
 
         // Request Notification Permission
         if ("Notification" in window) {
