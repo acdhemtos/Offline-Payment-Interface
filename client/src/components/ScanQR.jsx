@@ -40,6 +40,7 @@ const ScanQR = () => {
     if (data) {
       let obj = QR.decode("username",data);
       
+  
       if(obj!==false){
         navigate("/app/send", {
           state: {
