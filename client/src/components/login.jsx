@@ -15,10 +15,10 @@ const LoginSignupForm = () => {
   useEffect(() => {
     const checkLogin = async () => {
       const biometricPassed = await biometric();
-      if (!biometricPassed) {
-        alert("Biometric authentication failed or was cancelled.");
-        return;
-      }
+      // if (!biometricPassed) {
+      //   alert("Biometric authentication failed or was cancelled.");
+      //   return;
+      // }
   
       const loggedIn = await isLogin();
       if (loggedIn) {
