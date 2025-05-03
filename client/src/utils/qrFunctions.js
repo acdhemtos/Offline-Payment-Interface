@@ -210,6 +210,7 @@ export const QR = {
     }
     if(n!=decodeString.length){return false;}
     let ret = {};
+    let i = 0;
   }
 };
 */
