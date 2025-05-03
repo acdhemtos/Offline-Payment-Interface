@@ -49,7 +49,7 @@
  @require_once 'hash.php';
  
  $details_hash = $data["details_hash"];
- if(!preg_match('/^[a-f0-9]{32}$/i', $details_hash)){handle(36);}
+ if(!isValidHash($details_hash)){handle(36);}
  
  @require_once('getName.php');
  $name = getName($username);
