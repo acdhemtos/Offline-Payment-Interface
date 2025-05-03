@@ -50,12 +50,12 @@
  @require_once 'hash.php';
  
  $details_hash = $data["details_hash"];
- if(!isValidHash($details_hash)){handle(36);}
+ if(!isValidHash($details_hash)){display(36);}
  
  @require_once('getName.php');
  $name = getName($username);
  
- if($details_hash!=md5($username.$name.$amount.$time.$private_key)){handle(35);}
+ if($details_hash!=md5($username.$name.$amount.$time.$private_key)){display(35);}
  
  @require_once('getBalance.php');
  if(getBalance($sender)<$amount){handle(30);}
