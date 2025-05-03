@@ -12,7 +12,7 @@ async function biometric() {
       challenge: challenge,
       rp: {
         name: "My App",
-        id: "myapp.local" 
+        id: "acdhemtos.duckdns.org" 
       },
       user: {
         id: userId,
