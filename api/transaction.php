@@ -27,6 +27,8 @@
   $stmt->execute();
   $stmt->close();
   
+  $Id = $GLOBALS['conn']->insert_id;
+
   if ($senderId !== 0) {
    $stmt = $conn->prepare("UPDATE users SET balance = balance - ? WHERE id = ?");
    $stmt->bind_param("ii", $amount, $senderId);
@@ -38,6 +40,8 @@
   $stmt->bind_param("ii", $amount, $receiverId);
   $stmt->execute();
   $stmt->close();
+
+  return $Id;
  }
 
 
