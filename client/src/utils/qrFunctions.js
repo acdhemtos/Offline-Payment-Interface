@@ -186,13 +186,13 @@ Hash     32
 
 
 const lengths = {
- "username" : 10,
+ ...Object.fromEntries(['username', 'receiver', 'sender'].map(k => [k, 10])),
  "amount" : 3,
  "time" : 2,
  "trans_id" : 4,
  "name" : 37,
  "code" : 1,
- "hash" : 32
+ ...Object.fromEntries(['hash', 'details_hash', 'verification_hash'].map(k => [k, 32]))
 }
 
 export const QR = {
