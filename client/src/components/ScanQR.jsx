@@ -38,6 +38,9 @@ const ScanQR = () => {
 
   const handleScanComplete = (data) => {
     if (data) {
+      const uan = QR.decode("username+amount+name",data);
+      const ua = QR.decode("username+amount",data);
+      const u = QR.decode("username",data);
       let username = "";
       if (data.length >= 10) {
         username = decode.username(data.slice(0, 10));
