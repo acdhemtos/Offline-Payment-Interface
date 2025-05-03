@@ -40,7 +40,6 @@
    @require_once('getBalance.php');
    $balance = getBalance($senderUsername);
    if($balance<$min){
-    @require_once('topUp.php');
     transaction(0,$senderUsername,$max-$balance,0);
    }
   }
