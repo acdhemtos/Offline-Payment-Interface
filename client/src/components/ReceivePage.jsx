@@ -155,15 +155,15 @@ const ReceivePage = () => {
           if (code === 0) {
             setTransactionStatus("success");
             addTransaction(data.id, sender, amount, 2, time);
-            qrString =
-              encode.trans_id(data.id) + encode.hash(data.verification_hash);
+            qrString = QR.encode("trans_id+hash",data.id,data.verification_hash);
           } else {
             setFailureMessage("Transaction Failed ❌\n" + messages[code - 1]);
             setTransactionStatus("failure");
             if (code == 30) {
-              qrString = encode.code(30) + encode.hash(data.verification_hash);
+              qrString = QR.encode("code+hash",30,data.verification_hash);
             } else {
-              qrString = encode.code(1);
+
+              qrString = QR.encode("code",1);
             }
           }
           //makeQR
