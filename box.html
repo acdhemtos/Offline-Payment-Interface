@@ -97,7 +97,7 @@
     function setQR(str){
       console.log(str);
     }
-    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
     document.getElementsByTagName('video').srcObject = stream;
     function reset(){
       document.getElementById('details').removeAttribute('class');
