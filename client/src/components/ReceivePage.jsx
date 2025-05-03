@@ -37,9 +37,8 @@ const ReceivePage = () => {
     let qrString = encode.username();
     if (amount != "") {
       let amt = amount * 100;
-      qrString += encode.amount();
       if (name !== false) {
-        qrString += encode.name(name);
+        qrString += QR.encode("username+amount+name",username,amt,name);
       }
     }
     
