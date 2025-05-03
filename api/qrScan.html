@@ -267,6 +267,7 @@
     for(let i=0;i<li.length;i++){
      let dat = QR.decode(li[i],str);
      if(dat!==false){
+      console.log([str]);
       console.log(dat);
       document.getElementById('result').innerHTML = JSON.stringify(dat);
       break;
