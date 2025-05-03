@@ -15,7 +15,7 @@ function getTwo(digits){
  return ret; 
 }
 
-async function announce(amt){
+function announce(amt){
  let ret = []
  if(amt>99999){
   ret = [...getTwo(Math.floor(amt/100000)),'thousand'];
@@ -46,4 +46,27 @@ async function announce(amt){
  }
  return ret;
 
+}
+
+const audioPath = './audio/'; // change this if your audio files are elsewhere
+const audioExtension = '.mp3'; // change this if you're using .wav or .ogg
+
+// Queue and play audio files one after another
+function playNumberSequence(wordsArray) {
+  if (!wordsArray.length) return;
+
+  let index = 0;
+
+  function playNext() {
+    if (index >= wordsArray.length) return;
+
+    const audio = new Audio(audioPath + wordsArray[index] + audioExtension);
+    audio.play();
+    audio.onended = function () {
+      index++;
+      playNext();
+    };
+  }
+
+  playNext();
 }
