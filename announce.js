@@ -36,8 +36,14 @@ function announce(amt){
  }
  amt *= 100;
  if(amt != 0){
-  ret = [...ret, 'and', getTwo(amt),'paisa'];
+  ret = [...ret, 'and', ...getTwo(amt),'paisa'];
  }
  return ret;
 
 }
+
+console.log(announce(123.45));
+console.log(announce(1234.5));
+console.log(announce(0.45));
+console.log(announce(123.45));
+console.log(announce(123.45));
