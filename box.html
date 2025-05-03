@@ -95,6 +95,7 @@
       if(looking){
         let ret = QR.decode("sender+amount+time+details_hash");
         if(ret!=false){
+          looking = false;
           const typeNumber = 0;
           const errorCorrectionLevel = 'H';
           const qr = qrcode(typeNumber, errorCorrectionLevel);
