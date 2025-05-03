@@ -61,7 +61,7 @@ const OPIQRCodeSVG = () => {
 
       sha256(receiver+adjustedAmount+rN+time+privateKey).then(hash => {
         console.log(receiver, adjustedAmount, rN, time, privateKey);
-        detailsHashRef.current = QR.decode("hash",hash);
+        detailsHashRef.current = QR.decode("hash",hash).hash;
         console.log("detailshash",detailsHashRef.current);
         const qrDataString = QR.encode("username+time",username,time) + hash;
         setQrData(qrDataString);
