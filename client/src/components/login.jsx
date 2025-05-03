@@ -32,6 +32,29 @@ const LoginSignupForm = () => {
     }));
   };
 
+  useEffect(() => {
+    // Respond to service worker requests for cookies
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data.type === 'getCookie') {
+          const name = event.data.name;
+          const value = getCookie(name);
+          event.source.postMessage({
+            type: 'cookieValue',
+            name,
+            value,
+          });
+        }
+      });
+    }
+  
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? match[2] : null;
+    }
+  }, []);
+  
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const { username, password } = form;
