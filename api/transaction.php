@@ -41,17 +41,21 @@
   $stmt->execute();
   $stmt->close();
 
-  @require_once('getTopUp.php');
-  $data = getTopUp($sender);
-  $min = $data['min_balance'];
-  $max = $data['max_balance'];
-  
-  @require_once('getBalance.php');
-  $balance = getBalance($username);
-  if($balance<$min){
-   @require_once('topUp.php');
-   topUp($username,$max-$balance);
+  if($senderId!=0){
+    @require_once('getTopUp.php');
+    $data = getTopUp($sender);
+    $min = $data['min_balance'];
+    $max = $data['max_balance'];
+    
+    @require_once('getBalance.php');
+    $balance = getBalance($username);
+    if($balance<$min){
+     @require_once('topUp.php');
+     topUp($username,$max-$balance);
+    }
   }
+
+  
 
   return $Id;
  }
