@@ -169,7 +169,7 @@ export const decode = (() => {
   }
  }
 })();
-
+/*
 export const QR = {
   encode : function(encodeFormat, ...values){
     encodeFormat = encodeFormat.split('+');
@@ -179,3 +179,4 @@ export const QR = {
     console.log("HHEL");
   }
 };
+*/
