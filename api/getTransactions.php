@@ -8,6 +8,7 @@ function getTransactions($username,$last_id){
   JOIN users u_receiver ON t.receiver = u_receiver.id
   WHERE (u_sender.username = :username OR u_receiver.username = :username)
    AND t.id > :last_id
+  ORDER BY t.time ASC
  ";
 
  $stmt = $GLOBALS['conn']->prepare($sql);
