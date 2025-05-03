@@ -1,10 +1,11 @@
 function getTwo(digits){
- let l = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty'];
- if(digits<21){
+ const l = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+ if(digits<20){
   return l[digits];
  }
- let ones = digits%10;
- let tens = Math.floor(digits/10)-2;
+ const ones = digits%10;
+ const tens = Math.floor(digits/10)-2;
+ const = ['twenty'] 
 }
 
 for(let i=0;i<100;++i){
