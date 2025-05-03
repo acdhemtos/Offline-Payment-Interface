@@ -173,6 +173,7 @@ const SendPage = () => {
                 if (isAuthenticated) {
                   handleOptionClick("/app/opi-pin");
                 } else {
+                  
                   console.warn("Biometric authentication failed. Please try again.");
                 }
             }}
