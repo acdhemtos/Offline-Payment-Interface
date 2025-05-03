@@ -95,15 +95,23 @@ const LoginSignupForm = () => {
         } else {
           console.warn("Credential Management API is not supported in this browser.");
         }
-        if (navigator.credentials && window.PasswordCredential) {
+                if (navigator.credentials && window.PasswordCredential) {
+          console.log("Credential Management API is supported.");
           const credential = new PasswordCredential({
             id: username,
             password: data.private_key,
             name: "Private Key Credential",
           });
-          const res = await navigator.credentials.store(credential);
-          console.log(res);
-          console.log("private key stored in credentials");
+        
+          navigator.credentials
+            .store(credential)
+            .then((res) => {
+              console.log(res);
+              console.log("Private key stored in credentials");
+            })
+            .catch((error) => {
+              console.error("Error storing private key in credentials:", error);
+            });
         }
 
         if ("Notification" in window) {
