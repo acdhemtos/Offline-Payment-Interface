@@ -115,8 +115,8 @@ const ReceivePage = () => {
             requestAnimationFrame(scan);
             return;
           }
-          let { sender, time, details_hash } = dat;
-          console.log(details_hash )
+          let { sender, time, hash } = dat;
+          let details_hash = hash;
           //close webcam
           const stopStream = () => {
             if (video.srcObject) {
