@@ -4,7 +4,7 @@
  }
  
 
- function isValidHash($value) {
+ function isValidHash($string) {
   return preg_match('/^[a-f0-9]{64}$/i', $string) === 1;
  }
  
