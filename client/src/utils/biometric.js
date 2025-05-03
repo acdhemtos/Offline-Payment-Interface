@@ -1,5 +1,3 @@
-// Simulating biometric authentication with debugging
-
 async function biometric() {
   try {
     const challenge = new Uint8Array(32);
@@ -20,8 +18,8 @@ async function biometric() {
         displayName: "User",
       },
       pubKeyCredParams: [
-        { type: "public-key", alg: -7 },  // ES256: ECDSA with SHA-256
-        { type: "public-key", alg: -257 } // RS256: RSA with SHA-256
+        { type: "public-key", alg: -7 },  
+        { type: "public-key", alg: -257 } 
       ],
       authenticatorSelection: {
         authenticatorAttachment: "platform",
