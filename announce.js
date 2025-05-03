@@ -24,7 +24,7 @@ function announce(amt){
  if(amt>9999){
   ret = [...ret, ...getTwo(Math.floor(amt/10000), 'hundred')];
  }
- while(amt>99){
+ while(amt>9999){
   amt -= 100;
  }
  if(amt!=0){
