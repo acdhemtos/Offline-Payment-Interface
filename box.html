@@ -102,7 +102,7 @@
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
       .then(function (stream) {
         video.srcObject = stream;
-        requestAnimationFrame(tick);
+        //requestAnimationFrame(tick);
       });
     function reset(){
       document.getElementById('details').removeAttribute('class');
