@@ -211,7 +211,7 @@ const Home = () => {
           <h2 className="text-base font-semibold text-gray-800 mb-2 px-1">
             Quick Actions
           </h2>
-          <div className="bg-[#f0f0f3] rounded-2xl shadow-md mx-auto py-4 px-4 border border-blue-300 max-w-4xl">
+          <div className="bg-white/80 rounded-2xl shadow-md mx-auto py-4 px-4 border border-blue-300 max-w-4xl">
             <div className="flex justify-between items-center mb-4 px-1"></div>
 
             <div className="grid grid-cols-4 gap-4">
@@ -262,7 +262,7 @@ const Home = () => {
             Manage services
           </h2>
 
-          <div className="bg-[#f5f7ff] rounded-2xl shadow-sm border border-blue-300 px-3 py-6">
+          <div className="bg-white/80 rounded-2xl shadow-sm border border-blue-300 px-3 py-6">
             <div className="grid grid-cols-4 gap-2 text-center">
               {services.map((service) => (
                 <div
