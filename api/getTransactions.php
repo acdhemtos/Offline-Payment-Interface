@@ -10,7 +10,7 @@ function getTransactions($username,$last_id){
    AND t.id > :last_id
  ";
 
- $stmt = $pdo->prepare($sql);
+ $stmt = $GLOBALS['conn']->prepare($sql);
  $stmt->execute(['username' => $username, 'last_id' => $lastId]);
 
  return $stmt->fetchAll(PDO::FETCH_COLUMN);
