@@ -83,8 +83,7 @@
         html5QrCode.start(
           { facingMode: "user" }
           {
-            fps: 10,
-            qrbox: { width: 250, height: 250 }
+            fps: 10
           },
           onScanSuccess
         ).catch(err => console.error("Start failed", err));
