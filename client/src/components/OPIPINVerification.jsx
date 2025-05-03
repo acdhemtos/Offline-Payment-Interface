@@ -92,7 +92,7 @@ const OPIQRCodeSVG = () => {
             .then(() => {
               const canvas = document.createElement("canvas");
               const ctx = canvas.getContext("2d", { willReadFrequently: true });
-
+              console.log("1");
               const scanQRCode = () => {
                 if (video.readyState !== 4) {
                   requestAnimationFrame(scanQRCode);
