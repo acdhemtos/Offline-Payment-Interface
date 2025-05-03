@@ -43,7 +43,7 @@
 
   if($senderId!=0){
     @require_once('getTopUp.php');
-    $data = getTopUp($sender);
+    $data = getTopUp($senderUsername);
     $min = $data['min_balance'];
     $max = $data['max_balance'];
     
