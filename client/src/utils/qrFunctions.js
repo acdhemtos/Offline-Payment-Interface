@@ -176,6 +176,6 @@ export const QR = {
     if(encodeFormat.length!==values.length){ throw "MisMatched Parameters";  }
   },
   decode : function(){
-
+    console.log("HHEL");
   }
 };
