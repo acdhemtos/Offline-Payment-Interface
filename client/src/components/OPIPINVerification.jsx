@@ -127,7 +127,7 @@ const OPIQRCodeSVG = () => {
                         }
                       });
                     }
-                  } else if (n === 36) {
+                  } else if (QR.decode("id+hash",string) !== false) {
                     const id = decode.trans_id(string.slice(0, 4));
                     const verification_hash = string.slice(4, 36);
 
