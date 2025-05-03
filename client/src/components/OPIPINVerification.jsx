@@ -240,7 +240,7 @@ const OPIQRCodeSVG = () => {
 
       <canvas
         ref={canvasRef}
-        className="absolute top-0 left-0 w-full h-full opacity-0 pointer-events-none transform scale-x-[-1]"
+        className="absolute top-0 left-0 w-full h-full opacity-0 pointer-events-none"
       />
       {showOverlay && backgroundColor === "bg-green-500" && (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-70 z-40">
