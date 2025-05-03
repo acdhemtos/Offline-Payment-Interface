@@ -3,6 +3,8 @@ function getTwo(digits){
  if(digits<21){
   return l[digits];
  }
+ let ones = digits%10;
+ let tens = Math.floor(digits/10)-2;
 }
 
 for(let i=0;i<100;++i){
