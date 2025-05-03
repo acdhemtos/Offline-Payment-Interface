@@ -50,6 +50,7 @@ const OPIQRCodeSVG = () => {
               console.error("No credential found");
               return;
             }
+          });
 
       const hash = await sha256(receiver, adjustedAmount, rN, tt, privateKey);
       detailsHashRef.current = hash;
