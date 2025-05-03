@@ -178,6 +178,10 @@ export const QR = {
     let str = "";
     for(let i=0;i<encodeFormat.length;++i){
      let s = encode[encodeFormat[i]](values(i));
+     if(s===false){
+      return false;
+     }
+     str += s;
     }
     return str;
   },
