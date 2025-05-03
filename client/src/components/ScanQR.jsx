@@ -167,7 +167,7 @@ const ScanQR = () => {
       )}
 
       <motion.div
-        className="absolute border-4 rounded-xl border-white"
+        className="absolute m-auto border-4 rounded-xl border-white"
         style={{
           width: "250px",
           height: "250px",
