@@ -42,7 +42,7 @@ const ScanQR = () => {
       const ua = QR.decode("username+amount",data);
       const u = QR.decode("username",data);
       
-      if(obj!=false){
+      if(obj!==false){
         navigate("/app/send", {
           state: {
             qrData: obj,
