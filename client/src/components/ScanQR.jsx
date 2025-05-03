@@ -79,48 +79,6 @@ const ScanQR = () => {
           },
         });
       }
-
-
-      let username = "";
-      if (data.length >= 10) {
-        username = decode.username(data.slice(0, 10));
-        data = data.slice(10);
-      } else {
-        return;
-      }
-      if (username === false) {
-        return;
-      }
-      if (data == "") {
-        
-      }
-
-      let amount = "";
-      if (data.length >= 3) {
-        amount = decode.amount(data.slice(0, 3));
-        data = data.slice(3);
-      } else {
-        return;
-      }
-      if (amount === false) {
-        return;
-      }
-      if (data == "") {
-        
-        return;
-      }
-
-      let name = "";
-      if (data.length == 37) {
-        name = decode.name(data);
-      } else {
-        return;
-      }
-      if (name === false) {
-        return;
-      }
-
-      
     }
   };
 
