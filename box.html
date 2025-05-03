@@ -336,7 +336,9 @@ const QR = {
     generateQR(QR.encode("username+name",username,name));
 
     function resetEver(){
-      document.querySelector()
+      document.querySelector('#camera-container').removeEventListener('click', resetEver);
+      generateQR(QR.encode("username+name",username,name));\
+      document.body.removeAttribute("class");
     }
 
     function onScanSuccess(decodedText) {
@@ -364,8 +366,7 @@ const QR = {
                 //setReset
                 document.body.setAttribute("red");
               }
-              button.addEventListener('click', resetEver);
-              return data;
+              document.querySelector('#camera-container').addEventListener('click', resetEver);
             })
             .catch((error) => {
               console.error("AJAX Error:", error);
