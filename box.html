@@ -283,9 +283,7 @@ const lengths = {
  ...Object.fromEntries(['hash', 'details_hash', 'verification_hash'].map(k => [k, 32]))
 }
 
-console.log(lengths);
-
-export const QR = {
+const QR = {
   encode : function(encodeFormat, ...values){
     encodeFormat = encodeFormat.split('+');
     if(encodeFormat.length!==values.length){ throw "MisMatched Parameters"; }
@@ -316,6 +314,7 @@ export const QR = {
     return ret;
   }
 };
+    
     const qrOutput = document.getElementById('qr-output');
     let username = "receiver";//prompt("Enter Username : ");
     let name = "merchant";//prompt("Enter Name : ");
