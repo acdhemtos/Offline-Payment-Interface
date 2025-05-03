@@ -72,7 +72,6 @@ const OPIQRCodeSVG = () => {
       navigator.mediaDevices
         .getUserMedia({ video: { facingMode: "environment" } })
         .then((stream) => {
-          console.log(Date.now());
           const video = videoRef.current;
           if (!video) return;
 
