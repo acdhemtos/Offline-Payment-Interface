@@ -62,7 +62,7 @@ const ReceivePage = () => {
   };
 
   const generateQRCode = async () => {
-    const name = localStorage.getItem("name");
+    const name = decodeURIComponent(localStorage.getItem("name"));
 
     const amount = uamount;
     setQrData(generateReceiveQR(amount, name));
@@ -123,8 +123,8 @@ const ReceivePage = () => {
           setHideQRCode(true);
           setShowOverlay(true);
 
-          const sessionKey = Cookies.get("session_key");
-          const username = Cookies.get("username");
+          const sessionKey = decodeURIComponent(Cookies.get("session_key"));
+          const username = decodeURIComponent(Cookies.get("username"));
           const amount = uamount * 100;
 
           let data, code;
