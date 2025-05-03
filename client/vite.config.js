@@ -9,11 +9,11 @@ dotenv.config();
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-     host: "acdhemtos.duckdns.org",
-    https: process.env.VITE_HTTPS === 'true' && {
-      key: fs.readFileSync(process.env.VITE_SSL_KEY_FILE), 
-      cert: fs.readFileSync(process.env.VITE_SSL_CRT_FILE), 
-    },
+    // host: "acdhemtos.duckdns.org",
+    // https: process.env.VITE_HTTPS === 'true' && {
+    //   key: fs.readFileSync(process.env.VITE_SSL_KEY_FILE), 
+    //   cert: fs.readFileSync(process.env.VITE_SSL_CRT_FILE), 
+    // },
     proxy: {
       '/api': {
         target: process.env.VITE_API_BASE_URL, 
@@ -30,6 +30,7 @@ export default defineConfig({
         }
       : undefined,
   },
+  port: '0.0.0.0',
   base: '/',
   plugins: [react()],
   build: {
