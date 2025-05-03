@@ -309,11 +309,6 @@ const Home = () => {
             </button>
           </div>
         </section>
-
-        <div className="px-6 w-full max-w-md">
-
-        <h1>sdfwfgr</h1>
-        </div>
       </div>
     </div>
   );
