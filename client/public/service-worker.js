@@ -127,6 +127,7 @@ async function fetchBalance() {
 }
 
 function logoutUser() {
+  console.log("sending logout msg to clients");
   postMessageToClients({ type: "logout" });
 }
 
