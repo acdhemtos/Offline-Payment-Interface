@@ -335,6 +335,10 @@ const QR = {
 
     generateQR(QR.encode("username+name",username,name));
 
+    function resetEver(){
+      document.querySelector()
+    }
+
     function onScanSuccess(decodedText) {
       if(looking){
         let ret = QR.decode("sender+amount+time+details_hash");
@@ -360,6 +364,7 @@ const QR = {
                 //setReset
                 document.body.setAttribute("red");
               }
+              button.addEventListener('click', resetEver);
               return data;
             })
             .catch((error) => {
