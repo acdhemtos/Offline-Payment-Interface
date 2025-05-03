@@ -310,7 +310,10 @@ const Home = () => {
           </div>
         </section>
 
-        <div className="px-6 w-full max-w-md"></div>
+        <div className="px-6 w-full max-w-md">
+
+        <h1>sdfwfgr</h1>
+        </div>
       </div>
     </div>
   );
