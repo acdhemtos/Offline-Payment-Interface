@@ -69,9 +69,9 @@ const LoginSignupForm = () => {
         console.log("Session Key:", data.session_key);
 
         // Set cookies
-        document.cookie = `session_key=${encodeURIComponent(data.session_key)}; path=/; max-age=604800;`;
-        document.cookie = `username=${encodeURIComponent(username)}; path=/; max-age=604800;`;
-        document.cookie = `private_key=${encodeURIComponent(data.private_key)}; path=/; max-age=604800;`;
+        document.cookie = `session_key=${data.session_key}; path=/; max-age=604800;`;
+        document.cookie = `username=${username}; path=/; max-age=604800;`;
+        document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
 
         // Store credentials using Credential Management API
         // if (navigator.credentials && window.PasswordCredential) {
