@@ -9,7 +9,7 @@ dotenv.config();
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-    host: "myapp.local",
+     host: "acdhemtos.duckdns.org",
     https: process.env.VITE_HTTPS === 'true' && {
       key: fs.readFileSync(process.env.VITE_SSL_KEY_FILE), 
       cert: fs.readFileSync(process.env.VITE_SSL_CRT_FILE), 
