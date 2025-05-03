@@ -135,9 +135,11 @@ function logoutUser() {
 }
 
 function postMessageToClients(message) {
-  self.clients.matchAll().then((clients) => {
+  self.clients.matchAll({ includeUncontrolled: true }).then((clients) => {
     if (clients.length === 0) {
-      console.error("No clients available to send message.");
+      console.error("No clients available to send message. Retrying...");
+      setTimeout(() => postMessageToClients(message), 2000); // Retry after 2 seconds
+      return;
     }
     clients.forEach((client) => {
       console.log("Sending message to client:", message);
