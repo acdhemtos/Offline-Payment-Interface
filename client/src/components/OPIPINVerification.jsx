@@ -106,16 +106,15 @@ const OPIQRCodeSVG = () => {
                 if (code) {
                   const private_key = Cookies.get("private_key");
                   const string = code.data;
-                  const n = string.length;
+                  
 
-                  if (n === 1 && decode.code(string) === 1) {
+                  if (QR.decode("code",string) === 1) {
                     stopStream(video);
                     setShowOverlay(true);
                     setHideQRCode(true);
                     setBackgroundColor("bg-red-500");
-                  } else if (n === 33) {
-                    const code = decode.code(string.slice(0, 1));
-                    const hash = string.slice(1, 33);
+                  } else if (QR.decode("code+hash",string)!==false) {
+                    const {code,hash} = QR.decode("code+hash",string);
 
                     if (code === 30) {
                       const sss = detailsHashRef.current + "30" + private_key;
@@ -130,7 +129,7 @@ const OPIQRCodeSVG = () => {
                         }
                       });
                     }
-                  } else if (n === 36) {
+                  } else if (QR.decode("trans_id+hash",string)!==falsen === 36) {
                     const id = decode.trans_id(string.slice(0, 4));
                     const verification_hash = string.slice(4, 36);
 
