@@ -1,7 +1,20 @@
 <?php
  
 function getTransactions($username,$last_id){
+ $sql = "
+  SELECT t.id
+  FROM transactions t
+  JOIN users u_sender ON t.sender = u_sender.id
+  JOIN users u_receiver ON t.receiver = u_receiver.id
+  WHERE (u_sender.username = :username OR u_receiver.username = :username)
+   AND t.id > :last_id
+ ";
 
+ $stmt = $pdo->prepare($sql);
+ $stmt->execute(['username' => $username, 'last_id' => $lastId]);
+
+ // Fetch as array
+ return $stmt->fetchAll(PDO::FETCH_COLUMN);
 }
 
  if(self(__FILE__)){
