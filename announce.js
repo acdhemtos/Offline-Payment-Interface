@@ -18,8 +18,8 @@ function announce(amt){
  if(amt>99999){
   ret = [...getTwo(Math.floor(amt/100000)),'thousand'];
  }
- while(amt>999){
-  amt -= 1000;
+ while(amt>99999){
+  amt -= 100000;
  }
  if(amt>99){
   ret = [...ret, ...getTwo(Math.floor(amt/100), 'hundred')];
