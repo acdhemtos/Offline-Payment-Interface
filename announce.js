@@ -30,7 +30,6 @@ function announce(amt){
  if(amt>99){
   ret = [...ret, ...getTwo(Math.floor(amt/100))];
  }
- console.log("###",ret);
  if(ret.length!=0){
   ret = [...ret, 'rupees'];
  }
