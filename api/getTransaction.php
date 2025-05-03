@@ -1,6 +1,6 @@
 <?php
  
- function getTransaction($pdo, $id) {
+ function getTransaction($id) {
   $sql = "
       SELECT 
           u1.username AS sender,
