@@ -3,7 +3,7 @@
  if(self(__FILE__)){
   
   $data = json_decode(file_get_contents("php://input"),true);
-  
+
   $username = $data["username"]; validate('validateLoginUsername', $username);
  
   $session_key = $data['session_key'];
@@ -11,8 +11,7 @@
   if(!validKey($session_key)){display(16);}
 
   $last_id = $data["last_id"];
-  @require_once('isValidAmount.php');
-  if(!is_int($last_id)){display(37);}
+  if(!is_int($last_id)){display(39);}
   
   
   $pin = $data['pin'];
