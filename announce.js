@@ -15,17 +15,17 @@ function getTwo(digits){
 
 function announce(amt){
  let ret = []
- if(amt>999){
-  ret = [...getTwo(Math.floor(amt/1000)),'thousand'];
+ if(amt>99999){
+  ret = [...getTwo(Math.floor(amt/100000)),'thousand'];
  }
- while(amt>999){
-  amt -= 1000;
+ while(amt>99999){
+  amt -= 100000;
  }
- if(amt>99){
-  ret = [...ret, ...getTwo(Math.floor(amt/100), 'hundred')];
+ if(amt>9999){
+  ret = [...ret, ...getTwo(Math.floor(amt/10000), 'hundred')];
  }
- while(amt>99){
-  amt -= 100;
+ while(amt>9999){
+  amt -= 10000;
  }
  if(amt!=0){
   ret = [...ret, ...getTwo(Math.floor(amt))];
