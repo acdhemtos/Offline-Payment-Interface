@@ -9,8 +9,8 @@
           t.type,
           t.time
       FROM transactions t
-      JOIN users u1 ON t.sender = u1.id
-      JOIN users u2 ON t.receiver = u2.id
+      LEFT JOIN users u1 ON t.sender = u1.id
+      LEFT JOIN users u2 ON t.receiver = u2.id
       WHERE t.id = :id
   ";
 
