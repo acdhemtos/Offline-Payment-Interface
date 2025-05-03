@@ -290,9 +290,10 @@
       { facingMode: { exact: "environment" } }, // try back camera
       config,
       (decodedText) => {
-        doStuff(decodedText);
+        
         html5QrCode.stop(); // stop scanning after success
-      },
+        doStuff(decodedText);
+       },
       (errorMessage) => {
         // Ignore errors
       }
