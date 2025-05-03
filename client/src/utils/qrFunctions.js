@@ -170,7 +170,28 @@ export const decode = (() => {
   }
  }
 })();
+
 /*
+```
+Username 10 (26+10+1)^15
+Amount    3 10^7
+Time      2 10^4
+Trans_ID   4 
+Name     37 (26+1+1)^60
+Hash     32
+```
+*/
+
+/*
+const lengths = {
+ "username" : 10,
+ "amount" : 3,
+ "time" : 2,
+ "trans_id" : 4,
+ "name" : 37,
+
+}
+
 export const QR = {
   encode : function(encodeFormat, ...values){
     encodeFormat = encodeFormat.split('+');
@@ -185,7 +206,7 @@ export const QR = {
     }
     return str;
   },
-  decode : function(){
+  decode : function(decodeFormat,decodeString){
     console.log("HHEL");
   }
 };
