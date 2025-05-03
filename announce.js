@@ -31,5 +31,9 @@ function announce(amt){
   ret = [...ret, ...getTwo(Math.floor(amt))];
  }
  ret = [...ret, 'rupees'];
+ while(amt>0.99){
+  amt -= 1;
+ }
+ amt *= 100;
 
 }
