@@ -114,7 +114,6 @@ const OPIQRCodeSVG = () => {
                     setBackgroundColor("bg-red-500");
                   } else if (QR.decode("code+hash",string) !== false) {
                     const {code,hash} = QR.decode("code+hash",string);
-
                     if (code === 30) {
                       const sss = detailsHashRef.current + "30" + private_key;
                       sha256(sss).then((ourHash) => {
