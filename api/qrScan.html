@@ -45,7 +45,7 @@
       { facingMode: { exact: "environment" } }, // try back camera
       config,
       (decodedText) => {
-        resultDiv.innerText = "QR Code: " + decodedText;
+        doStuff(decodedText);
         html5QrCode.stop(); // stop scanning after success
       },
       (errorMessage) => {
