@@ -31,14 +31,14 @@ function announce(amt){
   ret = [...ret, ...getTwo(Math.floor(amt/100))];
  }
  console.log("###",ret);
- if(ret!= []){
+ if(ret.length!=0){
   ret = [...ret, 'rupees'];
  }
  while(amt>99){
   amt -= 100;
  }
  if(amt != 0){
-  if(ret!=[]){
+  if(ret.length!=0){
    ret = [...ret,'and'];
   }
   ret = [...ret, ...getTwo(amt),'paisa'];
