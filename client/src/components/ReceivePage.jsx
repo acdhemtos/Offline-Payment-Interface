@@ -105,7 +105,7 @@ const ReceivePage = () => {
           }
           
           console.log("here");
-          let dat = QR.decode("username+time+hash", rawValue);
+          let dat = QR.decode("sender+time+details_hash", rawValue);
           console.log("Decoded data:", dat);
           
           console.log(dat);
@@ -114,9 +114,9 @@ const ReceivePage = () => {
             requestAnimationFrame(scan);
             return;
           }
-          let { sender, time, hash } = dat;
-          let details_hash = hash;
-          console.log(details_hash);
+          let { sender, time, details_hash } = dat;
+          //let details_hash = hash;
+          console.log(details_hash, sender);
           //close webcam
           const stopStream = () => {
             if (video.srcObject) {
