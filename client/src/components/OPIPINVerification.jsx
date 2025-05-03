@@ -107,7 +107,7 @@ const OPIQRCodeSVG = () => {
                   const string = code.data;
                   const n = string.length;
 
-                  if (QR.decode("code",string) === 1) {
+                  if (QR.decode("code",string).code === 1) {
                     stopStream(video);
                     setShowOverlay(true);
                     setHideQRCode(true);
