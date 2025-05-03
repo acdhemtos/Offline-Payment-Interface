@@ -91,32 +91,32 @@ const LoginSignupForm = () => {
         console.log("Session Key:", data.session_key);
         document.cookie = `session_key=${encodeURIComponent(data.session_key)}; path=/; max-age=604800;`;
         document.cookie = `username=${encodeURIComponent(username)}; path=/; max-age=604800;`;
-        //document.cookie = `private_key=${data.private_key}; path=/; max-age=604800; `;
+        document.cookie = `private_key=${encodeURIComponent(data.private_key)}; path=/; max-age=604800; `;
 
-        if (!navigator.credentials && window.PasswordCredential) {
-          console.warn(
-            "Credential Management API is not supported in this browser."
-          );
-        }
+        // if (!navigator.credentials && window.PasswordCredential) {
+        //   console.warn(
+        //     "Credential Management API is not supported in this browser."
+        //   );
+        // }
 
-        if (navigator.credentials && window.PasswordCredential) {
-          const credential = new PasswordCredential({
-            id: encodeURIComponent(username),
-            password: encodeURIComponent(data.private_key),
-            name: "Private Key Credential",
-          });
+        // if (navigator.credentials && window.PasswordCredential) {
+        //   const credential = new PasswordCredential({
+        //     id: encodeURIComponent(username),
+        //     password: encodeURIComponent(data.private_key),
+        //     name: "Private Key Credential",
+        //   });
 
-           navigator.credentials
-            .store(credential)
+          //  navigator.credentials
+          //   .store(credential)
             // .then((res) => {
             //   console.log(res);
             //   console.log("Private key stored in credentials");
             //   console.log(abc);
             // })
           
-            .catch((error) => {
-              console.error("Error storing private key in credentials:", error);
-            });
+            // .catch((error) => {
+            //   console.error("Error storing private key in credentials:", error);
+            // });
         }
 
         if ("Notification" in window) {
