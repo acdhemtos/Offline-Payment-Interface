@@ -38,23 +38,23 @@ const ScanQR = () => {
 
   const handleScanComplete = (data) => {
     if (data) {
-      const uan = QR.decode("username+amount+name",data);
+      let obj = QR.decode("username",data);//QR.decode("username+amount+name",data);
       const ua = QR.decode("username+amount",data);
       const u = QR.decode("username",data);
       
-      if(uan===false && ua===false && u===false){
-        return;
-      }
-      if(u!=false){
+      if(obj!=false){
         navigate("/app/send", {
           state: {
-            qrData: u,
+            qrData: obj,
             disableUserId: true,
             disableName: false,
             disableAmount: false,
           },
         });
-      }else if(ua!=false){
+        return;
+      }
+      obj = QR.decode("username+amount",data);
+      if(obj!==false){
         navigate("/app/send", {
           state: {
             qrData: ua,
