@@ -359,12 +359,10 @@ const QR = {
               if (data.code == 0) {
                 
                 //qr
-                //setReset
                 document.body.setAttribute("green");
-                //console.error("Error:", data.message || "Unknown error", data);
               }else{
                 //qr
-                //setReset
+                
                 document.body.setAttribute("red");
               }
               document.querySelector('#camera-container').addEventListener('click', resetEver);
