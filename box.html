@@ -91,21 +91,24 @@
     let username = "receiver";//prompt("Enter Username : ");
     let looking = true;
 
+    function generateQR(text) {
+      const typeNumber = 0;
+      const errorCorrectionLevel = 'H';
+      const qr = qrcode(typeNumber, errorCorrectionLevel);
+      qr.addData(text);
+      qr.make();
+      const imgTagString = qr.createImgTag(10);
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = imgTagString;
+      const img = tempDiv.querySelector('img');
+      qrOutput.src = img.src;
+    }
+
     function onScanSuccess(decodedText) {
       if(looking){
         let ret = QR.decode("sender+amount+time+details_hash");
         if(ret!=false){
-          looking = false;
-          const typeNumber = 0;
-          const errorCorrectionLevel = 'H';
-          const qr = qrcode(typeNumber, errorCorrectionLevel);
-          qr.addData(text);
-          qr.make();
-          const imgTagString = qr.createImgTag(10);
-          const tempDiv = document.createElement('div');
-          tempDiv.innerHTML = imgTagString;
-          const img = tempDiv.querySelector('img');
-          qrOutput.src = img.src;
+          
         }
       }
       
