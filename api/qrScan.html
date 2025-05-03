@@ -263,7 +263,14 @@
      "trans_id+hash",
      "code+hash",
      "code"
-    ]
+    ];
+    for(let i=0;i<li.length;i++){
+     let dat = QR.decode(li[i],str);
+     if(dat!==false){
+      document.write(JSON.stringify(dat));
+      break;
+     }
+    }
    }
     const resultDiv = document.getElementById("result");
 
