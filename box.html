@@ -49,11 +49,20 @@
     body.yellow #camera-container{
       background-color:yellow;
     }
+    body.yellow #camera-container:before{
+      content:"Processing";
+    }
     body.red #camera-container{
       background-color:red;
     }
+    body.green #camera-container:before{
+      content:"Transaction Failed!";
+    }
     body.green #camera-container{
       background-color:green;
+    }
+    body.green #camera-container:before{
+      content:"Transaction Successfull!";
     }
     body #camera-container{
       line-height: calc(100vh - 100vw);
