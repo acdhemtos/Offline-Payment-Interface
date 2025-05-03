@@ -61,8 +61,7 @@
  if(getBalance($sender)<$amount){handle(30);}
 
  @require_once('transaction.php');
- $Id = transaction($sender, $username, $amount, 2);
-
- handle(0,$Id);
+ 
+ handle(0,transaction($sender, $username, $amount, 2));
  
 ?>
