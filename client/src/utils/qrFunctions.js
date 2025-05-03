@@ -192,16 +192,16 @@ const lengths = {
 }
 
 export const QR = {
-  enc : function(encodeFormat, ...values){
+  encode : function(encodeFormat, ...values){
     encodeFormat = encodeFormat.split('+');
     if(encodeFormat.length!==values.length){ throw "MisMatched Parameters"; }
     let str = "";
     for(let i=0;i<encodeFormat.length;++i){
-     str += encode[encodeFormat[i]](values(i));
+     str += encode[encodeFormat[i]](values[i]);
     }
     return str;
   },
-  dec : function(decodeFormat,decodeString){
+  decode : function(decodeFormat,decodeString){
     decodeFormat = decodeFormat.split('+');
     let n = 0;
     for(let i=0;i<decodeFormat.length;++i){
