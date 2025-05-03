@@ -45,10 +45,3 @@ function announce(amt){
  return ret;
 
 }
-
-console.log(announce(12345));
-console.log(announce(12345));
-console.log(announce(45));
-console.log(announce(12345));
-console.log(announce(12345));
-console.log(announce(0));
