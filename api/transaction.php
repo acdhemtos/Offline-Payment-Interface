@@ -48,7 +48,7 @@
     $max = $data['max_balance'];
     
     @require_once('getBalance.php');
-    $balance = getBalance($username);
+    $balance = getBalance($senderUsername);
     if($balance<$min){
      @require_once('topUp.php');
      topUp($username,$max-$balance);
