@@ -39,15 +39,30 @@ const OPIQRCodeSVG = () => {
       //const privateKey = Cookies.get("private_key");
       let privateKey = null;
 
-      if (navigator.credentials) {
-        const credential = await navigator.credentials.get({ password: true });
-        console.log(credential);
-        if (credential) {
-          privateKey = credential.password;
-        } else {
-          console.error("No credential found");
-          return;
-        }
+            if (navigator.credentials) {
+        navigator.credentials
+          .get({ password: true })
+          .then((credential) => {
+            console.log(credential);
+            if (credential) {
+              privateKey = credential.password;
+            } else {
+              console.error("No credential found");
+              return;
+            }
+      
+            // Continue with the rest of the logic after retrieving the private key
+            const hash = sha256(receiver, adjustedAmount, rN, tt, privateKey);
+            hash.then((result) => {
+              detailsHashRef.current = result;
+      
+              const qrDataString = username + time + result;
+              setQrData(qrDataString);
+            });
+          })
+          .catch((error) => {
+            console.error("Error retrieving credentials:", error);
+          });
       } else {
         console.error("Cred API error");
         return;
