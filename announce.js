@@ -34,7 +34,6 @@ function announce(amt){
  while(amt>99){
   amt -= 100;
  }
- amt *= 100;
  if(amt != 0){
   ret = [...ret, 'and', ...getTwo(amt),'paisa'];
  }
