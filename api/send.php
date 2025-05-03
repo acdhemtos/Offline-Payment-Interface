@@ -13,7 +13,7 @@
 
   $amount = $data["amount"];
   @require_once('isValidAmount.php');
-  if(!isValidAmount($receiver)){display(37);}
+  if(!isValidAmount($amount)){display(37);}
   
   
   $pin = $data['pin'];
