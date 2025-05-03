@@ -128,7 +128,7 @@ const OPIQRCodeSVG = () => {
                       });
                     }
                   } else if (QR.decode("id+hash",string) !== false) {
-                    const {id,verigication_hash} = QR.decode("id+hash",string);
+                    const {id,verification_hash} = QR.decode("id+hash",string);
 
                     const sss =
                       detailsHashRef.current +
