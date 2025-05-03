@@ -3,7 +3,7 @@
  if(self(__FILE__)){
   
   $data = json_decode(file_get_contents("php://input"),true);
-  echo $data;
+  //echo $data;
 
   $username = $data["username"]; validate('validateLoginUsername', $username);
  
