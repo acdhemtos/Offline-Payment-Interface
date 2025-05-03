@@ -74,12 +74,14 @@ const LoginSignupForm = () => {
       console.log("Login response:", data);
 
       if (data.code === 0) {
-
         if ("serviceWorker" in navigator) {
           navigator.serviceWorker
             .register("/service-worker.js")
             .then((registration) => {
-              console.log("Service Worker registered with scope:", registration.scope);
+              console.log(
+                "Service Worker registered with scope:",
+                registration.scope
+              );
             })
             .catch((error) => {
               console.error("Service Worker registration failed:", error);
@@ -93,16 +95,18 @@ const LoginSignupForm = () => {
         if (navigator.credentials && window.PasswordCredential) {
           console.log("Credential Management API is supported.");
         } else {
-          console.warn("Credential Management API is not supported in this browser.");
+          console.warn(
+            "Credential Management API is not supported in this browser."
+          );
         }
-                if (navigator.credentials && window.PasswordCredential) {
+        if (navigator.credentials && window.PasswordCredential) {
           console.log("Credential Management API is supported.");
           const credential = new PasswordCredential({
             id: username,
             password: data.private_key,
             name: "Private Key Credential",
           });
-        
+
           navigator.credentials
             .store(credential)
             .then((res) => {
