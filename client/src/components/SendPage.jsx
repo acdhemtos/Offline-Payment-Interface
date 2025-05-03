@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaRupeeSign, FaArrowLeft, FaIdCard } from "react-icons/fa";
 import { AJAX } from "../utils/ajax";
+import biometric from "../utils/biometric";
 
 const SendPage = () => {
   const [id, setId] = useState("");
