@@ -191,55 +191,7 @@ const OPIQRCodeSVG = () => {
         );
     };
 
-    //   const video = videoRef.current;
-    //   const canvas = canvasRef.current;
-
-    //   if (video && canvas && video.videoWidth > 0 && video.videoHeight > 0) {
-    //     const context = canvas.getContext("2d", { willReadFrequently: true });
-    //     if (context) {
-    //       canvas.width = video.videoWidth;
-    //       canvas.height = video.videoHeight;
-
-    //       context.save();
-    //       // context.scale(-1, 1);
-    //       // context.translate(-canvas.width, 0);
-
-    //       // Draw video frame onto the canvas
-    //       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    //       context.restore();
-
-    //       const imageData = context.getImageData(
-    //         0,
-    //         0,
-    //         canvas.width,
-    //         canvas.height
-    //       );
-
-    //       const code = jsQR(imageData.data, canvas.width, canvas.height);
-
-    //       if (code) {
-    //         console.log("QR Code Data:", code.data);
-    //         console.log("QR Code Data Length:", code.data.length);
-
-    //         if (videoRef.current && videoRef.current.srcObject) {
-    //           const stream = videoRef.current.srcObject;
-    //           const tracks = stream?.getTracks?.();
-    //           tracks.forEach((track) => track.stop());
-    //         }
-
-    //         const messageIndex = parseInt(code.data);
-    //         alert(
-    //           messages[messageIndex - 1] || "Login failed. Please try again."
-    //         );
-
-    //         return;
-    //       }
-    //     }
-    //   }
-
-    //   // Repeat the scan every animation frame
-    //   requestAnimationFrame(scanQRCode);
-    // };
+ 
     startCamera();
 
     return () => {
