@@ -142,7 +142,7 @@ const ReceivePage = () => {
               username,
               session_key: sessionKey,
               amount,
-              sender,
+              sender: dat.username,,
               time,
               details_hash,
             });
