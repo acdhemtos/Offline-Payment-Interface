@@ -37,7 +37,7 @@
   if(getBalance($username)<$amount){display(30);}
   
   @require_once('transaction.php');
-  transaction($username, $receiver, $amount, 1);
+  $Id = transaction($username, $receiver, $amount, 1);
   
   @require_once('getTopUp.php');
   $data = getTopUp($username);
