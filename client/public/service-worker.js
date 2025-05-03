@@ -35,12 +35,7 @@ const urlsToCache = [
   "/app/success"
 ];
 
-/*
-timeour
-
-*/
-
-// Install the service worker and cache resources
+// Cache on install
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -50,39 +45,7 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Fetch event: Network First strategy
-self.addEventListener("fetch", (event) => {
-  // Skip caching for API requests
-  if (event.request.url.includes("/api/")) {
-    return; // Do nothing for API requests
-  }
-
-  if (event.request.method === "GET") {
-    event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          // If the request is successful, clone and cache the response
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
-          });
-          return response;
-        })
-        .catch(() => {
-          // If the network is unavailable, serve from cache
-          return caches.match(event.request).then((cachedResponse) => {
-            if (cachedResponse) {
-              return cachedResponse;
-            }
-            // Return a generic fallback for other requests
-            return new Response("Resource not available", { status: 404 });
-          });
-        })
-    );
-  }
-});
-
-// Activate the service worker and clean up old caches
+// Activate and clean old caches
 self.addEventListener("activate", (event) => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
@@ -99,3 +62,89 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+// Fetch with network-first strategy
+self.addEventListener("fetch", (event) => {
+  if (event.request.url.includes("/api/")) {
+    return; // don't cache API
+  }
+
+  if (event.request.method === "GET") {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+          return response;
+        })
+        .catch(() => {
+          return caches.match(event.request).then((cachedResponse) => {
+            return cachedResponse || new Response("Resource not available", { status: 404 });
+          });
+        })
+    );
+  }
+});
+
+// Periodically fetch balance
+const fetchInterval = 2000;
+
+async function fetchBalance() {
+  try {
+    const sessionKey = await getCookieValue("session_key");
+    const username = await getCookieValue("username");
+
+    if (!sessionKey || !username) {
+      console.error("Session key or username missing. Logging out.");
+      logoutUser();
+      return;
+    }
+
+    const response = await fetch("/api/getBalance.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, session_key: sessionKey }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.code === 0) {
+      postMessageToClients({ type: "updateConnectionStatus", isConnected: true });
+      console.log("Balance fetched successfully:", data.balance);
+    } else {
+      console.error("Invalid response from server:", data);
+      logoutUser();
+    }
+  } catch (error) {
+    console.error("Network error or invalid response:", error);
+    postMessageToClients({ type: "updateConnectionStatus", isConnected: false });
+  }
+}
+
+function logoutUser() {
+  postMessageToClients({ type: "logout" });
+}
+
+function postMessageToClients(message) {
+  self.clients.matchAll().then((clients) => {
+    clients.forEach((client) => client.postMessage(message));
+  });
+}
+
+// 🔧 Use cookieStore API to read cookies
+async function getCookieValue(name) {
+  try {
+    const cookie = await cookieStore.get(name);
+    return cookie ? cookie.value : null;
+  } catch (error) {
+    console.error("Error reading cookie:", name, error);
+    return null;
+  }
+}
+
+setInterval(fetchBalance, fetchInterval);
