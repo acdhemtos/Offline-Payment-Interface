@@ -32,29 +32,6 @@ const LoginSignupForm = () => {
     }));
   };
 
-  useEffect(() => {
-    // Respond to service worker requests for cookies
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.addEventListener('message', (event) => {
-        if (event.data.type === 'getCookie') {
-          const name = event.data.name;
-          const value = getCookie(name);
-          event.source.postMessage({
-            type: 'cookieValue',
-            name,
-            value,
-          });
-        }
-      });
-    }
-  
-    function getCookie(name) {
-      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-      return match ? match[2] : null;
-    }
-  }, []);
-  
-
   const handleLogin = async (e) => {
     e.preventDefault();
     const { username, password } = form;
@@ -83,20 +60,7 @@ const LoginSignupForm = () => {
             .register("/service-worker.js")
             .then((registration) => {
               console.log("Service Worker registered with scope:", registration.scope);
-              navigator.serviceWorker.addEventListener("message", (event) => {
-                const { type, isConnected } = event.data;
-
-                if (type === "updateConnectionStatus") {
-                  setIsConnected(true);
-                } else if (type === "logout") {
-                  alert("Session expired or error occurred. Logging out.");
-                  // Clear cookies and redirect to login
-                  document.cookie = "session_key=; path=/; max-age=0;";
-                  document.cookie = "username=; path=/; max-age=0;";
-                  document.cookie = "private_key=; path=/; max-age=0;";
-                  window.location.href = "/";
-                }
-              });
+              
             })
             .catch((error) => {
               console.error("Service Worker registration failed:", error);
