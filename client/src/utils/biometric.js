@@ -31,10 +31,10 @@ async function biometric() {
       attestation: "none",
     };
     const credential = await navigator.credentials.create({ publicKey });
-    alert("Biometric authentication successful!");
+    // alert("Biometric authentication successful!");
   } catch (err) {
     console.error("Biometric authentication failed:", err.name, err.message, err);
-    alert(`Biometric authentication failed: ${err.name} - ${err.message}`);
+    // alert(`Biometric authentication failed: ${err.name} - ${err.message}`);
     return false;
   }
   return true;
