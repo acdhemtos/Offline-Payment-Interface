@@ -189,11 +189,10 @@ const lengths = {
  "time" : 2,
  "trans_id" : 4,
  "name" : 37,
-
 }
 
 export const QR = {
-  encode : function(encodeFormat, ...values){
+  enc : function(encodeFormat, ...values){
     encodeFormat = encodeFormat.split('+');
     if(encodeFormat.length!==values.length){ throw "MisMatched Parameters"; }
     let str = "";
@@ -202,7 +201,7 @@ export const QR = {
     }
     return str;
   },
-  decode : function(decodeFormat,decodeString){
+  dec : function(decodeFormat,decodeString){
     decodeFormat = decodeFormat.split('+');
     let n = 0;
     for(let i=0;i<decodeFormat.length;++i){
