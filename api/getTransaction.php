@@ -1,6 +1,5 @@
 <?php
  
-function getTransactions($username,$last_id){
  function getTransaction($pdo, $id) {
   $sql = "
       SELECT 
@@ -18,7 +17,7 @@ function getTransactions($username,$last_id){
   $stmt = $GLOBALS['conn']->prepare($sql);
   $stmt->execute(['id' => $id]);
   return $stmt->fetch(PDO::FETCH_ASSOC);
-}
+ }
 
  if(self(__FILE__)){
   
@@ -33,6 +32,8 @@ function getTransactions($username,$last_id){
   $id = $data["id"];
   if(!is_int($id)){display(39);}
   
+  $transaction = getTransactions($id);
+
   display(0, array('data' => getTransactions($username,$last_id)));
  }
  
