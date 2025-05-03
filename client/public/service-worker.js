@@ -35,6 +35,11 @@ const urlsToCache = [
   "/app/success"
 ];
 
+/*
+timeour
+
+*/
+
 // Install the service worker and cache resources
 self.addEventListener("install", (event) => {
   event.waitUntil(

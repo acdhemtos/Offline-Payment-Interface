@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run generate-sw",
+    "build": "vite build",
     "generate-sw": "npx workbox generateSW workbox-config.cjs",
     "lint": "eslint .",
     "preview": "vite preview"

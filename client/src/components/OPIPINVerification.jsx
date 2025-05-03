@@ -61,7 +61,8 @@ const OPIQRCodeSVG = () => {
 
       sha256(receiver+adjustedAmount+rN+time+privateKey).then(hash => {
         console.log(receiver, adjustedAmount, rN, time, privateKey);
-        detailsHashRef.current = QR.decode("hash",hash);
+        detailsHashRef.current = QR.decode("hash",hash).hash;
+        console.log("detailshash",detailsHashRef.current);
         const qrDataString = QR.encode("username+time",username,time) + hash;
         setQrData(qrDataString);
       });
@@ -92,7 +93,7 @@ const OPIQRCodeSVG = () => {
             .then(() => {
               const canvas = document.createElement("canvas");
               const ctx = canvas.getContext("2d", { willReadFrequently: true });
-
+              console.log("1");
               const scanQRCode = () => {
                 if (video.readyState !== 4) {
                   requestAnimationFrame(scanQRCode);
@@ -110,10 +111,9 @@ const OPIQRCodeSVG = () => {
                   canvas.height
                 );
                 const code = jsQR(imageData.data, canvas.width, canvas.height);
-                
 
                 if (code) {
-                  console.log("code", code);
+                  
                   const private_key = Cookies.get("private_key");
                   const string = code.data;
                   const n = string.length;
@@ -123,8 +123,8 @@ const OPIQRCodeSVG = () => {
                     setShowOverlay(true);
                     setHideQRCode(true);
                     setBackgroundColor("bg-red-500");
-                  } else if (QR.decode("code+hash",string) !== false) {
-                    const {code,verification_hash} = QR.decode("code+hash",string);
+                  } else if (QR.decode("code+verification_hash",string) !== false) {
+                    const {code,verification_hash} = QR.decode("code+verification_hash",string);
                     if (code === 30) {
                       const sss = detailsHashRef.current + "30" + private_key;
                       sha256(sss).then((ourHash) => {
@@ -138,33 +138,35 @@ const OPIQRCodeSVG = () => {
                         }
                       });
                     }
-                  } else if (QR.decode("id+hash",string) !== false) {
-                    const {id,verification_hash} = QR.decode("id+hash",string);
-
+                  } else if (QR.decode("trans_id+verification_hash", string) !== false) {
+                    const { trans_id, verification_hash } = QR.decode("trans_id+verification_hash", string);
+                    const id = trans_id;
                     const sss =
                       detailsHashRef.current +
                       "0" +
                       id.toString() +
                       private_key;
+                    console.log("hashref", detailsHashRef.current);
+                    console.log(sss);
                     sha256(sss).then((ourHash) => {
-                      if (verification_hash === ourHash) {
+                      if (verification_hash === QR.decode("hash",ourHash).hash) {
                         stopStream(video);
                         setShowOverlay(true);
                         setHideQRCode(true);
                         setBackgroundColor("bg-green-500");
-                        addTransaction(
-                          id,
-                          receiverName,
-                          amount,
-                          -2,
-                          ti.current
-                        );
+                        // addTransaction(
+                        //   id,
+                        //   receiverName,
+                        //   amount,
+                        //   -2,
+                        //   ti.current
+                        // );
                       } else {
                         console.log(
                           "HASH FAILED",
                           sss,
                           detailsHashRef.current,
-                          ourHash,
+                          QR.decode("hash",ourHash).hash,
                           verification_hash
                         );
                       }
@@ -235,12 +237,13 @@ const OPIQRCodeSVG = () => {
         ref={videoRef}
         autoPlay
         playsInline
-        className="w-full max-w-md border border-gray-300 rounded-lg opacity-[30%] transform scale-x-[-1]"
+        className="w-full max-w-md border border-gray-300 rounded-lg opacity-[30%]"
       />
 
       <canvas
         ref={canvasRef}
-        className="absolute top-0 left-0 w-full h-full opacity-0 pointer-events-none transform scale-x-[-1]"
+        className="absolute top-0 left-0 w-full h-full opacity-0 pointer-events-none transform-rotate-180"
+        style={{transform: "rotateY(180deg)"}}
       />
       {showOverlay && backgroundColor === "bg-green-500" && (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-70 z-40">
