@@ -53,7 +53,7 @@
    unset($transaction['other']);
   }
 
-  display(0, array('data' => getTransactions($username,$last_id)));
+  display(0, $transaction);
  }
  
 ?>
