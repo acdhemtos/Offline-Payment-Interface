@@ -239,7 +239,7 @@ const Home = () => {
                 className="flex flex-col items-center text-center cursor-pointer"
                 onClick={() => navigate("/app/send")}
               >
-                <div className="bg-[#f0f0f3] backdrop-blur-md rounded-full p-4 shadow-md border border-gray-200">
+                <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-md border border-gray-200">
                   <BsCreditCard2Front className="text-purple-600 text-xl" />
                 </div>
                 <p className="mt-2 text-sm text-gray-700">Pay to UPI</p>
@@ -262,7 +262,7 @@ const Home = () => {
             Manage services
           </h2>
 
-          <div className="bg-[#f0f0f3] rounded-2xl shadow-sm border border-blue-300 px-3 py-6">
+          <div className="bg-[#f5f7ff] rounded-2xl shadow-sm border border-blue-300 px-3 py-6">
             <div className="grid grid-cols-4 gap-2 text-center">
               {services.map((service) => (
                 <div
@@ -296,7 +296,7 @@ const Home = () => {
               onClick={() => navigate("/app/transactions")}
             >
               <div className="flex items-center">
-                <div className="w-12 h-12 flex items-center justify-center bg-[#f0f0f3] border border-gray-200 rounded-full shadow mr-3">
+                <div className="w-12 h-12 flex items-center justify-center bg-white border border-gray-200 rounded-full shadow mr-3">
                   <div className="bg-blue-500 text-white p-2 rounded-full">
                     <FaHistory className="text-lg" />
                   </div>
@@ -309,6 +309,7 @@ const Home = () => {
             </button>
           </div>
         </section>
+
       </div>
     </div>
   );
