@@ -164,7 +164,7 @@ const OPIQRCodeSVG = () => {
                           "HASH FAILED",
                           sss,
                           detailsHashRef.current,
-                          ourHash,
+                          QR.decode("hash",ourHash).hash,
                           verification_hash
                         );
                       }
