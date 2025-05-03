@@ -169,17 +169,12 @@ const SendPage = () => {
             <button
             className="bg-green-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-green-600 transition w-full"
             onClick={async () => {
-              try {
                 const isAuthenticated = await biometric();
                 if (isAuthenticated) {
                   handleOptionClick("/app/opi-pin");
                 } else {
-                  alert("Biometric authentication failed. Please try again.");
+                  console.warn("Biometric authentication failed. Please try again.");
                 }
-              } catch (error) {
-                console.error("Biometric authentication error:", error);
-                alert("An error occurred during biometric authentication.");
-              }
             }}
           >
             Offline Send
