@@ -1,115 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QR + Webcam</title>
+  <meta charset="UTF-8">
+  <title>QR Mirror</title>
   <style>
-    * {
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: sans-serif;
     }
 
-    body, html {
-      height: 100%;
-      width: 100%;
-    }
-    body>div{
-      width:100vw;
-      position:relative;
-    }
-    #qr{
+    #qr-container {
+      width: 100vw;
       height:100vw;
-      background-color:black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f0f0;
     }
-    #details{
-      display:flex;
-      justify-content:space-around;
-      align-items:center;
+
+    #qr-output {
+      width: 100vw;
+      height: 100vw;
+    }
+
+    #camera-container {
+      flex: 1;
+    }
+
+    #reader {
+      width: 100vw;
+      height: calc(100vh - 100vw);
+    }
+    #reader>video{
+      width:100vw;
       height:calc(100vh - 100vw);
+      transform:scaleX(-1);
     }
-    #details.green>#camera,#details.red>#camera,#details.yellow>#camera{
+    body[class] #camera-container>#reader{
       display:none;
     }
-    #details.green{
-      background-color:green;
-    }
-    #details.yellow{
-      background-color:yellow;
-    }
-    #details.red{
-      background-color:mediumvioletred;
-    }
-    #camera{
-      display:block;
-      position:absolute;
-      background-color: blue;
-      left:0;
-      right:0;
-      bottom:0;
-      top:0;
-    }
-    #details[class]>#info{
-      display:block;
-    }
-    #info{
+    body.yellow #qr-container img{
       display:none;
-      position:absolute;
-      padding:10px;
-      top:10px;
-      left:10px;
-      right:10px;
-      bottom:10px;
-      border-radius:5px;
-      background-color:rgba(255,255,255,0.5);
-      text-align:Center;
-      font-weight:bold;
-      font-size:1.5em;
-      line-height:calc(100vh - 100vw - 20px);
     }
-    #details.green>#info:before{
-      content:"Transaction Successful!";
-      color:green;
-    }
-    #details.yellow>#info:before{
-      content:"Processing!";
-    }
-    #details.red>#info:before{
-      content:"Transaction Failed!";
-      color:mediumvioletred;
-    }
+    /*
+    body yellow
+      reader background yellow
+    body green
+      reader background green
+    body red
+      reader background red
+    
+    
+    */
   </style>
+
+  <!-- html5-qrcode scanner -->
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <!-- qrcode generator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 </head>
 <body>
-  
-  <div id="qr">
 
+  <div id="qr-container">
+    <img id="qr-output" src="" />
   </div>
-  <div id="details">
-    <video id="camera"></video>
-    <div id="info" onclick="reset"></div>
+  <div id="camera-container">
+    <div id="reader"></div>
   </div>
+
   <script>
-    const video = document.getElementById('camera');
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    let username = "receiver";//prompt("Enter Username : ");
-    let looking = false;
-    function setQR(str){
-      console.log(str);
+    const qrOutput = document.getElementById('qr-output');
+
+    let looking = true;
+
+    function generateQR(text) {
+      const typeNumber = 0;
+      const errorCorrectionLevel = 'H';
+      const qr = qrcode(typeNumber, errorCorrectionLevel);
+      qr.addData(text);
+      qr.make();
+      const imgTagString = qr.createImgTag(10);
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = imgTagString;
+      const img = tempDiv.querySelector('img');
+      qrOutput.src = img.src;
     }
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-      .then(function (stream) {
-        video.srcObject = stream;
-        //requestAnimationFrame(tick);
-      });
-    function reset(){
-      document.getElementById('details').removeAttribute('class');
-      //setQR
-      looking = true;
+
+    function onScanSuccess(decodedText) {
+      if(looking){
+        //format match
+        generateQR(decodedText);
+      }
+      
     }
+
+    const html5QrCode = new Html5Qrcode("reader");
+    Html5Qrcode.getCameras().then(devices => {
+      if (devices && devices.length) {
+        html5QrCode.start(
+          { facingMode: "user" },
+          {
+            fps: 10
+          },
+          onScanSuccess
+        ).catch(err => console.error("Start failed", err));
+      }
+    }).catch(err => console.error("Camera error", err));
   </script>
-  </body>
 </body>
 </html>
