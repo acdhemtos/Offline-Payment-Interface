@@ -184,7 +184,7 @@ Hash     32
 
 //comment
 
-/*
+
 const lengths = {
  "username" : 10,
  "amount" : 3,
@@ -224,4 +224,3 @@ export const QR = {
     return ret;
   }
 };
-*/
