@@ -110,7 +110,6 @@ const OPIQRCodeSVG = () => {
                   canvas.height
                 );
                 const code = jsQR(imageData.data, canvas.width, canvas.height);
-                console.log("code", code);
 
                 if (code) {
                   
