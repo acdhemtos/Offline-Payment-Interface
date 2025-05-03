@@ -145,6 +145,7 @@ const OPIQRCodeSVG = () => {
                       "0" +
                       id.toString() +
                       private_key;
+                    console.log(sss);
                     sha256(sss).then((ourHash) => {
                       if (verification_hash === QR.decode("hash",ourHash).hash) {
                         stopStream(video);
