@@ -128,8 +128,7 @@ const OPIQRCodeSVG = () => {
                       });
                     }
                   } else if (QR.decode("id+hash",string) !== false) {
-                    const id = decode.trans_id(string.slice(0, 4));
-                    const verification_hash = string.slice(4, 36);
+                    const {id,verigication_hash} = QR.decode("id+hash",string);
 
                     const sss =
                       decode.hash(detailsHashRef.current) +
