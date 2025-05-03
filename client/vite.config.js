@@ -21,14 +21,14 @@ export default defineConfig({
       },
     },
     port: parseInt(process.env.VITE_PORT, 10) || 3000,
-    hmr: process.env.VITE_HTTPS === 'true'
-      ? {
-          protocol: 'wss',
-          host: 'acdhemtos.duckdns.org',
-        port: parseInt(process.env.VITE_PORT, 10) || 3000,
-        clientPort: parseInt(process.env.VITE_PORT, 10) || 3000, 
-        }
-      : undefined,
+    // hmr: process.env.VITE_HTTPS === 'true'
+    //   ? {
+    //       protocol: 'wss',
+    //       host: 'acdhemtos.duckdns.org',
+    //     port: parseInt(process.env.VITE_PORT, 10) || 3000,
+    //     clientPort: parseInt(process.env.VITE_PORT, 10) || 3000, 
+    //     }
+    //   : undefined,
   },
   port: '0.0.0.0',
   base: '/',
