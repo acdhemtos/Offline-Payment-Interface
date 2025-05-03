@@ -33,7 +33,6 @@ function announce(amt){
  if(ret!= []){
   ret = [...ret, 'rupees'];
  }
- 
  while(amt>99){
   amt -= 100;
  }
