@@ -212,11 +212,14 @@ export const QR = {
     let ret = {};
     let k = 0;
     for(let i=0;i<decodeFormat.length;++i){
-    let j = k + lengths[decodeFormat[i]];
-    let o = decode[decodeFormat[i]](decodeString.slice(k,j))
-    k = j;
-    n += lengths[decodeFormat[i]];
+      let j = k + lengths[decodeFormat[i]];
+      let o = decode[decodeFormat[i]](decodeString.slice(k,j));
+      if(o===false){return false;}
+      ret
+      k = j;
+      
     }
+      return ret;
   }
 };
 */
