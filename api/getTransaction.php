@@ -40,7 +40,7 @@
     $transaction["sender"]!=$username &&
     $transaction["receiver"]!=$username
    )
-  ){ display(40); }
+  ){ display(40,array("transaction"=>$transaction)); }
   if($transaction["type"]!=0){
    if($transaction["sender"]===$username){
     $transaction["other"] = $transaction["receiver"];
