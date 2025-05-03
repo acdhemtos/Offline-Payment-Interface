@@ -8,13 +8,11 @@ import { AJAX } from "../utils/ajax";
 import jsQR from "jsqr";
 import { ClipLoader } from "react-spinners";
 import { messages } from "../utils/loadMessages";
-// import biometric from "../utils/biometric";
+import biometric from "../utils/biometric";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
-  loadTransactions,
   addTransaction,
-  renderTransactions,
 } from "../utils/transactions";
 
 const ReceivePage = () => {
