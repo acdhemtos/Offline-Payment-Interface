@@ -162,7 +162,6 @@ const ReceivePage = () => {
             if (code == 30) {
               qrString = QR.encode("code+hash",30,data.verification_hash);
             } else {
-
               qrString = QR.encode("code",1);
             }
           }
