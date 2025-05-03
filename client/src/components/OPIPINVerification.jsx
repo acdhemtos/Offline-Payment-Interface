@@ -240,7 +240,7 @@ const OPIQRCodeSVG = () => {
     //   // Repeat the scan every animation frame
     //   requestAnimationFrame(scanQRCode);
     // };
-
+//PUSHED
     startCamera();
 
     return () => {
