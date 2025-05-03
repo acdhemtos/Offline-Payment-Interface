@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
 import Cookies from "js-cookie";
 import sha256 from "../utils/sha256";
-import { QR } from "../utils/qrFunctions";
+import { encode, decode } from "../utils/qrFunctions";
 import jsQR from "jsqr";
 import { FaArrowLeft } from "react-icons/fa";
 import { addTransaction } from "../utils/transactions";
@@ -32,9 +32,9 @@ const OPIQRCodeSVG = () => {
 
   useEffect(() => {
     const generateQRData = async () => {
-      const username = decodeURIComponent(Cookies.get("username"));
-      const time = Date.now();
-      //const time = encode.time(tt);
+      const username = encode.username(codeURIComponent(Cookies.get("username")));
+      const tt = Date.now();
+      const time = encode.time(tt);
       ti.current = time;
       //const privateKey = Cookies.get("private_key");
       let privateKey = null;
@@ -58,7 +58,7 @@ const OPIQRCodeSVG = () => {
       const hash = await sha256(receiver, adjustedAmount, rN, tt, privateKey);
       detailsHashRef.current = hash;
 
-      const qrDataString = QR.encode("username+time",username,time)+hash;
+      const qrDataString = username + time + hash;
 
       setQrData(qrDataString);
     };
@@ -106,34 +106,36 @@ const OPIQRCodeSVG = () => {
                 if (code) {
                   const private_key = Cookies.get("private_key");
                   const string = code.data;
-                  
+                  const n = string.length;
 
-                  if (QR.decode("code",string) === 1) {
+                  if (n === 1 && decode.code(string) === 1) {
                     stopStream(video);
                     setShowOverlay(true);
                     setHideQRCode(true);
                     setBackgroundColor("bg-red-500");
-                  } else if (QR.decode("code+hash",string)!==false) {
-                    const {code,verification_hash} = QR.decode("code+hash",string);
+                  } else if (n === 33) {
+                    const code = decode.code(string.slice(0, 1));
+                    const hash = string.slice(1, 33);
 
                     if (code === 30) {
-                      const sss = QR.decode("hash",detailsHashRef.current) + "30" + private_key;
+                      const sss = detailsHashRef.current + "30" + private_key;
                       sha256(sss).then((ourHash) => {
-                        if (verification_hash === ourHash) {
+                        if (hash === ourHash) {
                           stopStream(video);
                           setShowOverlay(true);
                           setHideQRCode(true);
                           setBackgroundColor("bg-red-500");
                         } else {
-                          console.log("HASH FAILED", sss, verification_hash, ourHash);
+                          console.log("HASH FAILED", sss, hash, ourHash);
                         }
                       });
                     }
-                  } else if (QR.decode("trans_id+hash",string)!==false) {
-                    const {id, verification_hash} = QR.decode("trans_id+hash",string);
+                  } else if (n === 36) {
+                    const id = decode.trans_id(string.slice(0, 4));
+                    const verification_hash = string.slice(4, 36);
 
                     const sss =
-                      QR.decode("hash",detailsHashRef.current) +
+                      decode.hash(detailsHashRef.current) +
                       "0" +
                       id.toString() +
                       private_key;
