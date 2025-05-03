@@ -8,7 +8,7 @@ function getTwo(digits){
  const t = ['twenty','thirty','fourty','fifty','sixty','seventy','eighty','ninety'];
  let ret = [t[tens]];
  if(ones!=0){
-  ret = [...ret, l[ones]]
+  ret = [...ret, l[ones]];
  }
  return ret; 
 }
