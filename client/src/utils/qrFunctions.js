@@ -165,7 +165,7 @@ export const decode = (() => {
       base16String += byte.toString(16).padStart(2, '0'); // Ensure each byte is two digits
     }
     
-    
+
     return base16String;
   }
  }
@@ -175,7 +175,9 @@ export const QR = {
   encode : function(encodeFormat, ...values){
     encodeFormat = encodeFormat.split('+');
     if(encodeFormat.length!==values.length){ throw "MisMatched Parameters"; }
-
+    let str = "";
+    
+    return str;
   },
   decode : function(){
     console.log("HHEL");
