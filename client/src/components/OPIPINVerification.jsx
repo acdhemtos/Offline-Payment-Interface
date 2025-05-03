@@ -53,10 +53,10 @@ const OPIQRCodeSVG = () => {
 
   useEffect(() => {
     const generateQRData = async () => {
-      const username = decodeURIComponent(Cookies.get("username"));
+      const username = Cookies.get("username");
       const time = Date.now();
       ti.current = time;
-      const privateKey = decodeURIComponent(Cookies.get("private_key"));
+      const privateKey = Cookies.get("private_key");
       
 
       const hash = await sha256(receiver, adjustedAmount, rN, time, privateKey);
@@ -108,7 +108,7 @@ const OPIQRCodeSVG = () => {
                 const code = jsQR(imageData.data, canvas.width, canvas.height);
 
                 if (code) {
-                  const private_key = decodeURIComponent(Cookies.get("private_key"));
+                  const private_key = Cookies.get("private_key");
                   const string = code.data;
                   const n = string.length;
 
