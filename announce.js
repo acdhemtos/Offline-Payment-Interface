@@ -16,7 +16,7 @@ function getTwo(digits){
 function announce(amt){
  let ret = []
  if(amt>99999){
-  ret = [...getTwo(Math.floor(amt/1000)),'thousand'];
+  ret = [...getTwo(Math.floor(amt/100000)),'thousand'];
  }
  while(amt>999){
   amt -= 1000;
