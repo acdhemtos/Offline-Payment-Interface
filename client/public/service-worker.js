@@ -49,34 +49,36 @@ self.addEventListener("install", (event) => {
 self.addEventListener("fetch", (event) => {
   const apiUrl = "/api/";
 
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // If the request is successful, clone and cache the response
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseClone);
-        });
-        return response;
-      })
-      .catch(() => {
-        // If the network is unavailable, serve from cache
-        return caches.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-          // Return a fallback response for API requests
-          if (event.request.url.includes(apiUrl)) {
-            return new Response(
-              JSON.stringify({ error: "Offline API access not available" }),
-              { status: 503, headers: { "Content-Type": "application/json" } }
-            );
-          }
-          // Return a generic fallback for other requests
-          return new Response("Resource not available", { status: 404 });
-        });
-      })
-  );
+  if (event.request.method === "GET") {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          // If the request is successful, clone and cache the response
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+          return response;
+        })
+        .catch(() => {
+          // If the network is unavailable, serve from cache
+          return caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+            // Return a fallback response for API requests
+            if (event.request.url.includes(apiUrl)) {
+              return new Response(
+                JSON.stringify({ error: "Offline API access not available" }),
+                { status: 503, headers: { "Content-Type": "application/json" } }
+              );
+            }
+            // Return a generic fallback for other requests
+            return new Response("Resource not available", { status: 404 });
+          });
+        })
+    );
+  }
 });
 
 // Activate the service worker and clean up old caches
