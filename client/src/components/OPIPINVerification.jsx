@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
 import Cookies from "js-cookie";
 import sha256 from "../utils/sha256";
-import { encode, decode } from "../utils/qrFunctions";
+import { QR } from "../utils/qrFunctions";
 import jsQR from "jsqr";
 import { FaArrowLeft } from "react-icons/fa";
 import { addTransaction } from "../utils/transactions";
