@@ -1,6 +1,6 @@
 <?php
  
- function transact($senderUsername, $receiverUsername, $amount, $type) {
+ function transaction($senderUsername, $receiverUsername, $amount, $type) {
   $senderId = 0;
   $receiverId = 0;
 
