@@ -154,13 +154,13 @@ const OPIQRCodeSVG = () => {
                         setShowOverlay(true);
                         setHideQRCode(true);
                         setBackgroundColor("bg-green-500");
-                        addTransaction(
-                          id,
-                          receiverName,
-                          amount,
-                          -2,
-                          ti.current
-                        );
+                        // addTransaction(
+                        //   id,
+                        //   receiverName,
+                        //   amount,
+                        //   -2,
+                        //   ti.current
+                        // );
                       } else {
                         console.log(
                           "HASH FAILED",
