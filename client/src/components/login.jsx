@@ -4,7 +4,7 @@ import { messages } from "../utils/loadMessages";
 import { AJAX } from "../utils/ajax";
 import { isLogin } from "../utils/isLogin"; 
 import biometric from "../utils/biometric";
-import { setIsConnected } from '.globals';
+import { setIsConnected } from '../globals';
 
 
 const LoginSignupForm = () => {
