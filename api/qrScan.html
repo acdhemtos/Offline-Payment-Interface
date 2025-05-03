@@ -200,7 +200,7 @@
     "hash" : 32
    }
    
-   export const QR = {
+   const QR = {
      encode : function(encodeFormat, ...values){
        encodeFormat = encodeFormat.split('+');
        if(encodeFormat.length!==values.length){ throw "MisMatched Parameters"; }
