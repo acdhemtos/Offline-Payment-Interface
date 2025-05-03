@@ -41,6 +41,7 @@ const OPIQRCodeSVG = () => {
 
       if (navigator.credentials) {
         const credential = await navigator.credentials.get({ password: true });
+        console.log(credential);
         if (credential) {
           privateKey = credential.password;
         } else {
