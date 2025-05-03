@@ -32,11 +32,12 @@
  if(!isValidAmount($time)){display(38);}
  
  $sender = $data["sender"];
+ $username = $data["username"];
+
  if($sender==$username){display(31);}
  @require_once('validateUsername.php');
  if(validUsername($sender)!=0){display(32);}
  
- $username = $data["username"];
  validate('validateLoginUsername', $username);
  
  if(!usernameExists($sender)){display(33);}
