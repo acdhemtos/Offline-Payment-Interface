@@ -1,4 +1,4 @@
-let isConnected = false;
+let isConnected = null;
 
 export function setIsConnected(value) {
   isConnected = value;
