@@ -164,7 +164,6 @@ const decode = (() => {
       const byte = base256String.charCodeAt(i);
       base16String += byte.toString(16).padStart(2, '0'); // Ensure each byte is two digits
     }
-    
 
     return base16String;
   }]))
