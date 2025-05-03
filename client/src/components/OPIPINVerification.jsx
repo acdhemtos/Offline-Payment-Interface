@@ -40,18 +40,16 @@ const OPIQRCodeSVG = () => {
       let privateKey = null;
 
       if (navigator.credentials) {
-        const credential = await navigator.credentials.get({ password: true });
-        console.log(credential);
-        if (credential) {
-          privateKey = credential.password;
-        } else {
-          console.error("No credential found");
-          return;
-        }
-      } else {
-        console.error("Cred API error");
-        return;
-      }
+        navigator.credentials
+          .get({ password: true })
+          .then((credential) => {
+            console.log(credential);
+            if (credential) {
+              privateKey = credential.password;
+            } else {
+              console.error("No credential found");
+              return;
+            }
 
       const hash = await sha256(receiver, adjustedAmount, rN, tt, privateKey);
       detailsHashRef.current = hash;
