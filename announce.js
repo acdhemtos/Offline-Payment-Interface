@@ -1,16 +1,32 @@
-const audioPath = './audio/'; // change this if your audio files are elsewhere
-const audioExtension = '.mp3'; // change this if you're using .wav or .ogg
+const audioPath = './audio/';
+const audioExtension = '.mp3';
 
-// Queue and play audio files one after another
+const wordList = [
+  'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+  'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
+  'seventeen', 'eighteen', 'nineteen', 'twenty', 'thirty', 'forty', 'fifty',
+  'sixty', 'seventy', 'eighty', 'ninety','thousand','hundred','rupees','and','paisa'
+];
+
+const audioCache = {};
+
+// Preload audio files
+function preloadAudio() {
+  for (let word of wordList) {
+    const audio = new Audio(audioPath + word + audioExtension);
+    audio.load();
+    audioCache[word] = audio;
+  }
+}
+
 function playNumberSequence(wordsArray) {
-  if (!wordsArray.length) return;
-
   let index = 0;
 
   function playNext() {
     if (index >= wordsArray.length) return;
 
-    const audio = new Audio(audioPath + wordsArray[index] + audioExtension);
+    const currentWord = wordsArray[index];
+    const audio = audioCache[currentWord].cloneNode(); // Clone to allow replay
     audio.play();
     audio.onended = function () {
       index++;
@@ -21,7 +37,10 @@ function playNumberSequence(wordsArray) {
   playNext();
 }
 
-//let audios = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty','thirty','fourty','fifty','sixty','seventy','eighty','ninety','thousand','hundred','rupees','and','paisa'];
+// Preload on page load
+window.addEventListener('DOMContentLoaded', preloadAudio);
+
+
 
 
 
@@ -69,7 +88,7 @@ function announce(amt){
   }
   ret = [...ret, ...getTwo(amt),'paisa'];
  }
- return ret;
+ playNumberSequence(ret);
 
 }
 
