@@ -24,7 +24,7 @@ export default defineConfig({
     // hmr: process.env.VITE_HTTPS === 'true'
     //   ? {
     //       protocol: 'wss',
-    //       host: 'myapp.local',
+    //       host: 'acdhemtos.duckdns.org',
     //     port: parseInt(process.env.VITE_PORT, 10) || 3000,
     //     clientPort: parseInt(process.env.VITE_PORT, 10) || 3000, 
     //     }
