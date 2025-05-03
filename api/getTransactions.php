@@ -13,7 +13,6 @@ function getTransactions($username,$last_id){
  $stmt = $pdo->prepare($sql);
  $stmt->execute(['username' => $username, 'last_id' => $lastId]);
 
- // Fetch as array
  return $stmt->fetchAll(PDO::FETCH_COLUMN);
 }
 
