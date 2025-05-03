@@ -107,6 +107,7 @@ const decode = (() => {
  }
 
  return {
+  //...Object.fromEntries(['username', 'receiver', 'sender'].map(k => [k, 10])),
   username: (arr) => {
    let str = "";
   try {
@@ -194,6 +195,8 @@ const lengths = {
  "code" : 1,
  ...Object.fromEntries(['hash', 'details_hash', 'verification_hash'].map(k => [k, 32]))
 }
+
+console.log(lengths);
 
 export const QR = {
   encode : function(encodeFormat, ...values){
