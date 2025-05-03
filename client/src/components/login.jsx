@@ -77,7 +77,11 @@ const LoginSignupForm = () => {
         console.log("Session Key:", data.session_key);
         document.cookie = `session_key=${data.session_key}; path=/; max-age=604800; `;
         document.cookie = `username=${username}; path=/; max-age=604800; `;
-        document.cookie = `private_key=${data.private_key}; path=/; max-age=604800; `;
+        //document.cookie = `private_key=${data.private_key}; path=/; max-age=604800; `;
+
+        if (navigator.credentials && window.PasswordCredential) {
+          
+        }
 
         alert("Login successful!");
         navigate("/app/home");
