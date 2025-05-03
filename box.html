@@ -21,12 +21,23 @@
     }
     #qr{
       height:100vw;
-      background-color:green;
+      background-color:black;
     }
     #details{
       height:calc(100vh - 100vw);
     }
-
+    #details.camera>#camera{
+      display:default;
+    }
+    #camera{
+      display:none;
+      position:absolute;
+      background-color: blue;
+      left:0;
+      right:0;
+      bottom:0;
+      top:0;
+    }
   </style>
 </head>
 <body>
@@ -34,7 +45,11 @@
   <div id="qr">
 
   </div>
-  <div id="details"></div>
+  <div id="details">
+    <div id="camera">
+
+    </div>
+  </div>
   </body>
 </body>
 </html>
