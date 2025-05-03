@@ -182,6 +182,8 @@ Hash     32
 ```
 */
 
+//comment
+
 /*
 const lengths = {
  "username" : 10,
