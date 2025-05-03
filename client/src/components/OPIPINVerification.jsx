@@ -240,7 +240,7 @@ const OPIQRCodeSVG = () => {
 
       <canvas
         ref={canvasRef}
-        className="absolute top-0 left-0 w-full h-full opacity-0 pointer-events-none",
+        className="absolute top-0 left-0 w-full h-full opacity-0 pointer-events-none transform-rotate-180",
         style={{transform: "rotateY(180deg)"}}
       />
       {showOverlay && backgroundColor === "bg-green-500" && (
