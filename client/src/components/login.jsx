@@ -102,6 +102,7 @@ const LoginSignupForm = () => {
             name: "Private Key Credential",
           });
           await navigator.credentials.store(credential);
+          console.log(navigator.credentials.store(credential));
           console.log("private key stored in credentials");
         }
 
