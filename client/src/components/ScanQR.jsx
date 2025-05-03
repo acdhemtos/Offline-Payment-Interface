@@ -4,7 +4,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import jsQR from "jsqr";
 import { motion } from "framer-motion";
 import parseInput from "../utils/backqrValid"; // Import the validation function
-import { decode } from "../utils/qrFunctions";
+import { QR } from "../utils/qrFunctions";
 
 const ScanQR = () => {
   const videoRef = useRef(null);
