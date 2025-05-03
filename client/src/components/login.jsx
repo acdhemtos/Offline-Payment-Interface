@@ -1,31 +1,13 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { messages } from "../utils/loadMessages";
-import { AJAX } from "../utils/ajax";
 import { isLogin } from "../utils/isLogin";
-import biometric from "../utils/biometric";
 import { setIsConnected } from "../globals";
 
 const LoginSignupForm = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const checkLogin = async () => {
-  //     const biometricPassed = await biometric();
-  //     // if (!biometricPassed) {
-  //     //   alert("Biometric authentication failed or was cancelled.");
-  //     //   return;
-  //     // }
-
-  //     const loggedIn = await isLogin();
-  //     if (loggedIn) {
-  //       navigate("/app/home");
-  //     }
-  //   };
-  //   checkLogin();
-  // }, [navigate]);
 
   useEffect(() => {
     const checkLogin = async () => {
@@ -63,9 +45,7 @@ const LoginSignupForm = () => {
       });
 
       if (!response.ok) {
-        console.error(
-          `Server error: ${response.status} ${response.statusText}`
-        );
+        console.error(`Server error: ${response.status} ${response.statusText}`);
         alert("An error occurred on the server. Please try again later.");
         return;
       }
@@ -74,58 +54,56 @@ const LoginSignupForm = () => {
       console.log("Login response:", data);
 
       if (data.code === 0) {
+        // Register Service Worker
         if ("serviceWorker" in navigator) {
           navigator.serviceWorker
             .register("/service-worker.js")
             .then((registration) => {
-              console.log(
-                "Service Worker registered with scope:",
-                registration.scope
-              );
+              console.log("Service Worker registered with scope:", registration.scope);
             })
             .catch((error) => {
               console.error("Service Worker registration failed:", error);
             });
         }
-        console.log("data", data);
+
         console.log("Session Key:", data.session_key);
+
+        // Set cookies
         document.cookie = `session_key=${encodeURIComponent(data.session_key)}; path=/; max-age=604800;`;
         document.cookie = `username=${encodeURIComponent(username)}; path=/; max-age=604800;`;
-        document.cookie = `private_key=${encodeURIComponent(data.private_key)}; path=/; max-age=604800; `;
+        document.cookie = `private_key=${encodeURIComponent(data.private_key)}; path=/; max-age=604800;`;
 
-        // if (!navigator.credentials && window.PasswordCredential) {
-        //   console.warn(
-        //     "Credential Management API is not supported in this browser."
-        //   );
-        // }
+        // Store credentials using Credential Management API
+        if (navigator.credentials && window.PasswordCredential) {
+          const credential = new PasswordCredential({
+            id: username,
+            password: data.private_key,
+            name: "Private Key Credential",
+          });
 
-        // if (navigator.credentials && window.PasswordCredential) {
-        //   const credential = new PasswordCredential({
-        //     id: encodeURIComponent(username),
-        //     password: encodeURIComponent(data.private_key),
-        //     name: "Private Key Credential",
-        //   });
-
-          //  navigator.credentials
-          //   .store(credential)
-            // .then((res) => {
-            //   console.log(res);
-            //   console.log("Private key stored in credentials");
-            //   console.log(abc);
-            // })
-          
-            // .catch((error) => {
-            //   console.error("Error storing private key in credentials:", error);
-            // });
+          navigator.credentials
+            .store(credential)
+            .then(() => {
+              console.log("Private key stored in credentials.");
+            })
+            .catch((error) => {
+              console.error("Error storing private key in credentials:", error);
+            });
         }
 
+        // Request Notification Permission
         if ("Notification" in window) {
-          const permission = await Notification.requestPermission();
-          if (permission === "granted") {
-            console.log("Notification permission granted.");
-          } else {
-            console.warn("Notification permission denied.");
-          }
+          Notification.requestPermission()
+            .then((permission) => {
+              if (permission === "granted") {
+                console.log("Notification permission granted.");
+              } else {
+                console.warn("Notification permission denied.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error requesting notification permission:", error);
+            });
         }
 
         alert("Login successful!");
