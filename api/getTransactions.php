@@ -11,7 +11,7 @@ function getTransactions($username,$last_id){
  ";
 
  $stmt = $GLOBALS['conn']->prepare($sql);
- $stmt->execute(['username' => $username, 'last_id' => $lastId]);
+ $stmt->execute(['username' => $username, 'last_id' => $last_id]);
 
  return $stmt->fetchAll(PDO::FETCH_COLUMN);
 }
