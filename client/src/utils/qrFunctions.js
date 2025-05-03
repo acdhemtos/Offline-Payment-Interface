@@ -208,7 +208,8 @@ export const QR = {
     for(let i=0;i<decodeFormat.length;++i){
      n += lengths[decodeFormat[i]];
     }
-    
+    if(n!=decodeString.length){return false;}
+    let ret = {};
   }
 };
 */
