@@ -199,12 +199,12 @@ export const QR = {
     let str = "";
     for(let i=0;i<encodeFormat.length;++i){
      str += encode[encodeFormat[i]](values(i));
-     
     }
     return str;
   },
   decode : function(decodeFormat,decodeString){
-    console.log("HHEL");
+    let n = 0;
+    decodeFormat = decodeFormat.split('+');
   }
 };
 */
