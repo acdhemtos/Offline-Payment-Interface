@@ -117,13 +117,13 @@ const OPIQRCodeSVG = () => {
                     if (code === 30) {
                       const sss = detailsHashRef.current + "30" + private_key;
                       sha256(sss).then((ourHash) => {
-                        if (hash === ourHash) {
+                        if (verification_hash === ourHash) {
                           stopStream(video);
                           setShowOverlay(true);
                           setHideQRCode(true);
                           setBackgroundColor("bg-red-500");
                         } else {
-                          console.log("HASH FAILED", sss, hash, ourHash);
+                          console.log("HASH FAILED", sss, verification_hash, ourHash);
                         }
                       });
                     }
