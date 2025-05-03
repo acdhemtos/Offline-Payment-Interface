@@ -9,7 +9,7 @@ distinguished_name = dn
 C = IN
 ST = Delhi
 O = LocalDev
-CN = myapp.local
+CN = acdhemtos.duckdns.org
 
 [req_ext]
 subjectAltName = @alt_names
