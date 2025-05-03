@@ -349,8 +349,16 @@ const QR = {
           })
             .then((response) => response.json())
             .then((data) => {
-              if (data.code !== 0) {
-                console.error("Error:", data.message || "Unknown error", data);
+              if (data.code == 0) {
+                
+                //qr
+                //setReset
+                document.body.setAttribute("green");
+                //console.error("Error:", data.message || "Unknown error", data);
+              }else{
+                //qr
+                //setReset
+                document.body.setAttribute("red");
               }
               return data;
             })
