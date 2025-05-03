@@ -60,4 +60,30 @@
       const qr = qrcode(typeNumber, errorCorrectionLevel);
       qr.addData(text);
       qr.make();
-      c
+      const imgTagString = qr.createImgTag(10);
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = imgTagString;
+      const img = tempDiv.querySelector('img');
+      qrOutput.src = img.src;
+    }
+
+    function onScanSuccess(decodedText) {
+      generateQR(decodedText);
+    }
+
+    const html5QrCode = new Html5Qrcode("reader");
+    Html5Qrcode.getCameras().then(devices => {
+      if (devices && devices.length) {
+        html5QrCode.start(
+          { facingMode: "environment" }, // use rear camera if available
+          {
+            fps: 10,
+            qrbox: { width: 250, height: 250 }
+          },
+          onScanSuccess
+        ).catch(err => console.error("Start failed", err));
+      }
+    }).catch(err => console.error("Camera error", err));
+  </script>
+</body>
+</html>
