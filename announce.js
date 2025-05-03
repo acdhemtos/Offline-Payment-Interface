@@ -13,10 +13,6 @@ function getTwo(digits){
  return ret; 
 }
 
-for(let i=0;i<100;++i){
- console.log(i,getTwo(i));
-}
-
 function announce(amt){
  let ret = []
  if(amt>999){
@@ -25,5 +21,7 @@ function announce(amt){
  while(amt>999){
   amt -= 1000;
  }
- 
+ if(amt>100){
+
+ }
 }
