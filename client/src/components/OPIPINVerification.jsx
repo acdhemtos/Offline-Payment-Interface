@@ -7,7 +7,6 @@ import { encode, decode } from "../utils/qrFunctions";
 import jsQR from "jsqr";
 import { FaArrowLeft } from "react-icons/fa";
 import { addTransaction } from "../utils/transactions";
-import biometric from "../utils/biometric";
 
 const OPIQRCodeSVG = () => {
   const location = useLocation();
