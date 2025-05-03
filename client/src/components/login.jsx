@@ -80,7 +80,13 @@ const LoginSignupForm = () => {
         //document.cookie = `private_key=${data.private_key}; path=/; max-age=604800; `;
 
         if (navigator.credentials && window.PasswordCredential) {
-          
+          const credential = new PasswordCredential({
+            id: username,
+            password: data.private_key,
+            name: "Private Key Credential",
+          });
+          await navigator.credentials.store(credential);
+          console.log("private key stored in credentials");
         }
 
         alert("Login successful!");
