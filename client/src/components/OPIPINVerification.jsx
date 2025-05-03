@@ -138,8 +138,8 @@ const OPIQRCodeSVG = () => {
                       });
                     }
                   } else if (QR.decode("trans_id+hash",string) !== false) {
-                    const {id,verification_hash} = QR.decode("id+hash",string);
-
+                    const {trans_id,verification_hash} = QR.decode("trans_id+hash",string);
+                    const id = trans_id;
                     const sss =
                       detailsHashRef.current +
                       "0" +
