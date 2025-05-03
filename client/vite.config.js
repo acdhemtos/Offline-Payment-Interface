@@ -30,7 +30,7 @@ export default defineConfig({
     //     }
     //   : undefined,
   },
-  // port: '0.0.0.0',
+  port: '0.0.0.0',
   base: '/',
   plugins: [react()],
   build: {
