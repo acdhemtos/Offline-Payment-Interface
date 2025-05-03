@@ -203,8 +203,12 @@ export const QR = {
     return str;
   },
   decode : function(decodeFormat,decodeString){
-    let n = 0;
     decodeFormat = decodeFormat.split('+');
+    let n = 0;
+    for(let i=0;i<decodeFormat.length;++i){
+     n += lengths[decodeFormat[i]];
+    }
+    
   }
 };
 */
