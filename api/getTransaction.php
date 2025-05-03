@@ -33,6 +33,8 @@
   if(!is_int($id)){display(39);}
   
   $transaction = getTransactions($id);
+  if($transaction==false){ display(40); }
+  
 
   display(0, array('data' => getTransactions($username,$last_id)));
  }
