@@ -1,8 +1,6 @@
 <?php
  $data = json_decode(file_get_contents("php://input"),true);
  
- 
- 
  $details_hash = $data["details_hash"];
  @require_once('connection.php');
  
