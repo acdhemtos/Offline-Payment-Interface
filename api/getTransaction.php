@@ -33,6 +33,7 @@
   if(!is_int($id)){display(39);}
   
   $transaction = getTransaction($id);
+  
   if(
    $transaction==false || 
    (
@@ -40,18 +41,17 @@
     $transaction["receiver"]!=$username
    )
   ){ display(40); }
-
-  if($transaction["sender"]===$username){
-   $transaction["other"] = $transaction["receiver"];
-   $transaction["type"] *= -1;
-  }else{
-   $transaction["other"] = $transaction["sender"];
+  if($transaction["type"]!=0){
+   if($transaction["sender"]===$username){
+    $transaction["other"] = $transaction["receiver"];
+    $transaction["type"] *= -1;
+   }else{
+    $transaction["other"] = $transaction["sender"];
+   }
   }
   unset($transaction['sender']);
   unset($transaction['receiver']);
-  if($transaction["type"]==0){
-   unset($transaction['other']);
-  }
+  
 
   display(0, $transaction);
  }
