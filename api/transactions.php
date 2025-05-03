@@ -97,7 +97,7 @@ $transactions = $pdo->query($sql)->fetchAll();
                     <td><?= htmlspecialchars($t['id']) ?></td>
                     <td><?= htmlspecialchars($t['sender_name']) ?></td>
                     <td><?= htmlspecialchars($t['receiver_name']) ?></td>
-                    <td><?= number_format($t['amount']) ?></td>
+                    <td><?= number_format($t['amount']/100) ?></td>
                     <td><?= htmlspecialchars($t['type']) ?></td>
                     <td><?= htmlspecialchars($t['time']) ?></td>
                 </tr>
