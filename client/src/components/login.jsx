@@ -87,6 +87,7 @@ const LoginSignupForm = () => {
               console.error("Service Worker registration failed:", error);
             });
         }
+        console.log("data", data);
         console.log("Session Key:", data.session_key);
         document.cookie = `session_key=${data.session_key}; path=/; max-age=604800; `;
         document.cookie = `username=${username}; path=/; max-age=604800; `;
