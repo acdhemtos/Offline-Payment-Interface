@@ -110,7 +110,7 @@ const ReceivePage = () => {
             requestAnimationFrame(scan);
             return;
           }
-          let {sender,time,details_hash} = dat;
+          let { sender, time, details_hash } = dat;
           //close webcam
           const stopStream = () => {
             if (video.srcObject) {
@@ -131,6 +131,7 @@ const ReceivePage = () => {
 
           let data, code;
           try {
+            console.log("details", details_hash);
             data = await AJAX("/api/receive.php", {
               username,
               session_key: sessionKey,
