@@ -215,7 +215,7 @@ export const QR = {
       let j = k + lengths[decodeFormat[i]];
       let o = decode[decodeFormat[i]](decodeString.slice(k,j));
       if(o===false){return false;}
-      ret
+      ret[decodeFormat[i]] = o;
       k = j;
       
     }
