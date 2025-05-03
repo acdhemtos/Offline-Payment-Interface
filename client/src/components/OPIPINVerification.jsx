@@ -21,6 +21,7 @@ const OPIQRCodeSVG = () => {
   const { receiver, amount, rN } = location.state || {};
   const detailsHashRef = useRef("");
   const ti = useRef("");
+  const [privateKey, setPrivateKey] = useState(null);
 
   const adjustedAmount = amount ? Math.round(amount * 100) : 0;
 
@@ -31,28 +32,38 @@ const OPIQRCodeSVG = () => {
   }, [receiver]);
 
   useEffect(() => {
+    if (navigator.credentials) {
+      navigator.credentials
+        .get({ password: true })
+        .then((credential) => {
+          if (credential) {
+            console.log("Private key retrieved from credentials:", credential.password);
+            setPrivateKey(credential.password); // Store private key in state
+          } else {
+            console.error("No credential found");
+          }
+        })
+        .catch((error) => {
+          console.error("Error retrieving credentials:", error);
+        });
+    } else {
+      console.error("Credential Management API is not supported in this browser.");
+    }
+  }, []);
+
+  useEffect(() => {
     const generateQRData = async () => {
+      if (!privateKey) {
+        console.error("Private key is not available.");
+        return;
+      }
       const username = decodeURIComponent(Cookies.get("username"));
       const time = Date.now();
       ti.current = time;
       //const privateKey = Cookies.get("private_key");
-      let privateKey = null;
-
-      if (navigator.credentials) {
-        navigator.credentials.get({ password: true }).then((credential) => {
-          console.log(credential);
-          if (credential) {
-            privateKey = credential.password;
-          } else {
-            console.error("No credential found");
-            return;
-          }
-        })
+      
         
-      } else {
-        console.error("Cred API error");
-        return;
-      }
+      =
 
       const hash = await sha256(receiver, adjustedAmount, rN, time, privateKey);
       detailsHashRef.current = QR.decode("hash",hash);
