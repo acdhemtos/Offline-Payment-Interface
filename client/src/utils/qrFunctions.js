@@ -201,7 +201,7 @@ export const QR = {
     for(let i=0;i<encodeFormat.length;++i){
      str += encode[encodeFormat[i]](values[i]);
     }
-    console.log("ENCODED",str);
+    console.log("ENCODED",...values,encodeFormat,str);
     return str;
   },
   decode : function(decodeFormat,decodeString){
@@ -220,7 +220,7 @@ export const QR = {
       ret[decodeFormat[i]] = o;
       k = j;
     }
-    console.log("DECODED",ret);
+    console.log("DECODED",decodeString,decodeFormat,ret);
     return ret;
   }
 };
