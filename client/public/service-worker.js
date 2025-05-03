@@ -147,4 +147,14 @@ async function getCookieValue(name) {
   }
 }
 
+self.addEventListener("message", (event) => {
+  const { type, name } = event.data;
+
+  if (type === "getCookie") {
+    getCookieValue(name).then((value) => {
+      event.source.postMessage({ type: "cookieValue", name, value });
+    });
+  }
+});
+
 setInterval(fetchBalance, fetchInterval);
