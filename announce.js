@@ -35,5 +35,9 @@ function announce(amt){
   amt -= 1;
  }
  amt *= 100;
+ if(amt != 0){
+  ret = [...ret, 'and', getTwo(amt),'paisa'];
+ }
+ return ret;
 
 }
