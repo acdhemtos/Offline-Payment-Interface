@@ -56,7 +56,7 @@
 
     function generateQR(text) {
       const typeNumber = 0;
-      const errorCorrectionLevel = 'M';
+      const errorCorrectionLevel = 'H';
       const qr = qrcode(typeNumber, errorCorrectionLevel);
       qr.addData(text);
       qr.make();
