@@ -34,7 +34,7 @@ const OPIQRCodeSVG = () => {
     const generateQRData = async () => {
       const username = decodeURIComponent(Cookies.get("username"));
       const tt = Date.now();
-      const time = encode.time(tt);
+      //const time = encode.time(tt);
       ti.current = tt;
       //const privateKey = Cookies.get("private_key");
       let privateKey = null;
