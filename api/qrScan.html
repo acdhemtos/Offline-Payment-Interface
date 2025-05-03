@@ -250,6 +250,7 @@
 <body>
 
   <div id="reader"></div>
+  <div id="result">Looking for QR...</div>
 
   <script>
 
@@ -267,6 +268,7 @@
      let dat = QR.decode(li[i],str);
      if(dat!==false){
       console.log(dat);
+      document.getElementById('result').innerHTML = JSON.stringify(dat);
       break;
      }
     }
