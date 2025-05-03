@@ -219,7 +219,7 @@ const Home = () => {
                 className="flex flex-col items-center text-center cursor-pointer"
                 onClick={() => navigate("/app/scan")}
               >
-                <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-md border border-gray-200">
+                <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
                   <FaMobileAlt className="text-blue-600 text-xl" />
                 </div>
                 <p className="mt-2 text-sm text-gray-700">Scan</p>
@@ -229,7 +229,7 @@ const Home = () => {
                 className="flex flex-col items-center text-center cursor-pointer"
                 onClick={() => navigate("/app/recieve")}
               >
-                <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-md border border-gray-200">
+                <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
                   <FaQrcode className="text-green-600 text-xl" />
                 </div>
                 <p className="mt-2 text-sm text-gray-700">QR</p>
@@ -239,14 +239,14 @@ const Home = () => {
                 className="flex flex-col items-center text-center cursor-pointer"
                 onClick={() => navigate("/app/send")}
               >
-                <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-md border border-gray-200">
+                <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
                   <BsCreditCard2Front className="text-purple-600 text-xl" />
                 </div>
                 <p className="mt-2 text-sm text-gray-700">Pay to UPI</p>
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-md border border-gray-200">
+                <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
                   <BsArrowUpCircle className="text-red-600 text-xl" />
                 </div>
                 <p className="mt-2 text-sm text-gray-700">Top-up</p>
