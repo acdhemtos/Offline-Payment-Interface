@@ -28,4 +28,29 @@
     const html5QrCode = new Html5Qrcode("reader");
     const config = {
       fps: 10,
-      qrbox:
+      qrbox: { width: 250, height: 250 },
+      experimentalFeatures: {
+        useBarCodeDetectorIfSupported: true
+      },
+      videoConstraints: {
+        facingMode: { exact: "environment" } // try back camera
+      }
+    };
+
+    html5QrCode.start(
+      { facingMode: { exact: "environment" } }, // try back camera
+      config,
+      (decodedText) => {
+        resultDiv.innerText = "QR Code: " + decodedText;
+        html5QrCode.stop(); // stop scanning after success
+      },
+      (errorMessage) => {
+        // Ignore errors
+      }
+    ).catch((err) => {
+      resultDiv.innerText = "Error: " + err;
+    });
+  </script>
+
+</body>
+</html>
