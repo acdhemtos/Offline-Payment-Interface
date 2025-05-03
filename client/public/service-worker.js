@@ -47,7 +47,10 @@ self.addEventListener("install", (event) => {
 
 // Fetch event: Network First strategy
 self.addEventListener("fetch", (event) => {
-  const apiUrl = "/api/";
+  // Skip caching for API requests
+  if (event.request.url.includes("/api/")) {
+    return; // Do nothing for API requests
+  }
 
   if (event.request.method === "GET") {
     event.respondWith(
@@ -65,13 +68,6 @@ self.addEventListener("fetch", (event) => {
           return caches.match(event.request).then((cachedResponse) => {
             if (cachedResponse) {
               return cachedResponse;
-            }
-            // Return a fallback response for API requests
-            if (event.request.url.includes(apiUrl)) {
-              return new Response(
-                JSON.stringify({ error: "Offline API access not available" }),
-                { status: 503, headers: { "Content-Type": "application/json" } }
-              );
             }
             // Return a generic fallback for other requests
             return new Response("Resource not available", { status: 404 });
