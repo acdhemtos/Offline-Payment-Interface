@@ -47,10 +47,6 @@
   $stmt->execute();
   $stmt->close();
 
-  if($senderId!=0){
-    
-  }
-
   return $Id;
  }
 
