@@ -32,7 +32,7 @@
   $id = $data["id"];
   if(!is_int($id)){display(39);}
   
-  $transaction = getTransactions($id);
+  $transaction = getTransaction($id);
   if(
    $transaction==false || 
    (
