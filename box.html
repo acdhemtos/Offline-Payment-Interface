@@ -54,6 +54,8 @@
   <script>
     const qrOutput = document.getElementById('qr-output');
 
+    let looking = true;
+
     function generateQR(text) {
       const typeNumber = 0;
       const errorCorrectionLevel = 'H';
@@ -68,7 +70,10 @@
     }
 
     function onScanSuccess(decodedText) {
-      generateQR(decodedText);
+      if(looking){
+        generateQR(decodedText);
+      }
+      
     }
 
     const html5QrCode = new Html5Qrcode("reader");
