@@ -1,20 +1,23 @@
 <?php
  
 function getTransactions($username,$last_id){
- $sql = "
-  SELECT t.id
-  FROM transactions t
-  JOIN users u_sender ON t.sender = u_sender.id
-  JOIN users u_receiver ON t.receiver = u_receiver.id
-  WHERE (u_sender.username = :username OR u_receiver.username = :username)
-   AND t.id > :last_id
-  ORDER BY t.time ASC
- ";
+ function getTransaction($pdo, $id) {
+  $sql = "
+      SELECT 
+          u1.username AS sender,
+          u2.username AS receiver,
+          t.amount,
+          t.type,
+          t.time
+      FROM transactions t
+      JOIN users u1 ON t.sender = u1.id
+      JOIN users u2 ON t.receiver = u2.id
+      WHERE t.id = :id
+  ";
 
- $stmt = $GLOBALS['conn']->prepare($sql);
- $stmt->execute(['username' => $username, 'last_id' => $last_id]);
-
- return $stmt->fetchAll(PDO::FETCH_COLUMN);
+  $stmt = $GLOBALS['conn']->prepare($sql);
+  $stmt->execute(['id' => $id]);
+  return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
  if(self(__FILE__)){
