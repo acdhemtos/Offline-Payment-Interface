@@ -90,7 +90,7 @@ self.addEventListener("fetch", (event) => {
   }
 });
 
-let hasLoggedOut = false;
+
 // Periodically fetch balance
 const fetchInterval = 2000;
 
@@ -131,10 +131,20 @@ async function fetchBalance() {
 }
 
 function logoutUser() {
-  if (hasLoggedOut) return;
-  console.log("sending logout msg to clients");
-  postMessageToClients({ type: "logout"});
-  hasLoggedOut = true;
+  console.log("Sending logout message to clients and clearing cache.");
+
+  // Clear the cache
+  caches.keys().then((cacheNames) => {
+    return Promise.all(
+      cacheNames.map((cacheName) => {
+        console.log("Deleting cache:", cacheName);
+        return caches.delete(cacheName);
+      })
+    );
+  });
+
+  // Notify clients to redirect to the login page
+  postMessageToClients({ type: "logout", isConnected: false, redirectTo: "/account/login" });
 }
 
 function postMessageToClients(message) {
