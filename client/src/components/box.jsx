@@ -185,7 +185,7 @@ const QRMirror = () => {
         {!looking && statusMessage && (
           <div
             onClick={resetState}
-            className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg text-lg font-semibold cursor-pointer shadow-lg ${
+            className={`min-w-[100vw] min-h-[100vh] transform -translate-x-1/2 px-6 py-3 rounded-lg text-lg font-semibold cursor-pointer shadow-lg ${
               statusMessage.includes("Success")
                 ? "bg-green-100 text-green-700"
                 : "bg-red-100 text-red-700"
