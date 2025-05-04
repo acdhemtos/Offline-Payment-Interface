@@ -189,7 +189,12 @@ const SendPage = () => {
           ) : (
             <button
               className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition w-full"
-              onClick={() => handleOptionClick("/app/opi-pin")}
+                onClick={async () => {
+                  const isAuthenticated = await biometric();
+                  if (isAuthenticated) {
+                    handleOptionClick("/app/opi-pin")
+                  } 
+              }}
             >
               Offline Send
             </button>
