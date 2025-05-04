@@ -27,6 +27,7 @@ function playNumberSequence(wordsArray) {
 
     const currentWord = wordsArray[index];
     const audio = audioCache[currentWord].cloneNode(); // Clone to allow replay
+    audio.playbackRate = 2;
     audio.play();
     audio.onended = function () {
       index++;
