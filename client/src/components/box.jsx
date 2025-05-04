@@ -13,12 +13,14 @@ const QRMirror = () => {
   const name = "merchant";
 
   const generateQR = (text) => {
+    console.log("Generating QR for text:", text);
     const typeNumber = 0;
     const errorCorrectionLevel = "H";
     const qr = QRCode(typeNumber, errorCorrectionLevel);
     qr.addData(text);
     qr.make();
     setQrOutput(qr.createDataURL());
+    console.log("QR Code Generated");
   };
 
   const resetState = () => {
