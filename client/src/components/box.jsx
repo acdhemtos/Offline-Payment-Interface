@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { QRCode } from "qrcode.react";
+import {QRCodeSVG } from "qrcode.react";
 import { QR } from "../utils/qrFunctions";
 import Cookies from "js-cookie";
 
@@ -85,7 +85,7 @@ const QRMirror = () => {
         }}
       >
         {qrValue ? (
-          <QRCode
+          <QRCodeSVG
             value={qrValue}
             size={300} // Size of the QR code
             bgColor="white"
