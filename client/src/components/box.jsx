@@ -160,9 +160,9 @@ const QRMirror = () => {
                 { deviceId: cameraId },
                 config,
                 onScanSuccess,
-                (errorMessage) => {
-                  // QR code not found, continue scanning
-                }
+                // (errorMessage) => {
+                //   // QR code not found, continue scanning
+                // }
               )
               .then(() => {
                 setCameraActive(true);
