@@ -23,10 +23,10 @@ async function init() {
         console.error('Service Worker registration failed:', err);
       });
 
-    navigator.serviceWorker.addEventListener('message', event => {
+        navigator.serviceWorker.addEventListener('message', event => {
       const { type, isConnected } = event.data;
       console.log('Service Worker message received:', event.data);
-
+    
       if (type === 'updateConnectionStatus') {
         setIsConnected(isConnected);
       } else if (type === 'logout' && !isLoggingOut) {
@@ -35,8 +35,12 @@ async function init() {
         document.cookie = "session_key=; path=/; max-age=0;";
         document.cookie = "username=; path=/; max-age=0;";
         document.cookie = "private_key=; path=/; max-age=0;";
-        console.log("Redirecting to /...");
-        window.location.href = "/";
+        if (window.location.pathname !== "/") {
+          console.log("Redirecting to /...");
+          window.location.href = "/";
+        } else {
+          console.log("Already on / route, no redirection needed.");
+        }
       }
     });
   }
