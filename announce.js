@@ -1,5 +1,5 @@
 const audioPath = './audio/';
-const audioExtension = '.mp3';
+const audioExtension = '.mpeg';
 
 const wordList = [
   'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
@@ -90,27 +90,4 @@ function announce(amt){
  }
  playNumberSequence(ret);
 
-}
-
-const audioPath = './audio/'; // change this if your audio files are elsewhere
-const audioExtension = '.mp3'; // change this if you're using .wav or .ogg
-
-// Queue and play audio files one after another
-function playNumberSequence(wordsArray) {
-  if (!wordsArray.length) return;
-
-  let index = 0;
-
-  function playNext() {
-    if (index >= wordsArray.length) return;
-
-    const audio = new Audio(audioPath + wordsArray[index] + audioExtension);
-    audio.play();
-    audio.onended = function () {
-      index++;
-      playNext();
-    };
-  }
-
-  playNext();
 }
