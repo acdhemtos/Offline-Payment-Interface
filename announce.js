@@ -87,6 +87,6 @@ function announce(amt){
   }
   ret = [...ret, ...getTwo(amt),'paisa'];
  }
- playNumberSequence([...ret,'received']);
+ playSequence([...ret,'received']);
 
 }
