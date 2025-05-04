@@ -102,7 +102,7 @@ const QRMirror = () => {
               setStatusMessage("Transaction Success ✅");
              const trans_id = data.id;
               const verification_hash = data.verification_hash;
-             generateQR(QR.encode("trans_id+verification_hash", id, verification_hash));
+             generateQR(QR.encode("trans_id+verification_hash", trans_id, verification_hash));
              stopCamera();
              if (decoded.amount) {
               announce(decoded.amount); 
