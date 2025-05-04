@@ -129,7 +129,7 @@ const QRMirror = () => {
           alignItems: "center",
          marginBottom: "20px",
          width: '80%',
-          height: 'auto',
+          // height: 'auto',
         }}
       >
         {qrOutput ? (
