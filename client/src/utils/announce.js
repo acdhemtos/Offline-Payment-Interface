@@ -11,12 +11,15 @@ const wordList = [
 const audioCache = {};
 
 // Preload audio files
+// Preload audio files after user interaction
 function preloadAudio() {
-  for (let word of wordList) {
-    const audio = new Audio(audioPath + word + audioExtension);
-    audio.load();
-    audioCache[word] = audio;
-  }
+  document.addEventListener("click", () => {
+    for (let word of wordList) {
+      const audio = new Audio(audioPath + word + audioExtension);
+      audio.load();
+      audioCache[word] = audio;
+    }
+  }, { once: true }); // Ensure this runs only once
 }
 
 function playSequence(words, playbackRate = 2, delayMs = 750) {
