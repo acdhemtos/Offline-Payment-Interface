@@ -129,7 +129,7 @@ const QRMirror = () => {
           justifyContent: "center",
           alignItems: "center",
           marginBottom: "20px",
-          
+          background: "white",
         }}
       >
         {qrOutput ? (
