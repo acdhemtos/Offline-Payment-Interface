@@ -283,12 +283,12 @@ const QR = {
         useBarCodeDetectorIfSupported: true
       },
       videoConstraints: {
-        facingMode: { exact: "user" } // try back camera
+        facingMode: { exact: "environment" } // try back camera
       }
     };
 
     html5QrCode.start(
-      { facingMode: { exact: "user" } }, // try back camera
+      { facingMode: { exact: "environment" } }, // try back camera
       config,
       (decodedText) => {
         
