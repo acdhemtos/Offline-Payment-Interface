@@ -19,7 +19,7 @@ function preloadAudio() {
   }
 }
 
-function playSequence(words, playbackRate = 1.0, delayMs = 1000) {
+function playSequence(words, playbackRate = 2, delayMs = 750) {
  let i = 0;
 
  function playNext() {
@@ -87,6 +87,6 @@ function announce(amt){
   }
   ret = [...ret, ...getTwo(amt),'paisa'];
  }
- playNumberSequence([...ret,'received']);
+ playSequence([...ret,'received']);
 
 }
