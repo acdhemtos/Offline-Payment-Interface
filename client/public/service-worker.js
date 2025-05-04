@@ -131,8 +131,20 @@ async function fetchBalance() {
 }
 
 function logoutUser() {
-  console.log("sending logout msg to clients");
-  postMessageToClients({ type: "logout", isConnected:false });
+  console.log("Sending logout message to clients and clearing cache.");
+
+  // Clear the cache
+  caches.keys().then((cacheNames) => {
+    return Promise.all(
+      cacheNames.map((cacheName) => {
+        console.log("Deleting cache:", cacheName);
+        return caches.delete(cacheName);
+      })
+    );
+  });
+
+  // Notify clients to redirect to the login page
+  postMessageToClients({ type: "logout", isConnected: false, redirectTo: "/account/login" });
 }
 
 function postMessageToClients(message) {
