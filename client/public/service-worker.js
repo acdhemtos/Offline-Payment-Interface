@@ -132,7 +132,8 @@ async function fetchBalance() {
 
 function logoutUser() {
   console.log("sending logout msg to clients");
-  postMessageToClients({ type: "logout", isConnected:false });
+  postMessageToClients({ type: "logout"});
+  hasLoggedOut = true;
 }
 
 function postMessageToClients(message) {
