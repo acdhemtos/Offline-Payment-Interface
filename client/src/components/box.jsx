@@ -97,6 +97,7 @@ const QRMirror = () => {
      setLooking(false);
       setShowLoader(true); // Show loader while processing
      const decoded = QR.decode("sender+time+amount+details_hash", data);
+     setAmount()
      console.log("box.js decoded amount", decoded, data);
      console.log(decoded);
       if (decoded !== false) {
