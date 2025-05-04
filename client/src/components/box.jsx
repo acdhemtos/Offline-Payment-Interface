@@ -12,7 +12,8 @@ const QRMirror = () => {
   const [looking, setLooking] = useState(true);
   const videoRef = useRef(null); // Reference for the video element
   const canvasRef = useRef(null); // Reference for the canvas element
-  const streamRef = useRef(null); // Reference for the media stream
+ const streamRef = useRef(null); // Reference for the media stream
+ const [amount, setAmount] = useState("");
 
   const username = "receiver"; // Replace with dynamic username if needed
   const name = "merchant"; // Replace with dynamic name if needed
