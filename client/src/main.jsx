@@ -7,6 +7,8 @@ import { setIsConnected } from './globals.js';
 
 setIsConnected(null);
 
+let isLoggingOut = false; // Flag to prevent repeated logout
+
 async function init() {
   await loadMessages();
 
@@ -27,12 +29,14 @@ async function init() {
       if (type === 'updateConnectionStatus') {
         setIsConnected(isConnected);
       } else if (type === 'logout') {
+        if (isLoggingOut) return; // Prevent repeated logout handling
+        isLoggingOut = true;
+
         console.warn("Session expired or logged in elsewhere. Logging out.");
         document.cookie = "session_key=; path=/; max-age=0;";
         document.cookie = "username=; path=/; max-age=0;";
         document.cookie = "private_key=; path=/; max-age=0;";
         window.location.href = "/";
-        return;
       }
     });
   }
