@@ -30,9 +30,7 @@ const QRMirror = () => {
     console.log("Announcing amount:", decoded.amount/100);
     // Announce the amount multiplied by 100
    announce(decoded.amount); // Ensure it runs after user interaction
-  } else {
-    console.log("No valid amount found in decoded QR data.");
-  }
+  
 } else {
   console.log("Transaction was not successful or QR value is missing.");
 }
