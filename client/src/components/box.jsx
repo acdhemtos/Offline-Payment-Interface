@@ -27,12 +27,17 @@ const QRMirror = () => {
    console.log("hi");
    // Extract the amount from the QR code and multiply it by 100
    const decoded = QR.decode("trans_id+verification_hash", qrValue);
+   console.log(decoded);
    if (decoded && decoded.amount) {
-     // Announce the amount multiplied by 100
+    console.log("Announcing amount:", decoded.amount * 100);
+    // Announce the amount multiplied by 100
     setTimeout(() => announce(decoded.amount * 100), 0); // Ensure it runs after user interaction
-    console.log(announce(decoded.amount * 100));
-   }
- }
+  } else {
+    console.log("No valid amount found in decoded QR data.");
+  }
+} else {
+  console.log("Transaction was not successful or QR value is missing.");
+}
     setStatusMessage("");
     setShowLoader(false);
     setLooking(true);
