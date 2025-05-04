@@ -14,7 +14,8 @@ import TransactionHistory from './components/TransactionHistory';
 import Settings from "./components/Settings";
 import SetPin from "./components/setPin";
 import SuccessPage from "./components/Success";
-import Box from "./components/box";
+import QRMirror from './components/box.jsx';
+import { QR } from "./utils/qrFunctions.js";
 
 const App = () => {
   return (
@@ -36,7 +37,7 @@ const App = () => {
           <Route path={"/app/settings"} element={<Settings/>}/>
           <Route path={"/app/home"} element={<Home />} />
           <Route path={"/app/success"} element={<SuccessPage />} />
-          <Route path={"/screenbox"} element={<Box/>} />
+          <Route path={"/screenbox"} element={<QRMirror/>} />
         </Routes>
       </div>
     </BrowserRouter>
