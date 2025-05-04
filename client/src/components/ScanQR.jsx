@@ -83,15 +83,15 @@ const ScanQR = () => {
       obj = QR.decode("sender+name",data)
       if (obj !== false) {
         alert(JSON.stringify(obj));
-        // navigate("/app/send", {
-        //   state: {
-        //     qrData: obj,
-        //     disableUserId: true,
-        //     disableName: true,
-        //     disableAmount: true,
-        //     showOpiOption: true,
-        //   },
-        // });
+        navigate("/app/send", {
+          state: {
+            qrData: obj,
+            disableUserId: true,
+            disableName: true,
+            disableAmount: false,
+            showOpiOption: true,
+          },
+        });
         return;
       }
 
