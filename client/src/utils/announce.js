@@ -23,7 +23,7 @@ function preloadAudio() {
   
 }
 
-function playSequence(words, playbackRate = 2, delayMs = 750) {
+function playSequence(words, playbackRate = 1.5, delayMs = 750) {
  let i = 0;
 
  function playNext() {
