@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { QR } from "../utils/qrFunctions";
 import jsQR from "jsqr";
+import { ClipLoader } from "react-spinners";
 
 const QRMirror = () => {
   const [qrValue, setQrValue] = useState(""); // Value for the QR code
-  const [status, setStatus] = useState(""); // "yellow", "red", "green"
+  const [statusMessage, setStatusMessage] = useState(""); // Status message for QR processing
+  const [showLoader, setShowLoader] = useState(false); // Loader visibility
   const [looking, setLooking] = useState(true);
   const videoRef = useRef(null); // Reference for the video element
   const canvasRef = useRef(null); // Reference for the canvas element
@@ -20,7 +22,8 @@ const QRMirror = () => {
   };
 
   const resetState = () => {
-    setStatus("");
+    setStatusMessage("");
+    setShowLoader(false);
     setLooking(true);
     generateQR(QR.encode("username+name", username, name));
   };
@@ -28,7 +31,7 @@ const QRMirror = () => {
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "user" }, // Use the back camera
+        video: { facingMode: "environment" }, // Use the back camera
       });
       streamRef.current = stream;
       if (videoRef.current) {
@@ -76,10 +79,10 @@ const QRMirror = () => {
   const handleScanComplete = (data) => {
     if (data && looking) {
       console.log("Scanned QR Data:", data);
+      setShowLoader(true); // Show loader while processing
       const decoded = QR.decode("sender+name+amount", data);
       if (decoded !== false) {
         console.log("Decoded Data:", decoded);
-        setStatus("yellow");
         setLooking(false);
 
         // Send request to sound.php
@@ -91,13 +94,14 @@ const QRMirror = () => {
           .then((response) => response.json())
           .then((data) => {
             console.log("Response from sound.php:", data);
+            setShowLoader(false); // Hide loader after processing
             if (data.code === 0) {
+              setStatusMessage("Transaction Success ✅");
               const id = data.id;
               const verification_hash = data.verification_hash;
               generateQR(QR.encode("trans_id+verification_hash", id, verification_hash));
-              setStatus("green");
             } else {
-              setStatus("red");
+              setStatusMessage("Transaction Failed ❌");
               if (data.code === 30) {
                 const verification_hash = data.verification_hash;
                 generateQR(QR.encode("code+verification_hash", 30, verification_hash));
@@ -108,11 +112,13 @@ const QRMirror = () => {
           })
           .catch((error) => {
             console.error("Error sending request to sound.php:", error);
-            setStatus("red");
+            setShowLoader(false); // Hide loader on error
+            setStatusMessage("Transaction Failed ❌");
           });
       } else {
         console.log("Failed to decode QR data.");
-        setStatus("red");
+        setShowLoader(false); // Hide loader if decoding fails
+        setStatusMessage("Invalid QR Code ❌");
       }
     }
   };
@@ -136,61 +142,44 @@ const QRMirror = () => {
   }, [username, name]);
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 w-full px-4">
       <div
         id="qr-container"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: "20px",
-          background: "white",
-         width: "100%",
-          padding: "10px",
-        }}
+        className="p-4 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg shadow-lg"
       >
-        {qrValue ? (
-          <QRCodeSVG
-            value={qrValue}
-            size={280} // Size of the QR code
-            bgColor="white"
-            fgColor={status === "green" ? "green" : status === "red" ? "red" : "black"}
-            level="H" // Error correction level
-          />
-        ) : (
-          <div
-            style={{
-              width: "300px",
-              height: "300px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              border: "1px dashed #ccc",
-            }}
-          >
-            Loading QR Code...
-          </div>
-        )}
+        <div
+          className="relative"
+          style={{
+            padding: "20px",
+            backgroundColor: "white",
+            borderRadius: "10px",
+            width: "320px",
+            height: "320px",
+          }}
+        >
+          <QRCodeSVG value={qrValue} size={290} level="H" />
+          {showLoader && (
+            <div className="absolute inset-0 bg-white rounded-lg opacity-100 flex items-center justify-center">
+              <ClipLoader size={50} color="#120525" />
+            </div>
+          )}
+        </div>
       </div>
+
       <div
         id="camera-container"
-        className={status}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "relative",
-        }}
+        className="mt-4 flex justify-center items-center"
+        style={{ position: "relative" }}
       >
         <video
           ref={videoRef}
           autoPlay
           playsInline
+          className="rounded-lg border border-gray-300"
           style={{
             width: "500px",
-            height: "500px",
-            border: "2px solid black",
-            objectFit: "cover", // Ensure the video fills the container
+            height: "300px",
+            objectFit: "cover",
           }}
         ></video>
         <canvas
@@ -200,23 +189,25 @@ const QRMirror = () => {
           }}
         ></canvas>
       </div>
-      {status && (
-        <button
-          onClick={resetState}
-          style={{
-            marginTop: "20px",
-            padding: "10px 20px",
-            fontSize: "16px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
+
+      {statusMessage && (
+        <div
+          className={`mt-4 p-4 rounded-lg text-lg font-semibold ${
+            statusMessage.includes("Success")
+              ? "bg-green-100 text-green-700"
+              : "bg-red-100 text-red-700"
+          }`}
         >
-          Reset
-        </button>
+          {statusMessage}
+        </div>
       )}
+
+      <button
+        onClick={resetState}
+        className="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition"
+      >
+        Reset
+      </button>
     </div>
   );
 };
