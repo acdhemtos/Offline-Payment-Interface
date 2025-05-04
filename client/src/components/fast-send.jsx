@@ -98,7 +98,8 @@ const FastSend = () => {
                 if (code) {
                  console.log("code", code);
                   const private_key = Cookies.get("private_key");
-                  const string = code.data;
+                 const string = code.data;
+                 console.log("String", string);
                   const n = string.length;
 
                   if (QR.decode("code",string).code === 1) {
