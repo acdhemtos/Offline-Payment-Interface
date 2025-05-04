@@ -244,7 +244,7 @@ const Home = () => {
               </div>
 
               <div className="flex flex-col items-center text-center"
-                onClick={() => navigate("screenbox")}
+                onClick={() => navigate("/screenbox")}
               >
                 <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
                   <BsArrowUpCircle className="text-red-600 text-xl" />
