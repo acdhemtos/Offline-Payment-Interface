@@ -75,7 +75,7 @@ const QRMirror = () => {
   useEffect(() => {
     // Generate the initial QR code
     generateQR(QR.encode("username+name", username, name));
-    
+   console.log(username, name);
     console.log("Initial QR code generated for:", username, name);
   }, [username, name]);
 
