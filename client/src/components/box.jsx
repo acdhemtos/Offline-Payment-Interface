@@ -134,13 +134,11 @@ const QRMirror = () => {
           })
           .catch((error) => {
             console.error("Error sending request to sound.php:", error);
-            // setShowLoader(false); // Hide loader on error
-            // setStatusMessage("Transaction Failed ❌");
           });
          
       } else {
         console.log("Failed to decode QR data.");
-        setShowLoader(false); // Hide loader if decoding fails
+        setShowLoader(false); 
         setStatusMessage("Invalid QR Code ❌");
       }
     }
