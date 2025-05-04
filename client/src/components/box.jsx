@@ -3,7 +3,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { QR } from "../utils/qrFunctions";
 import jsQR from "jsqr";
 import { ClipLoader } from "react-spinners";
-import {announce} from ""
+import { announce } from "../utils/announce";
 
 const QRMirror = () => {
   const [qrValue, setQrValue] = useState(""); // Value for the QR code
