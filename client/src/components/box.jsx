@@ -189,7 +189,7 @@ const QRMirror = () => {
           <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
         </div>
       ) : (
-        <div className="mt-4 p-4 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg shadow-lg text-center">
+        <div className="mt-4 p-4 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg shadow-lg text-center min-w-[100vw] min-h[100vh]">
           {/* Transaction status will be displayed here when the camera is off */}
           {statusMessage && (
             <div
