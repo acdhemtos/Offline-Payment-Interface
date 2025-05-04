@@ -32,6 +32,7 @@ async function init() {
         document.cookie = "username=; path=/; max-age=0;";
         document.cookie = "private_key=; path=/; max-age=0;";
         window.location.href = "/";
+        return;
       }
     });
   }
