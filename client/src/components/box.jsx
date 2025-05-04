@@ -135,7 +135,7 @@ const QRMirror = () => {
               stopCamera();
             } else {
               setStatusMessage("Transaction Failed ❌");
-              setTransactionStatus("Failure");
+             setTransactionStatus("Failure");
               if (data.code === 30) {
                 const verification_hash = data.verification_hash;
                 generateQR(
@@ -154,7 +154,8 @@ const QRMirror = () => {
       } else {
         console.log("Failed to decode QR data.");
         setShowLoader(false);
-        setStatusMessage("Invalid QR Code ❌");
+       setStatusMessage("Invalid QR Code ❌");
+       setTransactionStatus("failure");
       }
     }
   };
