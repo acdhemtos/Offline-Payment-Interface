@@ -11,7 +11,7 @@ const QRMirror = () => {
   const readerRef = useRef(null);
   
   // Get username from cookies or set default
-  const username = Cookies.get('username') || "receiver";
+  const username =  "receiver";
   const name = "merchant";
 
   const generateQR = (text) => {
