@@ -104,6 +104,9 @@ const QRMirror = () => {
               const verification_hash = data.verification_hash;
              generateQR(QR.encode("trans_id+verification_hash", id, verification_hash));
              stopCamera();
+             if (decoded.amount) {
+              announce(decoded.amount); // Use the announce function from announce.js
+            }
             } else {
               setStatusMessage("Transaction Failed ❌");
               if (data.code === 30) {
