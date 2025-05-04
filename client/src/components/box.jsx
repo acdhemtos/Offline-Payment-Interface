@@ -128,9 +128,8 @@ const QRMirror = () => {
   };
 
   useEffect(() => {
-    generateQR(QR.encode("username+name", username, name));
-
     const html5QrCode = new Html5Qrcode("reader");
+  
     Html5Qrcode.getCameras()
       .then((devices) => {
         if (devices && devices.length) {
@@ -144,9 +143,11 @@ const QRMirror = () => {
         }
       })
       .catch((err) => console.error("Camera error", err));
-
+  
     return () => {
-      html5QrCode.stop().catch((err) => console.error("Stop failed", err));
+      if (html5QrCode.isScanning) {
+        html5QrCode.stop().catch((err) => console.error("Stop failed", err));
+      }
     };
   }, []);
 
