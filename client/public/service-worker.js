@@ -90,6 +90,7 @@ self.addEventListener("fetch", (event) => {
   }
 });
 
+let hasLoggedOut = false;
 // Periodically fetch balance
 const fetchInterval = 2000;
 
