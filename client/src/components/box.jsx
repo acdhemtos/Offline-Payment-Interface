@@ -6,50 +6,33 @@ import { ClipLoader } from "react-spinners";
 import { announce } from "../utils/announce";
 
 const QRMirror = () => {
-  const [qrValue, setQrValue] = useState(""); 
-  const [statusMessage, setStatusMessage] = useState(""); 
-  const [showLoader, setShowLoader] = useState(false); 
+  const [qrValue, setQrValue] = useState("");
+  const [statusMessage, setStatusMessage] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
   const [looking, setLooking] = useState(true);
-  const videoRef = useRef(null); 
-  const canvasRef = useRef(null); 
- const streamRef = useRef(null); 
- const [amount, setAmount] = useState("");
+  const [cameraActive, setCameraActive] = useState(true);  // New state to track camera status
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+  const streamRef = useRef(null);
+  const [amount, setAmount] = useState("");
 
-  const username = "receiver"; 
-  const name = "merchant"; 
+  const username = "receiver";
+  const name = "merchant";
 
   const generateQR = (text) => {
-    console.log("Generating QR for text:", text);
-    setQrValue(text); // Set the value for the QR code
-  };
-
- const resetState = () => {
-  if (statusMessage.includes("Success") && qrValue) {
-
-   const decoded = QR.decode("sender+time+amount+details_hash", qrValue);
-   console.log("decoded",decoded);
-    console.log("Announcing amount:", amount/100);
-   announce(amount); 
-  
-} else {
-  console.log("Transaction was not successful or QR value is missing.");
-}
-    setStatusMessage("");
-    setShowLoader(false);
-    setLooking(true);
-    generateQR(QR.encode("username+name", username, name));
-  startCamera();
+    setQrValue(text);
   };
 
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "user" }, // Use the back camera
+        video: { facingMode: "user" },
       });
       streamRef.current = stream;
       if (videoRef.current) {
-        videoRef.current.srcObject = stream; // Set the video source to the camera stream
+        videoRef.current.srcObject = stream;
       }
+      setCameraActive(true); // Camera is now active
     } catch (error) {
       console.error("Error accessing camera:", error);
     }
@@ -60,6 +43,7 @@ const QRMirror = () => {
       streamRef.current.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
     }
+    setCameraActive(false); // Camera is now stopped
   };
 
   const scanQRCode = () => {
@@ -78,7 +62,6 @@ const QRMirror = () => {
         const code = jsQR(imageData.data, canvas.width, canvas.height);
 
         if (code) {
-          console.log("QR Code detected:", code.data);
           handleScanComplete(code.data);
         }
       }
@@ -89,20 +72,27 @@ const QRMirror = () => {
     }
   };
 
+  const resetState = () => {
+    if (statusMessage.includes("Success") && qrValue) {
+      const decoded = QR.decode("sender+time+amount+details_hash", qrValue);
+      announce(amount);
+    }
+    setStatusMessage("");
+    setShowLoader(false);
+    setLooking(true);
+    generateQR(QR.encode("username+name", username, name));
+    startCamera();
+  };
+
   const handleScanComplete = (data) => {
     if (data && looking) {
-     console.log("Scanned QR Data:", data);
-     setLooking(false);
-      setShowLoader(true); // Show loader while processing
-     const decoded = QR.decode("sender+time+amount+details_hash", data);
-     setAmount(decoded.amount);
-     console.log("box.js decoded amount", decoded, data);
-     console.log(decoded);
-      if (decoded !== false) {
-        console.log("Decoded Data:", decoded);
-        setLooking(false);
+      setLooking(false);
+      setShowLoader(true);
 
-        // Send request to sound.php
+      const decoded = QR.decode("sender+time+amount+details_hash", data);
+      setAmount(decoded.amount);
+
+      if (decoded !== false) {
         fetch("./api/soundBox.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -110,66 +100,63 @@ const QRMirror = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("Response from sound.php:", data);
-           setShowLoader(false); 
-           stopCamera();
+            setShowLoader(false);
+            stopCamera();
             if (data.code === 0) {
               setStatusMessage("Transaction Success ✅");
-             const trans_id = data.id;
-              const verification_hash = data.verification_hash;
-             generateQR(QR.encode("trans_id+verification_hash", trans_id, verification_hash));
-             stopCamera();
-            //  if (decoded.amount) {
-            //   announce(decoded.amount); 
-            // }
+              generateQR(QR.encode("trans_id+verification_hash", data.id, data.verification_hash));
             } else {
-              setStatusMessage("Transaction Failed ❌");
+              let message = "Transaction Failed ❌";
+              switch (data.code) {
+                case 1:
+                  message += "\nInvalid Session";
+                  break;
+                case 2:
+                  message += "\nUser Not Found";
+                  break;
+                case 3:
+                  message += "\nInvalid Hash";
+                  break;
+                case 30:
+                  message += "\nInsufficient Balance";
+                  break;
+                default:
+                  message += "\nUnknown Error";
+              }
+              setStatusMessage(message);
+
               if (data.code === 30) {
-                const verification_hash = data.verification_hash;
-               generateQR(QR.encode("code+verification_hash", 30, verification_hash));
-               stopCamera();
+                generateQR(QR.encode("code+verification_hash", 30, data.verification_hash));
               } else {
-               generateQR(QR.encode("code", 1));
-               stopCamera();
+                generateQR(QR.encode("code", 1));
               }
             }
           })
           .catch((error) => {
-            console.error("Error sending request to sound.php:", error);
+            console.error("Error:", error);
+            setShowLoader(false);
+            setStatusMessage("Transaction Failed ❌\nServer Error");
           });
-         
       } else {
-        console.log("Failed to decode QR data.");
-        setShowLoader(false); 
+        setShowLoader(false);
         setStatusMessage("Invalid QR Code ❌");
       }
     }
   };
 
   useEffect(() => {
-    // Start the camera feed when the component mounts
     startCamera();
-
-    // Start scanning for QR codes
     scanQRCode();
-
-    // Stop the camera feed when the component unmounts
-    return () => {
-      stopCamera();
-    };
+    return () => stopCamera();
   }, []);
 
   useEffect(() => {
-    // Generate the initial QR code
     generateQR(QR.encode("username+name", username, name));
   }, [username, name]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 w-full px-4">
-      <div
-        id="qr-container"
-        className="p-4 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg shadow-lg"
-      >
+      <div className="p-4 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg shadow-lg">
         <div
           className="relative"
           style={{
@@ -189,48 +176,51 @@ const QRMirror = () => {
         </div>
       </div>
 
-      <div
-        id="camera-container"
-        className="mt-4 flex justify-center items-center"
-        style={{ position: "relative" }}
-      >
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          className="rounded-lg border border-gray-300"
-          style={{
-            width: "500px",
-            height: "300px",
-            objectFit: "cover",
-          }}
-        ></video>
-        <canvas
-          ref={canvasRef}
-          style={{
-            display: "none", // Hide the canvas element
-          }}
-        ></canvas>
-      </div>
+      {/* Camera Section */}
+      {cameraActive ? (
+        <div className="mt-4 flex justify-center items-center relative">
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            className="rounded-lg border border-gray-300"
+            style={{ width: "500px", height: "300px", objectFit: "cover" }}
+          ></video>
+          <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+        </div>
+      ) : (
+        <div className="mt-4 p-4 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg shadow-lg text-center">
+          {/* Transaction status will be displayed here when the camera is off */}
+          {statusMessage && (
+            <div
+              className={`p-4 rounded-lg text-lg font-semibold cursor-pointer ${
+                statusMessage.includes("Success")
+                  ? "bg-green-100 text-green-700"
+                  : "bg-red-100 text-red-700"
+              }`}
+              onClick={resetState}
+            >
+              {statusMessage.split("\n").map((line, idx) => (
+                <div key={idx}>{line}</div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
-      {statusMessage && (
+      {/* Optional Status Message */}
+      {statusMessage && !cameraActive && (
         <div
-          className={`mt-4 p-4 rounded-lg text-lg font-semibold ${
+          className={`mt-4 p-4 rounded-lg text-lg font-semibold cursor-pointer ${
             statusMessage.includes("Success")
               ? "bg-green-100 text-green-700"
               : "bg-red-100 text-red-700"
           }`}
+          onClick={resetState}
         >
           {statusMessage}
         </div>
       )}
-
-      <button
-        onClick={resetState}
-        className="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition"
-      >
-        Reset
-      </button>
     </div>
   );
 };
