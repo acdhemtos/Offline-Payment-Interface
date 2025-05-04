@@ -109,7 +109,7 @@ const QRMirror = () => {
           .then((response) => response.json())
           .then((data) => {
             console.log("Response from sound.php:", data);
-           setShowLoader(false); // Hide loader after processing
+           setShowLoader(false); 
            stopCamera();
             if (data.code === 0) {
               setStatusMessage("Transaction Success ✅");
