@@ -24,6 +24,7 @@ const QRMirror = () => {
 
  const resetState = () => {
   if (statusMessage.includes("Success") && qrValue) {
+   console.log("hi");
    // Extract the amount from the QR code and multiply it by 100
    const decoded = QR.decode("trans_id+verification_hash", qrValue);
    if (decoded && decoded.amount) {
