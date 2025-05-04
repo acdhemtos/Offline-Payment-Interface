@@ -56,9 +56,9 @@ const encode = (() => {
  
  
  return {
-  username: (str) => {
-   return makeIndexArray(str,index.username,10)
-  },
+  ...Object.fromEntries(['username', 'receiver', 'sender'].map(k => [k, (str) => {
+    return makeIndexArray(str,index.username,10)
+   }])),
   amount: (amt) => {
    return number(amt, 3);
   },
@@ -74,9 +74,9 @@ const encode = (() => {
   code: (amt) => {
    return number(amt, 1);
   },
-  hash: (base16String) => {
-      return base16ToBase256(base16String);
-  },
+  ...Object.fromEntries(['hash', 'details_hash', 'verification_hash'].map(k => [k, (base16String) => {
+    return base16ToBase256(base16String);
+}]))
  };
 })();
 
