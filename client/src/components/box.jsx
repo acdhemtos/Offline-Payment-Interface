@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { QR } from "../utils/qrFunctions";
-
+import jsQR from "jsqr";
 
 const QRMirror = () => {
   const [qrValue, setQrValue] = useState(""); // Value for the QR code
@@ -145,7 +145,8 @@ const QRMirror = () => {
           alignItems: "center",
           marginBottom: "20px",
           background: "white",
-          width: "100%",
+         width: "100%",
+          padding: "10px",
         }}
       >
         {qrValue ? (
