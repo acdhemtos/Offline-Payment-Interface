@@ -14,7 +14,8 @@ const QRMirror = () => {
   const canvasRef = useRef(null); 
  const streamRef = useRef(null); 
  const [amount, setAmount] = useState("");
- const []
+ const [transactionStatus, setTransactionStatus] = useState(""); 
+  const [failureMessage, setFailureMessage] = useState(""); 
 
   const username = "receiver"; 
   const name = "merchant"; 
