@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 import { loadMessages } from './utils/loadMessages.js';
@@ -34,15 +35,30 @@ async function init() {
         document.cookie = "session_key=; path=/; max-age=0;";
         document.cookie = "username=; path=/; max-age=0;";
         document.cookie = "private_key=; path=/; max-age=0;";
+
+        // Unregister the service worker to stop further messages
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then((registrations) => {
+            registrations.forEach((registration) => {
+              registration.unregister();
+            });
+          }).catch((err) => {
+            console.error('Service Worker unregister failed:', err);
+          });
+        }
+
+        // Use React Router's navigate() to change routes
         console.log("Redirecting to /...");
-        window.location.href = "/";
+        window.location.replace("/"); // This avoids a full page reload but still navigates.
       }
     });
   }
 
   createRoot(document.getElementById('root')).render(
     <StrictMode>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </StrictMode>
   );
 }
