@@ -100,16 +100,16 @@ const QRMirror = () => {
               const id = data.id;
               const verification_hash = data.verification_hash;
              generateQR(QR.encode("trans_id+verification_hash", id, verification_hash));
-             startCamera();
+             stopCamera();
             } else {
               setStatusMessage("Transaction Failed ❌");
               if (data.code === 30) {
                 const verification_hash = data.verification_hash;
                generateQR(QR.encode("code+verification_hash", 30, verification_hash));
-               startCamera();
+               stopCamera();
               } else {
                generateQR(QR.encode("code", 1));
-               startCamera();
+               stopCamera();
               }
             }
           })
@@ -118,6 +118,7 @@ const QRMirror = () => {
             setShowLoader(false); // Hide loader on error
             setStatusMessage("Transaction Failed ❌");
           });
+         
       } else {
         console.log("Failed to decode QR data.");
         setShowLoader(false); // Hide loader if decoding fails
