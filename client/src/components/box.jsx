@@ -98,9 +98,9 @@ const QRMirror = () => {
                 { facingMode: "environment" }, // Change to "environment" for back camera
                 { fps: 10, qrbox: 250 },
                 onScanSuccess,
-                (errorMessage) => {
-                  // QR code not found, continue scanning
-                }
+                // (errorMessage) => {
+                //   // QR code not found, continue scanning
+                // }
               )
               .catch((err) => console.error("Camera start failed:", err));
           } else {
