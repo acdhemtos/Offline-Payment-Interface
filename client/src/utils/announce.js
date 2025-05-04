@@ -13,14 +13,14 @@ const audioCache = {};
 // Preload audio files
 // Preload audio files after user interaction
 function preloadAudio() {
-  document.addEventListener("click", () => {
-    content.log("LOADED AUDIO");
+
+    content.log("LOADED AUDIO")
     for (let word of wordList) {
       const audio = new Audio(audioPath + word + audioExtension);
       audio.load();
       audioCache[word] = audio;
     }
-  }, { once: true }); // Ensure this runs only once
+  
 }
 
 function playSequence(words, playbackRate = 2, delayMs = 750) {
