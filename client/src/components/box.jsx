@@ -9,72 +9,8 @@ const QRMirror = () => {
   const [status, setStatus] = useState(""); // "yellow", "red", "green"
   const [looking, setLooking] = useState(true);
   const readerRef = useRef(null);
- const username = "receiver";
- const name = "merchant";
-
-  const map = [
-    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ",
- ];
- 
- 
-
-  const index = {
-    username: { from: 0, to: 36 },
-    name: { from: 10, to: 37 },
-  };
-
-  const lengths = {
-    username: 10,
-    name: 37,
-  };
-
-  const encode = {
-    username: (str) => makeIndexArray(str, index.username, 10),
-    name: (str) => makeIndexArray(str, index.name, 37),
-  };
-
-  const decode = {
-    username: (arr) => makeStr(arr, index.username),
-    name: (arr) => makeStr(arr, index.name),
-  };
-
-  const makeIndexArray = (str, limits, size) => {
-    const { from, to } = limits;
-    const arr = map.slice(from, to);
-    const n = BigInt(arr.length);
-    const n1 = n + BigInt(1);
-    let num = BigInt(0);
-    for (let ch of str) {
-      num *= n1;
-      num += n - BigInt(arr.indexOf(ch));
-    }
-    return number(num, size);
-  };
-
-  const makeStr = (arr, limits) => {
-    const { from, to } = limits;
-    const ARR = map.slice(from, to);
-    const n = BigInt(ARR.length);
-    const n1 = n + BigInt(1);
-    let num = number(arr);
-    let str = "";
-    while (num !== 0) {
-      str += ARR[n - (num % n1)];
-      num /= n1;
-    }
-    return str.split("").reverse().join("");
-  };
-
-  const number = (num, size) => {
-    let str = "";
-    num = BigInt(num);
-    while (size > 0) {
-      str = String.fromCharCode(Number(num % BigInt(256))) + str;
-      num /= BigInt(256);
-      --size;
-    }
-    return str;
-  };
+  const username = "receiver";
+  const name = "merchant";
 
   const generateQR = (text) => {
     const typeNumber = 0;
@@ -112,8 +48,8 @@ const QRMirror = () => {
               setStatus("green");
             } else {
               setStatus("red");
-             if (data.code === 30) {
-              const verification_hash = data.verification_hash;
+              if (data.code === 30) {
+                const verification_hash = data.verification_hash;
                 generateQR(QR.encode("code+verification_hash", 30, verification_hash));
               } else {
                 generateQR(QR.encode("code", 1));
@@ -129,7 +65,7 @@ const QRMirror = () => {
 
   useEffect(() => {
     const html5QrCode = new Html5Qrcode("reader");
-  
+
     Html5Qrcode.getCameras()
       .then((devices) => {
         if (devices && devices.length) {
@@ -143,7 +79,7 @@ const QRMirror = () => {
         }
       })
       .catch((err) => console.error("Camera error", err));
-  
+
     return () => {
       if (html5QrCode.isScanning) {
         html5QrCode.stop().catch((err) => console.error("Stop failed", err));
@@ -153,14 +89,53 @@ const QRMirror = () => {
 
   return (
     <div>
-      <div id="qr-container">
-        <img id="qr-output" src={qrOutput} alt="QR Code" />
+      <div
+        id="qr-container"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <img
+          id="qr-output"
+          src={qrOutput}
+          alt="QR Code"
+          style={{
+            width: "300px", // Adjust the width of the QR code
+            height: "300px", // Adjust the height of the QR code
+          }}
+        />
       </div>
-      <div id="camera-container" className={status}>
-        <div id="reader" ref={readerRef}></div>
+      <div
+        id="camera-container"
+        className={status}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          id="reader"
+          ref={readerRef}
+          style={{
+            width: "500px", // Adjust the width of the webcam feed
+            height: "500px", // Adjust the height of the webcam feed
+            border: "2px solid black", // Optional: Add a border for better visibility
+          }}
+        ></div>
       </div>
       {status && (
-        <button onClick={resetState} style={{ marginTop: "20px" }}>
+        <button
+          onClick={resetState}
+          style={{
+            marginTop: "20px",
+            padding: "10px 20px",
+            fontSize: "16px",
+          }}
+        >
           Reset
         </button>
       )}
