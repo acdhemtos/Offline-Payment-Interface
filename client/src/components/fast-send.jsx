@@ -31,25 +31,6 @@ const FastSend = () => {
     }
   }, [receiver]);
 
-  // useEffect(() => {
-  //   if (navigator.credentials) {
-  //     navigator.credentials
-  //       .get({ password: true })
-  //       .then((credential) => {
-  //         if (credential) {
-  //           console.log("Private key retrieved from credentials:", credential.password);
-  //           setPrivateKey(credential.password); // Store private key in state
-  //         } else {
-  //           console.error("No credential found");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error retrieving credentials:", error);
-  //       });
-  //   } else {
-  //     console.error("Credential Management API is not supported in this browser.");
-  //   }
-  // }, []);
 
   useEffect(() => {
     const generateQRData = async () => {
