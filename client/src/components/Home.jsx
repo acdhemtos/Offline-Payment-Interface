@@ -243,7 +243,9 @@ const Home = () => {
                 <p className="mt-2 text-sm text-gray-700">Pay to UPI</p>
               </div>
 
-              <div className="flex flex-col items-center text-center">
+              <div className="flex flex-col items-center text-center"
+                onClick={() => navigate("screenbox")}
+              >
                 <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
                   <BsArrowUpCircle className="text-red-600 text-xl" />
                 </div>
