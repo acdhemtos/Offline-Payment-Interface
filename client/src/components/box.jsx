@@ -122,7 +122,7 @@ const QRMirror = () => {
   return (
     <div>
       <div
-        id="qr-container"
+        id="qr-container min-w-[100vw]"
         style={{
           display: "flex",
           justifyContent: "center",
