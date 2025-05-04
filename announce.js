@@ -19,7 +19,7 @@ function preloadAudio() {
   }
 }
 
-function playSequence(words, playbackRate = 2, delayMs = 1000) {
+function playSequence(words, playbackRate = 2, delayMs = 500) {
  let i = 0;
 
  function playNext() {
