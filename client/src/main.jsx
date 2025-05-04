@@ -4,6 +4,7 @@ import './index.css';
 import App from './App.jsx';
 import { loadMessages } from './utils/loadMessages.js';
 import { setIsConnected } from './globals.js';
+import { useNavigate } from 'react-router-dom';
 
 setIsConnected(null);
 
