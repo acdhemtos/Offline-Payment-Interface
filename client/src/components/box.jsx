@@ -76,6 +76,7 @@ const QRMirror = () => {
     // Generate the initial QR code
     generateQR(QR.encode("username+name", username, name));
    console.log(username, name);
+   console.log("encoded", QR.encode("username+name", username, name));
     console.log("Initial QR code generated for:", username, name);
   }, [username, name]);
 
