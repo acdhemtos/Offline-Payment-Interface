@@ -121,7 +121,8 @@ const QRMirror = () => {
             setShowLoader(false);
             stopCamera();
             if (data.code === 0) {
-              setStatusMessage("Transaction Success ✅");
+             setStatusMessage("Transaction Success ✅");
+             setTransactionStatus("Success");
               const trans_id = data.id;
               const verification_hash = data.verification_hash;
               generateQR(
@@ -134,6 +135,7 @@ const QRMirror = () => {
               stopCamera();
             } else {
               setStatusMessage("Transaction Failed ❌");
+              setTransactionStatus("Failure");
               if (data.code === 30) {
                 const verification_hash = data.verification_hash;
                 generateQR(
