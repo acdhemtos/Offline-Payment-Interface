@@ -137,7 +137,7 @@ const QRMirror = () => {
             src={qrOutput}
             alt="QR Code"
             style={{
-              width: "150px",
+              width: "350px",
               height: "300px",
               border: status === "green" ? "4px solid green" : 
                      status === "red" ? "4px solid red" : 
