@@ -87,7 +87,7 @@ const QRMirror = () => {
         {qrValue ? (
           <QRCodeSVG
             value={qrValue}
-            size={300} // Size of the QR code
+            size={280} // Size of the QR code
             bgColor="white"
             fgColor={status === "green" ? "green" : status === "red" ? "red" : "black"}
             level="H" // Error correction level
