@@ -56,22 +56,7 @@ const LoginSignupForm = () => {
       if (data.code === 0) {
         // Register Service Worker
         if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.addEventListener("message", (event) => {
-            const { type, isConnected } = event.data;
-            console.log(event.data);
-
-            if (type === "updateConnectionStatus") {
-              setIsConnected(isConnected);
-            } else if (type === "logout") {
-              console.log("Received logout message from service worker.");
-              alert("Your session has expired or you logged in on another device. Logging out.");
-              // Clear cookies and redirect to login
-              document.cookie = "session_key=; path=/; max-age=0;";
-              document.cookie = "username=; path=/; max-age=0;";
-              document.cookie = "private_key=; path=/; max-age=0;";
-              window.location.href = "/";
-            }
-          });
+          
           navigator.serviceWorker
             .register("/service-worker.js")
             .then((registration) => {
