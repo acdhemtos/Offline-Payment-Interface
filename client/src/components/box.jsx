@@ -33,7 +33,7 @@ const QRMirror = () => {
     setShowLoader(false);
     setLooking(true);
     generateQR(QR.encode("username+name", username, name));
-    // No camera restart
+   startCamera();
   };
 
   const startCamera = async () => {
