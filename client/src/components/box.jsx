@@ -99,14 +99,17 @@ const QRMirror = () => {
               setStatusMessage("Transaction Success ✅");
               const id = data.id;
               const verification_hash = data.verification_hash;
-              generateQR(QR.encode("trans_id+verification_hash", id, verification_hash));
+             generateQR(QR.encode("trans_id+verification_hash", id, verification_hash));
+             startCamera();
             } else {
               setStatusMessage("Transaction Failed ❌");
               if (data.code === 30) {
                 const verification_hash = data.verification_hash;
-                generateQR(QR.encode("code+verification_hash", 30, verification_hash));
+               generateQR(QR.encode("code+verification_hash", 30, verification_hash));
+               startCamera();
               } else {
-                generateQR(QR.encode("code", 1));
+               generateQR(QR.encode("code", 1));
+               startCamera();
               }
             }
           })
