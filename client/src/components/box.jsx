@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { QR } from "../utils/qrFunctions";
 
+
 const QRMirror = () => {
   const [qrValue, setQrValue] = useState(""); // Value for the QR code
   const [status, setStatus] = useState(""); // "yellow", "red", "green"
