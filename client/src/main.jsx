@@ -28,7 +28,7 @@ async function init() {
 
       if (type === 'updateConnectionStatus') {
         setIsConnected(isConnected);
-      } else if (type === 'logout' && isLoggingOut) {
+      } else if (type === 'logout' && !isLoggingOut) {
         isLoggingOut = true; // Prevent further logout executions
         console.warn("Session expired or logged in elsewhere. Logging out.");
         document.cookie = "session_key=; path=/; max-age=0;";
