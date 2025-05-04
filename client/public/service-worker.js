@@ -119,7 +119,7 @@ async function fetchBalance() {
 
     if (data.code === 0) {
       postMessageToClients({ type: "updateConnectionStatus", isConnected: true });
-      console.log("Balance fetched successfully:", data.balance);
+      //console.log("Balance fetched successfully:", data.balance);
     } else {
       console.error("Invalid response from server:", data);
       logoutUser();
@@ -131,7 +131,7 @@ async function fetchBalance() {
 }
 
 function logoutUser() {
-  console.log("sending logout msg to clients");
+  //console.log("sending logout msg to clients");
   postMessageToClients({ type: "logout", isConnected:false });
 }
 
@@ -142,7 +142,7 @@ function postMessageToClients(message) {
       return;
     }
     clients.forEach((client) => {
-      console.log("Sending message to client:", message);
+      //console.log("Sending message to client:", message);
       client.postMessage(message);
     });
   });
