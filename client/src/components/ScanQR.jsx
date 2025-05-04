@@ -38,8 +38,9 @@ const ScanQR = () => {
 
   const handleScanComplete = (data) => {
     if (data) {
-      let obj = QR.decode("username",data);
       alert(`Length of scanned data: ${data.length}`);
+      let obj = QR.decode("username", data);
+      
       
   
       if(obj!==false){
