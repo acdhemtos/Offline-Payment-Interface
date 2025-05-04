@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {QRCodeSVG } from "qrcode.react";
+import React, { useEffect, useRef, useState } from "react";
+import { QRCodeSVG } from "qrcode.react";
 import { QR } from "../utils/qrFunctions";
 import Cookies from "js-cookie";
 
@@ -7,6 +7,8 @@ const QRMirror = () => {
   const [qrValue, setQrValue] = useState(""); // Value for the QR code
   const [status, setStatus] = useState(""); // "yellow", "red", "green"
   const [looking, setLooking] = useState(true);
+  const videoRef = useRef(null); // Reference for the video element
+  const streamRef = useRef(null); // Reference for the media stream
 
   // Get username from cookies or set default
   const username = "receiver";
@@ -24,47 +26,37 @@ const QRMirror = () => {
     generateQR(QR.encode("username+name", username, name));
   };
 
-  const onScanSuccess = (decodedText) => {
-    if (looking) {
-      console.log("QR code scanned:", decodedText);
-      const ret = QR.decode("sender+amount+time+details_hash", decodedText);
-      if (ret !== false) {
-        setLooking(false);
-        setStatus("yellow");
-
-        fetch("./api/soundBox.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...ret, username }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("API response:", data);
-            if (data.code === 0) {
-              const id = data.id;
-              const verification_hash = data.verification_hash;
-              generateQR(QR.encode("trans_id+verification_hash", id, verification_hash));
-              setStatus("green");
-            } else {
-              setStatus("red");
-              if (data.code === 30) {
-                const verification_hash = data.verification_hash;
-                generateQR(QR.encode("code+verification_hash", 30, verification_hash));
-              } else {
-                generateQR(QR.encode("code", 1));
-              }
-            }
-          })
-          .catch((error) => {
-            console.error("AJAX Error:", error);
-            setStatus("red");
-            generateQR(QR.encode("code", 99)); // Generic error code
-          });
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" }, // Use the back camera
+      });
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream; // Set the video source to the camera stream
       }
+    } catch (error) {
+      console.error("Error accessing camera:", error);
     }
   };
 
-  // Initialize QR code on component mount
+  const stopCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    // Start the camera feed when the component mounts
+    startCamera();
+
+    // Stop the camera feed when the component unmounts
+    return () => {
+      stopCamera();
+    };
+  }, []);
+
   useEffect(() => {
     // Generate the initial QR code
     generateQR(QR.encode("username+name", username, name));
@@ -79,8 +71,7 @@ const QRMirror = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-         marginBottom: "2px",
-          padding: "5px",
+          marginBottom: "20px",
           background: "white",
           width: "100%",
         }}
@@ -117,17 +108,17 @@ const QRMirror = () => {
           alignItems: "center",
         }}
       >
-        <div
-          id="reader"
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
           style={{
             width: "500px",
             height: "500px",
             border: "2px solid black",
+            objectFit: "cover", // Ensure the video fills the container
           }}
-        >
-          {/* Placeholder for camera feed or additional content */}
-          <p style={{ textAlign: "center", marginTop: "200px" }}>Camera feed placeholder</p>
-        </div>
+        ></video>
       </div>
       {status && (
         <button
