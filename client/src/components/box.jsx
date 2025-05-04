@@ -80,13 +80,13 @@ const QRMirror = () => {
     if (data && looking) {
       console.log("Scanned QR Data:", data);
       setShowLoader(true); // Show loader while processing
-      const decoded = QR.decode("sender+name+amount", data);
+      const decoded = QR.decode("sender+amount+time+details_hash", data);
       if (decoded !== false) {
         console.log("Decoded Data:", decoded);
         setLooking(false);
 
         // Send request to sound.php
-        fetch("./api/sound.php", {
+        fetch("./api/soundBox.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ ...decoded, username }),
