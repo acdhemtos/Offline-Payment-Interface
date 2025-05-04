@@ -24,7 +24,7 @@ async function init() {
 
     navigator.serviceWorker.addEventListener('message', event => {
       const { type, isConnected } = event.data;
-      console.log('Service Worker message received:', event.data);
+      //console.log('Service Worker message received:', event.data);
 
       if (type === 'updateConnectionStatus') {
         setIsConnected(isConnected);
