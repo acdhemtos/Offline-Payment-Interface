@@ -6,17 +6,17 @@ import { ClipLoader } from "react-spinners";
 import { announce } from "../utils/announce";
 
 const QRMirror = () => {
-  const [qrValue, setQrValue] = useState(""); // Value for the QR code
-  const [statusMessage, setStatusMessage] = useState(""); // Status message for QR processing
-  const [showLoader, setShowLoader] = useState(false); // Loader visibility
+  const [qrValue, setQrValue] = useState(""); 
+  const [statusMessage, setStatusMessage] = useState(""); 
+  const [showLoader, setShowLoader] = useState(false); 
   const [looking, setLooking] = useState(true);
-  const videoRef = useRef(null); // Reference for the video element
-  const canvasRef = useRef(null); // Reference for the canvas element
- const streamRef = useRef(null); // Reference for the media stream
+  const videoRef = useRef(null); 
+  const canvasRef = useRef(null); 
+ const streamRef = useRef(null); 
  const [amount, setAmount] = useState("");
 
-  const username = "receiver"; // Replace with dynamic username if needed
-  const name = "merchant"; // Replace with dynamic name if needed
+  const username = "receiver"; 
+  const name = "merchant"; 
 
   const generateQR = (text) => {
     console.log("Generating QR for text:", text);
