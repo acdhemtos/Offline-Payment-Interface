@@ -90,7 +90,7 @@ self.addEventListener("fetch", (event) => {
   }
 });
 
-let hasLoggedOut = false;
+
 // Periodically fetch balance
 const fetchInterval = 2000;
 
@@ -131,10 +131,8 @@ async function fetchBalance() {
 }
 
 function logoutUser() {
-  if (hasLoggedOut) return;
   console.log("sending logout msg to clients");
-  postMessageToClients({ type: "logout"});
-  hasLoggedOut = true;
+  postMessageToClients({ type: "logout", isConnected:false });
 }
 
 function postMessageToClients(message) {
