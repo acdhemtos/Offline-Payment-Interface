@@ -35,7 +35,12 @@ async function init() {
         document.cookie = "username=; path=/; max-age=0;";
         document.cookie = "private_key=; path=/; max-age=0;";
         console.log("Redirecting to /...");
-        window.location.replace("/account/login");
+        if (window.location.pathname !== "/account/login") {
+          console.log("Redirecting to /account/login...");
+          window.location.replace("/account/login");
+        } else {
+          console.log("Already on /account/login, no redirection needed.");
+        }
         return;
       }
     });
