@@ -37,6 +37,9 @@ async function init() {
         document.cookie = "private_key=; path=/; max-age=0;";
         console.log("Redirecting to /...");
         window.location.href = "/";
+        if (window.location.href == "/") {
+          return;
+        }
       }
     });
   }
