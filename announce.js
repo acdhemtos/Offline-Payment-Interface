@@ -19,23 +19,21 @@ function preloadAudio() {
   }
 }
 
-function playNumberSequence(wordsArray) {
-  let index = 0;
+function playSequence(words, playbackRate = 1.0, delayMs = 1000) {
+ let i = 0;
 
-  function playNext() {
-    if (index >= wordsArray.length) return;
+ function playNext() {
+   if (i < words.length) {
+     const word = words[i];
+     const audio = audioCache[word].cloneNode(); // clone to allow overlap if needed
+     audio.playbackRate = playbackRate;
+     audio.play();
+     i++;
+     setTimeout(playNext, delayMs);
+   }
+ }
 
-    const currentWord = wordsArray[index];
-    const audio = audioCache[currentWord].cloneNode(); // Clone to allow replay
-    audio.playbackRate = 2;
-    audio.play();
-    audio.onended = function () {
-      index++;
-      playNext();
-    };
-  }
-
-  playNext();
+ playNext();
 }
 
 // Preload on page load
