@@ -29,9 +29,9 @@ const QRMirror = () => {
    // Extract the amount from the QR code and multiply it by 100
    const decoded = QR.decode("sender+time+amount+details_hash", qrValue);
    console.log("decoded",decoded);
-    console.log("Announcing amount:", decoded.amount/100);
+    console.log("Announcing amount:", amount/100);
     // Announce the amount multiplied by 100
-   announce(decoded.amount); // Ensure it runs after user interaction
+   announce(amount); // Ensure it runs after user interaction
   
 } else {
   console.log("Transaction was not successful or QR value is missing.");
@@ -97,7 +97,7 @@ const QRMirror = () => {
      setLooking(false);
       setShowLoader(true); // Show loader while processing
      const decoded = QR.decode("sender+time+amount+details_hash", data);
-     setAmount()
+     setAmount(decoded.amount);
      console.log("box.js decoded amount", decoded, data);
      console.log(decoded);
       if (decoded !== false) {
