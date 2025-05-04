@@ -14,7 +14,7 @@ const audioCache = {};
 // Preload audio files after user interaction
 function preloadAudio() {
 
-    content.log("LOADED AUDIO")
+    console.log("LOADED AUDIO")
     for (let word of wordList) {
       const audio = new Audio(audioPath + word + audioExtension);
       audio.load();
