@@ -42,6 +42,7 @@ function playSequence(words, playbackRate = 2, delayMs = 750) {
 }
 
 // Preload on page load
+preloadAudio();
 window.addEventListener('DOMContentLoaded', preloadAudio);
 
 
