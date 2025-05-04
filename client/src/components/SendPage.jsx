@@ -30,7 +30,7 @@ const SendPage = () => {
       setDisableAmount(!!amount);
 
       setShowOpiOption(!!username && !!name && !!amount);
-      //setShowOpiOption(!!sender && !!name);
+      setShowOpiOption(!!sender && !!name);
       setIsAmountEntered(!!amount);
     }
   }, [location.state]);
@@ -189,9 +189,9 @@ const SendPage = () => {
           ) : (
             <button
               className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition w-full"
-              onClick={() => handleOptionClick("/app/upi-pin")}
+              onClick={() => handleOptionClick("/app/opi-pin")}
             >
-              Send Money
+              Offline Send
             </button>
           )}
         </div>
