@@ -28,6 +28,7 @@ function playSequence(words, playbackRate = 2, delayMs = 750) {
  function playNext() {
    if (i < words.length) {
      const word = words[i];
+     
      const audio = audioCache[word].cloneNode(); // clone to allow overlap if needed
      audio.playbackRate = playbackRate;
      audio.play();
