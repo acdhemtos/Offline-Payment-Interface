@@ -76,7 +76,22 @@ const ScanQR = () => {
             showOpiOption: true,
           },
         });
+        return;
       }
+      obj = QR.decode("sender+name",data)
+      if(obj!==false){
+        // navigate("/app/send", {
+        //   state: {
+        //     qrData: obj,
+        //     disableUserId: true,
+        //     disableName: true,
+        //     disableAmount: true,
+        //     showOpiOption: true,
+        //   },
+        // });
+        return;
+      }
+
     }
   };
 
