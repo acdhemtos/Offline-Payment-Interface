@@ -174,7 +174,7 @@ const SendPage = () => {
                 if (isAuthenticated) {
                   if (!!location.state?.qrData?.sender && !!location.state?.qrData?.name) {
                     // Redirect to fast-send if sender and name are present
-                    handleOptionClick("/app/fast-send");
+                    handleOptionClick("/fast-send");
                   } else {
                     // Redirect to opi-pin otherwise
                     handleOptionClick("/app/opi-pin");
