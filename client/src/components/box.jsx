@@ -209,7 +209,7 @@ const QRMirror = () => {
       )}
 
       {/* Optional Status Message */}
-      {statusMessage && !cameraActive && (
+      {/* {statusMessage && !cameraActive && (
         <div
           className={`mt-4 p-4 rounded-lg text-lg font-semibold cursor-pointer ${
             statusMessage.includes("Success")
@@ -220,7 +220,7 @@ const QRMirror = () => {
         >
           {statusMessage}
         </div>
-      )}
+      )} */}
     </div>
   );
 };
