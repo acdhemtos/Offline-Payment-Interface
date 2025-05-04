@@ -117,8 +117,8 @@ const QRMirror = () => {
           })
           .catch((error) => {
             console.error("Error sending request to sound.php:", error);
-            setShowLoader(false); // Hide loader on error
-            setStatusMessage("Transaction Failed ❌");
+            // setShowLoader(false); // Hide loader on error
+            // setStatusMessage("Transaction Failed ❌");
           });
          
       } else {
