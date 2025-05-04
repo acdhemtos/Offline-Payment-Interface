@@ -4,60 +4,15 @@ import QRCode from "qrcode-generator";
 import { QR } from "../utils/qrFunctions";
 import Cookies from "js-cookie";
 
-// Custom scanner styles to override default HTML5QrCode styles
-const SCANNER_CSS = `
-  /* Override the scanner line styles */
-  .html5-qrcode-line {
-    stroke-width: 8px !important; /* Increase line thickness */
-    stroke: #FF3B58 !important; /* Change line color */
-    opacity: 0.9 !important;
-  }
-  
-  /* Make corner elements larger */
-  #html5-qrcode-anchor-scan-type-change {
-    width: 40px !important;
-    height: 40px !important;
-  }
-  
-  /* Custom animations for the lines */
-  @keyframes dash {
-    0% {
-      stroke-dashoffset: 25;
-    }
-    100% {
-      stroke-dashoffset: 0;
-    }
-  }
-  
-  .html5-qrcode-line-animating {
-    animation: dash 0.5s linear infinite !important;
-    stroke-dasharray: 6 8 !important;
-  }
-`;
-
 const QRMirror = () => {
   const [qrOutput, setQrOutput] = useState("");
   const [status, setStatus] = useState(""); // "yellow", "red", "green"
   const [looking, setLooking] = useState(true);
-  const [cameraActive, setCameraActive] = useState(false);
   const readerRef = useRef(null);
-  const html5QrCodeRef = useRef(null);
   
   // Get username from cookies or set default
-  const username = Cookies.get('username') || "receiver";
+  const username =  "receiver";
   const name = "merchant";
-
-  // Apply custom scanner styles
-  useEffect(() => {
-    // Add custom CSS to document head
-    const styleElement = document.createElement('style');
-    styleElement.innerHTML = SCANNER_CSS;
-    document.head.appendChild(styleElement);
-    
-    return () => {
-      document.head.removeChild(styleElement);
-    };
-  }, []);
 
   const generateQR = (text) => {
     console.log("Generating QR for text:", text);
@@ -126,57 +81,27 @@ const QRMirror = () => {
 
   // Set up camera
   useEffect(() => {
+    let html5QrCode = null;
+    
     try {
-      // Configure scanner with custom styling options
-      const config = {
-        fps: 10,
-        qrbox: { width: 300, height: 300 },
-        aspectRatio: 1.0,
-        disableFlip: false,
-        experimentalFeatures: {
-          useBarCodeDetectorIfSupported: true
-        },
-        lineWidth: 8, // Thicker lines in the QR scanner
-        colorDark: "#FF3B58", // Scanner lines color
-        rememberLastUsedCamera: true
-      };
-      
-      html5QrCodeRef.current = new Html5Qrcode("reader");
+      html5QrCode = new Html5Qrcode("reader");
       
       Html5Qrcode.getCameras()
         .then((devices) => {
           console.log("Cameras found:", devices);
           if (devices && devices.length) {
-            // Prefer back camera if available
-            const backCamera = devices.find(device => 
-              /back|rear|environment|back\s*camera/i.test(device.label)
-            );
-            const cameraId = backCamera ? backCamera.id : devices[0].id;
-            
+            const cameraId = devices[0].id;
             console.log("Starting camera with ID:", cameraId);
             
-            html5QrCodeRef.current
+            html5QrCode
               .start(
-                { deviceId: cameraId },
-                config,
+                { facingMode: "environment" }, // Change to "environment" for back camera
+                { fps: 10, qrbox: 250 },
                 onScanSuccess,
                 // (errorMessage) => {
                 //   // QR code not found, continue scanning
                 // }
               )
-              .then(() => {
-                setCameraActive(true);
-                console.log("Camera started successfully");
-                
-                // Make sure the scanner is visible and has the correct styles
-                setTimeout(() => {
-                  const scanners = document.querySelectorAll('.html5-qrcode-line');
-                  scanners.forEach(scanner => {
-                    scanner.setAttribute('stroke-width', '8');
-                    scanner.setAttribute('stroke', '#FF3B58');
-                  });
-                }, 1000);
-              })
               .catch((err) => console.error("Camera start failed:", err));
           } else {
             console.warn("No cameras found");
@@ -188,8 +113,8 @@ const QRMirror = () => {
     }
 
     return () => {
-      if (html5QrCodeRef.current && html5QrCodeRef.current.isScanning) {
-        html5QrCodeRef.current.stop().catch((err) => console.error("Stop camera failed:", err));
+      if (html5QrCode && html5QrCode.isScanning) {
+        html5QrCode.stop().catch((err) => console.error("Stop camera failed:", err));
       }
     };
   }, []);
@@ -231,7 +156,6 @@ const QRMirror = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          position: "relative"
         }}
       >
         <div
@@ -243,21 +167,6 @@ const QRMirror = () => {
             border: "2px solid black",
           }}
         ></div>
-        
-        {!cameraActive && (
-          <div style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "rgba(0,0,0,0.7)",
-            color: "white",
-            padding: "20px",
-            borderRadius: "10px"
-          }}>
-            Initializing camera...
-          </div>
-        )}
       </div>
       {status && (
         <button
