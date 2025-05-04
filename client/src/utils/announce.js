@@ -1,4 +1,4 @@
-const audioPath = '/client/src/assets/audio/';
+const audioPath = 'api/audio/';
 const audioExtension = '.mpeg';
 
 const wordList = [
