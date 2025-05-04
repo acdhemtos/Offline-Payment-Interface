@@ -247,7 +247,7 @@ const Home = () => {
                 <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
                   <BsArrowUpCircle className="text-red-600 text-xl" />
                 </div>
-                <p className="mt-2 text-sm text-gray-700">Top-up</p>
+                <p className="mt-2 text-sm text-gray-700">Screen</p>
               </div>
             </div>
           </div>
