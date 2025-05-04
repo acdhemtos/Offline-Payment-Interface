@@ -96,7 +96,7 @@ const QRMirror = () => {
             html5QrCode
               .start(
                 { facingMode: "environment" }, // Change to "environment" for back camera
-                { fps: 10, qrbox: { width: 300, height: 300 }, },
+                { fps: 10, qrbox: { width: 300, height: 500 }, },
                 onScanSuccess,
                 // (errorMessage) => {
                 //   // QR code not found, continue scanning
