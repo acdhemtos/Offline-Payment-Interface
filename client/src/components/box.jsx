@@ -79,7 +79,7 @@ const QRMirror = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          marginBottom: "20px",
+          marginBottom: "2px",
           background: "white",
           width: "100%",
         }}
