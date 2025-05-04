@@ -29,7 +29,7 @@ const QRMirror = () => {
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" }, // Use the back camera
+        video: { facingMode: "user" }, // Use the back camera
       });
       streamRef.current = stream;
       if (videoRef.current) {
