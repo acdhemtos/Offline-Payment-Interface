@@ -79,7 +79,8 @@ const ScanQR = () => {
         return;
       }
       obj = QR.decode("sender+name",data)
-      if(obj!==false){
+      if (obj !== false) {
+        alert(JSON.stringify(obj));
         // navigate("/app/send", {
         //   state: {
         //     qrData: obj,
