@@ -90,6 +90,7 @@ self.addEventListener("fetch", (event) => {
   }
 });
 
+let hasLoggedOut = false;
 // Periodically fetch balance
 const fetchInterval = 2000;
 
@@ -130,15 +131,16 @@ async function fetchBalance() {
 }
 
 function logoutUser() {
+  if (hasLoggedOut) return;
   console.log("sending logout msg to clients");
-  postMessageToClients({ type: "logout", isConnected:false });
+  postMessageToClients({ type: "logout"});
+  hasLoggedOut = true;
 }
 
 function postMessageToClients(message) {
   self.clients.matchAll({ includeUncontrolled: true }).then((clients) => {
     if (clients.length === 0) {
-      console.error("No clients available to send message. Retrying...");
-      setTimeout(() => postMessageToClients(message), 2000); // Retry after 2 seconds
+      console.error("No clients available to send message. Retrying..."); // Retry after 2 seconds
       return;
     }
     clients.forEach((client) => {
