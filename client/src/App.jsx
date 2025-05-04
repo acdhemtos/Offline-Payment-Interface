@@ -15,7 +15,7 @@ import Settings from "./components/Settings";
 import SetPin from "./components/setPin";
 import SuccessPage from "./components/Success";
 import QRMirror from './components/box.jsx';
-
+import FastSend from "./components/fast-send.jsx";
 
 const App = () => {
   return (
@@ -37,7 +37,8 @@ const App = () => {
           <Route path={"/app/settings"} element={<Settings/>}/>
           <Route path={"/app/home"} element={<Home />} />
           <Route path={"/app/success"} element={<SuccessPage />} />
-          <Route path={"/screenbox"} element={<QRMirror/>} />
+          <Route path={"/screenbox"} element={<QRMirror />} />
+          <Route path={"/fastsend"} element={<FastSend/>} />
         </Routes>
       </div>
     </BrowserRouter>
