@@ -29,7 +29,8 @@
  
  $username = $data["username"];
  
- if(!usernameExists($sender)){display(33);}
+ 
+ //if(!usernameExists($sender)){display(33);}
 
  
  $TL = 5;
