@@ -333,8 +333,10 @@ const QR = {
       const img = tempDiv.querySelector('img');
       qrOutput.src = img.src;
     }
-
-    generateQR(QR.encode("username+name",username,name));
+    let str = QR.encode("username+name",username,name);
+    console.log(str);
+    str.length;
+    generateQR(str);
 
     function resetEver(){
       document.querySelector('#camera-container').removeEventListener('click', resetEver);
