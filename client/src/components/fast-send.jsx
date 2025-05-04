@@ -63,7 +63,7 @@ const FastSend = () => {
         console.log(receiver, adjustedAmount, rN, time, privateKey);
         detailsHashRef.current = QR.decode("hash",hash).hash;
         console.log("detailshash",detailsHashRef.current);
-        const qrDataString = QR.encode("username+time",username,time) + hash;
+        const qrDataString = QR.encode("username+time+amount",username,time,adjustedAmount) + hash;
         setQrData(qrDataString);
       });
       
