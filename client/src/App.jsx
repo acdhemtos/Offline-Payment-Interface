@@ -14,6 +14,7 @@ import TransactionHistory from './components/TransactionHistory';
 import Settings from "./components/Settings";
 import SetPin from "./components/setPin";
 import SuccessPage from "./components/Success";
+import Box from "./components/box";
 
 const App = () => {
   return (
@@ -34,7 +35,8 @@ const App = () => {
           <Route path={"/app/transactions"} element={<TransactionHistory />} />
           <Route path={"/app/settings"} element={<Settings/>}/>
           <Route path={"/app/home"} element={<Home />} />
-          <Route path={"/app/success"} element={<SuccessPage/>}/>
+          <Route path={"/app/success"} element={<SuccessPage />} />
+          <Route path={"/screenbox"} element={<Box/>} />
         </Routes>
       </div>
     </BrowserRouter>
