@@ -22,7 +22,14 @@ const QRMirror = () => {
     setQrValue(text); // Set the value for the QR code
   };
 
-  const resetState = () => {
+ const resetState = () => {
+  if (statusMessage.includes("Success") && qrValue) {
+   // Extract the amount from the QR code and multiply it by 100
+   const decoded = QR.decode("trans_id+verification_hash", qrValue);
+   if (decoded && decoded.amount) {
+     announce(decoded.amount * 100); // Announce the amount multiplied by 100
+   }
+ }
     setStatusMessage("");
     setShowLoader(false);
     setLooking(true);
@@ -79,7 +86,8 @@ const QRMirror = () => {
 
   const handleScanComplete = (data) => {
     if (data && looking) {
-      console.log("Scanned QR Data:", data);
+     console.log("Scanned QR Data:", data);
+     setLooking(false);
       setShowLoader(true); // Show loader while processing
      const decoded = QR.decode("sender+time+amount+details_hash",data);
      console.log(decoded);
