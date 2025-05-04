@@ -27,7 +27,7 @@ const QRMirror = () => {
    // Extract the amount from the QR code and multiply it by 100
    const decoded = QR.decode("trans_id+verification_hash", qrValue);
    if (decoded && decoded.amount) {
-     announce(decoded.amount * 100); // Announce the amount multiplied by 100
+     announce(decoded.amount * 100); 
    }
  }
     setStatusMessage("");
