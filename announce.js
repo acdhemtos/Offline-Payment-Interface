@@ -1,5 +1,5 @@
 const audioPath = './audio/';
-const audioExtension = '.mp3';
+const audioExtension = '.mpeg';
 
 const wordList = [
   'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
