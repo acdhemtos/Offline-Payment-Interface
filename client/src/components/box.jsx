@@ -205,48 +205,37 @@ const QRMirror = () => {
 
       <div
         id="camera-container"
-        className="mt-4 flex justify-center items-center"
-        style={{ position: "relative" }}
+        className="mt-4 flex justify-center items-center relative"
+        style={{ width: "500px", height: "300px" }}
       >
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          className="rounded-lg border border-gray-300"
-          style={{
-            width: "500px",
-            height: "300px",
-            objectFit: "cover",
-          }}
-        ></video>
-        <canvas
-          ref={canvasRef}
-          style={{
-            display: "none", // Hide the canvas element
-          }}
-        ></canvas>
+        {transactionStatus ? (
+          <div
+            onClick={resetState} // Acts as a reset button
+            className={`absolute inset-0 flex items-center justify-center rounded-lg text-3xl font-bold cursor-pointer ${
+              transactionStatus === "success"
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}
+          >
+            {transactionStatus === "success" ? "Transaction Success ✅" : failureMessage}
+          </div>
+        ) : (
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            className="rounded-lg border border-gray-300"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          ></video>
+        )}
       </div>
-
-      {statusMessage && (
-        <div
-          className={`mt-4 p-4 rounded-lg text-lg font-semibold ${
-            statusMessage.includes("Success")
-              ? "bg-green-100 text-green-700"
-              : "bg-red-100 text-red-700"
-          }`}
-        >
-          {statusMessage}
-        </div>
-      )}
-
-      <button
-        onClick={resetState}
-        className="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition"
-      >
-        Reset
-      </button>
     </div>
   );
 };
+
 
 export default QRMirror;
