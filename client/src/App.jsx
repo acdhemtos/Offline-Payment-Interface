@@ -15,7 +15,7 @@ import Settings from "./components/Settings";
 import SetPin from "./components/setPin";
 import SuccessPage from "./components/Success";
 import QRMirror from './components/box.jsx';
-import { QR } from "./utils/qrFunctions.js";
+
 
 const App = () => {
   return (
