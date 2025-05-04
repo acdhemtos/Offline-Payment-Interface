@@ -37,6 +37,8 @@ const QRMirror = () => {
   console.log("Transaction was not successful or QR value is missing.");
 }
     setStatusMessage("");
+  setTransactionStatus("");
+  setFailureMessage("");
     setShowLoader(false);
     setLooking(true);
     generateQR(QR.encode("username+name", username, name));
