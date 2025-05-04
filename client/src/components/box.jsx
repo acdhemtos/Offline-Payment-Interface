@@ -73,7 +73,8 @@ const QRMirror = () => {
           alignItems: "center",
           marginBottom: "2px",
           background: "white",
-          width: "100%",
+         width: "100%",
+          padding: "2px",
         }}
       >
         {qrValue ? (
