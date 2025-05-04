@@ -9,7 +9,9 @@ const QRMirror = () => {
   const [status, setStatus] = useState(""); // "yellow", "red", "green"
   const [looking, setLooking] = useState(true);
   const readerRef = useRef(null);
-  const username = "receiver";
+  
+  // Get username from cookies or set default
+  const username = Cookies.get('username') || "receiver";
   const name = "merchant";
 
   const generateQR = (text) => {
@@ -31,6 +33,7 @@ const QRMirror = () => {
 
   const onScanSuccess = (decodedText) => {
     if (looking) {
+      console.log("QR code scanned:", decodedText);
       const ret = QR.decode("sender+amount+time+details_hash", decodedText);
       if (ret !== false) {
         setLooking(false);
@@ -43,6 +46,7 @@ const QRMirror = () => {
         })
           .then((response) => response.json())
           .then((data) => {
+            console.log("API response:", data);
             if (data.code === 0) {
               const id = data.id;
               const verification_hash = data.verification_hash;
@@ -60,31 +64,57 @@ const QRMirror = () => {
           })
           .catch((error) => {
             console.error("AJAX Error:", error);
+            setStatus("red");
+            generateQR(QR.encode("code", 99)); // Generic error code
           });
       }
     }
   };
 
+  // Initialize QR code on component mount
   useEffect(() => {
-    const html5QrCode = new Html5Qrcode("reader");
+    // Generate the initial QR code
+    generateQR(QR.encode("username+name", username, name));
+    
+    console.log("Initial QR code generated for:", username, name);
+  }, [username, name]);
 
-    Html5Qrcode.getCameras()
-      .then((devices) => {
-        if (devices && devices.length) {
-          html5QrCode
-            .start(
-              { facingMode: "user" },
-              { fps: 10 },
-              onScanSuccess
-            )
-            .catch((err) => console.error("Start failed", err));
-        }
-      })
-      .catch((err) => console.error("Camera error", err));
+  // Set up camera
+  useEffect(() => {
+    let html5QrCode = null;
+    
+    try {
+      html5QrCode = new Html5Qrcode("reader");
+      
+      Html5Qrcode.getCameras()
+        .then((devices) => {
+          console.log("Cameras found:", devices);
+          if (devices && devices.length) {
+            const cameraId = devices[0].id;
+            console.log("Starting camera with ID:", cameraId);
+            
+            html5QrCode
+              .start(
+                { facingMode: "environment" }, // Change to "environment" for back camera
+                { fps: 10, qrbox: 250 },
+                onScanSuccess,
+                (errorMessage) => {
+                  // QR code not found, continue scanning
+                }
+              )
+              .catch((err) => console.error("Camera start failed:", err));
+          } else {
+            console.warn("No cameras found");
+          }
+        })
+        .catch((err) => console.error("Get cameras error:", err));
+    } catch (error) {
+      console.error("Camera initialization error:", error);
+    }
 
     return () => {
-      if (html5QrCode.isScanning) {
-        html5QrCode.stop().catch((err) => console.error("Stop failed", err));
+      if (html5QrCode && html5QrCode.isScanning) {
+        html5QrCode.stop().catch((err) => console.error("Stop camera failed:", err));
       }
     };
   }, []);
@@ -100,15 +130,24 @@ const QRMirror = () => {
           marginBottom: "20px",
         }}
       >
-        <img
-          id="qr-output"
-          src={qrOutput}
-          alt="QR Code"
-          style={{
-            width: "300px", // Adjust the width of the QR code
-            height: "300px", // Adjust the height of the QR code
-          }}
-        />
+        {qrOutput ? (
+          <img
+            id="qr-output"
+            src={qrOutput}
+            alt="QR Code"
+            style={{
+              width: "300px",
+              height: "300px",
+              border: status === "green" ? "4px solid green" : 
+                     status === "red" ? "4px solid red" : 
+                     status === "yellow" ? "4px solid orange" : "none"
+            }}
+          />
+        ) : (
+          <div style={{ width: "300px", height: "300px", display: "flex", justifyContent: "center", alignItems: "center", border: "1px dashed #ccc" }}>
+            Loading QR Code...
+          </div>
+        )}
       </div>
       <div
         id="camera-container"
@@ -123,9 +162,9 @@ const QRMirror = () => {
           id="reader"
           ref={readerRef}
           style={{
-            width: "500px", // Adjust the width of the webcam feed
-            height: "500px", // Adjust the height of the webcam feed
-            border: "2px solid black", // Optional: Add a border for better visibility
+            width: "500px",
+            height: "500px",
+            border: "2px solid black",
           }}
         ></div>
       </div>
@@ -136,6 +175,11 @@ const QRMirror = () => {
             marginTop: "20px",
             padding: "10px 20px",
             fontSize: "16px",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer"
           }}
         >
           Reset
