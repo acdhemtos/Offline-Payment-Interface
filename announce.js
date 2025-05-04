@@ -5,7 +5,7 @@ const wordList = [
   'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
   'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
   'seventeen', 'eighteen', 'nineteen', 'twenty', 'thirty', 'forty', 'fifty',
-  'sixty', 'seventy', 'eighty', 'ninety','thousand','hundred','rupees','and','paisa'
+  'sixty', 'seventy', 'eighty', 'ninety','thousand','hundred','rupees','and','paisa','received'
 ];
 
 const audioCache = {};
@@ -27,6 +27,7 @@ function playNumberSequence(wordsArray) {
 
     const currentWord = wordsArray[index];
     const audio = audioCache[currentWord].cloneNode(); // Clone to allow replay
+    audio.playbackRate = 2;
     audio.play();
     audio.onended = function () {
       index++;
