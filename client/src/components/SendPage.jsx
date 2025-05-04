@@ -164,23 +164,28 @@ const SendPage = () => {
         </div>
       </div>
 
-      {isAmountEntered && (
+            {isAmountEntered && (
         <div className="mt-80 flex flex-col items-center w-full max-w-md mx-auto px-2">
           {showOpiOption ? (
             <button
-            className="bg-green-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-green-600 transition w-full"
-            onClick={async () => {
+              className="bg-green-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-green-600 transition w-full"
+              onClick={async () => {
                 const isAuthenticated = await biometric();
                 if (isAuthenticated) {
-                  handleOptionClick("/app/opi-pin");
+                  if (!!location.state?.qrData?.sender && !!location.state?.qrData?.name) {
+                    // Redirect to fast-send if sender and name are present
+                    handleOptionClick("/app/fast-send");
+                  } else {
+                    // Redirect to opi-pin otherwise
+                    handleOptionClick("/app/opi-pin");
+                  }
                 } else {
-                  
                   console.warn("Biometric authentication failed. Please try again.");
                 }
-            }}
-          >
-            Offline Send
-          </button>
+              }}
+            >
+              Offline Send
+            </button>
           ) : (
             <button
               className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition w-full"
