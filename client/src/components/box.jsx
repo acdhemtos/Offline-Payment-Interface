@@ -80,7 +80,8 @@ const QRMirror = () => {
     if (data && looking) {
       console.log("Scanned QR Data:", data);
       setShowLoader(true); // Show loader while processing
-      const decoded = QR.decode("sender+amount+time+details_hash", data);
+     const decoded = QR.decode("sender+amount+time+details_hash", data);
+     console.log(QR.decode("sender+amount+time+details_hash", data);
       if (decoded !== false) {
         console.log("Decoded Data:", decoded);
         setLooking(false);
