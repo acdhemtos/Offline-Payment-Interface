@@ -24,7 +24,8 @@ const FastSend = () => {
   // const [privateKey, setPrivateKey] = useState(null);
 
   const adjustedAmount = amount ? Math.round(amount * 100) : 0;
- console.log(adjustedAmount,"sss", amount);
+ console.log(adjustedAmount, "sss", amount);
+ 
 
   useEffect(() => {
     if (receiver) {
