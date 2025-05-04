@@ -191,7 +191,7 @@ const QRMirror = () => {
                 : "bg-red-100 text-red-700"
             }`}
           >
-            {statusMessage} — Tap to Reset
+            {statusMessage}
           </div>
         )}
       </div>
