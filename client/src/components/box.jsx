@@ -26,7 +26,7 @@ const QRMirror = () => {
   if (statusMessage.includes("Success") && qrValue) {
    console.log("hi");
    // Extract the amount from the QR code and multiply it by 100
-   const decoded = QR.decode("sender+time+amount+details_hash", qrValue).amount;
+   const decoded = QR.decode("sender+time+amount+details_hash", qrValue);
     console.log("Announcing amount:", decoded.amount/100);
     // Announce the amount multiplied by 100
    announce(decoded.amount); // Ensure it runs after user interaction
