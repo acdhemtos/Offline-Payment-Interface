@@ -38,7 +38,7 @@ const App = () => {
           <Route path={"/app/home"} element={<Home />} />
           <Route path={"/app/success"} element={<SuccessPage />} />
           <Route path={"/screenbox"} element={<QRMirror />} />
-          <Route path={"/fastsend"} element={<FastSend/>} />
+          <Route path={"/fast-send"} element={<FastSend/>} />
         </Routes>
       </div>
     </BrowserRouter>
