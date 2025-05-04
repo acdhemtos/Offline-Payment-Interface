@@ -202,7 +202,10 @@ export const QR = {
     if(encodeFormat.length!==values.length){ throw "MisMatched Parameters"; }
     let str = "";
     for(let i=0;i<encodeFormat.length;++i){
-     str += encode[encodeFormat[i]](values[i]);
+      console.log(encodeFormat[i]);
+      str += encode[encodeFormat[i]](values[i]);
+      
+      
     }
     console.log("ENCODED",values,encodeFormat,str);
     return str;
