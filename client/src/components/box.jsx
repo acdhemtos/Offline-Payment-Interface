@@ -128,7 +128,7 @@ const QRMirror = () => {
           justifyContent: "center",
           alignItems: "center",
          marginBottom: "10x",
-         width: '80%',
+         width: '100vw',
           height: '50%',
         }}
       >
