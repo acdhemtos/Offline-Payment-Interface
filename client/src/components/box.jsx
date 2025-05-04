@@ -112,7 +112,8 @@ const QRMirror = () => {
               setStatus("green");
             } else {
               setStatus("red");
-              if (data.code === 30) {
+             if (data.code === 30) {
+              const verification_hash = data.verification_hash;
                 generateQR(QR.encode("code+verification_hash", 30, verification_hash));
               } else {
                 generateQR(QR.encode("code", 1));
