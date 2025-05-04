@@ -183,16 +183,17 @@ const QRMirror = () => {
         ></video>
 
         {!looking && statusMessage && (
-          <div
-            onClick={resetState}
-            className={`min-w-[300px] h-[200px] align-center flex justify-center min-h-[100vh] transform -translate-x-1/2 px-6 py-3 rounded-lg text-lg font-semibold cursor-pointer shadow-lg ${
-              statusMessage.includes("Success")
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
-            }`}
-          >
-            {statusMessage}
-          </div>
+         <div
+         onClick={resetState}
+         className={`absolute inset-0 flex items-center justify-center text-lg font-semibold cursor-pointer rounded-lg ${
+           statusMessage.includes("Success")
+             ? "bg-green-100 text-green-700"
+             : "bg-red-100 text-red-700"
+         }`}
+       >
+         {statusMessage}
+       </div>
+       
         )}
       </div>
     </div>
