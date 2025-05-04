@@ -25,7 +25,7 @@ const FastSend = () => {
 
   const adjustedAmount = amount ? Math.round(amount * 100) : 0;
  console.log(adjustedAmount, "sss", amount);
- 
+
 
   useEffect(() => {
     if (receiver) {
@@ -96,7 +96,7 @@ const FastSend = () => {
                 const code = jsQR(imageData.data, canvas.width, canvas.height);
 
                 if (code) {
-                  
+                 console.log("code", code);
                   const private_key = Cookies.get("private_key");
                   const string = code.data;
                   const n = string.length;
