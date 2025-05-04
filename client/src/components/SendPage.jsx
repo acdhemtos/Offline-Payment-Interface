@@ -30,6 +30,7 @@ const SendPage = () => {
       setDisableAmount(!!amount);
 
       setShowOpiOption(!!username && !!name && !!amount);
+      setShowOpiOption(!!sender && !!name && !!amount);
       setIsAmountEntered(!!amount);
     }
   }, [location.state]);
