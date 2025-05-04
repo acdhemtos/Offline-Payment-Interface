@@ -19,13 +19,13 @@ const SendPage = () => {
 
   useEffect(() => {
     if (location.state?.qrData) {
-      const { username, amount, name } = location.state.qrData;
+      const { username, amount, name, sender } = location.state.qrData;
 
-      setId(username || "");
+      setId(username || sender  ||"");
       setUsername(name || "");
       setAmount(amount / 100 || "");
 
-      setDisableUserId(!!username);
+      setDisableUserId(!!username || !!sender);
       setDisableName(!!name);
       setDisableAmount(!!amount);
 
