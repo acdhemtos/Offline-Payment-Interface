@@ -161,10 +161,10 @@ const Home = () => {
           <FaCog className="text-2xl" />
         </button>
         {showDropdown && (
-          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
             <ul className="py-1">
               <li
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
+                className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-all rounded-md"
                 onClick={() => {
                   if (isPinSet) {
                     alert("Redirecting to Change PIN page...");
@@ -176,7 +176,7 @@ const Home = () => {
                 {isPinSet ? "Change PIN" : "Set PIN"}
               </li>
               <li
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
+                className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-all rounded-md"
                 onClick={handleLogout}
               >
                 Logout
