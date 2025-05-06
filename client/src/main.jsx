@@ -20,28 +20,31 @@ async function init() {
     //   .catch(err => {
     //     console.error('Service Worker registration failed:', err);
     //   });
+    navigator.serviceWorker.ready.then(() => {
+      console.log("Service Worker is ready. Adding message listener...");
 
-    navigator.serviceWorker.addEventListener('message', event => {
-      const { type, isConnected } = event.data;
-      //console.log('Service Worker message received:', event.data);
+      navigator.serviceWorker.addEventListener('message', event => {
+        const { type, isConnected } = event.data;
+        //console.log('Service Worker message received:', event.data);
 
-      if (type === 'updateConnectionStatus') {
-        setIsConnected(isConnected);
-      } else if (type === 'logout' && !isLoggingOut) {
-        isLoggingOut = true; // Prevent further logout executions
-        console.warn("Session expired or logged in elsewhere. Logging out.");
-        document.cookie = "session_key=; path=/; max-age=0;";
-        document.cookie = "username=; path=/; max-age=0;";
-        document.cookie = "private_key=; path=/; max-age=0;";
-        console.log("Redirecting to /...");
-        if (window.location.pathname !== "/account/login") {
-          console.log("Redirecting to /account/login...");
-          window.location.replace("/account/login");
-        } else {
-          console.log("Already on /account/login, no redirection needed.");
+        if (type === 'updateConnectionStatus') {
+          setIsConnected(isConnected);
+        } else if (type === 'logout' && !isLoggingOut) {
+          isLoggingOut = true; // Prevent further logout executions
+          console.warn("Session expired or logged in elsewhere. Logging out.");
+          document.cookie = "session_key=; path=/; max-age=0;";
+          document.cookie = "username=; path=/; max-age=0;";
+          document.cookie = "private_key=; path=/; max-age=0;";
+          console.log("Redirecting to /...");
+          if (window.location.pathname !== "/account/login") {
+            console.log("Redirecting to /account/login...");
+            window.location.replace("/account/login");
+          } else {
+            console.log("Already on /account/login, no redirection needed.");
+          }
+          return;
         }
-        return;
-      }
+      });
     });
   }
 
