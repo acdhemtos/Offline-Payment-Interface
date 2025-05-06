@@ -169,4 +169,4 @@ self.addEventListener("message", (event) => {
   }
 });
 
-setInterval(fetchBalance, fetchInterval);
+// setInterval(fetchBalance, fetchInterval);
