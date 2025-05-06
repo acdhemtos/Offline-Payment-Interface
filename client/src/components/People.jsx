@@ -50,7 +50,7 @@ const PeopleSlider = () => {
         {people.length > 4 && (
           <button
           onClick={toggleShowAll}
-          className="absolute bottom-5 left-4 text-xs text-blue-500 bg-white px-2 py-0.5 rounded-lg shadow-sm flex items-center gap-1"
+          className="absolute bottom-5 right-4 text-xs text-blue-500 bg-white px-2 py-0.5 rounded-lg shadow-sm flex items-center gap-1"
           style={{ transform: "translateY(100%)" }}
         >
           {showAll ? "Show Less" : "Show More"}
