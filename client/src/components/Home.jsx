@@ -60,7 +60,7 @@ const Home = () => {
     const checkPinSet = async () => {
       try {
         const data = await fetch("/api/isPinSet.php");
-
+        const data = await response.json();
         if (data && data.code === 0) {
           setIsPinSet(data.pinSet);
         }
