@@ -211,7 +211,7 @@ const Home = () => {
               <BsCreditCard2Front className="text-3xl opacity-30" />
             </div>
 
-            <div className="absolute bottom-2 left-6 text-xs tracking-wide text-white/80">
+            <div className="absolute bottom-1 left-6 text-xs tracking-wide text-white/80">
               Secured
             </div>
             <div className="absolute bottom-4 right-6 text-sm font-mono text-white/70">
