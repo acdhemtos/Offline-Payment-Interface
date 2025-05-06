@@ -151,6 +151,8 @@ const Home = () => {
     },
   ];
 
+  const iconStyle = "text-2xl";
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 w-full">
       <div className="absolute top-6 right-6">
@@ -158,7 +160,7 @@ const Home = () => {
           onClick={toggleDropdown}
           className="text-slate-500 hover:text-black transition duration-300 ease-in-out transform hover:scale-110"
         >
-          <FaCog className="text-2xl" />
+          <FaCog className={iconStyle} />
         </button>
         {showDropdown && (
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
