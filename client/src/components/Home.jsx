@@ -199,9 +199,7 @@ const Home = () => {
             </div>
 
             <div className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/20">
-            <p className="text-sm font-medium text-black/80 flex items-center gap-1">
-              <BsCreditCard2Front className="text-blue-500" /> Your Balance
-            </p>
+              <p className="text-sm font-medium text-black/80">Your Balance</p>
               <h2 className="text-xl font-bold text-gray mt-1">
               {balance !== null ? `₹${balance.toFixed(2)}` : <span className="animate-pulse">--</span>}
               </h2>
