@@ -50,7 +50,7 @@ const PeopleSlider = () => {
         {people.length > 4 && (
           <button
     onClick={toggleShowAll}
-    className="absolute bottom-3 left-4 text-xs text-blue-500 hover:underline bg-white px-1 transition-opacity hover:opacity-80"
+    className="absolute bottom-0 left-4 text-xs text-blue-500 hover:underline bg-white px-1 transition-opacity hover:opacity-80"
   >
     {showAll ? "Show Less" : "Show More"}
   </button>
