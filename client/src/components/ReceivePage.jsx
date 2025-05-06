@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
-import { FaRupeeSign, FaArrowLeft } from "react-icons/fa";
+import { FaRupeeSign, FaArrowLeft, FaCheckCircle } from "react-icons/fa";
 import Cookies from "js-cookie";
 import { QR } from "../utils/qrFunctions";
 import { AJAX } from "../utils/ajax";
@@ -31,6 +31,7 @@ const ReceivePage = () => {
   const [hideQRCode, setHideQRCode] = useState(false);
   const [failureMessage, setFailureMessage] = useState("");
 
+  
   const generateReceiveQR = (amount = "", name = false) => {
     const username = Cookies.get("username");
     if (amount != "") {
