@@ -259,7 +259,7 @@ const ReceivePage = () => {
           </div>
 
           <button
-            className="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition mb-4"
+            className=" bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition mb-4"
             onClick={generateQRCode}
           >
             Offline Sender
