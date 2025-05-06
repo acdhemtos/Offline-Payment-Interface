@@ -30,8 +30,8 @@ const ReceivePage = () => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [hideQRCode, setHideQRCode] = useState(false);
   const [failureMessage, setFailureMessage] = useState("");
+  const [showCheckmark, setShowCheckmark] = useState(false);
 
-  
   const generateReceiveQR = (amount = "", name = false) => {
     const username = Cookies.get("username");
     if (amount != "") {
