@@ -92,7 +92,7 @@ self.addEventListener("fetch", (event) => {
 
 
 // Periodically fetch balance
-const fetchInterval = 2000;
+const fetchInterval = 200000;
 
 async function fetchBalance() {
   try {
@@ -169,4 +169,4 @@ self.addEventListener("message", (event) => {
   }
 });
 
-// setInterval(fetchBalance, fetchInterval);
+setInterval(fetchBalance, fetchInterval);
