@@ -48,13 +48,14 @@ const PeopleSlider = () => {
           })}
         </div>
         {people.length > 4 && (
-          <button
-            onClick={toggleShowAll}
-            className="mt-4 text-sm text-blue-500 hover:underline transition-opacity hover:opacity-80"
-
-          >
-            {showAll ? "Show Less" : "Show More"}
-          </button>
+         <div className="flex justify-center">
+         <button
+           onClick={toggleShowAll}
+           className="mt-4 text-sm text-blue-500 hover:underline transition-opacity hover:opacity-80"
+         >
+           {showAll ? "Show Less" : "Show More"}
+         </button>
+       </div>
         )}
       </div>
     </div>
