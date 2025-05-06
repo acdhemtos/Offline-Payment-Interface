@@ -288,7 +288,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="w-full px-4 mb-4">
+        <section className="w-full px-3 mb-4">
           <h2 className="text-base font-semibold text-gray-800 mb-3 px-1">
             Transactions
           </h2>
