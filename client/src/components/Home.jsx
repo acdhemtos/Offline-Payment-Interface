@@ -299,7 +299,7 @@ const Home = () => {
             >
               <div className="flex items-center">
                 <div className="w-12 h-12 flex items-center justify-center bg-white border border-gray-200 rounded-full shadow mr-3">
-                  <div className="bg-blue-500 text-white p-2 rounded-full">
+                  <div className="bg-blue-500 text-white p-1 rounded-full">
                     <FaHistory className="text-lg" />
                   </div>
                 </div>
