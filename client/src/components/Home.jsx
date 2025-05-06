@@ -224,7 +224,7 @@ const Home = () => {
           <h2 className="text-base font-semibold text-gray-800 mb-2 px-1">
             Quick Actions
           </h2>
-          <div className="bg-white/80 rounded-2xl shadow-md mx-auto py-4 px-4 border border-blue-300 max-w-4xl">
+          <div className="bg-white/80 rounded-2xl shadow-md mx-auto py-3 px-3 border border-blue-300 max-w-4xl">
             <div className="flex justify-between items-center mb-4 px-1"></div>
 
             <div className="grid grid-cols-4 gap-4">
