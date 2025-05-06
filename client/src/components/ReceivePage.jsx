@@ -291,7 +291,7 @@ const ReceivePage = () => {
               }`}
             >
               {transactionStatus === "success"
-                ? "Transaction Success ✅"
+                ? "Transaction Successful"
                 : failureMessage}
             </div>
           )}
