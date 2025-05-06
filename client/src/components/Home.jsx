@@ -191,14 +191,13 @@ const Home = () => {
       <div className="flex flex-col flex-1 justify-start items-center">
       <div className="px-4 py-6 max-w-xl mx-auto">
   {/* Welcome Message */}
-  <h1 className="text-2xl font-semibold text-gray-800 mb-4">Welcome, Alex!</h1>
+          <h1 className="text-2xl font-semibold text-gray-800 mb-4">Welcome, {username}!</h1>
 
   {/* Balance Card */}
   <div className="relative bg-gradient-to-r from-blue-600 to-indigo-500 text-white rounded-2xl p-5 shadow-xl overflow-hidden mb-6">
     <div className="flex justify-between items-start">
       <div>
-        <p className="text-sm text-blue-100">Current Balance</p>
-        <h2 className="text-3xl font-bold mt-1">$8,750.00</h2>
+        <p className="text-sm text-blue-100">Available Balance</p>
       </div>
       <div className="text-right">
         <p className="text-xs text-blue-100">Card No.</p>
