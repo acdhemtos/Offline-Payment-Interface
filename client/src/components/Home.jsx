@@ -212,7 +212,7 @@ const Home = () => {
             </div>
 
             <div className="absolute bottom-2 left-6 text-xs tracking-wide text-white/80">
-              Secured
+              Secured Wallet
             </div>
             <div className="absolute bottom-1 right-6 text-sm font-mono text-white/70">
               **** **** **** 8421
