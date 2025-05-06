@@ -120,7 +120,9 @@ const SignupForm = () => {
         name: formattedName,
         username: formattedUsername,
         password: formState.password,
-      });
+      },
+        false
+      );
       console.log(signupResponse);
       //const signupData = await signupResponse.text();
       
