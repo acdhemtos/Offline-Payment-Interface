@@ -99,7 +99,8 @@ const Home = () => {
       if (data.code === 0) {
         // Clear cookies using js-cookie
         if ("serviceWorker" in navigator) {
-          const registrations = await navigator.serviceWorker.getRegistrations();
+          const registrations =
+            await navigator.serviceWorker.getRegistrations();
           for (const registration of registrations) {
             await registration.unregister();
             console.log("Service Worker unregistered.");
@@ -108,7 +109,7 @@ const Home = () => {
         Cookies.remove("session_key", { path: "/" });
         Cookies.remove("username", { path: "/" });
         Cookies.remove("private_key", { path: "/" });
-        
+
         alert("You have been logged out.");
         window.location.href = "/";
       } else {
@@ -163,7 +164,7 @@ const Home = () => {
           <FaCog className={iconStyle} />
         </button>
         {showDropdown && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+          <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
             <ul className="py-1">
               <li
                 className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-all rounded-md"
@@ -189,30 +190,35 @@ const Home = () => {
       </div>
 
       <div className="flex flex-col flex-1 justify-start items-center">
-      <div className="px-4 py-6 max-w-xl mx-auto">
-  {/* Welcome Message */}
-          <h1 className="text-2xl font-semibold text-gray-800 mb-4">Welcome, {username}!</h1>
+        <div className="px-4 py-6 max-w-xl mx-auto">
+          {/* Welcome Message */}
+          <h1 className="text-2xl font-semibold text-gray-800 mb-4">
+            Welcome, {username}!
+          </h1>
 
-          <div className="relative rounded-2xl bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-xl p-6 overflow-hidden">
-    <div className="flex justify-between items-start">
-      <div>
-        <p className="text-sm">Available Balance</p>
-        <h2 className="text-3xl font-bold mt-1">
-          {balance !== null ? `₹${balance.toFixed(2)}` : <span className="animate-pulse">--</span>}
-        </h2>
-      </div>
-      <BsCreditCard2Front className="text-3xl opacity-30" />
-    </div>
+          <div className="relative rounded-2xl bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-xl p-6 overflow-hidden min-w-[90vw]">
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="text-sm">Available Balance</p>
+                <h2 className="text-3xl font-bold mt-1">
+                  {balance !== null ? (
+                    `₹${balance.toFixed(2)}`
+                  ) : (
+                    <span className="animate-pulse">--</span>
+                  )}
+                </h2>
+              </div>
+              <BsCreditCard2Front className="text-3xl opacity-30" />
+            </div>
 
-    <div className="absolute bottom-4 left-6 text-xs tracking-wide text-white/80">
-      Virtual Card • Secured
-    </div>
-    <div className="absolute bottom-4 right-6 text-sm font-mono text-white/70">
-      **** **** **** 8421
-    </div>
-  </div>
-</div>
-
+            <div className="absolute bottom-4 left-6 text-xs tracking-wide text-white/80">
+              Virtual Card • Secured
+            </div>
+            <div className="absolute bottom-4 right-6 text-sm font-mono text-white/70">
+              **** **** **** 8421
+            </div>
+          </div>
+        </div>
 
         <section className="w-full px-4 mb-6">
           <h2 className="text-base font-semibold text-gray-800 mb-2 px-1">
@@ -252,7 +258,8 @@ const Home = () => {
                 <p className="mt-2 text-sm text-gray-700">Pay to UPI</p>
               </div>
 
-              <div className="flex flex-col items-center text-center cursor-pointer transition-transform hover:scale-105 hover:shadow-xl"
+              <div
+                className="flex flex-col items-center text-center cursor-pointer transition-transform hover:scale-105 hover:shadow-xl"
                 onClick={() => navigate("/screenbox")}
               >
                 <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
@@ -318,7 +325,6 @@ const Home = () => {
             </button>
           </div>
         </section>
-
       </div>
     </div>
   );
