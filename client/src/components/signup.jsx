@@ -130,7 +130,7 @@ const SignupForm = () => {
           console.log("Signup successful!");
           navigate("/");
         } else {
-          console.error("Signup failed:", messages[SignupResponse.code - 1]);
+          console.error("Signup failed:", messages[signupResponse.code - 1]);
         }
       } catch (e) {
         console.error("Invalid JSON response from signup:", signupResponse);
