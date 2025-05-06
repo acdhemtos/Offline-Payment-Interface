@@ -122,9 +122,9 @@ const SignupForm = () => {
         username: formattedUsername,
         password: formState.password,
       });
-
+      console.log(signupResponse);
       const signupData = await signupResponse.text();
-      console.log(signupData);
+      
       try {
         const parsedSignupData = JSON.parse(signupData);
         if (parsedSignupData.code === 0) {
