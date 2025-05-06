@@ -13,13 +13,6 @@ async function init() {
   await loadMessages();
 
   if ('serviceWorker' in navigator) {
-    // navigator.serviceWorker.register('/service-worker.js')
-    //   .then(registration => {
-    //     console.log('Service Worker registered:', registration.scope);
-    //   })
-    //   .catch(err => {
-    //     console.error('Service Worker registration failed:', err);
-    //   });
     navigator.serviceWorker.ready.then(() => {
       console.log("Service Worker is ready. Adding message listener...");
 
