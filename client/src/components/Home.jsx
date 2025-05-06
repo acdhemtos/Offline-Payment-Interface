@@ -189,7 +189,7 @@ const Home = () => {
         )}
       </div>
 
-      <div className="flex flex-col flex-1 justify-start items-center mt-4">
+      <div className="flex flex-col flex-1 justify-start items-center mt-6">
         <div className="px-4 py-6 max-w-xl mx-auto">
           {/* Welcome Message */}
           <h1 className="text-2xl font-semibold text-gray-800 mb-4">
