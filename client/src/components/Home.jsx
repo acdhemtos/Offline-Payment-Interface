@@ -109,6 +109,7 @@ const Home = () => {
         Cookies.remove("session_key", { path: "/" });
         Cookies.remove("username", { path: "/" });
         Cookies.remove("private_key", { path: "/" });
+        
         alert("You have been logged out.");
         window.location.href = "/";
       } else {
