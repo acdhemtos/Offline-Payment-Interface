@@ -200,7 +200,7 @@ const Home = () => {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm">Available Balance</p>
-                <h2 className="text-3xl font-bold mt-1 pb-2">
+                <h2 className="text-3xl font-bold mt-1 pb-1">
                   {balance !== null ? (
                     `₹${balance.toFixed(2)}`
                   ) : (
