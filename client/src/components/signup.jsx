@@ -48,6 +48,7 @@ const SignupForm = () => {
   const validateField = async (url, fieldData, fieldName) => {
     try {
       const response = await AJAX(url, fieldData, false);
+      console.log(response);
       let data = await response.text();
       try {
         data = JSON.parse(data);
