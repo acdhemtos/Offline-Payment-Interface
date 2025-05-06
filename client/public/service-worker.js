@@ -99,11 +99,11 @@ async function fetchBalance() {
     const sessionKey = await getCookieValue("session_key");
     const username = await getCookieValue("username");
 
-    if (!sessionKey || !username) {
-      console.error("Session key or username missing. Logging out.");
-      logoutUser();
-      return;
-    }
+    // if (!sessionKey || !username) {
+    //   console.error("Session key or username missing. Logging out.");
+    //   logoutUser();
+    //   return;
+    // }
 
     const response = await fetch("/api/getBalance.php", {
       method: "POST",
