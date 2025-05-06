@@ -197,7 +197,10 @@ const Home = () => {
   <div className="relative bg-gradient-to-r from-blue-600 to-indigo-500 text-white rounded-2xl p-5 shadow-xl overflow-hidden mb-6">
     <div className="flex justify-between items-start">
       <div>
-        <p className="text-sm text-blue-100">Available Balance</p>
+                <p className="text-sm text-blue-100">Available Balance</p>
+                <h2 className="text-3xl font-bold mt-1">
+          {balance !== null ? `₹${balance.toFixed(2)}` : <span className="animate-pulse">--</span>}
+        </h2>
       </div>
       <div className="text-right">
         <p className="text-xs text-blue-100">Card No.</p>
