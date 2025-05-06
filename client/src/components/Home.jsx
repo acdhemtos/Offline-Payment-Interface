@@ -298,7 +298,7 @@ const Home = () => {
               onClick={() => navigate("/app/transactions")}
             >
               <div className="flex items-center">
-                <div className="w-12 h-12 flex items-center justify-center bg-white border border-gray-200 rounded-full shadow mr-3">
+                <div className="w-12 h-12 flex items-center justify-center bg-white border border-gray-200 rounded-full shadow mr-2">
                   <div className="bg-blue-500 text-white p-2 rounded-full">
                     <FaHistory className="text-lg" />
                   </div>
