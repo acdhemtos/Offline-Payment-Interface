@@ -294,7 +294,7 @@ const Home = () => {
           </h2>
           <div className="bg-white/80 rounded-2xl shadow-sm border border-blue-300 px-3 py-2">
             <button
-              className="w-full flex items-center justify-between rounded-xl px-4 py-3 hover:bg-white transition-all duration-300"
+              className="w-full flex items-center justify-between rounded-xl px-3 py-3 hover:bg-white transition-all duration-300"
               onClick={() => navigate("/app/transactions")}
             >
               <div className="flex items-center">
