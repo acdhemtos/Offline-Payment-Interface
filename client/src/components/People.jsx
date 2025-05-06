@@ -30,7 +30,7 @@ const PeopleSlider = () => {
   return (
     <div className="w-full px-4 mb-6">
       <h2 className="text-base font-semibold text-gray-800 mb-2 px-1">People</h2>
-      <div className="bg-white rounded-2xl shadow-md p-4 border border-blue-300 max-w-xl mx-auto">
+      <div className="relative bg-white rounded-2xl shadow-md p-4 border border-blue-300 max-w-xl mx-auto">
         
         <div className="grid grid-cols-4 gap-4">
           {displayedPeople.map((person, index) => {
