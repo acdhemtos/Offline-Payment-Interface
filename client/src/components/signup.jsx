@@ -47,20 +47,19 @@ const SignupForm = () => {
 
   const validateField = async (url, fieldData, fieldName) => {
     try {
-      
+      const data = await AJAX(url, fieldData, false);
       // console.log(response);
       // let data = await response.text();
-      try {
-        const data = await AJAX(url, fieldData, false);
+      
         data = JSON.parse(data);
-      } catch (e) {
-        console.error(e);
-        setValidationMessages((prev) => ({
-          ...prev,
-          [fieldName]: "Invalid server response",
-        }));
-        throw new Error(data);
-      }
+      //  catch (e) {
+      //   console.error(e);
+      //   setValidationMessages((prev) => ({
+      //     ...prev,
+      //     [fieldName]: "Invalid server response",
+      //   }));
+      //   throw new Error(data);
+      // }
 
       if (data.code !== 0) {
         setValidationMessages((prev) => ({
