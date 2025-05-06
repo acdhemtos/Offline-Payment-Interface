@@ -267,14 +267,14 @@ const ReceivePage = () => {
         </>
       )}
 
-{showCheckmark && (
-        <div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pop"
-          style={{ fontSize: "4rem", color: "#28a745" }}
-        >
-          <FaCheckCircle />
-        </div>
-      )}
+      {showCheckmark && (
+              <div
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pop"
+                style={{ fontSize: "4rem", color: "#28a745" }}
+              >
+                <FaCheckCircle />
+              </div>
+            )}
 
       {isAmountDisabled && (
         <div className="w-full max-w-md relative">
