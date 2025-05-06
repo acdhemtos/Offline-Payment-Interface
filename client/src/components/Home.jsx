@@ -189,7 +189,6 @@ const Home = () => {
       </div>
 
       <div className="flex flex-col flex-1 justify-start items-center">
-      <div className="mt-20 px-6 w-full max-w-lg mx-auto">
       <div className="px-4 py-6 max-w-xl mx-auto">
   {/* Welcome Message */}
   <h1 className="text-2xl font-semibold text-gray-800 mb-4">Welcome, Alex!</h1>
@@ -210,7 +209,6 @@ const Home = () => {
     <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-white/10 backdrop-blur-[1px] pointer-events-none" />
   </div>
 </div>
-
 
 
         <section className="w-full px-4 mb-6">
