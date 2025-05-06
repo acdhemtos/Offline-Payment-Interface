@@ -216,7 +216,7 @@ const Home = () => {
 
             <div className="grid grid-cols-4 gap-4">
               <div
-                className="flex flex-col items-center text-center cursor-pointer"
+                className="flex flex-col items-center text-center cursor-pointer transition-transform hover:scale-105 hover:shadow-xl"
                 onClick={() => navigate("/app/scan")}
               >
                 <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
@@ -226,7 +226,7 @@ const Home = () => {
               </div>
 
               <div
-                className="flex flex-col items-center text-center cursor-pointer"
+                className="flex flex-col items-center text-center cursor-pointer transition-transform hover:scale-105 hover:shadow-xl"
                 onClick={() => navigate("/app/recieve")}
               >
                 <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
@@ -236,7 +236,7 @@ const Home = () => {
               </div>
 
               <div
-                className="flex flex-col items-center text-center cursor-pointer"
+                className="flex flex-col items-center text-center cursor-pointer transition-transform hover:scale-105 hover:shadow-xl"
                 onClick={() => navigate("/app/send")}
               >
                 <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
@@ -245,7 +245,7 @@ const Home = () => {
                 <p className="mt-2 text-sm text-gray-700">Pay to UPI</p>
               </div>
 
-              <div className="flex flex-col items-center text-center"
+              <div className="flex flex-col items-center text-center cursor-pointer transition-transform hover:scale-105 hover:shadow-xl"
                 onClick={() => navigate("/screenbox")}
               >
                 <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
