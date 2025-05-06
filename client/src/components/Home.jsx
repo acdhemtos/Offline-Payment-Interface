@@ -272,7 +272,7 @@ const Home = () => {
                   className="flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-white hover:shadow-md transition-all rounded-xl py-3"
                   onClick={() => console.log(service.name)} // Replace with actual logic
                 >
-                  <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow border border-gray-200">
+                  <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow border border-blue-300">
                     <div
                       className={`w-8 h-8 flex items-center justify-center rounded-full ${service.bgColor} text-white`}
                     >
