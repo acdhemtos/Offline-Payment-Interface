@@ -5,9 +5,8 @@ import Cookies from "js-cookie";
 import sha256 from "../utils/sha256";
 import { QR } from "../utils/qrFunctions";
 import jsQR from "jsqr";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaCheckCircle } from "react-icons/fa";
 import { addTransaction } from "../utils/transactions";
-
 
 const OPIQRCodeSVG = () => {
   const location = useLocation();
