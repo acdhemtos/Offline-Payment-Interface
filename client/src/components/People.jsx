@@ -48,7 +48,7 @@ const PeopleSlider = () => {
           })}
         </div>
         {people.length > 4 && (
-         <div className="flex justify-center">
+         <div className="flex justify-right">
          <button
            onClick={toggleShowAll}
            className="mt-4 text-sm text-blue-500 hover:underline transition-opacity hover:opacity-80"
