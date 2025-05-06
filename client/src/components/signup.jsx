@@ -121,7 +121,7 @@ const SignupForm = () => {
         username: formattedUsername,
         password: formState.password,
       });
-      console.log(signupResponse);
+      console.log("s",signupResponse);
     
       try {
         // Since AJAX already returns parsed JSON, use it directly
