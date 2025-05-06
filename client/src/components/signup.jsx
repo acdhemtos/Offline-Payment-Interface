@@ -123,7 +123,7 @@ const SignupForm = () => {
         password: formState.password,
       });
 
-      const signupData = await signupResponse.json();
+      const signupData = await signupResponse.text();
       console.log(signupData);
       try {
         const parsedSignupData = JSON.parse(signupData);
