@@ -167,7 +167,7 @@ const Home = () => {
                 className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-all rounded-md"
                 onClick={() => {
                   if (isPinSet) {
-                    alert("Redirecting to Change PIN page...");
+                    console.log("Redirecting to Change PIN page...");
                   } else {
                     navigate("/app/set-pin");
                   }
