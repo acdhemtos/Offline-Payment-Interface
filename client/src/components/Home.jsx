@@ -255,7 +255,7 @@ const Home = () => {
                 <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
                   <BsCreditCard2Front className="text-purple-600 text-xl" />
                 </div>
-                <p className="mt-2 text-sm text-gray-700">Pay to UPI</p>
+                <p className="mt-2 text-sm text-gray-700">UPI</p>
               </div>
 
               <div
