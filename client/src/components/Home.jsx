@@ -264,7 +264,7 @@ const Home = () => {
             Manage services
           </h2>
 
-          <div className="bg-white/80 rounded-2xl shadow-sm border border-blue-300 px-3 py-6">
+          <div className="bg-white/80 rounded-2xl shadow-sm border border-blue-300 px-4 py-4">
             <div className="grid grid-cols-4 gap-2 text-center">
               {services.map((service) => (
                 <div
