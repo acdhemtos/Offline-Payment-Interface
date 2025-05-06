@@ -190,27 +190,27 @@ const Home = () => {
 
       <div className="flex flex-col flex-1 justify-start items-center">
       <div className="mt-20 px-6 w-full max-w-lg mx-auto">
-  <h1 className="text-2xl font-semibold text-gray-800 mb-4">Welcome, {username}!</h1>
+      <div className="px-4 py-6 max-w-xl mx-auto">
+  {/* Welcome Message */}
+  <h1 className="text-2xl font-semibold text-gray-800 mb-4">Welcome, Alex!</h1>
 
-  <div className="relative rounded-2xl bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-xl p-6 overflow-hidden">
+  {/* Balance Card */}
+  <div className="relative bg-gradient-to-r from-blue-600 to-indigo-500 text-white rounded-2xl p-5 shadow-xl overflow-hidden mb-6">
     <div className="flex justify-between items-start">
       <div>
-        <p className="text-sm">Available Balance</p>
-        <h2 className="text-3xl font-bold mt-1">
-          {balance !== null ? `₹${balance.toFixed(2)}` : <span className="animate-pulse">--</span>}
-        </h2>
+        <p className="text-sm text-blue-100">Current Balance</p>
+        <h2 className="text-3xl font-bold mt-1">$8,750.00</h2>
       </div>
-      <BsCreditCard2Front className="text-3xl opacity-30" />
+      <div className="text-right">
+        <p className="text-xs text-blue-100">Card No.</p>
+        <p className="font-mono text-base tracking-widest">**** 4242</p>
+      </div>
     </div>
-
-    <div className="absolute bottom-4 left-6 text-xs tracking-wide text-white/80">
-      Virtual Card • Secured
-    </div>
-    <div className="absolute bottom-4 right-6 text-sm font-mono text-white/70">
-      **** **** **** 8421
-    </div>
+    <div className="absolute bottom-3 right-4 text-xs opacity-50">VISA</div>
+    <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-white/10 backdrop-blur-[1px] pointer-events-none" />
   </div>
 </div>
+
 
 
         <section className="w-full px-4 mb-6">
