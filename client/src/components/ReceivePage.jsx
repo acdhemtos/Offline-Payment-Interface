@@ -212,7 +212,7 @@ const ReceivePage = () => {
     <div
       className={`flex flex-col min-h-screen items-center justify-center ${backgroundColor} w-full px-4`}
     >
-      <header className="fixed top-0 left-0 right-0 p-4 bg-gradient-to-r from-blue-600 to-blue-400 text-white text-xl font-semibold shadow-md text-center w-full z-10">
+      <header className="fixed top-0 left-0 right-0 p-4 bg-gradient-to-r from-blue-600 to-blue-400 text-white text-xl font-semibold shadow-md text-center w-full z-10 mb-1">
         <button
           className="absolute top-3 left-4 text-white p-2 rounded-lg hover:bg-blue-600 transition"
           onClick={() => navigate(-1)}
