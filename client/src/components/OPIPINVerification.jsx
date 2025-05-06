@@ -228,7 +228,7 @@ const OPIQRCodeSVG = () => {
       />
       {showOverlay && backgroundColor === "bg-green-500" && (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-70 z-40">
-          <div className="text-2xl font-semibold text-green-500">
+          <div className="text-2xl font-semibold text-green-500 text-center">
             Transaction Successful
           </div>
         </div>
