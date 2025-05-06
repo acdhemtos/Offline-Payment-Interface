@@ -38,7 +38,7 @@ const PeopleSlider = () => {
             const initial = person.name.charAt(0).toUpperCase();
 
             return (
-              <div key={person.id} className="text-center">
+              <div key={person.id} className="text-center transition-transform hover:scale-105 hover:shadow-lg">
                 <div className="w-12 h-12 mx-auto rounded-full border-blue-300 bg-white/80 backdrop-blur-md shadow-md border border-blue-3000 flex items-center justify-center">
                   <span className={`text-lg font-bold ${colorClass}`}>{initial}</span>
                 </div>
