@@ -115,24 +115,25 @@ const SignupForm = () => {
 
     if (isUsernameValid && isNameValid && isPasswordValid) {
       console.log("All validations passed successfully!");
-    
+
       const signupResponse = await AJAX("/api/signup.php", {
         name: formattedName,
         username: formattedUsername,
         password: formState.password,
       });
-      console.log("s",signupResponse);
-    
+      console.log(signupResponse);
+      const signupData = await signupResponse.text();
+      
       try {
-        // Since AJAX already returns parsed JSON, use it directly
-        if (signupResponse.code === 0) {
+        const parsedSignupData = JSON.parse(signupData);
+        if (parsedSignupData.code === 0) {
           console.log("Signup successful!");
           navigate("/");
         } else {
-          console.error("Signup failed:", messages[signupResponse.code - 1]);
+          console.error("Signup failed:", messages[parsedSignupData.code - 1]);
         }
       } catch (e) {
-        console.error("Unexpected error during signup:", signupResponse);
+        console.error("Invalid JSON response from signup:", signupData);
       }
     }
   };
