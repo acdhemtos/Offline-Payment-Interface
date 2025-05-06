@@ -220,7 +220,7 @@ const Home = () => {
                 onClick={() => navigate("/app/scan")}
               >
                 <div className="bg-white/80 backdrop-blur-md rounded-full p-4 shadow-lg border border-blue-300">
-                  <FaMobileAlt className="text-blue-600 text-2xl" />
+                  <FaMobileAlt className="text-blue-600 text-xl" />
                 </div>
                 <p className="mt-2 text-sm text-gray-700">Scan</p>
               </div>
