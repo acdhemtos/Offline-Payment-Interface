@@ -164,7 +164,9 @@ const ReceivePage = () => {
           if (code === 0) {
             setTransactionStatus("success");
             addTransaction(data.id, sender, amount, 2, time);
-            qrString = QR.encode("trans_id+hash",data.id,data.verification_hash);
+            qrString = QR.encode("trans_id+hash", data.id, data.verification_hash);
+            setShowCheckmark(true);
+            setTimeout(() => setShowCheckmark(false), 2000);
           } else {
             setFailureMessage("Transaction Failed ❌\n" + messages[code - 1]);
             setTransactionStatus("failure");
