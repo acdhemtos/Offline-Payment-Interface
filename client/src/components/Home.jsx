@@ -212,7 +212,7 @@ const Home = () => {
             </div>
 
             <div className="absolute bottom-4 left-6 text-xs tracking-wide text-white/80">
-              Virtual Card • Secured
+              Secured
             </div>
             <div className="absolute bottom-4 right-6 text-sm font-mono text-white/70">
               **** **** **** 8421
