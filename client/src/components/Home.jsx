@@ -189,23 +189,29 @@ const Home = () => {
       </div>
 
       <div className="flex flex-col flex-1 justify-start items-center">
-        <div className="mt-20 mb-10 px-6 w-full max-w-md mx-auto">
-          <div className="flex gap-4 justify-center">
-            <div className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/20">
-              <p className="text-sm font-medium text-black/80">Welcome,</p>
-              <h2 className="text-xl font-bold text-gray mt-1">
-                {username}!
-              </h2>
-            </div>
+      <div className="mt-20 px-6 w-full max-w-lg mx-auto">
+  <h1 className="text-2xl font-semibold text-gray-800 mb-4">Welcome, {username}!</h1>
 
-            <div className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/20">
-              <p className="text-sm font-medium text-black/80">Your Balance</p>
-              <h2 className="text-xl font-bold text-gray mt-1">
-              {balance !== null ? `₹${balance.toFixed(2)}` : <span className="animate-pulse">--</span>}
-              </h2>
-            </div>
-          </div>
-        </div>
+  <div className="relative rounded-2xl bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-xl p-6 overflow-hidden">
+    <div className="flex justify-between items-start">
+      <div>
+        <p className="text-sm">Available Balance</p>
+        <h2 className="text-3xl font-bold mt-1">
+          {balance !== null ? `₹${balance.toFixed(2)}` : <span className="animate-pulse">--</span>}
+        </h2>
+      </div>
+      <BsCreditCard2Front className="text-3xl opacity-30" />
+    </div>
+
+    <div className="absolute bottom-4 left-6 text-xs tracking-wide text-white/80">
+      Virtual Card • Secured
+    </div>
+    <div className="absolute bottom-4 right-6 text-sm font-mono text-white/70">
+      **** **** **** 8421
+    </div>
+  </div>
+</div>
+
 
         <section className="w-full px-4 mb-6">
           <h2 className="text-base font-semibold text-gray-800 mb-2 px-1">
