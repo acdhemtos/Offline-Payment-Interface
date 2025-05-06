@@ -189,27 +189,23 @@ const Home = () => {
       </div>
 
       <div className="flex flex-col flex-1 justify-start items-center">
-      <div className="px-4 py-6 max-w-xl mx-auto">
-  {/* Welcome Message */}
-  <h1 className="text-2xl font-semibold text-gray-800 mb-4">Welcome, Alex!</h1>
+        <div className="mt-20 mb-10 px-6 w-full max-w-md mx-auto">
+          <div className="flex gap-4 justify-center">
+            <div className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/20">
+              <p className="text-sm font-medium text-black/80">Welcome,</p>
+              <h2 className="text-xl font-bold text-gray mt-1">
+                {username}!
+              </h2>
+            </div>
 
-  {/* Balance Card */}
-  <div className="relative bg-gradient-to-r from-blue-600 to-indigo-500 text-white rounded-2xl p-5 shadow-xl overflow-hidden mb-6">
-    <div className="flex justify-between items-start">
-      <div>
-        <p className="text-sm text-blue-100">Current Balance</p>
-        <h2 className="text-3xl font-bold mt-1">$8,750.00</h2>
-      </div>
-      <div className="text-right">
-        <p className="text-xs text-blue-100">Card No.</p>
-        <p className="font-mono text-base tracking-widest">**** 4242</p>
-      </div>
-    </div>
-    <div className="absolute bottom-3 right-4 text-xs opacity-50">VISA</div>
-    <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-white/10 backdrop-blur-[1px] pointer-events-none" />
-  </div>
-</div>
-
+            <div className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/20">
+              <p className="text-sm font-medium text-black/80">Your Balance</p>
+              <h2 className="text-xl font-bold text-gray mt-1">
+              {balance !== null ? `₹${balance.toFixed(2)}` : <span className="animate-pulse">--</span>}
+              </h2>
+            </div>
+          </div>
+        </div>
 
         <section className="w-full px-4 mb-6">
           <h2 className="text-base font-semibold text-gray-800 mb-2 px-1">
