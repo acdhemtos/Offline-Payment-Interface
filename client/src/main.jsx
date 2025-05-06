@@ -12,15 +12,14 @@ let isLoggingOut = false; // Prevent multiple logout executions
 async function init() {
   await loadMessages();
 
-  // Register service worker and listen for messages
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(registration => {
-        console.log('Service Worker registered:', registration.scope);
-      })
-      .catch(err => {
-        console.error('Service Worker registration failed:', err);
-      });
+    // navigator.serviceWorker.register('/service-worker.js')
+    //   .then(registration => {
+    //     console.log('Service Worker registered:', registration.scope);
+    //   })
+    //   .catch(err => {
+    //     console.error('Service Worker registration failed:', err);
+    //   });
 
     navigator.serviceWorker.addEventListener('message', event => {
       const { type, isConnected } = event.data;
