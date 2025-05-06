@@ -101,7 +101,7 @@ async function fetchBalance() {
 
     if (!sessionKey || !username) {
       console.error("Session key or username missing. Logging out.");
-      //logoutUser();
+      logoutUser();
       return;
     }
 
