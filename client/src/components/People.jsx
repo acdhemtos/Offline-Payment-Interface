@@ -39,7 +39,7 @@ const PeopleSlider = () => {
 
             return (
               <div key={person.id} className="text-center">
-                <div className="w-12 h-12 mx-auto rounded-full bg-white/80 backdrop-blur-md shadow-md border border-gray-200 flex items-center justify-center">
+                <div className="w-12 h-12 mx-auto rounded-full bg-white/80 backdrop-blur-md shadow-md border border-blue-300 border-gray-200 flex items-center justify-center">
                   <span className={`text-lg font-bold ${colorClass}`}>{initial}</span>
                 </div>
                 <p className="text-sm text-gray-700 mt-2 truncate">{person.name}</p>
