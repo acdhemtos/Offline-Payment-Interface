@@ -189,24 +189,7 @@ const Home = () => {
       </div>
 
       <div className="flex flex-col flex-1 justify-start items-center">
-        {/* <div className="mt-20 mb-10 px-6 w-full max-w-md mx-auto">
-          <div className="flex gap-4 justify-center">
-            <div className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/20">
-              <p className="text-sm font-medium text-black/80">Welcome,</p>
-              <h2 className="text-xl font-bold text-gray mt-1">
-                {username}!
-              </h2>
-            </div>
-
-            <div className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/20">
-              <p className="text-sm font-medium text-black/80">Your Balance</p>
-              <h2 className="text-xl font-bold text-gray mt-1">
-              {balance !== null ? `₹${balance.toFixed(2)}` : <span className="animate-pulse">--</span>}
-              </h2>
-            </div>
-          </div>
-        </div> */}
-        import { useEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import {
   FaCog,
