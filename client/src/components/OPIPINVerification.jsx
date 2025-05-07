@@ -116,6 +116,7 @@ const OPIQRCodeSVG = () => {
                       setFailureMessage(messages[Number(code) - 1]);
                       setShowOverlay(true);
                       setHideQRCode(true);
+                      stopStream(video);
                       console.log(failureMessage);
                       const sss = detailsHashRef.current + "30" + private_key;
                       sha256(sss).then((ourHash) => {
