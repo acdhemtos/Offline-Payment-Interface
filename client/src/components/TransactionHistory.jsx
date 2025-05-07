@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { loadTransactions, renderTransactions } from "../utils/transactions";
+import {  renderTransactions } from "../utils/transactions";
 import { useNavigate } from "react-router-dom";
 
 const TransactionHistory = () => {
