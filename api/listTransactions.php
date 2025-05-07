@@ -16,6 +16,12 @@
   @require_once 'getTransactions.php';
   $data = getTransactions($username,$last_id);
 
+
+  @require_once 'getTransaction.php';
+  for ($i = 0; $i < count($data); $i++) {
+   echo $fruits[$i] . "<br>";
+  }
+
   display(0, array('data' => $data));
  }
  
