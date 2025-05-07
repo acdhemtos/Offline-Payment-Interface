@@ -12,8 +12,8 @@
 
   $last_id = $data["last_id"];
   if(!is_int($last_id)){display(39);}
-  
-  display(0, array('ids' => getTransactions($username,$last_id)));
+  $data = getTransactions($username,$last_id);
+  display(0, array('data' => $data));
  }
  
 ?>
