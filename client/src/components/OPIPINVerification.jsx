@@ -231,7 +231,6 @@ const OPIQRCodeSVG = () => {
         className="absolute top-0 left-0 w-full h-full opacity-0 pointer-events-none transform-rotate-180"
         style={{transform: "rotateY(180deg)"}}
       />
-      {/* Success popout animation */}
       {showOverlay && backgroundColor === "bg-green-500" && transactionSuccess && (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-70 z-40">
           <div className="flex items-center justify-center flex-col">
