@@ -115,6 +115,7 @@ async function ANNOUNCE(amt){
 
   }
   if(amt>0){
+    
     await speakAsync(Math.floor(amt).toString());
     await speakAsync("paisa");
   }
