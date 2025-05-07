@@ -176,11 +176,11 @@ const OPIQRCodeSVG = () => {
                           setHideQRCode(true);
                           console.log(failureMessage);
                         }
-                        setFailureMessage("Transaction Failed ❌\n" + messages[Number(code) - 1]);
+                        // setFailureMessage("Transaction Failed ❌\n" + messages[Number(code) - 1]);
                        // setBackgroundColor("bg-red-500");
                         setShowOverlay(true);
                         setHideQRCode(true);
-                        console.log(failureMessage);
+                        //console.log(failureMessage);
                         //console.log(failureMessage);
                       }
                     });
