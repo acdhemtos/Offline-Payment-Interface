@@ -72,15 +72,21 @@ const renderTransactions = (div) => {
     `;
 
     // Masked Transaction ID (e.g., Tx-***12345)
-    const maskedId = `${transaction.id.toString().slice(-5)}`;
+    const maskedId = `Tx-***${transaction.id.toString().slice(-5)}`;
 
-    // Determine type label (Top Up, Online, Offline)
-    const typeLabel =
-      transaction.type === 0
-        ? "Top Up"
-        : transaction.type === 1 || transaction.type === -1
-        ? "Online"
-        : "Offline";
+    // Determine type label and badge color
+    let typeLabel = "";
+    let badgeColor = "";
+    if (transaction.type === 0) {
+      typeLabel = "Top Up";
+      badgeColor = "bg-blue-500 text-white"; // Blue for Top Up
+    } else if (transaction.type === 1 || transaction.type === -1) {
+      typeLabel = "Online";
+      badgeColor = "bg-green-500 text-white"; // Green for Online
+    } else {
+      typeLabel = "Offline";
+      badgeColor = "bg-red-500 text-white"; // Red for Offline
+    }
 
     // Sender/Receiver Label
     const otherLabel =
@@ -95,6 +101,10 @@ const renderTransactions = (div) => {
         <h3 class="text-md font-medium text-gray-800">
           <span class="text-sm text-gray-500">ID:</span> ${maskedId}
         </h3>
+        <!-- Badge for Transaction Type -->
+        <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full ${badgeColor}">
+          ${typeLabel}
+        </span>
       </div>
 
       <div class="text-sm text-gray-700 space-y-1">
@@ -109,11 +119,6 @@ const renderTransactions = (div) => {
           <span class="font-medium text-gray-600">Amount:</span>
           <span class="font-semibold text-gray-800">₹${(transaction.amount / 100).toFixed(2)}</span>
         </div>
-
-        <div class="flex justify-between">
-          <span class="font-medium text-gray-600">Type:</span>
-          <span class="font-medium text-gray-800">${typeLabel}</span>
-        </div>
       </div>
 
       <!-- Timestamp at the bottom-right of the card -->
@@ -125,6 +130,7 @@ const renderTransactions = (div) => {
     div.appendChild(transactionDiv);
   });
 };
+
 
 initializeTransactions();
 
