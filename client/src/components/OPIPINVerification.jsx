@@ -114,7 +114,7 @@ const OPIQRCodeSVG = () => {
                     if (code === 30n) {
                       console.log("code", messages[Number(code) - 1]);
                       setFailureMessage(messages[Number(code) - 1]);
-                      showOverlay(true);
+                      setShowOverlay(true);
                       setHideQRCode(true);
                       console.log(failureMessage);
                       const sss = detailsHashRef.current + "30" + private_key;
