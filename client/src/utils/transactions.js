@@ -60,68 +60,52 @@ const renderTransactions = (div) => {
   div.innerHTML = ""; // Clear the container
   if (transactionsRef.current.length === 0) {
     div.innerHTML =
-      "<p class='text-gray-500 text-center'>No transactions available.</p>";
+      "<p class='text-gray-500 text-center text-lg'>No transactions available.</p>";
     return;
   }
 
-  transactionsRef.current.forEach((transaction) => {
+  transactionsRef.current.forEach((transaction, index) => {
     const transactionDiv = document.createElement("div");
     transactionDiv.className =
-      "transaction p-4 border-b border-gray-300 bg-white shadow-md rounded-lg mb-4";
+      "transaction bg-white border border-gray-200 shadow-md rounded-lg p-5 mb-6 hover:shadow-lg transition-shadow duration-300";
 
-    let sas = `
-      <table class="w-full text-left border-collapse">
-        <tr class="border-b border-gray-200">
-          <th class="py-2 px-4 text-gray-600 font-semibold">ID</th>
-          <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-          <td class="py-2 px-4 text-gray-800">${transaction.id}</td>
-        </tr>
+    const typeLabel =
+      transaction.type === 0
+        ? "Top Up"
+        : transaction.type === 1 || transaction.type === -1
+        ? "Online"
+        : "Offline";
+
+    const otherLabel =
+      transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : "";
+
+    transactionDiv.innerHTML = `
+      <div class="flex flex-col space-y-3">
+        <div class="flex justify-between items-center">
+          <h3 class="text-lg font-semibold text-gray-800">Transaction #${transaction.id}</h3>
+          <span class="text-sm text-gray-500">${transaction.date}</span>
+        </div>
+        <div class="flex flex-col space-y-2">
+          ${
+            otherLabel
+              ? `<div class="flex justify-between">
+                  <span class="text-gray-600 font-medium">${otherLabel}:</span>
+                  <span class="text-gray-800">${transaction.other || "N/A"}</span>
+                </div>`
+              : ""
+          }
+          <div class="flex justify-between">
+            <span class="text-gray-600 font-medium">Amount:</span>
+            <span class="text-gray-800">${transaction.amount / 100} Rs.</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 font-medium">Type:</span>
+            <span class="text-gray-800">${typeLabel}</span>
+          </div>
+        </div>
+      </div>
     `;
 
-    if (transaction.type !== 0) {
-      sas += `
-        <tr class="border-b border-gray-200">
-          <th class="py-2 px-4 text-gray-600 font-semibold">${
-            transaction.type > 0 ? "Sender" : "Receiver"
-          }</th>
-          <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-          <td class="py-2 px-4 text-gray-800">${transaction.other}</td>
-        </tr>
-      `;
-    }
-
-    sas += `
-      <tr class="border-b border-gray-200">
-        <th class="py-2 px-4 text-gray-600 font-semibold">Amount</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">${transaction.amount / 100} Rs.</td>
-      </tr>
-      <tr class="border-b border-gray-200">
-        <th class="py-2 px-4 text-gray-600 font-semibold">Type</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">
-    `;
-
-    if (transaction.type === 0) {
-      sas += "Top Up";
-    } else if (transaction.type === 1 || transaction.type === -1) {
-      sas += "Online";
-    } else {
-      sas += "Offline";
-    }
-
-    sas += `
-        </td>
-      </tr>
-      <tr>
-        <th class="py-2 px-4 text-gray-600 font-semibold">Date-Time</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">${transaction.time}</td>
-      </tr>
-      </table>
-    `;
-
-    transactionDiv.innerHTML = sas;
     div.appendChild(transactionDiv);
   });
 };
