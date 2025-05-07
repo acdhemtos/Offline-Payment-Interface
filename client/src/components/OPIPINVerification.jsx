@@ -168,19 +168,17 @@ const OPIQRCodeSVG = () => {
                           verification_hash
                         );
                         if (code === 28) {
-                          setFailureMessage("Transaction Failed ❌\nInsufficient Balance");
+                          setFailureMessage("Transaction Failed ❌\n" + messages[Number(code) - 1]);
                           setShowOverlay(true);
                           setHideQRCode(true);
                           console.log(failureMessage);
                         } else {
-                          setFailureMessage(
-                            "Transaction Failed ❌\n" + messages[code - 1]
-                          );
+                          setFailureMessage("Transaction Failed ❌\n" + messages[Number(code) - 1]);
                           setShowOverlay(true);
                           setHideQRCode(true);
                           console.log(failureMessage);
                         }
-                        //setFailureMessage("Transaction Failed ❌\n" + messages[code - 1]);
+                        setFailureMessage("Transaction Failed ❌\n" + messages[Number(code) - 1]);
                         setBackgroundColor("bg-red-500");
                         setShowOverlay(true);
                         setHideQRCode(true);
