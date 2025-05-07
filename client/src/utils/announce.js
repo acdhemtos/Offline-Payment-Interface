@@ -101,8 +101,8 @@ function speakAsync(text) {
  });
 }
 
-function ANNOUNCE(){
-  
+async function ANNOUNCE(amt){
+  //Play Notification BEEP
 }
 
 export { announce };
