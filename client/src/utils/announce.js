@@ -116,7 +116,7 @@ async function ANNOUNCE(amt){
     await speakAsync("paisa");
   }
   await speakAsync("received");
-  await speakAsync("throguh OPI");
+  await speakAsync("through OPI");
 }
 
 export { announce,ANNOUNCE };
