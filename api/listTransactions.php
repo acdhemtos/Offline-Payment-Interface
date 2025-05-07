@@ -10,9 +10,6 @@
   @require_once('key.php');
   if(!validKey($session_key)){display(16);}
 
-  $last_id = $data["last_id"];
-  if(!is_int($last_id)){display(39);}
-
   @require_once 'getTransactions.php';
   $data = getTransactions($username,$last_id);
 
