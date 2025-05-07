@@ -136,6 +136,7 @@ const OPIQRCodeSVG = () => {
                         setShowOverlay(true);
                         setHideQRCode(true);
                         setBackgroundColor("bg-green-500");
+                        setTransactionSuccess(true); 
                         // addTransaction(
                         //   id,
                         //   receiverName,
