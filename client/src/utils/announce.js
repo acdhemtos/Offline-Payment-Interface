@@ -119,4 +119,4 @@ async function ANNOUNCE(amt){
   await speakAsync("throguh OPI");
 }
 
-export { announce };
+export { announce,ANNOUNCE };
