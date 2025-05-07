@@ -10,8 +10,6 @@ const wordList = [
 
 const audioCache = {};
 
-// Preload audio files
-// Preload audio files after user interaction
 function preloadAudio() {
 
     console.log("LOADED AUDIO")
@@ -93,4 +91,18 @@ function announce(amt){
  playSequence([...ret,'received']);
 
 }
+
+function speakAsync(text) {
+ return new Promise((resolve, reject) => {
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.onend = () => { resolve(); };
+  utterance.onerror = (event) => { reject(event.error); };
+  window.speechSynthesis.speak(utterance);
+ });
+}
+
+function ANNOUNCE(){
+  
+}
+
 export { announce };

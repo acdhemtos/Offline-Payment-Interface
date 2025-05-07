@@ -6,7 +6,7 @@ CREATE TABLE `opi`.`users` (
  `username` CHAR(15) NOT NULL ,
  `password` CHAR(32) NOT NULL ,
  `name` CHAR(60) NOT NULL ,
- `balance` INT NOT NULL DEFAULT 50000,
+ `balance` INT NOT NULL DEFAULT 0,
  `min_balance` INT NOT NULL DEFAULT 50000,
  `max_balance` INT NOT NULL DEFAULT 200000,
  `session_key` CHAR(32) NULL ,

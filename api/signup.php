@@ -13,6 +13,9 @@
   
  $GLOBALS['conn']->query("INSERT INTO users (username, password, name) VALUES ('$username', '$hashed_password', '$name')");
  
+ @require_once('transaction.php');
+ transaction(null,$username, 50000, 0);
+ 
  display(0); 
  
 ?>
