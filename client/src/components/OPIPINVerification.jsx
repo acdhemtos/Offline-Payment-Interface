@@ -112,7 +112,7 @@ const OPIQRCodeSVG = () => {
                   } else if (QR.decode("code+verification_hash",string) !== false) {
                     const {code,verification_hash} = QR.decode("code+verification_hash",string);
                     if (code === 30n) {
-                      console.log("code", code);
+                      console.log("code", messages[Number(code) - 1]);
                       const sss = detailsHashRef.current + "30" + private_key;
                       sha256(sss).then((ourHash) => {
                         if (verification_hash === ourHash) {
