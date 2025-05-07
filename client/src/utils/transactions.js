@@ -95,7 +95,7 @@ const renderTransactions = (div) => {
     const formattedTime = new Date(transaction.date).toLocaleString();
 
     // Mask Transaction ID to show only part of it
-    const maskedId = `Tx-***${transaction.id.toString().slice(-5)}`;
+    const maskedId = `${transaction.id.toString().slice(-5)}`;
 
     transactionDiv.innerHTML = `
       <div class="flex justify-between items-center mb-2">
