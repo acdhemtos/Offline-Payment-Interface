@@ -93,7 +93,7 @@ const renderTransactions = (div) => {
       transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : null;
 
     // Format time
-    const formattedTime = new Date(transaction.date).toLocaleString();
+    const formattedTime = transaction.date;
 
     transactionDiv.innerHTML = `
       <!-- Top Right Badge -->
