@@ -36,7 +36,7 @@ function speakAsync(text) {
 async function announce(amt){
   const beep = audioCache.cloneNode();
   beep.play();
-  beep.onended = () => {
+  beep.onended = async () => {
     if(amt>99){
       await speakAsync(Math.floor(amt/100).toString() + " " + (amt > 199 ? "rupees" : "rupee"));
       amt = amt%100;
