@@ -22,7 +22,7 @@ const TransactionHistory = () => {
           className="absolute left-1 top-1 bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-gray-200"
           onClick={() => navigate(-1)}
         >
-          Back
+          <FaArrowLeft/>
         </button>
       </header>
 
