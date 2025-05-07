@@ -117,7 +117,7 @@ const renderTransactions = (div) => {
       </div>
 
       <!-- Timestamp at the bottom-right of the card -->
-      <div class="absolute bottom-3 right-3 text-xs text-gray-500">
+      <div class="absolute bottom-1 right-3 text-xs text-gray-500">
         Timestamp: ${formattedTime}
       </div>
     `;
