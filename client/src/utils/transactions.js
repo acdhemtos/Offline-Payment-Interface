@@ -72,7 +72,8 @@ const renderTransactions = (div) => {
     `;
 
     // Masked ID
-    const maskedId = transaction.id;
+    const maskedId =
+      transaction.id;
 
     // Type badge
     let typeLabel = "";
