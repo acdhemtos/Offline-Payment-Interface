@@ -97,8 +97,8 @@ function speakAsync(text) {
  return new Promise((resolve, reject) => {
   //select voice
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = 2;
-  utterance.pitch = 0;
+  utterance.rate = 1.5;
+  utterance.pitch = 1;
   utterance.onend = () => { resolve(); };
   utterance.onerror = (event) => { reject(event.error); };
   window.speechSynthesis.speak(utterance);
@@ -108,10 +108,7 @@ function speakAsync(text) {
 async function announce(amt){
   //Play Notification BEEP
   if(amt>99){
-    await speakAsync(Math.floor(amt/100).toString());
-    
-    if(amt>199){ await speakAsync("rupees"); }
-    else{ await speakAsync("rupee"); }
+    await speakAsync(Math.floor(amt/100).toString() + " " + (amt > 199 ? "rupees" : "rupee"));
     
     amt = amt%100;
     if(amt>0){
@@ -119,10 +116,7 @@ async function announce(amt){
     }
   }
   if(amt>0){
-    await speakAsync(Math.floor(amt).toString());
-    
-    if(amt==1){ await speakAsync("paisa"); }
-    else{ await speakAsync('paise'); }
+    await speakAsync(Math.floor(amt).toString() + " " + (amt===1 ? "paise" : "paisa"));
 
     await speakAsync("paisa");
   }
