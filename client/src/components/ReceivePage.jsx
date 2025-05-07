@@ -165,8 +165,8 @@ const ReceivePage = () => {
             setTransactionStatus("success");
             addTransaction(data.id, sender, amount, 2, time);
             qrString = QR.encode("trans_id+hash", data.id, data.verification_hash);
-            setShowCheckmark(true);
-            setTimeout(() => setShowCheckmark(false), 2000);
+            // setShowCheckmark(true);
+            // setTimeout(() => setShowCheckmark(false), 2000);
           } else {
             setFailureMessage("Transaction Failed ❌\n" + messages[code - 1]);
             setTransactionStatus("failure");
@@ -270,14 +270,14 @@ const ReceivePage = () => {
         </>
       )}
 
-      {showCheckmark && (
+      {/* {showCheckmark && (
               <div
                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pop"
                 style={{ fontSize: "4rem", color: "#28a745" }}
               >
                 <FaCheckCircle />
               </div>
-            )}
+            )} */}
 
       {isAmountDisabled && (
         <div className="w-full max-w-md relative">
