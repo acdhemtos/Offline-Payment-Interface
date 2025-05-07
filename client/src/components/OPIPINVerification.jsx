@@ -127,7 +127,7 @@ const OPIQRCodeSVG = () => {
                           
                         } else {
                           console.log("HASH FAILED", sss, verification_hash, ourHash);
-                          setFailureMessage("Transaction Failed ❌\n" + messages[Number(code) - 1]);
+                          setFailureMessage( messages[Number(code) - 1]);
                           setBackgroundColor("bg-red-500");
                           console.log(failureMessage);
                         }
