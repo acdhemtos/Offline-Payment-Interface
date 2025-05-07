@@ -64,10 +64,10 @@ const renderTransactions = (div) => {
     return;
   }
 
-  transactionsRef.current.forEach((transaction) => {
+  transactionsRef.current.forEach((transaction, index) => {
     const transactionDiv = document.createElement("div");
     transactionDiv.className =
-      "transaction bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-300 shadow-lg rounded-xl p-6 mb-6 hover:shadow-2xl transition-shadow duration-300";
+      "transaction bg-white border border-gray-200 shadow-md rounded-lg p-5 mb-6 hover:shadow-lg transition-shadow duration-300";
 
     const typeLabel =
       transaction.type === 0
@@ -80,27 +80,27 @@ const renderTransactions = (div) => {
       transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : "";
 
     transactionDiv.innerHTML = `
-      <div class="flex flex-col space-y-4">
+      <div class="flex flex-col space-y-3">
         <div class="flex justify-between items-center">
-          <h3 class="text-xl font-bold text-gray-800">Transaction #${transaction.id}</h3>
+          <h3 class="text-lg font-semibold text-gray-800">Transaction #${transaction.id}</h3>
           <span class="text-sm text-gray-500">${transaction.date}</span>
         </div>
-        <div class="flex flex-col space-y-3">
+        <div class="flex flex-col space-y-2">
           ${
             otherLabel
-              ? `<div class="flex justify-between items-center">
+              ? `<div class="flex justify-between">
                   <span class="text-gray-600 font-medium">${otherLabel}:</span>
-                  <span class="text-gray-900 font-semibold">${transaction.other || "N/A"}</span>
+                  <span class="text-gray-800">${transaction.other || "N/A"}</span>
                 </div>`
               : ""
           }
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between">
             <span class="text-gray-600 font-medium">Amount:</span>
-            <span class="text-green-600 font-bold">${transaction.amount / 100} Rs.</span>
+            <span class="text-gray-800">${transaction.amount / 100} Rs.</span>
           </div>
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between">
             <span class="text-gray-600 font-medium">Type:</span>
-            <span class="text-blue-600 font-bold">${typeLabel}</span>
+            <span class="text-gray-800">${typeLabel}</span>
           </div>
         </div>
       </div>
