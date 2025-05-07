@@ -107,7 +107,10 @@ async function announce(amt){
   //Play Notification BEEP
   if(amt>99){
     await speakAsync(Math.floor(amt/100).toString());
-    await speakAsync("rupees");
+    
+    if(amt>199){ await speakAsync("rupees"); }
+    else{ await speakAsync("rupee"); }
+    
     amt = amt%100;
     if(amt>0){
       await speakAsync("and");
@@ -115,6 +118,10 @@ async function announce(amt){
   }
   if(amt>0){
     await speakAsync(Math.floor(amt).toString());
+    
+    if(amt==1){ await speakAsync("paisa"); }
+    else{ await speakAsync('paise'); }
+
     await speakAsync("paisa");
   }
   await speakAsync("received");
