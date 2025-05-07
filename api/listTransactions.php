@@ -19,7 +19,7 @@
 
   @require_once 'getTransaction.php';
   for ($i = 0; $i < count($data); $i++) {
-   echo $fruits[$i] . "<br>";
+   $data[$i] = getTransaction($data[$i]);
   }
 
   display(0, array('data' => $data));
