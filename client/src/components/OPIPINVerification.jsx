@@ -180,7 +180,7 @@ const OPIQRCodeSVG = () => {
                         setBackgroundColor("bg-red-500");
                         setShowOverlay(true);
                         setHideQRCode(true);
-                        
+                        console.log(failureMessage);
                         //console.log(failureMessage);
                       }
                     });
