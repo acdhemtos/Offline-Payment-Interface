@@ -124,6 +124,8 @@ const OPIQRCodeSVG = () => {
                           console.log("HASH FAILED", sss, verification_hash, ourHash);
                           setFailureMessage("Transaction Failed ❌\n" + messages[Number(code) - 1]);
                           setBackgroundColor("bg-red-500");
+                          const message = "Invalid QR Code ❌";
+                          setFailureMessage(message);
                           console.log(failureMessage);
                         }
                       });
