@@ -5,7 +5,7 @@ function speakAsync(text) {
  return new Promise((resolve, reject) => {
   //select voice
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = 1.5;
+  utterance.rate = 1.25;
   utterance.pitch = 1;
   utterance.onend = () => { resolve(); };
   utterance.onerror = (event) => { reject(event.error); };
