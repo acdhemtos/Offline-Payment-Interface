@@ -1,3 +1,4 @@
+/*
 const audioPath = 'api/audio/';
 const audioExtension = '.mpeg';
 
@@ -91,7 +92,7 @@ function announce(amt){
  playSequence([...ret,'received']);
 
 }
-
+*/
 function speakAsync(text) {
  return new Promise((resolve, reject) => {
   const utterance = new SpeechSynthesisUtterance(text);
@@ -110,7 +111,7 @@ async function ANNOUNCE(amt){
     if(amt>0){
       await speakAsync("and");
     }
-    
+
   }
   if(amt>0){
     await speakAsync(Math.floor(amt).toString());
@@ -120,4 +121,4 @@ async function ANNOUNCE(amt){
   await speakAsync("through OPI");
 }
 
-export { announce,ANNOUNCE };
+export { ANNOUNCE };
