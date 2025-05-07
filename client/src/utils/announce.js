@@ -116,10 +116,7 @@ async function announce(amt){
     }
   }
   if(amt>0){
-    await speakAsync(Math.floor(amt).toString());
-    
-    if(amt==1){ await speakAsync("paisa"); }
-    else{ await speakAsync('paise'); }
+    await speakAsync(Math.floor(amt).toString() + " " + (amt===1 ? "paise" : "paisa"));
 
     await speakAsync("paisa");
   }
