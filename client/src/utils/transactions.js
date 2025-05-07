@@ -30,7 +30,7 @@ const formatEpoch = (seconds) => {
 };
 
 const loadTransactions = () => {
-  return AJAX("../api/getTransactions.php")
+  return AJAX("../api/listTransactions.php")
     .then((response) => {
       if (response && response.transactions) {
         transactionsRef.current = response.transactions;
