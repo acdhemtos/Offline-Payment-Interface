@@ -22,6 +22,7 @@ const OPIQRCodeSVG = () => {
   const detailsHashRef = useRef("");
   const ti = useRef("");
   const [transactionSuccess, setTransactionSuccess] = useState(false);
+  const [failureMessage, setFailureMessage] = useState("");
   // const [privateKey, setPrivateKey] = useState(null);
 
   const adjustedAmount = amount ? Math.round(amount * 100) : 0;
@@ -114,9 +115,11 @@ const OPIQRCodeSVG = () => {
                           stopStream(video);
                           setShowOverlay(true);
                           setHideQRCode(true);
-                          setBackgroundColor("bg-red-500");
+                          
                         } else {
                           console.log("HASH FAILED", sss, verification_hash, ourHash);
+                          setFailureMessage("Transaction Failed ❌\n" + messages[code - 1]);
+                          setBackgroundColor("bg-red-500");
                         }
                       });
                     }
