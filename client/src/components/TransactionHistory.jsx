@@ -25,7 +25,7 @@ const TransactionHistory = () => {
         </button>
       </header>
 
-      <div className="w-full max-w-4xl bg-transparent shadow-lg rounded-lg mt-6 p-4">
+      <div className="w-full max-w-4xl bg-transparent rounded-lg mt-6 p-4">
         <h2 className="text-xl font-semibold mb-4">Your Transactions</h2>
         <div
           ref={transactionsDiv}
