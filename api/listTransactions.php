@@ -22,7 +22,7 @@
    $data[$i] = getTransaction($data[$i]);
   }
 
-  display(0, array('data' => $data));
+  display(0, array('transactions' => $data));
  }
  
 ?>
