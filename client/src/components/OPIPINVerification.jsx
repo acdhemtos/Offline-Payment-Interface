@@ -8,6 +8,7 @@ import jsQR from "jsqr";
 import { FaArrowLeft, FaCheckCircle } from "react-icons/fa";
 import { addTransaction } from "../utils/transactions";
 
+
 const OPIQRCodeSVG = () => {
   const location = useLocation();
   const navigate = useNavigate();
