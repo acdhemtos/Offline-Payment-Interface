@@ -85,7 +85,7 @@ const renderTransactions = (div) => {
       badgeColor = "bg-green-100 text-green-600";
     } else {
       typeLabel = "Offline";
-      badgeColor = "bg-red-100 text-red-600";
+      badgeColor = "bg-green-200 text-green-500";
     }
 
     // Sender/Receiver
