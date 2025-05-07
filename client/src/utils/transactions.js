@@ -98,14 +98,13 @@ const renderTransactions = (div) => {
     // Content to display in the transaction card
     transactionDiv.innerHTML = `
       <div class="flex justify-between items-center mb-2">
-      <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full ${badgeColor}">
-          ${typeLabel}
-        </span>
         <h3 class="text-md font-medium text-gray-800">
           <span class="text-sm text-gray-500">ID:</span> ${maskedId}
         </h3>
         <!-- Badge for Transaction Type -->
-        
+        <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full ${badgeColor}">
+          ${typeLabel}
+        </span>
       </div>
 
       <div class="text-sm text-gray-700 space-y-1">
