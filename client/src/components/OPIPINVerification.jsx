@@ -278,11 +278,11 @@ const OPIQRCodeSVG = () => {
     </div>
   </div>
 )}
-      {showOverlay && backgroundColor !== "bg-green-500" && (
+      {/* {showOverlay && backgroundColor !== "bg-green-500" && (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-70 z-50">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent"></div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
