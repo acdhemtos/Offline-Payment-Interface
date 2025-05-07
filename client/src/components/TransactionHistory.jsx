@@ -1,30 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { loadTransactions, renderTransactions } from "../utils/transactions";
 import { useNavigate } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
 
 const TransactionHistory = () => {
   const transactionsDiv = useRef(null);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const [renderTrigger, setRenderTrigger] = useState(0);
 
   useEffect(() => {
     loadTransactions().then(() => {
-      setRenderTrigger((prev) => prev + 1); // force re-render after load
-      setLoading(false);
+      if (transactionsDiv.current) {
+        renderTransactions(transactionsDiv.current);
+      }
     });
   }, []);
 
-  useEffect(() => {
-    if (!loading && transactionsDiv.current) {
-      renderTransactions(transactionsDiv.current);
-    }
-  }, [loading, renderTrigger]);
-
   return (
     <div className="min-h-screen min-w-[100vw] bg-gray-100 flex flex-col items-center p-4">
-      <header className="w-full bg-transparent text-white text-center py-4 relative">
+      <header className="w-full bg-transparent text-white text-center py-4  relative">
         <button
           className="absolute left-1 top-1 bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-gray-200"
           onClick={() => navigate(-1)}
@@ -35,17 +27,10 @@ const TransactionHistory = () => {
 
       <div className="w-full max-w-4xl bg-transparent rounded-lg mt-6 p-4">
         <h2 className="text-xl font-semibold mb-4">Your Transactions</h2>
-
-        {loading ? (
-          <div className="flex justify-center items-center h-32">
-            <ClipLoader color="#3b82f6" size={40} />
-          </div>
-        ) : (
-          <div
-            ref={transactionsDiv}
-            className="transactions-container divide-y divide-gray-200"
-          ></div>
-        )}
+        <div
+          ref={transactionsDiv}
+          className="transactions-container divide-y divide-gray-200"
+        ></div>
       </div>
     </div>
   );
