@@ -104,9 +104,10 @@ function speakAsync(text) {
 async function ANNOUNCE(amt){
   //Play Notification BEEP
   if(amt>99){
-    speakAsync(Math.floor(amt/100).toString());
-    speakAsync("rupees");
+    await speakAsync(Math.floor(amt/100).toString());
+    await speakAsync("rupees");
     amt = amt%100;
+    if(amt)
   }
 }
 
