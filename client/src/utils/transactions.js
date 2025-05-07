@@ -93,7 +93,8 @@ const renderTransactions = (div) => {
       transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : null;
 
     // Format time
-    const formattedTime = new Date(transaction.date).toLocaleString();
+    const formattedTime = transaction.date;
+    console.log(transaction.date);
 
     transactionDiv.innerHTML = `
       <!-- Top Right Badge -->
@@ -121,7 +122,7 @@ const renderTransactions = (div) => {
       </div>
 
       <!-- Timestamp Bottom Right -->
-      <div class="text-xs text-gray-400 text-right mt-4">
+      <div class="text-xs text-gray-500 text-right mt-4">
         ${formattedTime}
       </div>
     `;
