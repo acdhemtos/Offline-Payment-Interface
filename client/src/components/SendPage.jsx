@@ -15,7 +15,7 @@ const SendPage = () => {
   const [showOpiOption, setShowOpiOption] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const inputRef = useRef(null);
+  const inputRef = useRef(null);s
 
   useEffect(() => {
     if (location.state?.qrData) {
