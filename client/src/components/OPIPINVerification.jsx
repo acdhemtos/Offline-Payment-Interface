@@ -163,9 +163,16 @@ const OPIQRCodeSVG = () => {
                           QR.decode("hash",ourHash).hash,
                           verification_hash
                         );
-                        setFailureMessage("Transaction Failed ❌\n" + messages[code - 1]);
+                        if (code === 28) {
+                          setFailureMessage("Transaction Failed ❌\nInsufficient Balance");
+                        } else {
+                          setFailureMessage(
+                            "Transaction Failed ❌\n" + messages[code - 1]
+                          );
+                        }
+                        //setFailureMessage("Transaction Failed ❌\n" + messages[code - 1]);
                         setBackgroundColor("bg-red-500");
-                        console.log(failureMessage);
+                        //console.log(failureMessage);
                       }
                     });
                   }
