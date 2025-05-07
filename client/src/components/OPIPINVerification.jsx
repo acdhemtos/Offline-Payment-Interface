@@ -7,7 +7,7 @@ import { QR } from "../utils/qrFunctions";
 import jsQR from "jsqr";
 import { FaArrowLeft, FaCheckCircle } from "react-icons/fa";
 import { addTransaction } from "../utils/transactions";
-
+import { messages } from "../utils/loadMessages";
 
 const OPIQRCodeSVG = () => {
   const location = useLocation();
@@ -121,6 +121,7 @@ const OPIQRCodeSVG = () => {
                           console.log("HASH FAILED", sss, verification_hash, ourHash);
                           setFailureMessage("Transaction Failed ❌\n" + messages[code - 1]);
                           setBackgroundColor("bg-red-500");
+                          console.log(failureMessage);
                         }
                       });
                     }
@@ -159,6 +160,9 @@ const OPIQRCodeSVG = () => {
                           QR.decode("hash",ourHash).hash,
                           verification_hash
                         );
+                        setFailureMessage("Transaction Failed ❌\n" + messages[code - 1]);
+                        setBackgroundColor("bg-red-500");
+                        console.log(failureMessage);
                       }
                     });
                   }
