@@ -21,6 +21,7 @@ const OPIQRCodeSVG = () => {
   const { receiver, amount, rN } = location.state || {};
   const detailsHashRef = useRef("");
   const ti = useRef("");
+  const [transactionSuccess, setTransactionSuccess] = useState(false);
   // const [privateKey, setPrivateKey] = useState(null);
 
   const adjustedAmount = amount ? Math.round(amount * 100) : 0;
