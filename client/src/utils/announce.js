@@ -97,6 +97,8 @@ function speakAsync(text) {
  return new Promise((resolve, reject) => {
   //select voice
   const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = 2;
+  utterance.pitch 0;
   utterance.onend = () => { resolve(); };
   utterance.onerror = (event) => { reject(event.error); };
   window.speechSynthesis.speak(utterance);
