@@ -23,7 +23,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
-  const [balance, setBalance] = useState("-");
+  const [balance, setBalance] = useState(null);
   const [isPinSet, setIsPinSet] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
 
