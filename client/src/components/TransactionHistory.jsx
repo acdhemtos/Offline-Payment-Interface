@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { loadTransactions, renderTransactions } from "../utils/transactions";
 import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 const TransactionHistory = () => {
   const transactionsDiv = useRef(null);
