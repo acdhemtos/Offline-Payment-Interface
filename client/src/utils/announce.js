@@ -1,26 +1,7 @@
-/*
+
 const audioCache = new Audio("api/beep.mp3");
 audioCache.load();
 
-
-function playSequence(words, playbackRate = 1.5, delayMs = 750) {
- let i = 0;
-
- function playNext() {
-   if (i < words.length) {
-     const word = words[i];
-     console.log(audioCache);
-     const audio = audioCache[word].cloneNode(); // clone to allow overlap if needed
-     audio.playbackRate = playbackRate;
-     audio.play();
-     i++;
-     setTimeout(playNext, delayMs);
-   }
- }
-
- playNext();
-}
-*/
 function speakAsync(text) {
  return new Promise((resolve, reject) => {
   //select voice
