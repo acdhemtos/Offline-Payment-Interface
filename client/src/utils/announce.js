@@ -107,7 +107,13 @@ async function ANNOUNCE(amt){
     await speakAsync(Math.floor(amt/100).toString());
     await speakAsync("rupees");
     amt = amt%100;
-    if(amt)
+    if(amt>0){
+      await speakAsync("and");
+    }
+  }
+  if(amt>0){
+    await speakAsync(Math.floor(amt).toString());
+    await speakAsync("paisa");
   }
 }
 
