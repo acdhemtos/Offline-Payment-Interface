@@ -112,7 +112,6 @@ async function announce(amt){
     if(amt>0){
       await speakAsync("and");
     }
-
   }
   if(amt>0){
     await speakAsync(Math.floor(amt).toString());
