@@ -97,14 +97,15 @@ const renderTransactions = (div) => {
 
     // Content to display in the transaction card
     transactionDiv.innerHTML = `
+      <!-- Badge for Transaction Type at Top Right -->
+      <span class="absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full ${badgeColor}">
+        ${typeLabel}
+      </span>
+
       <div class="flex justify-between items-center mb-2">
         <h3 class="text-md font-medium text-gray-800">
           <span class="text-sm text-gray-500">ID:</span> ${maskedId}
         </h3>
-        <!-- Badge for Transaction Type -->
-        <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full ${badgeColor}">
-          ${typeLabel}
-        </span>
       </div>
 
       <div class="text-sm text-gray-700 space-y-1">
@@ -122,7 +123,7 @@ const renderTransactions = (div) => {
       </div>
 
       <!-- Timestamp at the bottom-right of the card -->
-      <div class="absolute bottom-1 right-3 text-xs text-gray-500">
+      <div class="absolute bottom-3 right-3 text-xs text-gray-500">
         Timestamp: ${formattedTime}
       </div>
     `;
@@ -130,6 +131,7 @@ const renderTransactions = (div) => {
     div.appendChild(transactionDiv);
   });
 };
+
 
 
 initializeTransactions();
