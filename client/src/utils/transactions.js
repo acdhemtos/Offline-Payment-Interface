@@ -60,46 +60,46 @@ const renderTransactions = (div) => {
   div.innerHTML = ""; // Clear the container
   if (transactionsRef.current.length === 0) {
     div.innerHTML =
-      "<p class='text-gray-500 text-center'>No transactions available.</p>";
+      "<p class='text-gray-500 text-center text-lg'>No transactions available.</p>";
     return;
   }
 
-  transactionsRef.current.forEach((transaction) => {
+  transactionsRef.current.forEach((transaction, index) => {
     const transactionDiv = document.createElement("div");
     transactionDiv.className =
-      "transaction p-4 border-b border-gray-300 bg-white shadow-md rounded-lg mb-4";
+      "transaction p-6 border border-gray-200 bg-white shadow-md rounded-lg mb-6 hover:shadow-lg transition-shadow duration-300";
 
     let sas = `
       <table class="w-full text-left border-collapse">
-        <tr class="border-b border-gray-200">
-          <th class="py-2 px-4 text-gray-600 font-semibold">ID</th>
-          <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-          <td class="py-2 px-4 text-gray-800">${transaction.id}</td>
+        <tr class="${index % 2 === 0 ? "bg-gray-50" : "bg-white"}">
+          <th class="py-3 px-5 text-gray-600 font-semibold text-sm">ID</th>
+          <th class="py-3 px-5 text-gray-600 font-semibold text-sm">:</th>
+          <td class="py-3 px-5 text-gray-800 text-sm">${transaction.id}</td>
         </tr>
     `;
 
     if (transaction.type !== 0) {
       sas += `
-        <tr class="border-b border-gray-200">
-          <th class="py-2 px-4 text-gray-600 font-semibold">${
+        <tr class="${index % 2 === 0 ? "bg-gray-50" : "bg-white"}">
+          <th class="py-3 px-5 text-gray-600 font-semibold text-sm">${
             transaction.type > 0 ? "Sender" : "Receiver"
           }</th>
-          <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-          <td class="py-2 px-4 text-gray-800">${transaction.other}</td>
+          <th class="py-3 px-5 text-gray-600 font-semibold text-sm">:</th>
+          <td class="py-3 px-5 text-gray-800 text-sm">${transaction.other || "N/A"}</td>
         </tr>
       `;
     }
 
     sas += `
-      <tr class="border-b border-gray-200">
-        <th class="py-2 px-4 text-gray-600 font-semibold">Amount</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">${transaction.amount / 100} Rs.</td>
+      <tr class="${index % 2 === 0 ? "bg-gray-50" : "bg-white"}">
+        <th class="py-3 px-5 text-gray-600 font-semibold text-sm">Amount</th>
+        <th class="py-3 px-5 text-gray-600 font-semibold text-sm">:</th>
+        <td class="py-3 px-5 text-gray-800 text-sm">${transaction.amount / 100} Rs.</td>
       </tr>
-      <tr class="border-b border-gray-200">
-        <th class="py-2 px-4 text-gray-600 font-semibold">Type</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">
+      <tr class="${index % 2 === 0 ? "bg-gray-50" : "bg-white"}">
+        <th class="py-3 px-5 text-gray-600 font-semibold text-sm">Type</th>
+        <th class="py-3 px-5 text-gray-600 font-semibold text-sm">:</th>
+        <td class="py-3 px-5 text-gray-800 text-sm">
     `;
 
     if (transaction.type === 0) {
@@ -113,10 +113,10 @@ const renderTransactions = (div) => {
     sas += `
         </td>
       </tr>
-      <tr>
-        <th class="py-2 px-4 text-gray-600 font-semibold">Date-Time</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">${transaction.time}</td>
+      <tr class="${index % 2 === 0 ? "bg-gray-50" : "bg-white"}">
+        <th class="py-3 px-5 text-gray-600 font-semibold text-sm">Date-Time</th>
+        <th class="py-3 px-5 text-gray-600 font-semibold text-sm">:</th>
+        <td class="py-3 px-5 text-gray-800 text-sm">${transaction.date}</td>
       </tr>
       </table>
     `;
