@@ -71,7 +71,7 @@ const renderTransactions = (div) => {
     const transactionDiv = document.createElement("div");
     transactionDiv.className = `
       bg-white border border-gray-200 rounded-xl px-5 py-4 mb-4
-      shadow-sm hover:shadow-md transition duration-200
+      shadow-sm hover:shadow-md transition duration-200 relative
     `;
 
     const typeLabel =
@@ -94,12 +94,14 @@ const renderTransactions = (div) => {
     // Convert timestamp to readable date/time format
     const formattedTime = new Date(transaction.date).toLocaleString();
 
+    // Mask Transaction ID to show only part of it
+    const maskedId = `Tx-***${transaction.id.toString().slice(-5)}`;
+
     transactionDiv.innerHTML = `
       <div class="flex justify-between items-center mb-2">
         <h3 class="text-md font-medium text-gray-800">
-          Transaction #${transaction.id}
+          <span class="text-sm text-gray-500">ID:</span> ${maskedId}
         </h3>
-        <span class="text-sm text-gray-500">${formattedTime}</span>
       </div>
 
       <div class="text-sm text-gray-700 space-y-1">
@@ -123,8 +125,8 @@ const renderTransactions = (div) => {
         </div>
       </div>
 
-      <!-- Timestamp at the bottom -->
-      <div class="mt-4 text-xs text-gray-500 text-center">
+      <!-- Timestamp at the bottom-right -->
+      <div class="absolute bottom-2 right-2 text-xs text-gray-500">
         Timestamp: ${formattedTime}
       </div>
     `;
@@ -132,6 +134,7 @@ const renderTransactions = (div) => {
     div.appendChild(transactionDiv);
   });
 };
+
 
 
 
