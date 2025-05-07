@@ -20,15 +20,10 @@ async function announce(amt){
     if(amt>99){
       await speakAsync(Math.floor(amt/100).toString() + " " + (amt > 199 ? "rupees" : "rupee"));
       amt = amt%100;
-      if(amt>0){
-        await speakAsync("and");
-      }
+      if(amt>0){ await speakAsync("and"); }
     }
-    if(amt>0){
-      await speakAsync(Math.floor(amt).toString() + " " + (amt===1 ? "paise" : "paisa"));
-    }
-    await speakAsync("received");
-    await speakAsync("through OPI");
+    if(amt>0){ await speakAsync(Math.floor(amt).toString() + " " + (amt===1 ? "paise" : "paisa")); }
+    await speakAsync("received through OPI");
   };
 }
 
