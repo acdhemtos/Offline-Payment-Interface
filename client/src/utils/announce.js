@@ -1,3 +1,4 @@
+/*
 const audioPath = 'api/audio/';
 const audioExtension = '.mpeg';
 
@@ -91,9 +92,10 @@ function announce(amt){
  playSequence([...ret,'received']);
 
 }
-
+*/
 function speakAsync(text) {
  return new Promise((resolve, reject) => {
+  //select voice
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.onend = () => { resolve(); };
   utterance.onerror = (event) => { reject(event.error); };
@@ -101,7 +103,7 @@ function speakAsync(text) {
  });
 }
 
-async function ANNOUNCE(amt){
+async function announce(amt){
   //Play Notification BEEP
   if(amt>99){
     await speakAsync(Math.floor(amt/100).toString());
@@ -115,6 +117,9 @@ async function ANNOUNCE(amt){
     await speakAsync(Math.floor(amt).toString());
     await speakAsync("paisa");
   }
+  await speakAsync("received");
+  await speakAsync("through OPI");
 }
+
 
 export { announce };
