@@ -1,4 +1,3 @@
-
 const audioCache = new Audio("api/beep.mp3");
 audioCache.load();
 
