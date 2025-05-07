@@ -84,7 +84,7 @@ const renderTransactions = (div) => {
     const badgeColor =
       transaction.type === 0
         ? "text-blue-600"
-        : transaction.type > 0
+        : transaction.type === 1
         ? "text-green-600"
         : "text-red-600";
 
