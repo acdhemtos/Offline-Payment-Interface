@@ -107,6 +107,7 @@ const OPIQRCodeSVG = () => {
                     setShowOverlay(true);
                     setHideQRCode(true);
                     setBackgroundColor("bg-red-500");
+                    setFailureMessage("Invalid QR Code ❌");
                   } else if (QR.decode("code+verification_hash",string) !== false) {
                     const {code,verification_hash} = QR.decode("code+verification_hash",string);
                     if (code === 30) {
