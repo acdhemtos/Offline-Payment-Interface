@@ -113,7 +113,7 @@ const OPIQRCodeSVG = () => {
                     const {code,verification_hash} = QR.decode("code+verification_hash",string);
                     if (code === 30n) {
                       console.log("code", code);
-                      const sss = detailsHashRef.current + "30" + private_key;
+                      const sss = detailsHashRef.current + "30" + private_key.toString();
                       sha256(sss).then((ourHash) => {
                         if (verification_hash === ourHash) {
                           stopStream(video);
