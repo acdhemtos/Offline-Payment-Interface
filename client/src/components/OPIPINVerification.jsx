@@ -125,7 +125,7 @@ const OPIQRCodeSVG = () => {
                         } else {
                           console.log("HASH FAILED", sss, verification_hash, ourHash);
                           setFailureMessage("Transaction Failed ❌\n" + messages[Number(code) - 1]);
-                          setBackgroundColor("bg-red-500");
+                          //setBackgroundColor("bg-red-500");
                           const message = "Invalid QR Code ❌";
                           setFailureMessage(message);
                           console.log(failureMessage);
@@ -173,7 +173,7 @@ const OPIQRCodeSVG = () => {
                           setHideQRCode(true);
                           console.log(failureMessage);
                         } else {
-                          //setFailureMessage("Transaction Failed ❌\n" + messages[Number(code) - 1]);
+                          setFailureMessage("Transaction Failed ❌\n" + messages[Number(code) - 1]);
                           setShowOverlay(true);
                           setHideQRCode(true);
                           console.log(failureMessage);
