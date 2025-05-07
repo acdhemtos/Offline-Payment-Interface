@@ -57,17 +57,23 @@ const addTransaction = (id, other, amount, type, date) => {
 };
 
 const renderTransactions = (div) => {
-  div.innerHTML = ""; // Clear the container
+  div.innerHTML = ""; // Clear container
+
   if (transactionsRef.current.length === 0) {
-    div.innerHTML =
-      "<p class='text-gray-500 text-center text-lg'>No transactions available.</p>";
+    div.innerHTML = `
+      <p class="text-gray-400 text-center text-lg italic mt-10">
+        No transactions available.
+      </p>`;
     return;
   }
 
-  transactionsRef.current.forEach((transaction, index) => {
+  transactionsRef.current.forEach((transaction) => {
     const transactionDiv = document.createElement("div");
-    transactionDiv.className =
-      "transaction bg-white border border-gray-200 shadow-md rounded-lg p-5 mb-6 hover:shadow-lg transition-shadow duration-300";
+    transactionDiv.className = `
+      bg-white/80 backdrop-blur-sm border border-gray-200 
+      shadow-md rounded-2xl p-6 mb-5 hover:shadow-xl 
+      transition-shadow duration-300
+    `;
 
     const typeLabel =
       transaction.type === 0
@@ -76,31 +82,47 @@ const renderTransactions = (div) => {
         ? "Online"
         : "Offline";
 
+    const badgeColor =
+      transaction.type === 0
+        ? "bg-blue-100 text-blue-800"
+        : transaction.type > 0
+        ? "bg-green-100 text-green-800"
+        : "bg-red-100 text-red-800";
+
     const otherLabel =
-      transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : "";
+      transaction.type > 0 ? "To" : transaction.type < 0 ? "From" : "";
 
     transactionDiv.innerHTML = `
-      <div class="flex flex-col space-y-3">
+      <div class="flex flex-col space-y-4">
         <div class="flex justify-between items-center">
-          <h3 class="text-lg font-semibold text-gray-800">Transaction #${transaction.id}</h3>
+          <h3 class="text-xl font-semibold text-gray-800">
+            Transaction #${transaction.id}
+          </h3>
           <span class="text-sm text-gray-500">${transaction.date}</span>
         </div>
-        <div class="flex flex-col space-y-2">
+
+        <div class="flex flex-wrap gap-4">
           ${
             otherLabel
-              ? `<div class="flex justify-between">
-                  <span class="text-gray-600 font-medium">${otherLabel}:</span>
-                  <span class="text-gray-800">${transaction.other || "N/A"}</span>
-                </div>`
+              ? `
+            <div class="flex-1">
+              <p class="text-sm text-gray-500 font-medium">${otherLabel}</p>
+              <p class="text-base text-gray-800">${transaction.other || "N/A"}</p>
+            </div>
+          `
               : ""
           }
-          <div class="flex justify-between">
-            <span class="text-gray-600 font-medium">Amount:</span>
-            <span class="text-gray-800">${transaction.amount / 100} Rs.</span>
+
+          <div class="flex-1">
+            <p class="text-sm text-gray-500 font-medium">Amount</p>
+            <p class="text-base text-gray-800 font-semibold">₹${(transaction.amount / 100).toFixed(2)}</p>
           </div>
-          <div class="flex justify-between">
-            <span class="text-gray-600 font-medium">Type:</span>
-            <span class="text-gray-800">${typeLabel}</span>
+
+          <div class="flex-1">
+            <p class="text-sm text-gray-500 font-medium">Type</p>
+            <span class="inline-block px-3 py-1 text-sm font-medium rounded-full ${badgeColor}">
+              ${typeLabel}
+            </span>
           </div>
         </div>
       </div>
@@ -109,6 +131,7 @@ const renderTransactions = (div) => {
     div.appendChild(transactionDiv);
   });
 };
+
 
 initializeTransactions();
 
