@@ -105,7 +105,7 @@ const renderTransactions = (div) => {
 
       <!-- Content -->
       <div class="flex flex-col space-y-2">
-        <div class="text-gray-800 font-semibold text-base"><span class="font-medium">ID:</span>${maskedId}</div>
+        <div class="text-gray-600 font-semibold text-base"><span class="font-medium">ID: </span>${maskedId}</div>
 
         ${
           otherLabel
