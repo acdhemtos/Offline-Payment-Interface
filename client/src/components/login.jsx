@@ -74,7 +74,7 @@ const LoginSignupForm = () => {
         document.cookie = `username=${username}; path=/; max-age=604800;`;
         document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
 
-        Store credentials using Credential Management API
+        // Store credentials using Credential Management API
         if (navigator.credentials && window.PasswordCredential) {
           const credential = new PasswordCredential({
             id: username,
