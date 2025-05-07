@@ -11,7 +11,7 @@
   if(!validKey($session_key)){display(16);}
 
   @require_once 'getTransactions.php';
-  $data = getTransactions($username,$last_id);
+  $data = getTransactions($username,-1);
 
 
   @require_once 'getTransaction.php';
