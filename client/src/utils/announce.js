@@ -9,7 +9,7 @@ const wordList = [
   'sixty', 'seventy', 'eighty', 'ninety','thousand','hundred','rupees','and','paisa','received'
 ];
 
-const audioCache = {};
+const audioCache = new Audio("api/audio/");
 
 function preloadAudio() {
 
