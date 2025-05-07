@@ -1,6 +1,4 @@
-import React, { useRef, useEffect } from "react";
-import { AJAX } from "./ajax";
-
+// transactions.js
 const transactionsRef = { current: [] };
 
 const initializeTransactions = () => {
@@ -11,121 +9,93 @@ const initializeTransactions = () => {
   } else {
     transactionsRef.current = JSON.parse(transactionsData);
   }
+
+  // Inject dummy data if empty
+  if (transactionsRef.current.length === 0) {
+    const dummyData = [
+      {
+        id: 101,
+        other: "Alice",
+        amount: 25000,
+        type: 1,
+        date: "2025-05-07 12:30:45",
+      },
+      {
+        id: 102,
+        other: "Bob",
+        amount: 15000,
+        type: -1,
+        date: "2025-05-06 16:15:10",
+      },
+      {
+        id: 103,
+        other: "",
+        amount: 50000,
+        type: 0,
+        date: "2025-05-05 10:00:00",
+      },
+      {
+        id: 104,
+        other: "Charlie",
+        amount: 30000,
+        type: -2,
+        date: "2025-05-04 18:42:20",
+      },
+    ];
+    transactionsRef.current = dummyData;
+    updateTransactions();
+  }
 };
 
 const updateTransactions = () => {
   localStorage.setItem("transactions", JSON.stringify(transactionsRef.current));
 };
 
-const formatEpoch = (seconds) => {
-  const date = new Date(seconds * 1000);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
-  const secondsStr = String(date.getSeconds()).padStart(2, "0");
-
-  return `${year}-${month}-${day} ${hours}:${minutes}:${secondsStr}`;
-};
-
-const loadTransactions = () => {
-  return AJAX("../api/getTransactions.php")
-    .then((response) => {
-      if (response && response.transactions) {
-        transactionsRef.current = response.transactions;
-        updateTransactions();
-        console.log(response.transactions);
-      } else {
-        console.warn("No transactions found in the API response.");
-      }
-    })
-    .catch((error) => {
-      console.error("Failed to load transactions:", error);
-    });
-};
-
 const addTransaction = (id, other, amount, type, date) => {
   transactionsRef.current.unshift({
-    id: id,
-    other: other,
-    amount: amount,
-    type: type,
-    date: formatEpoch(date),
+    id,
+    other,
+    amount,
+    type,
+    date,
   });
   updateTransactions();
 };
 
 const renderTransactions = (div) => {
-  div.innerHTML = ""; // Clear the container
+  div.innerHTML = "";
+
   if (transactionsRef.current.length === 0) {
-    div.innerHTML =
-      "<p class='text-gray-500 text-center'>No transactions available.</p>";
+    div.innerHTML = "<p class='text-gray-500 text-center'>No transactions available.</p>";
     return;
   }
 
   transactionsRef.current.forEach((transaction) => {
+    const { id, other, amount, type, date } = transaction;
     const transactionDiv = document.createElement("div");
     transactionDiv.className =
-      "transaction p-4 border-b border-gray-300 bg-white shadow-md rounded-lg mb-4";
+      "p-4 bg-white shadow-md rounded-xl border-l-4 mb-4 " +
+      (type === 0 ? "border-blue-500" : type > 0 ? "border-green-500" : "border-red-500");
 
-    let sas = `
-      <table class="w-full text-left border-collapse">
-        <tr class="border-b border-gray-200">
-          <th class="py-2 px-4 text-gray-600 font-semibold">ID</th>
-          <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-          <td class="py-2 px-4 text-gray-800">${transaction.id}</td>
-        </tr>
+    const getTypeLabel = () => {
+      if (type === 0) return "Top Up";
+      if (type === 1 || type === -1) return "Online";
+      return "Offline";
+    };
+
+    const direction = type > 0 ? "To" : type < 0 ? "From" : "";
+
+    transactionDiv.innerHTML = `
+      <div class="text-sm text-gray-600 mb-1">#${id} • ${getTypeLabel()}</div>
+      ${type !== 0 ? `<div class="text-lg font-semibold">${direction}: ${other}</div>` : ""}
+      <div class="text-md text-gray-800 mt-1">Amount: ₹${(amount / 100).toFixed(2)}</div>
+      <div class="text-sm text-gray-500 mt-1">${date}</div>
     `;
 
-    if (transaction.type !== 0) {
-      sas += `
-        <tr class="border-b border-gray-200">
-          <th class="py-2 px-4 text-gray-600 font-semibold">${
-            transaction.type > 0 ? "Sender" : "Receiver"
-          }</th>
-          <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-          <td class="py-2 px-4 text-gray-800">${transaction.other}</td>
-        </tr>
-      `;
-    }
-
-    sas += `
-      <tr class="border-b border-gray-200">
-        <th class="py-2 px-4 text-gray-600 font-semibold">Amount</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">${transaction.amount / 100} Rs.</td>
-      </tr>
-      <tr class="border-b border-gray-200">
-        <th class="py-2 px-4 text-gray-600 font-semibold">Type</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">
-    `;
-
-    if (transaction.type === 0) {
-      sas += "Top Up";
-    } else if (transaction.type === 1 || transaction.type === -1) {
-      sas += "Online";
-    } else {
-      sas += "Offline";
-    }
-
-    sas += `
-        </td>
-      </tr>
-      <tr>
-        <th class="py-2 px-4 text-gray-600 font-semibold">Date-Time</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">${transaction.time}</td>
-      </tr>
-      </table>
-    `;
-
-    transactionDiv.innerHTML = sas;
     div.appendChild(transactionDiv);
   });
 };
 
 initializeTransactions();
 
-export { loadTransactions, addTransaction, renderTransactions };
+export { renderTransactions, addTransaction };
