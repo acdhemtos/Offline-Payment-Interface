@@ -67,65 +67,69 @@ const renderTransactions = (div) => {
   transactionsRef.current.forEach((transaction) => {
     const transactionDiv = document.createElement("div");
     transactionDiv.className = `
-      relative bg-white border border-gray-200 shadow-md rounded-xl p-5 mb-6 
-      hover:shadow-lg transition-shadow duration-300
+      relative bg-white border border-gray-100 shadow-sm rounded-xl px-5 py-4 mb-5
+      hover:shadow-md transition duration-200
     `;
 
-    const maskedId = `${transaction.id.toString().slice(-5)}`;
+    // Masked ID
+    const maskedId = `TXN-${"*".repeat(5)}${transaction.id.toString().slice(-4)}`;
 
+    // Type badge
     let typeLabel = "";
     let badgeColor = "";
     if (transaction.type === 0) {
       typeLabel = "Top Up";
-      badgeColor = "bg-blue-500 text-white";
+      badgeColor = "bg-blue-100 text-blue-600";
     } else if (transaction.type === 1 || transaction.type === -1) {
       typeLabel = "Online";
-      badgeColor = "bg-green-500 text-white";
+      badgeColor = "bg-green-100 text-green-600";
     } else {
       typeLabel = "Offline";
-      badgeColor = "bg-red-500 text-white";
+      badgeColor = "bg-red-100 text-red-600";
     }
 
+    // Sender/Receiver
     const otherLabel =
       transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : null;
 
+    // Format time
     const formattedTime = new Date(transaction.date).toLocaleString();
 
     transactionDiv.innerHTML = `
-      <!-- Badge at top-right -->
+      <!-- Top Right Badge -->
       <div class="absolute top-3 right-3">
-        <span class="px-3 py-1 text-xs font-semibold rounded-full ${badgeColor}">
+        <span class="text-xs font-medium px-3 py-1 rounded-full ${badgeColor}">
           ${typeLabel}
         </span>
       </div>
 
-      <div class="flex flex-col space-y-2 text-sm text-gray-800">
-        <div>
-          <span class="text-gray-500 font-medium">ID:</span> ${maskedId}
-        </div>
+      <!-- Content -->
+      <div class="flex flex-col space-y-2">
+        <div class="text-gray-800 font-semibold text-base">${maskedId}</div>
+
         ${
           otherLabel
-            ? `<div>
-                <span class="text-gray-500 font-medium">${otherLabel}:</span> ${
-                transaction.other || "N/A"
-              }
+            ? `<div class="text-sm text-gray-600">
+                <span class="font-medium">${otherLabel}:</span> ${transaction.other || "N/A"}
               </div>`
             : ""
         }
-        <div>
-          <span class="text-gray-500 font-medium">Amount:</span> ₹${(transaction.amount / 100).toFixed(2)}
+
+        <div class="text-sm text-gray-600">
+          <span class="font-medium">Amount:</span> ₹${(transaction.amount / 100).toFixed(2)}
         </div>
       </div>
 
-      <!-- Time at bottom-right -->
-      <div class="text-xs text-gray-400 mt-4 text-right">
-        Time: ${formattedTime}
+      <!-- Timestamp Bottom Right -->
+      <div class="text-xs text-gray-400 text-right mt-4">
+        ${formattedTime}
       </div>
     `;
 
     div.appendChild(transactionDiv);
   });
 };
+
 
 
 
