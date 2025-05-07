@@ -72,7 +72,7 @@ const renderTransactions = (div) => {
     `;
 
     // Masked Transaction ID (e.g., Tx-***12345)
-    const maskedId = `Tx-***${transaction.id.toString().slice(-5)}`;
+    const maskedId = `${transaction.id.toString().slice(-5)}`;
 
     // Determine type label and badge color
     let typeLabel = "";
