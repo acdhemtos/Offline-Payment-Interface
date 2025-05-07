@@ -94,6 +94,7 @@ const renderTransactions = (div) => {
 
     // Format time
     const formattedTime = transaction.date;
+    console.log(transaction.date);
 
     transactionDiv.innerHTML = `
       <!-- Top Right Badge -->
