@@ -58,70 +58,70 @@ const addTransaction = (id, other, amount, type, date) => {
 
 const renderTransactions = (div) => {
   div.innerHTML = ""; // Clear the container
+
   if (transactionsRef.current.length === 0) {
-    div.innerHTML =
-      "<p class='text-gray-500 text-center'>No transactions available.</p>";
+    div.innerHTML = "<p class='text-gray-500 text-center'>No transactions available.</p>";
     return;
   }
 
   transactionsRef.current.forEach((transaction) => {
     const transactionDiv = document.createElement("div");
-    transactionDiv.className =
-      "transaction p-4 border-b border-gray-300 bg-white shadow-md rounded-lg mb-4";
-
-    let sas = `
-      <table class="w-full text-left border-collapse">
-        <tr class="border-b border-gray-200">
-          <th class="py-2 px-4 text-gray-600 font-semibold">ID</th>
-          <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-          <td class="py-2 px-4 text-gray-800">${transaction.id}</td>
-        </tr>
+    transactionDiv.className = `
+      transaction bg-white border border-gray-200 shadow-md rounded-xl p-5 mb-6 
+      hover:shadow-lg transition-shadow duration-300 relative
     `;
 
-    if (transaction.type !== 0) {
-      sas += `
-        <tr class="border-b border-gray-200">
-          <th class="py-2 px-4 text-gray-600 font-semibold">${
-            transaction.type > 0 ? "Sender" : "Receiver"
-          }</th>
-          <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-          <td class="py-2 px-4 text-gray-800">${transaction.other}</td>
-        </tr>
-      `;
-    }
+    // Masked Transaction ID (e.g., Tx-***12345)
+    const maskedId = `Tx-***${transaction.id.toString().slice(-5)}`;
 
-    sas += `
-      <tr class="border-b border-gray-200">
-        <th class="py-2 px-4 text-gray-600 font-semibold">Amount</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">${transaction.amount / 100} Rs.</td>
-      </tr>
-      <tr class="border-b border-gray-200">
-        <th class="py-2 px-4 text-gray-600 font-semibold">Type</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">
+    // Determine type label (Top Up, Online, Offline)
+    const typeLabel =
+      transaction.type === 0
+        ? "Top Up"
+        : transaction.type === 1 || transaction.type === -1
+        ? "Online"
+        : "Offline";
+
+    // Sender/Receiver Label
+    const otherLabel =
+      transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : null;
+
+    // Convert timestamp to readable date/time format
+    const formattedTime = new Date(transaction.date).toLocaleString();
+
+    // Content to display in the transaction card
+    transactionDiv.innerHTML = `
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-md font-medium text-gray-800">
+          <span class="text-sm text-gray-500">ID:</span> ${maskedId}
+        </h3>
+      </div>
+
+      <div class="text-sm text-gray-700 space-y-1">
+        ${otherLabel
+          ? `<div class="flex justify-between">
+              <span class="font-medium text-gray-600">${otherLabel}:</span>
+              <span class="text-gray-800">${transaction.other || "N/A"}</span>
+            </div>`
+          : ""}
+
+        <div class="flex justify-between">
+          <span class="font-medium text-gray-600">Amount:</span>
+          <span class="font-semibold text-gray-800">₹${(transaction.amount / 100).toFixed(2)}</span>
+        </div>
+
+        <div class="flex justify-between">
+          <span class="font-medium text-gray-600">Type:</span>
+          <span class="font-medium text-gray-800">${typeLabel}</span>
+        </div>
+      </div>
+
+      <!-- Timestamp at the bottom-right of the card -->
+      <div class="absolute bottom-3 right-3 text-xs text-gray-500">
+        Timestamp: ${formattedTime}
+      </div>
     `;
 
-    if (transaction.type === 0) {
-      sas += "Top Up";
-    } else if (transaction.type === 1 || transaction.type === -1) {
-      sas += "Online";
-    } else {
-      sas += "Offline";
-    }
-
-    sas += `
-        </td>
-      </tr>
-      <tr>
-        <th class="py-2 px-4 text-gray-600 font-semibold">Date-Time</th>
-        <th class="py-2 px-4 text-gray-600 font-semibold">:</th>
-        <td class="py-2 px-4 text-gray-800">${transaction.time}</td>
-      </tr>
-      </table>
-    `;
-
-    transactionDiv.innerHTML = sas;
     div.appendChild(transactionDiv);
   });
 };
