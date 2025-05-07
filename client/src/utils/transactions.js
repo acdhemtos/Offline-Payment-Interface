@@ -122,11 +122,17 @@ const renderTransactions = (div) => {
           <span class="font-medium ${badgeColor}">${typeLabel}</span>
         </div>
       </div>
+
+      <!-- Timestamp at the bottom -->
+      <div class="mt-4 text-xs text-gray-500 text-center">
+        Timestamp: ${formattedTime}
+      </div>
     `;
 
     div.appendChild(transactionDiv);
   });
 };
+
 
 
 initializeTransactions();
