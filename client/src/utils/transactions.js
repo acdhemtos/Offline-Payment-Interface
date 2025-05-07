@@ -130,9 +130,6 @@ const renderTransactions = (div) => {
   });
 };
 
-
-
-
 initializeTransactions();
 
 export { loadTransactions, addTransaction, renderTransactions };
