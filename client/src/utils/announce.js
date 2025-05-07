@@ -95,6 +95,7 @@ function announce(amt){
 */
 function speakAsync(text) {
  return new Promise((resolve, reject) => {
+  //select voice
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.onend = () => { resolve(); };
   utterance.onerror = (event) => { reject(event.error); };
