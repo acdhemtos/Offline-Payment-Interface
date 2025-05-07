@@ -86,6 +86,7 @@ const LoginSignupForm = () => {
             .store(credential)
             .then(() => {
               console.log("Private key stored in credentials.");
+              console.log(credential);
             })
             .catch((error) => {
               console.error("Error storing private key in credentials:", error);
