@@ -79,7 +79,7 @@ const renderTransactions = (div) => {
             <p class="text-lg font-semibold text-gray-800">
               ${transaction.type === 0 ? "Top Up" : transaction.type > 0 ? "Sent" : "Received"}
             </p>
-            <p class="text-sm text-gray-500">${transaction.time}</p>
+            <p class="text-sm text-gray-500">${transaction.date}</p> <!-- Use transaction.date -->
           </div>
         </div>
         <div class="text-right">
@@ -112,7 +112,7 @@ const renderTransactions = (div) => {
     sas += `
           <tr>
             <th class="py-2 px-4 text-gray-600 font-semibold">Date-Time</th>
-            <td class="py-2 px-4 text-gray-800">${transaction.time}</td>
+            <td class="py-2 px-4 text-gray-800">${transaction.date}</td> <!-- Use transaction.date -->
           </tr>
         </table>
       </div>
