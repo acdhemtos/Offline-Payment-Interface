@@ -126,7 +126,7 @@ const renderTransactions = (div) => {
       </div>
 
       <!-- Timestamp at the bottom-right -->
-      <div class="absolute bottom-2 right-2 text-xs text-gray-500">
+      <div class="absolute bottom-2 right-2 text-xs text-gray-500 pt-2">
         Timestamp: ${formattedTime}
       </div>
     `;
