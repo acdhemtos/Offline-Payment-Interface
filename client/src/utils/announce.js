@@ -103,7 +103,7 @@ function speakAsync(text) {
  });
 }
 
-async function ANNOUNCE(amt){
+async function announce(amt){
   //Play Notification BEEP
   if(amt>99){
     await speakAsync(Math.floor(amt/100).toString());
@@ -122,4 +122,4 @@ async function ANNOUNCE(amt){
   await speakAsync("through OPI");
 }
 
-export { ANNOUNCE };
+export { announce };
