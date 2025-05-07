@@ -57,7 +57,7 @@ const addTransaction = (id, other, amount, type, date) => {
 };
 
 const renderTransactions = (div) => {
-  div.innerHTML = ""; // Clear the container
+  div.innerHTML = "";
 
   if (transactionsRef.current.length === 0) {
     div.innerHTML = "<p class='text-gray-500 text-center'>No transactions available.</p>";
@@ -67,64 +67,59 @@ const renderTransactions = (div) => {
   transactionsRef.current.forEach((transaction) => {
     const transactionDiv = document.createElement("div");
     transactionDiv.className = `
-      transaction bg-white border border-gray-200 shadow-md rounded-xl p-5 mb-6 
-      hover:shadow-lg transition-shadow duration-300 relative
+      relative bg-white border border-gray-200 shadow-md rounded-xl p-5 mb-6 
+      hover:shadow-lg transition-shadow duration-300
     `;
 
-    // Masked Transaction ID (e.g., Tx-***12345)
     const maskedId = `${transaction.id.toString().slice(-5)}`;
 
-    // Determine type label and badge color
     let typeLabel = "";
     let badgeColor = "";
     if (transaction.type === 0) {
       typeLabel = "Top Up";
-      badgeColor = "bg-blue-500 text-white"; // Blue for Top Up
+      badgeColor = "bg-blue-500 text-white";
     } else if (transaction.type === 1 || transaction.type === -1) {
       typeLabel = "Online";
-      badgeColor = "bg-green-500 text-white"; // Green for Online
+      badgeColor = "bg-green-500 text-white";
     } else {
       typeLabel = "Offline";
-      badgeColor = "bg-red-500 text-white"; // Red for Offline
+      badgeColor = "bg-red-500 text-white";
     }
 
-    // Sender/Receiver Label
     const otherLabel =
       transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : null;
 
-    // Convert timestamp to readable date/time format
     const formattedTime = new Date(transaction.date).toLocaleString();
 
-    // Content to display in the transaction card
     transactionDiv.innerHTML = `
-      <!-- Badge for Transaction Type at Top Right -->
-      <span class="absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full ${badgeColor}">
-        ${typeLabel}
-      </span>
-
-      <div class="flex justify-between items-center mb-2">
-        <h3 class="text-md font-medium text-gray-800">
-          <span class="text-sm text-gray-500">ID:</span> ${maskedId}
-        </h3>
+      <!-- Badge at top-right -->
+      <div class="absolute top-3 right-3">
+        <span class="px-3 py-1 text-xs font-semibold rounded-full ${badgeColor}">
+          ${typeLabel}
+        </span>
       </div>
 
-      <div class="text-sm text-gray-700 space-y-1">
-        ${otherLabel
-          ? `<div class="flex justify-between">
-              <span class="font-medium text-gray-600">${otherLabel}:</span>
-              <span class="text-gray-800">${transaction.other || "N/A"}</span>
-            </div>`
-          : ""}
-
-        <div class="flex justify-between">
-          <span class="font-medium text-gray-600">Amount:</span>
-          <span class="font-semibold text-gray-800">₹${(transaction.amount / 100).toFixed(2)}</span>
+      <div class="flex flex-col space-y-2 text-sm text-gray-800">
+        <div>
+          <span class="text-gray-500 font-medium">ID:</span> ${maskedId}
+        </div>
+        ${
+          otherLabel
+            ? `<div>
+                <span class="text-gray-500 font-medium">${otherLabel}:</span> ${
+                transaction.other || "N/A"
+              }
+              </div>`
+            : ""
+        }
+        <div>
+          <span class="text-gray-500 font-medium">Amount:</span> ₹${(transaction.amount / 100).toFixed(2)}
         </div>
       </div>
 
-      <!-- Timestamp at the bottom-right of the card -->
-      <div class="absolute bottom-3 right-3 text-xs text-gray-500">
-        Timestamp: ${formattedTime}
+      <!-- Time at bottom-right -->
+      <div class="text-xs text-gray-400 mt-4 text-right">
+        Time: ${formattedTime}
       </div>
     `;
 
