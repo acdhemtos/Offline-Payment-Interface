@@ -23,7 +23,7 @@ async function announce(amt){
       if(amt>0){ await speakAsync("and"); }
     }
     if(amt>0){ await speakAsync(Math.floor(amt).toString() + " " + (amt===1 ? "paise" : "paisa")); }
-    await speakAsync("received through OPI");
+    await speakAsync("received, through OPI");
   };
 }
 
