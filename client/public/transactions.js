@@ -3,10 +3,11 @@ function openTransactions() {
    const request = indexedDB.open("transactions",3);
 
    request.onupgradeneeded = function(){
-     const transactions = db.createObjectStore("transactions", {keyPath:"id"});
+     const db = request.result;
+     const transactions = db.createObjectStore("transactions", {keypath:"id"});
      transactions.createIndex("other",["other"]);
 
-     db.createObjectStore("unsure",{keyPath:"time"});
+     db.createObjectStore("unsure",{keypath:"time"});
    };
 
    request.onsuccess = (event) => {
