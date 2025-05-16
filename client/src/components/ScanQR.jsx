@@ -140,26 +140,15 @@ const ScanQR = () => {
      animationFrameRef.current = requestAnimationFrame(drawCanvas);
   };
 
-useEffect(() => {
-  scannedRef.current = false; // reset on mount
-
-  const video = videoRef.current;
-  if (video) {
-    video.onloadedmetadata = () => {
-      video.play();
-      drawCanvas();
+  useEffect(() => {
+    scannedRef.current = false; // reset on mount
+    drawCanvas();
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
-  }
-
-  return () => {
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
-    }
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach((track) => track.stop());
-    }
-  };
-}, []);
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
