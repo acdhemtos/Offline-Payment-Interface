@@ -183,6 +183,7 @@ const QRMirror = () => {
             width: "500px",
             height: "300px",
             objectFit: "cover",
+            transform: "rotateY(180deg)",
           }}
         ></video>
 
