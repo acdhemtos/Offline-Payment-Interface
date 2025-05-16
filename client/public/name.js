@@ -20,7 +20,7 @@ async function openName() {
 async function getName(username) {
  const db = await openName();
  return new Promise((resolve, reject) => {
-     const transaction = db.transaction("names", "readwrite");
+     const transaction = db.transaction("names", "readonly");
      const store = transaction.objectStore("names");
      const getRequest = store.get(username);
 
