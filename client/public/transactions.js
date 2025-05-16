@@ -19,8 +19,6 @@ function openTransactions() {
  });
 }
 
-//async function addTransaction())
-
 async function loadTransaction(id,transactions){
  while(true){
    try{
