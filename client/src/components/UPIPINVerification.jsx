@@ -5,7 +5,7 @@ import PinDisplay from "./PinDisplay";
 import { motion } from "framer-motion";
 import { AJAX } from "../utils/ajax";
 import { messages } from "../utils/loadMessages";
-
+import { FaArrowLeft } from "react-icons/fa";
 
 const UPIPINVerification = () => {
   const [pin, setPin] = useState("");
