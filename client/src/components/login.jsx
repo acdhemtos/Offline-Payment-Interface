@@ -56,63 +56,72 @@ const LoginSignupForm = () => {
       if (data.code === 0) {
         const db = await openDetails();
         const store = db.transaction("details","readwrite").objectStore("details");
-        request.onupgradeneeded = function(){
-          const db = request.result;
-          const store = db.createObjectStore('details', { keyPath: 'detail' });
+        await new Promise((resolve, reject) => {
+          const request = store.add({detail: 'username', value: username});
+          request.onsuccess = () => resolve();
+          request.onerror = (e) => reject(e.target.error);
+        });
+        await new Promise((resolve, reject) => {
+          const request = store.add({detail: 'session_key', value: data.session_key});
+          request.onsuccess = () => resolve();
+          request.onerror = (e) => reject(e.target.error);
+        });
+        store.add();
+        store.add();
+      
+      
+        
 
-          store.add({detail: 'username', value: username});
-          store.add({detail: 'session_key', value: data.session_key});
-
-          //registering Service Worker
-          if ("serviceWorker" in navigator) {
-            navigator.serviceWorker
-              .register("/service-worker.js")
-              .then((registration) => {
-                //console.log("Service Worker registered with scope:", registration.scope);
-              })
-              .catch((error) => {
-                console.error("Service Worker registration failed:", error);
-              });
-          }
-  
-  
-          // Store credentials using Credential Management API
-          if (navigator.credentials && window.PasswordCredential) {
-            const credential = new PasswordCredential({
-              id: username,
-              password: data.private_key,
-              name: "Private Key Credential",
+        //registering Service Worker
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((registration) => {
+              //console.log("Service Worker registered with scope:", registration.scope);
+            })
+            .catch((error) => {
+              console.error("Service Worker registration failed:", error);
             });
-  
-            navigator.credentials
-              .store(credential)
-              .then(() => {
-                console.log("Private key stored in credentials.");
-                console.log(credential);
-              })
-              .catch((error) => {
-                console.error("Error storing private key in credentials:", error);
-              });
-          }
-  
-          // Request Notification Permission
-          if ("Notification" in window) {
-            Notification.requestPermission()
-              .then((permission) => {
-                if (permission === "granted") {
-                  console.log("Notification permission granted.");
-                } else {
-                  console.warn("Notification permission denied.");
-                }
-              })
-              .catch((error) => {
-                console.error("Error requesting notification permission:", error);
-              });
-          }
-  
-          alert("Login successful!");
-          navigate("/app/home");
-        };
+        }
+
+
+        // Store credentials using Credential Management API
+        if (navigator.credentials && window.PasswordCredential) {
+          const credential = new PasswordCredential({
+            id: username,
+            password: data.private_key,
+            name: "Private Key Credential",
+          });
+
+          navigator.credentials
+            .store(credential)
+            .then(() => {
+              console.log("Private key stored in credentials.");
+              console.log(credential);
+            })
+            .catch((error) => {
+              console.error("Error storing private key in credentials:", error);
+            });
+        }
+
+        // Request Notification Permission
+        if ("Notification" in window) {
+          Notification.requestPermission()
+            .then((permission) => {
+              if (permission === "granted") {
+                console.log("Notification permission granted.");
+              } else {
+                console.warn("Notification permission denied.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error requesting notification permission:", error);
+            });
+        }
+
+        alert("Login successful!");
+        navigate("/app/home");
+      
         
         document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
         
