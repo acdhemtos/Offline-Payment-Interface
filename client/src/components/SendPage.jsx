@@ -31,7 +31,10 @@ const SendPage = () => {
 
       // setShowOpiOption(!!username && !!name && !!amount);
       // setShowOpiOption(!!sender && !!name);
-      setShowOpiOption((!!username || !!sender || !!id) && !!amount);
+      // s setShowOpiOption((!!username || !!sender || !!id) && !!amount);
+      setShowOpiOption(
+  (!!username || !!sender || !!id) && (!!amount || (!!sender && !!name))
+);
       setIsAmountEntered(!!amount);
     }
   }, [location.state]);
