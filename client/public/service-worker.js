@@ -147,20 +147,7 @@ const fetchInterval = 2000;
 
 async function fetchBalance() {
   try {
-    const sessionKey = await getCookieValue("session_key");
-    const username = await getCookieValue("username");
-
-    if (!sessionKey || !username) {
-      console.error("Session key or username missing. Logging out.");
-      logoutUser();
-      return;
-    }
-
-    const response = await fetch("/api/getBalance.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, session_key: sessionKey }),
-    });
+    const response = await AJAX("/api/getBalance.php");
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
