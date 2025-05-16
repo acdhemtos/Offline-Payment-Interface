@@ -17,12 +17,12 @@ async function openName() {
  });
 }
 
-async function getName(name) {
+async function getName(username) {
  const db = await openDetails();
  return new Promise((resolve, reject) => {
-     const transaction = db.transaction("details", "readwrite");
-     const store = transaction.objectStore("details");
-     const getRequest = store.get(detail);
+     const transaction = db.transaction("names", "readwrite");
+     const store = transaction.objectStore("names");
+     const getRequest = store.get(name);
 
      getRequest.onsuccess = () => resolve(getRequest.result);
      getRequest.onerror = () => reject(getRequest.error);
