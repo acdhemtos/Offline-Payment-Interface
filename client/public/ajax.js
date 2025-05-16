@@ -5,7 +5,6 @@ async function openDetails() {
     request.onupgradeneeded = function (event) {
       const db = event.target.result;
       db.createObjectStore("details", { keyPath: "detail" });
-      }
     };
 
     request.onsuccess = function () {
