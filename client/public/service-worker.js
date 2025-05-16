@@ -38,6 +38,7 @@ const urlsToCache = [
 // Cache on install
 self.addEventListener("install", (event) => {
   //loadAllTransactions
+  await AJAX("/api/receive.php", {last_id:-1});
   //getTransactions -1
   console.log("STARTED");
   event.waitUntil(
