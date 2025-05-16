@@ -54,6 +54,10 @@ const LoginSignupForm = () => {
       console.log("Login response:", data);
 
       if (data.code === 0) {
+        
+
+
+
         // Register Service Worker
         if ("serviceWorker" in navigator) {
           
