@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-import crossAnimation from "../assets/cross.json"; // Adjust path if needed
+import crossAnimation from "../assets/cross.json"; 
 
 const Cross = ({ size = 120, loop = false }) => (
   <div className="flex items-center justify-center">
