@@ -1,3 +1,5 @@
+importScripts('name.js');
+importScripts('details.js');
 importScripts('ajax.js');
 
 const CACHE_NAME = "my-app-cache-v1";
