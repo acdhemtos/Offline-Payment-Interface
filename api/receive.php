@@ -65,7 +65,7 @@
 
  if ($stmt->fetch()) { display(34); }
  $stmt = $pdo->prepare("INSERT INTO past_hashes (sender, receiver, hash, time) 
-                           VALUES (:sender, :receiver, :hash, :time)");*/
+                           VALUES (:sender, :receiver, :hash, :time)");
 
  $stmt->execute([
   'sender' => $sender,
@@ -73,7 +73,7 @@
   'hash' => $details_hash,
   'time' => $time,
  ]);
-
+ */
  @require_once('transaction.php');
  handle(0,transaction($sender, $username, $amount, 2));
  
