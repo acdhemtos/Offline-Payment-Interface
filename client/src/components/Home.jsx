@@ -31,7 +31,6 @@ const Home = () => {
     const fetchUsername = async () => {
       try {
         const username = Cookies.get("username" );
-        setUsername("username");
         const data = await AJAX("/api/getName.php", {
           name_username: username,
         });
