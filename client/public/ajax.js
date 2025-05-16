@@ -30,9 +30,11 @@ async function getFromStore(detail) {
 }
 
 async function AJAX(url, data={},tel=true) {
-
-  const username = decodeURIComponent((await getFromStore('username')) || "");
-  const sessionKey = decodeURIComponent((await getFromStore('session_key')) || "");
+  const u = await getFromStore("username");
+  const s = await getFromStore('session_key');
+  console.log(u, s);
+  const username = decodeURIComponent(u || "");
+  const sessionKey = decodeURIComponent(s || "");
   console.log(username, sessionKey);
   const requestData = tel?{ ...data, username, session_key: sessionKey }:data;
 
