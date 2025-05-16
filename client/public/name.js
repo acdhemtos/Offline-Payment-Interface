@@ -31,15 +31,15 @@ async function getName(username) {
        let name = await AJAX("/api/getName.php",{"name_username":username}).name;
        AJAX("/api/getName.php",{"name_username":username}).then(data => {
         name = data.name;
-       })
+        const addRequest = store.add({ username, name });
+
+      addRequest.onsuccess = () => resolve(name);
+      addRequest.onerror = () => reject("Failed to insert default name");
+       });
       }
       catch(error){
        reject(error);
       }
-      const addRequest = store.add({ username, name });
-
-      addRequest.onsuccess = () => resolve(name);
-      addRequest.onerror = () => reject("Failed to insert default name");
      };
  });
 }
