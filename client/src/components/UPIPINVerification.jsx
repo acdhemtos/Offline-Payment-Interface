@@ -85,7 +85,6 @@ const UPIPINVerification = () => {
     >
       {result ? (
         <>
-          {/* Back button on top left */}
           <button
             className="absolute top-4 left-4 bg-red-500 text-white px-6 py-2 rounded-lg text-lg shadow-md hover:bg-red-600 transition z-50"
             onClick={() => {
