@@ -25,6 +25,7 @@ async function loadTransaction(id,transactions){
  while(true){
    try{
      const data = await AJAX("/api/getTransaction.php", {"id":id});
+     console.log(data);
      transactions.add(data["data"]);
    }
    catch(error){
