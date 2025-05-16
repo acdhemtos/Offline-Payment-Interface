@@ -25,6 +25,9 @@ async function loadTransaction(id,transactions){
  while(true){
    try{
      const data = await AJAX("/api/getTransaction.php", {"id":id});
+     if(data.other===undefined){
+      data.other = null;
+     }
      const db = await openTransactions();
      const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
      transactions.add(data["data"]);
