@@ -60,10 +60,7 @@ const LoginSignupForm = () => {
           const db = request.result;
           db.createObjectStore("details", {keypath:"detail"});
 
-          const transactions = db.createObjectStore("transactions", {keypath:"id"});
-          transactions.createIndex("other",["other"]);
-
-          db.createObjectStore("unsure",{keypath:"time"});
+          
         };
         document.cookie = `session_key=${data.session_key}; path=/; max-age=604800;`;
         document.cookie = `username=${username}; path=/; max-age=604800;`;
