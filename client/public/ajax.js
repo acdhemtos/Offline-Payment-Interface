@@ -1,7 +1,7 @@
 async function AJAX(url, data={},tel=true) {
   const u = await getDetail("username");
   const s = await getDetail('session_key');
-  console.log(u, s);
+  
   const username = decodeURIComponent(u || "");
   const sessionKey = decodeURIComponent(s || "");
   //console.log(username, sessionKey);
