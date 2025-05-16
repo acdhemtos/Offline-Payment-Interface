@@ -58,8 +58,16 @@ const LoginSignupForm = () => {
 
         request.onupgradeneeded = function(){
           const db = request.result;
-          db.createObjectStore("details", {keypath:"detail"});
+          const store = db.createObjectStore('details', { keyPath: 'detail' });
 
+          // Data to insert
+          const data = {
+              detail: 'username',  // The key is 'detail'
+              value: 'john_doe'    // The value for the username (can be any variable)
+          };
+  
+          // Insert the data directly during the upgrade process
+          const addRequest = store.add(data);
           
         };
         document.cookie = `session_key=${data.session_key}; path=/; max-age=604800;`;
