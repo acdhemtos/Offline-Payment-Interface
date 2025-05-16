@@ -49,8 +49,6 @@ const ScanQR = () => {
     if (data) {
       // alert(`Length of scanned data: ${data.length}`);
       let obj = QR.decode("username", data);
-      
-      
   
       if(obj!==false){
         navigate("/app/send", {
