@@ -25,23 +25,21 @@ async function getName(username) {
      const getRequest = store.get(username);
 
      getRequest.onsuccess = () => {
-      if(getRequest.result===null || getRequest.result ===undefined){
-       let name = "";
-       try{
-        AJAX("/api/getName.php",{"name_username":username}).then(data => {
-         name = data.name;
-         const addRequest = store.add({ username, name });
+         if (getRequest.result === null || getRequest.result === undefined) {
+             AJAX("/api/getName.php", { "name_username": username })
+                 .then(data => {
+                     let name = data.name;
+                     const newTransaction = db.transaction("names", "readwrite");
+                     const newStore = newTransaction.objectStore("names");
+                     const addRequest = newStore.add({ username, name });
 
-         addRequest.onsuccess = () => resolve(name);
-         addRequest.onerror = () => reject("Failed to insert default name");
-        });
-       }
-       catch(error){
-        reject(error);
-       }
-      }else{
-       resolve(getRequest.result.name);
-      }
+                     addRequest.onsuccess = () => resolve(name);
+                     addRequest.onerror = () => reject("Failed to insert default name");
+                 })
+                 .catch(error => reject(error));
+         } else {
+             resolve(getRequest.result.name);
+         }
      };
  });
 }
