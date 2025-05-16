@@ -107,10 +107,10 @@ const Home = () => {
 
         //delete IndexDB
         window.indexedDB.deleteDatabase("opi");
+        window.indexedDB.deleteDatabase("names");
         window.indexedDB.deleteDatabase("details");
 
-        Cookies.remove("session_key", { path: "/" });
-        Cookies.remove("username", { path: "/" });
+
         Cookies.remove("private_key", { path: "/" });
 
         alert("You have been logged out.");
