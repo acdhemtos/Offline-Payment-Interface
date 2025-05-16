@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const circleLength = 2 * Math.PI * 36;
 
-const Tick = ({ color = "#22c55e", size = 80 }) => (
+const Tick = ({ color = "#22c55e", size = 60 }) => (
   <motion.div
     className="flex items-center justify-center"
     initial={{ opacity: 0, scale: 0.8 }}
