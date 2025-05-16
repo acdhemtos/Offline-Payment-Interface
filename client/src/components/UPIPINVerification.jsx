@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { AJAX } from "../utils/ajax";
 import { messages } from "../utils/loadMessages";
 import { FaArrowLeft } from "react-icons/fa";
+import Tick from "./Tick";
 
 const UPIPINVerification = () => {
   const [pin, setPin] = useState("");
