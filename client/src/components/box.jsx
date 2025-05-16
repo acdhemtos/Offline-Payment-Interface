@@ -108,7 +108,7 @@ const QRMirror = () => {
             stopCamera();
 
             if (data.code === 0) {
-              setStatusMessage("Transaction Success ✅");
+              setStatusMessage("Transaction Success");
               const { id: trans_id, verification_hash } = data;
               generateQR(QR.encode("trans_id+verification_hash", trans_id, verification_hash));
             } else {
@@ -190,14 +190,14 @@ const QRMirror = () => {
         ></video>
 
         {!looking && statusMessage && (
-         <div
-         onClick={resetState}
-         className={`absolute inset-0 flex items-center justify-center text-lg font-semibold cursor-pointer rounded-lg ${
-           statusMessage.includes("Success")
-             ? "bg-green-100 text-green-700"
-             : "bg-red-100 text-red-700"
-         }`}
-       >
+          <div
+            onClick={resetState}
+            className={`absolute inset-0 flex flex-col items-center justify-center text-lg font-semibold cursor-pointer rounded-lg ${
+              statusMessage.includes("Success")
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}
+          >
           {statusMessage.includes("Success") ? (
               <>
                 <Tick  />
