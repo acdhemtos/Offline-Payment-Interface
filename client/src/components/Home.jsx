@@ -39,7 +39,7 @@ const Home = () => {
           const capitalizedUsername =
             name.charAt(0).toUpperCase() + name.slice(1);
           setUsername(capitalizedUsername);
-        }
+        
       } catch (error) {
         console.error("Error fetching username:", error);
       }
