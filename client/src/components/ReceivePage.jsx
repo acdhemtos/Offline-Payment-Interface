@@ -34,7 +34,6 @@ const ReceivePage = () => {
 
   const generateReceiveQR = async(amount = "", name = false) => {
     const username = await getDetail("username");
-      
     if (amount != "") {
       let amt = amount * 100;
       if (name !== false) {
