@@ -31,15 +31,13 @@ const Home = () => {
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const user = await getDetail("username");
+        const username = await getDetail("username");
        
-        const data = await getName(user);
+        const name = await getName(username);
 
-        if (data && data.name) {
-          // console.log("S", data);
-          localStorage.setItem("name", data.name);
+        
           const capitalizedUsername =
-            data.name.charAt(0).toUpperCase() + data.name.slice(1);
+            name.charAt(0).toUpperCase() + name.slice(1);
           setUsername(capitalizedUsername);
         }
       } catch (error) {
