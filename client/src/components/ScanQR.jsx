@@ -136,7 +136,8 @@ const ScanQR = () => {
       }
     }
 
-    requestAnimationFrame(drawCanvas);
+    // requestAnimationFrame(drawCanvas);
+     animationFrameRef.current = requestAnimationFrame(drawCanvas);
   };
 
   useEffect(() => {
