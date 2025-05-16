@@ -43,12 +43,11 @@ const ScanQR = () => {
 
   const handleScanComplete = (data) => {
 
-    if (scanned) return;
-    //scannedRef.current = true;
+    if (scannedRef.current) return;
+    scannedRef.current = true;
     setScanned(true);
     if (data) {
-      alert(`Length of scanned data: ${data.length}`);
-      console.log("1");
+      // alert(`Length of scanned data: ${data.length}`);
       let obj = QR.decode("username", data);
       
       
@@ -110,7 +109,7 @@ const ScanQR = () => {
   };
 
   const drawCanvas = () => {
-     if (scannedRef) return;
+     if (scannedRef.current) return;
     const video = videoRef.current;
     const canvas = canvasRef.current;
 
@@ -129,7 +128,6 @@ const ScanQR = () => {
         const imageData = context.getImageData(x, y, boxSize, boxSize);
         if (imageData && imageData.data) {
           const code = jsQR(imageData.data, boxSize, boxSize);
-          console.log(code);
 
           if (code) {
             handleScanComplete(code.data);
@@ -143,7 +141,7 @@ const ScanQR = () => {
   };
 
   useEffect(() => {
-    //scannedRef.current = false; // reset on mount
+    scannedRef.current = false; // reset on mount
     drawCanvas();
     return () => {
       if (animationFrameRef.current) {
