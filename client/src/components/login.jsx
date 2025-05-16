@@ -63,7 +63,7 @@ const LoginSignupForm = () => {
           const transactions = db.createObjectStore("transactions", {keypath:"id"});
           transactions.createIndex("other",["other"]);
 
-          unsure = db.createObjectStore("unsure",{keypath:"time"});
+          db.createObjectStore("unsure",{keypath:"time"});
           
         };
 
