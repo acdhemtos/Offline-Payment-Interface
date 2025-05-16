@@ -76,7 +76,7 @@ async function loadTransaction(id,db){
 // Cache on install
 self.addEventListener("install", async (event) => {
   const db = await openDatabase();
-  const tx = db.transaction('transactions')
+  const tx = db.transaction('transactions',"readwrite").objectStore("transactions");
   //loadAllTransactions
   AJAX("/api/receive.php", {"last_id":-1}).then(data => {
     data["ids"].forEach((id, index) => {
