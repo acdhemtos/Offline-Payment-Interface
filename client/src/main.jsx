@@ -25,8 +25,6 @@ async function init() {
         } else if (type === 'logout' && !isLoggingOut) {
           isLoggingOut = true; // Prevent further logout executions
           console.warn("Session expired or logged in elsewhere. Logging out.");
-          document.cookie = "session_key=; path=/; max-age=0;";
-          document.cookie = "username=; path=/; max-age=0;";
           document.cookie = "private_key=; path=/; max-age=0;";
           console.log("Redirecting to /...");
           if (window.location.pathname !== "/account/login") {
