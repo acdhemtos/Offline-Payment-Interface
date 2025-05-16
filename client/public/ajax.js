@@ -6,8 +6,10 @@ function getCookie(name) {
 
 
 async function AJAX(url, data={},tel=true) {
-  const username = decodeURIComponent((cookieStore.get('username'))  || "");
-  const sessionKey = decodeURIComponent(getCookie("session_key") || "");
+  cookieStore.get('username').then(data);
+
+  const username = decodeURIComponent((await cookieStore.get('username').value) || "");
+  const sessionKey = decodeURIComponent((await cookieStore.get('session_key').value) || "");
   
   const requestData = tel?{ ...data, username, session_key: sessionKey }:data;
 
