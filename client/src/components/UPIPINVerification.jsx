@@ -95,77 +95,12 @@ const UPIPINVerification = () => {
           >
             <FaArrowLeft className="text-2xl" />
           </button>
-                   
           <div className="flex flex-col items-center justify-center flex-1 w-full mt-24">
-            {result === "success" && (
-              <div className="mb-6 flex items-center justify-center">
-                <svg
-                  width="90"
-                  height="90"
-                  viewBox="0 0 90 90"
-                  className="block"
-                  style={{ display: "block" }}
-                >
-                  {/* Animated green circle with white border animation */}
-                  <circle
-                    cx="45"
-                    cy="45"
-                    r="40"
-                    fill="#22c55e"
-                    stroke="#fff"
-                    strokeWidth="6"
-                  />
-                  <circle
-                    cx="45"
-                    cy="45"
-                    r="40"
-                    fill="none"
-                    stroke="#fff"
-                    strokeWidth="6"
-                    strokeDasharray={2 * Math.PI * 40}
-                    strokeDashoffset={2 * Math.PI * 40}
-                    style={{
-                      animation: "drawCircle 1s ease-out forwards"
-                    }}
-                  />
-                  {/* Checkmark */}
-                  <polyline
-                    points="30,48 42,60 62,38"
-                    fill="none"
-                    stroke="#fff"
-                    strokeWidth="6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{
-                      animation: "drawCheck 0.5s 0.7s ease-out forwards",
-                      strokeDasharray: 40,
-                      strokeDashoffset: 40
-                    }}
-                  />
-                </svg>
-                {/* Keyframes for animation */}
-                <style>
-                  {`
-                    @keyframes drawCircle {
-                      to {
-                        stroke-dashoffset: 0;
-                      }
-                    }
-                    @keyframes drawCheck {
-                      to {
-                        stroke-dashoffset: 0;
-                      }
-                    }
-                  `}
-                </style>
-              </div>
-            )}
-            <div className={`text-2xl font-bold mb-4 ${result === "success" ? "text-green-600" : "text-red-600"}`}>
+            <div className={`text-2xl font-bold mb-4 ${result === "success" ? "text-green-600 bg-green-500 " : "text-red-600 bg-red-500"}`}>
               {result === "success" ? "Transaction Successful" : "Transaction Failed"}
             </div>
             <div className="text-base text-center">{resultMessage}</div>
           </div>
-          // ...existing code...
         </>
       ) : (
         <>
