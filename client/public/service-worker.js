@@ -52,7 +52,7 @@ self.addEventListener("install", (event) => {
   //loadAllTransactions
   AJAX("/api/receive.php", {last_id:-1}).then(data => {
     data["ids"].forEach((id, index) => {
-      console.log(id);
+      insertTransaction(id);
     });
   });
   //getTransactions -1
