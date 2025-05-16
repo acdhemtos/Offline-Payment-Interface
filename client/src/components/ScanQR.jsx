@@ -12,7 +12,9 @@ const ScanQR = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [scanned, setScanned] = useState(false);
-
+  const animationFrameRef = useRef(null);
+  const scannedRef = useRef(false);
+  
   useEffect(() => {
     const startCamera = async () => {
       navigator.mediaDevices
