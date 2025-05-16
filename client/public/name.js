@@ -24,7 +24,7 @@ async function getName(username) {
      const store = transaction.objectStore("names");
      const getRequest = store.get(username);
 
-     getRequest.onsuccess = () => resolve(getRequest.result);
+     getRequest.onsuccess = () => resolve(getRequest.result.name);
      getRequest.onerror = () => reject(getRequest.error);
  });
 }
