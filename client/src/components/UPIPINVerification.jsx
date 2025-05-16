@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { AJAX } from "../utils/ajax";
 import { messages } from "../utils/loadMessages";
 import { FaArrowLeft } from "react-icons/fa";
-import Tick from "./Tick";
+// import Tick from "./Tick";
 
 const UPIPINVerification = () => {
   const [pin, setPin] = useState("");
@@ -104,11 +104,11 @@ const UPIPINVerification = () => {
           </button>
           <div className="flex flex-col items-center justify-center flex-1 w-full mt-24 ">
             <div className={`text-2xl font-bold mb-4 text-gray-200`}>
-              {result === "success" && (
+              {/* {result === "success" && (
             <div className="mb-6">
               <Tick  />
             </div>
-          )}     
+          )}      */}
               {result === "success" ? "Transaction Successful" : "Transaction Failed"}
             </div>
             <div className="text-base text-center">{resultMessage}</div>
