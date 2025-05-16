@@ -58,12 +58,11 @@ function openDatabase() {
 
 //async function addTransaction())
 
-async function loadTransaction(id,db){
+async function loadTransaction(id,transactions){
   while(true){
     try{
       const data = await AJAX("/api/receive.php", {"id":id});
-      //open database
-      //
+      transactions.add(data["data"]);
     }
     catch(error){
       console.error(error);
