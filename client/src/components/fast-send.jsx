@@ -7,6 +7,8 @@ import { QR } from "../utils/qrFunctions";
 import jsQR from "jsqr";
 import { FaArrowLeft } from "react-icons/fa";
 import { addTransaction } from "../utils/transactions";
+import Tick from "./Tick";
+import Cross from "./Cross";
 
 const FastSend = () => {
   const location = useLocation();
