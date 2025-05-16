@@ -308,12 +308,12 @@ const ReceivePage = () => {
       >
         {transactionStatus === "success" ? (
           <>
-            <Tick size={100} />
+            <Tick  />
             <div className="mt-2">Transaction Successful</div>
           </>
         ) : (
           <>
-            <Cross size={100} />
+            <Cross />
             <div className="mt-2">Transaction Failed</div>
             <div className="text-base font-normal">{failureMessage}</div>
           </>
