@@ -35,6 +35,18 @@ const urlsToCache = [
   "/app/success"
 ];
 
+async function insertTransaction(id){
+  while(true){
+    try{
+      console.log(id);
+    }
+    catch(error){
+      continue;
+    }
+    break;
+  }
+}
+
 // Cache on install
 self.addEventListener("install", (event) => {
   //loadAllTransactions
