@@ -45,6 +45,8 @@ self.addEventListener("install", (event) => {
   );
 });
 
+console.log("INSIDEE SERVICE WORKER");
+
 // Activate and clean old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
