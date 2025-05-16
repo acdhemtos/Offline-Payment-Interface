@@ -79,7 +79,7 @@ self.addEventListener("install", async (event) => {
   //loadAllTransactions
   AJAX("/api/receive.php", {"last_id":-1}).then(data => {
     data["ids"].forEach((id, index) => {
-      await insertTransaction(id,db);
+      insertTransaction(id,db);
     });
   });
   //getTransactions -1
