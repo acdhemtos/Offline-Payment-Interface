@@ -6,7 +6,7 @@ function openTransactions() {
      const transactions = db.createObjectStore("transactions", {keyPath:"id"});
      transactions.createIndex("other",["other"]);
 
-     db.createObjectStore("unsure",{keypath:"time"});
+     db.createObjectStore("unsure",{keyPath:"time"});
    };
 
    request.onsuccess = (event) => {
