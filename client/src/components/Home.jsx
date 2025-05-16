@@ -83,7 +83,6 @@ const Home = () => {
 
       if (!session_key || !username) {
         alert("Session key or username is missing. Unable to log out.");
-        return;
       }
 
        //delete IndexDB
