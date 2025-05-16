@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import PinDisplay from "./PinDisplay";
-import { AJAX } from "../../public/ajax";
+// import { AJAX } from "../../public/ajax";
 import { messages } from "../utils/loadMessages";
 
 const SetPin = () => {
