@@ -30,7 +30,7 @@ async function loadTransaction(id,transactions){
      }
      const db = await openTransactions();
      const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
-     transactions.add(data["data"]);
+     transactions.add({ idLid,...data["data"]});
    }
    catch(error){
      console.error(error);
