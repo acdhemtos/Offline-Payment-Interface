@@ -79,7 +79,7 @@ const UPIPINVerification = () => {
 
   return (
     <motion.div
-      className="flex flex-col min-h-screen items-center justify-center bg-gray-100 w-full px-4 relative"
+      className="flex flex-col min-h-screen items-center justify-center ${} w-full px-4 relative"
       initial={{ x: "100vw" }}
       animate={{ x: 0 }}
       transition={{ type: "tween", ease: "easeOut", duration: 0.1 }}
@@ -96,8 +96,8 @@ const UPIPINVerification = () => {
           >
             <FaArrowLeft className="text-2xl" />
           </button>
-          <div className="flex flex-col items-center justify-center flex-1 w-full mt-24 bg-black">
-            <div className={`text-2xl font-bold mb-4 ${result === "success" ? "text-green-600 bg-green-500 " : "text-red-600 bg-red-500"}`}>
+          <div className="flex flex-col items-center justify-center flex-1 w-full mt-24 ">
+            <div className={`text-2xl font-bold mb-4 ${result === "success" ? "text-green-600  " : "text-red-600"}`}>
               <Tick color="#22c55e" />      
               {result === "success" ? "Transaction Successful" : "Transaction Failed"}
             </div>
