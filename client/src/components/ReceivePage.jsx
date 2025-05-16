@@ -302,11 +302,14 @@ const ReceivePage = () => {
                   : "bg-white/80 text-red-700"
               }`}
             >
-              {transactionStatus === "success"
-                ? "Transaction Successful"
-                : failureMessage}
-            </div>
-          )}
+              {transactionStatus === "success" ? (
+                "Transaction Successful"
+              ) : (
+                <div>
+                  <div>Transaction Failed</div>
+                  <div>{failureMessage}</div>
+                </div>
+              )}
         </div>
       )}
       <ToastContainer />
