@@ -17,6 +17,12 @@ function openTransactions() {
  });
 }
 
+async function addTransaction(id,amount,type,other,time){
+ const db = await openTransactions();
+ const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
+ transactions.add({ id,amount,type,other,time});
+}
+
 async function loadTransaction(id,transactions){
  while(true){
    try{
