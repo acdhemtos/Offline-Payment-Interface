@@ -24,7 +24,7 @@ async function getDetail(detail) {
      const store = transaction.objectStore("details");
      const getRequest = store.get(detail);
 
-     getRequest.onsuccess = () => resolve(getRequest.result);
+     getRequest.onsuccess = () => resolve(getRequest.result.value);
      getRequest.onerror = () => reject(getRequest.error);
  });
 }
