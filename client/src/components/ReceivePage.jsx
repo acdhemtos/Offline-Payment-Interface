@@ -170,7 +170,7 @@ const ReceivePage = () => {
             // setShowCheckmark(true);
             // setTimeout(() => setShowCheckmark(false), 2000);
           } else {
-            setFailureMessage("Transaction Failed\n" + messages[code - 1]);
+            setFailureMessage(messages[code - 1]);
             setTransactionStatus("failure");
             if (code == 30) {
               qrString = QR.encode("code+hash", 30, data.verification_hash);
