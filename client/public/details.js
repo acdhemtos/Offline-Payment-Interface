@@ -1,6 +1,6 @@
 async function openDetails() {
  return new Promise((resolve, reject) => {
-     const request = indexedDB.open("details", 1);
+     const request = indexedDB.open("details", 2);
 
      request.onupgradeneeded = function (event) {
          console.log("Upgrade needed");
