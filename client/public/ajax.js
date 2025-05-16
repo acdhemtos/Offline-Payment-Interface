@@ -4,14 +4,7 @@ async function openDetails() {
 
     request.onupgradeneeded = function (event) {
       const db = event.target.result;
-
-      // Create the object store if it doesn't exist
-      if (!db.objectStoreNames.contains("details")) {
-        const store = db.createObjectStore("details", { keyPath: "detail" });
-
-        // Optional: add initial data
-        store.add({ detail: "username", value: "john_doe" });
-        store.add({ detail: "session_key", value: "abc123" });
+      db.createObjectStore("details", { keyPath: "detail" });
       }
     };
 
