@@ -152,9 +152,9 @@ async function fetchBalance() {
     // if (!response.ok) {
     //   throw new Error(`HTTP error! status: ${response.status}`);
     // }
-    if (!data || typeof data.code === "undefined") {
-  throw new Error("Invalid response from server");
-}
+      if (!data || typeof data.code === "undefined") {
+    throw new Error("Invalid response from server");
+  }
 
     const data = await response.json();
 
