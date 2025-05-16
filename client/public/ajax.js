@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 
 function AJAX(url, data={},tel=true) {
   const username = decodeURIComponent(Cookies.get("username") || "");
@@ -22,5 +21,3 @@ function AJAX(url, data={},tel=true) {
       console.error("AJAX Error:", error);
     });
 }
-
-export { AJAX };
