@@ -27,30 +27,6 @@ const Home = () => {
   const [isPinSet, setIsPinSet] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  
-useEffect(() => {
-  const fetchUsernameFromIndexedDB = async () => {
-    try {
-      const db = await window.indexedDB.open("details", 1);
-      db.onsuccess = function () {
-        const database = db.result;
-        const transaction = database.transaction("details", "readonly");
-        const store = transaction.objectStore("details");
-        const getRequest = store.get("username");
-        getRequest.onsuccess = function () {
-          const result = getRequest.result;
-          if (result) {
-            setUsername(result.value); // or result.username depending on your schema
-          }
-        };
-      };
-    } catch (error) {
-      console.error("Error fetching from IndexedDB:", error);
-    }
-  };
-
-  fetchUsernameFromIndexedDB();
-}, []);
 
   useEffect(() => {
     const fetchUsername = async () => {
