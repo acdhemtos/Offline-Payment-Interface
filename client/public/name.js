@@ -28,7 +28,6 @@ async function getName(username) {
      getRequest.onerror = () => {
       let name = "";
       try{
-       let name = await AJAX("/api/getName.php",{"name_username":username}).name;
        AJAX("/api/getName.php",{"name_username":username}).then(data => {
         name = data.name;
         const addRequest = store.add({ username, name });
