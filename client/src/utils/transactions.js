@@ -76,6 +76,7 @@ const renderTransactions = (div) => {
     // Type badge
     let typeLabel = "";
     let badgeColor = "";
+    let othe
     if (transaction.type === 0) {
       typeLabel = "Top Up";
       badgeColor = "bg-blue-100 text-blue-600";
