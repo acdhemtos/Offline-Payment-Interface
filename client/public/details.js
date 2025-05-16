@@ -12,9 +12,7 @@ async function openDetails() {
 
      request.onsuccess = function (event) {
          const db = event.target.result;
-         console.log("Database opened successfully:", db);
 
-         // Check if the object store exists
          if (!db.objectStoreNames.contains("details")) {
              console.error("Object store 'details' missing! Closing DB.");
              db.close();
