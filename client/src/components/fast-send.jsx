@@ -7,6 +7,8 @@ import { QR } from "../utils/qrFunctions";
 import jsQR from "jsqr";
 import { FaArrowLeft } from "react-icons/fa";
 import { addTransaction } from "../utils/transactions";
+import Tick from "./Tick";
+import Cross from "./Cross";
 
 const FastSend = () => {
   const location = useLocation();
@@ -234,8 +236,22 @@ const FastSend = () => {
       />
       {showOverlay && backgroundColor === "bg-green-500" && (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-70 z-40">
-          <div className="text-2xl font-semibold text-green-500">
-            Transaction Successful
+          <div className="flex flex-col items-center">
+            <Tick size={120} />
+            <div className="mt-4 text-2xl font-semibold text-green-500">
+              Transaction Successful
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showOverlay && backgroundColor === "bg-red-500" && (
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-70 z-50">
+          <div className="flex flex-col items-center">
+            <Cross size={120} />
+            <div className="mt-4 text-2xl font-semibold text-red-500">
+              Transaction Failed
+            </div>
           </div>
         </div>
       )}
