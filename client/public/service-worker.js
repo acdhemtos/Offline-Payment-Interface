@@ -1,6 +1,7 @@
 importScripts('details.js');
 importScripts('ajax.js');
 importScripts('name.js');
+importScripts('transactions.js');
 
 const CACHE_NAME = "my-app-cache-v1";
 const urlsToCache = [
