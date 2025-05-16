@@ -210,7 +210,7 @@ export const QR = {
       
       
     }
-    console.log("ENCODED",values,encodeFormat,str);
+    console.log("ENCODED",values,encodeFormat,(str,str.length));
     return str;
   },
   decode : function(decodeFormat,decodeString){
