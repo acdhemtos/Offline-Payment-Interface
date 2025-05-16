@@ -65,7 +65,8 @@ const LoginSignupForm = () => {
           const request = store.add({detail: 'session_key', value: data.session_key});
           request.onsuccess = () => resolve();
           request.onerror = (e) => reject(e.target.error);
-        });       
+        });     
+        document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
 
         //registering Service Worker
         if ("serviceWorker" in navigator) {
@@ -118,7 +119,7 @@ const LoginSignupForm = () => {
         navigate("/app/home");
       
         
-        document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
+        
         
       } else {
         console.error("Login failed with code:", data.code);
