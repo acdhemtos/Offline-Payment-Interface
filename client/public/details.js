@@ -17,7 +17,7 @@ async function openDetails() {
  });
 }
 
-async function getFromStore(detail) {
+async function getDetail(detail) {
  const db = await openDetails();
  return new Promise((resolve, reject) => {
      const transaction = db.transaction("details", "readonly");
