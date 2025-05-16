@@ -39,7 +39,9 @@ const urlsToCache = [
 self.addEventListener("install", (event) => {
   //loadAllTransactions
   AJAX("/api/receive.php", {last_id:-1})then(data => {
-    console.log(data);
+    data["ids"].forEach((id, index) => {
+      console.log(id);
+    });
   });
   //getTransactions -1
   console.log("STARTED");
