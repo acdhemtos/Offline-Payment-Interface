@@ -39,46 +39,11 @@ const urlsToCache = [
   "/app/success"
 ];
 
-function openDatabase() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open("opi",1);
 
-    request.onupgradeneeded = function(){
-      const db = request.result;
-      db.createObjectStore("users", {keypath:"username"});
-
-      const transactions = db.createObjectStore("transactions", {keypath:"id"});
-      transactions.createIndex("other",["other"]);
-
-      db.createObjectStore("unsure",{keypath:"time"});
-    };
-
-    request.onsuccess = (event) => {
-      const dbInstance = event.target.result;
-      resolve(dbInstance);
-    };
-  });
-}
-
-//async function addTransaction())
-
-async function loadTransaction(id,transactions){
-  while(true){
-    try{
-      const data = await AJAX("/api/getTransaction.php", {"id":id});
-      transactions.add(data["data"]);
-    }
-    catch(error){
-      console.error(error);
-      continue;
-    }
-    break;
-  }
-}
 
 // Cache on install
 self.addEventListener("install", async (event) => {
-  const db = await openDatabase();
+  const db = await openTransactions();
   const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
   
   AJAX("/api/getTransactions.php", {"last_id":-1}).then(data => {
