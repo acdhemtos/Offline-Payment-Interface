@@ -106,7 +106,7 @@ const Home = () => {
         }
 
         //delete IndexDB
-        window.indexedDB.deleteDatabase("opi");
+        window.indexedDB.deleteDatabase("transactions");
         window.indexedDB.deleteDatabase("names");
         window.indexedDB.deleteDatabase("details");
 
