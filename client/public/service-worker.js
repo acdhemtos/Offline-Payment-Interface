@@ -35,6 +35,33 @@ const urlsToCache = [
   "/app/success"
 ];
 
+function openDatabase() {
+  return new Promise((resolve, reject) => {
+    if (dbInstance) {
+      resolve(dbInstance); // reuse existing connection
+      return;
+    }
+
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+    request.onerror = (event) => {
+      reject('Database error: ' + event.target.errorCode);
+    };
+
+    request.onsuccess = (event) => {
+      dbInstance = event.target.result;
+      resolve(dbInstance);
+    };
+
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME, { keyPath: 'id' }); // customize keyPath
+      }
+    };
+  });
+}
+
 //async function addTransaction())
 
 async function loadTransaction(id){
