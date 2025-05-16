@@ -41,7 +41,8 @@ async function loadTransaction(id){
   while(true){
     try{
       const data = await AJAX("/api/receive.php", {"id":id});
-      
+      //open database
+      //
     }
     catch(error){
       console.error(error);
