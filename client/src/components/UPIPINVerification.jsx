@@ -104,16 +104,14 @@ const UPIPINVerification = () => {
             <FaArrowLeft className="text-2xl" />
           </button>
           <div className="flex flex-col items-center justify-center flex-1 w-full mt-24 ">
-            <div className={`text-2xl font-bold mb-4 text-gray-200`}>
-              {result === "success" && (
-            <div className="mb-6">
-              <Tick  />
-            </div>
-          )}     
-              {result === "success" ? "Transaction Successful" : "Transaction Failed"}
-            </div>
-            <div className="text-base text-center">{resultMessage}</div>
+          <div className="mb-6">
+            {result === "success" ? <Tick /> : <Cross />}
           </div>
+          <div className={`text-2xl font-bold mb-4 ${result === "success" ? "text-green-600" : "text-red-600"}`}>
+            {result === "success" ? "Transaction Successful" : "Transaction Failed"}
+          </div>
+          <div className="text-base text-center">{resultMessage}</div>
+        </div>
         </>
       ) : (
         <>
