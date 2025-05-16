@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-function AJAX(url, data,tel=true) {
+function AJAX(url, data={},tel=true) {
   const username = decodeURIComponent(Cookies.get("username") || "");
   const sessionKey = decodeURIComponent(Cookies.get("session_key") || "");
   
