@@ -13,7 +13,7 @@ const QRMirror = () => {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const [amount, setAmount] = useState("");
-   const lookingRef = useRef(false);
+   const lookingRef = useRef(true);
 
   const username = "receiver";
   const name = "merchant";
