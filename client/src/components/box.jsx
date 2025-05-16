@@ -13,6 +13,7 @@ const QRMirror = () => {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const [amount, setAmount] = useState("");
+  // const lookingRef = useRef(false);
 
   const username = "receiver";
   const name = "merchant";
@@ -32,6 +33,7 @@ const QRMirror = () => {
     setStatusMessage("");
     setShowLoader(false);
     setLooking(true);
+    //lookingRef.current = true;
     generateQR(QR.encode("username+name", username, name));
    startCamera();
   };
@@ -61,6 +63,7 @@ const QRMirror = () => {
   const scanQRCode = () => {
     const video = videoRef.current;
     if (!video || !looking) return;
+    // if(!video || !lookingRef.current) return;
 
     if (video.videoWidth > 0 && video.videoHeight > 0) {
       const canvas = document.createElement("canvas");
@@ -81,7 +84,8 @@ const QRMirror = () => {
     requestAnimationFrame(scanQRCode);
   };
 
-  const handleScanComplete = (data) => {
+  const handleScanComplete = (data) => {]
+    // if( date && lookingRef.current){
     if (data && looking) {
       console.log("Scanned QR Data:", data);
       setLooking(false);
