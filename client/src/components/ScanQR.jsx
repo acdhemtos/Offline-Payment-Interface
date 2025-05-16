@@ -141,7 +141,13 @@ const ScanQR = () => {
   };
 
   useEffect(() => {
+    scannedRef.current = false; // reset on mount
     drawCanvas();
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
   }, []);
 
   return (
