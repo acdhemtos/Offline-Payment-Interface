@@ -28,6 +28,7 @@ async function loadTransaction(id,transactions){
      if(data.other===undefined){
       data.other = null;
      }
+     console.log({ id:id,...data["data"]});
      const db = await openTransactions();
      const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
      transactions.add({ id:id,...data["data"]});
