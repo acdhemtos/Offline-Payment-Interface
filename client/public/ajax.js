@@ -2,8 +2,8 @@ async function AJAX(url, data={},tel=true) {
   const u = await getFromStore("username");
   const s = await getFromStore('session_key');
   console.log(u, s);
-  const username = decodeURIComponent(u.value || "");
-  const sessionKey = decodeURIComponent(s.value || "");
+  const username = decodeURIComponent(u || "");
+  const sessionKey = decodeURIComponent(s || "");
   //console.log(username, sessionKey);
   const requestData = tel?{ ...data, username, session_key: sessionKey }:data;
 
