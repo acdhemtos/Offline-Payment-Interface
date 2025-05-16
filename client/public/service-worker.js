@@ -37,27 +37,21 @@ const urlsToCache = [
 
 function openDatabase() {
   return new Promise((resolve, reject) => {
-    if (dbInstance) {
-      resolve(dbInstance); // reuse existing connection
-      return;
-    }
+    const request = window.indexedDB.open("opi",1);
 
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
+    request.onupgradeneeded = function(){
+      const db = request.result;
+      db.createObjectStore("users", {keypath:"username"});
 
-    request.onerror = (event) => {
-      reject('Database error: ' + event.target.errorCode);
+      const transactions = db.createObjectStore("transactions", {keypath:"id"});
+      transactions.createIndex("other",["other"]);
+
+      db.createObjectStore("unsure",{keypath:"time"});
     };
 
     request.onsuccess = (event) => {
       dbInstance = event.target.result;
       resolve(dbInstance);
-    };
-
-    request.onupgradeneeded = (event) => {
-      const db = event.target.result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        db.createObjectStore(STORE_NAME, { keyPath: 'id' }); // customize keyPath
-      }
     };
   });
 }
