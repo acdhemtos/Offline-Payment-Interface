@@ -28,7 +28,7 @@ async function getName(username) {
      getRequest.onerror = () => {
       let name = "";
       try{
-       let name = await AJAX("/api/getName.php",{"name_username":username}).name_username;
+       let name = await AJAX("/api/getName.php",{"name_username":username}).name;
       }
       catch(error){
        reject(error);
