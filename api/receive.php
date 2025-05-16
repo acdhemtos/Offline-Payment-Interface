@@ -63,9 +63,9 @@
  $stmt = $GLOBALS['conn']->prepare("SELECT * FROM past_hashes WHERE hash = :hash");
  $stmt->execute(['hash' => $details_hash]);
 
- if ($stmt->fetch()) { display(34); }*/
+ if ($stmt->fetch()) { display(34); }
  $stmt = $pdo->prepare("INSERT INTO past_hashes (sender, receiver, hash, time) 
-                           VALUES (:sender, :receiver, :hash, :time)");
+                           VALUES (:sender, :receiver, :hash, :time)");*/
 
  $stmt->execute([
   'sender' => $sender,
