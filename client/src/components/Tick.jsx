@@ -1,17 +1,56 @@
 import { motion } from "framer-motion";
 
-const StatusDisplay = ({ status, message, bgColor = "bg-green-500" }) => (
+const circleLength = 2 * Math.PI * 36;
+
+const Tick = ({ color = "#22c55e", size = 80 }) => (
   <motion.div
-    className={`flex flex-col items-center justify-center flex-1 w-full mt-24`}
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
+    className="flex items-center justify-center"
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.4, type: "spring" }}
   >
-    <div className={`text-2xl font-bold mb-4 text-white px-8 py-4 rounded-lg ${bgColor}`}>
-      {status}
-    </div>
-    <div className="text-base text-center">{message}</div>
+    <motion.svg
+      width={size}
+      height={size}
+      viewBox="0 0 80 80"
+      className="block"
+    >
+      {/* Colored circle */}
+      <circle
+        cx="40"
+        cy="40"
+        r="36"
+        fill={color}
+        stroke="none"
+      />
+      {/* Animated white border */}
+      <motion.circle
+        cx="40"
+        cy="40"
+        r="36"
+        fill="none"
+        stroke="#fff"
+        strokeWidth="5"
+        strokeDasharray={circleLength}
+        strokeDashoffset={circleLength}
+        animate={{ strokeDashoffset: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      />
+      {/* Tick */}
+      <motion.polyline
+        points="28,42 38,52 54,34"
+        fill="none"
+        stroke="#fff"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray={40}
+        strokeDashoffset={40}
+        animate={{ strokeDashoffset: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}
+      />
+    </motion.svg>
   </motion.div>
 );
 
-export default StatusDisplay;
+export default Tick;
