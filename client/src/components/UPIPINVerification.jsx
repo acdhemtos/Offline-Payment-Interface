@@ -87,14 +87,14 @@ const UPIPINVerification = () => {
         <>
           {/* Back button on top left */}
           <button
-            className="absolute top-6 left-6 px-4 py-2 bg-blue-500 text-white rounded-full shadow hover:bg-blue-600 transition"
+            className="absolute top-4 left-4 bg-red-500 text-white px-6 py-2 rounded-lg text-lg shadow-md hover:bg-red-600 transition z-50"
             onClick={() => {
               setResult(null);
               setResultMessage("");
               setPin("");
             }}
           >
-            Back
+            <FaArrowLeft className="text-2xl" />
           </button>
           {/* Centered status and message */}
           <div className="flex flex-col items-center justify-center flex-1 w-full mt-24">
