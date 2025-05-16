@@ -1,68 +1,16 @@
-import { motion } from "framer-motion";
-
-const radius = 36;
-const strokeWidth = 5;
-const circleLength = 2 * Math.PI * radius;
-
-const Tick = ({ color = "#22c55e", size = 60 }) => (
-  <motion.div
-    className="flex items-center justify-center"
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.4, ease: "easeOut" }}
-  >
-    <motion.svg
-      width={size}
-      height={size}
-      viewBox="0 0 80 80"
-      className="block"
-    >
-      {/* Background circle */}
-      <circle
-        cx="40"
-        cy="40"
-        r={radius}
-        fill={color}
-        stroke="none"
-      />
-
-      {/* Animated ring draw */}
-      <motion.circle
-        cx="40"
-        cy="40"
-        r={radius}
-        fill="none"
-        stroke="#fff"
-        strokeWidth={strokeWidth}
-        strokeDasharray={circleLength}
-        strokeDashoffset={circleLength}
-        animate={{ strokeDashoffset: 0 }}
-        transition={{
-          duration: 0.6,
-          ease: "easeInOut",
-        }}
-      />
-
-      {/* Tick mark with bounce effect */}
-      <motion.polyline
-        points="28,42 38,52 54,34"
-        fill="none"
-        stroke="#fff"
-        strokeWidth={strokeWidth}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeDasharray={40}
-        strokeDashoffset={40}
-        initial={{ scale: 0.5, opacity: 0 }}
-        animate={{ strokeDashoffset: 0, scale: 1, opacity: 1 }}
-        transition={{
-          strokeDashoffset: { delay: 0.6, duration: 0.4, ease: "easeOut" },
-          scale: { delay: 0.6, duration: 0.3, type: "spring", stiffness: 500 },
-          opacity: { delay: 0.6, duration: 0.3 },
-        }}
-      />
-    </motion.svg>
-  </motion.div>
-);
+const Tick = ({ size = 120, autoplay = true, loop = false }) => {
+  return (
+    <div className="flex items-center justify-center">
+      <dotlottie-player
+        src="https://lottie.host/4db68bbd-31f6-4cd8-84eb-189de081159a/IGmMCqhzpt.lottie"
+        background="transparent"
+        speed="1"
+        style={{ width: size, height: size }}
+        loop={loop}
+        autoplay={autoplay}
+      ></dotlottie-player>
+    </div>
+  );
+};
 
 export default Tick;
