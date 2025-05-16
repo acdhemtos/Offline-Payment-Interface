@@ -53,7 +53,7 @@
   unset($transaction['receiver']);
   
 
-  display(0, $transaction);
+  display(0, array("data" => $transaction));
  }
  
 ?>
