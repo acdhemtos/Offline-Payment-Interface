@@ -54,16 +54,16 @@ useEffect(() => {
   fetchUsername();
 }, []);
 
-  const handleInputChange = async (e) => {
-    const value = e.target.value;
-    const [integerPart, decimalPart] = value.split(".");
-    if (decimalPart && decimalPart.length > 2) {
-      return;
-    }
-    setUamount(value);
-    const qr = await generateReceiveQR(value);
-    setQrData(qr);
-  };
+const handleInputChange = async (e) => {
+  const value = e.target.value;
+  const [integerPart, decimalPart] = value.split(".");
+  if (decimalPart && decimalPart.length > 2) {
+    return;
+  }
+  setUamount(value);
+  const qr = await generateReceiveQR(value);
+  setQrData(qr);
+};
 
   const generateQRCode = async () => {
     const username = await getDetail("username");
