@@ -35,7 +35,7 @@ async function AJAX(url, data={},tel=true) {
   console.log(u, s);
   const username = decodeURIComponent(u || "");
   const sessionKey = decodeURIComponent(s || "");
-  console.log(username, sessionKey);
+  //console.log(username, sessionKey);
   const requestData = tel?{ ...data, username, session_key: sessionKey }:data;
 
   return fetch(url + "?" + new Date().getTime().toString(), {
