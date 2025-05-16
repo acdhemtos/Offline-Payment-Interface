@@ -54,20 +54,6 @@ const LoginSignupForm = () => {
       console.log("Login response:", data);
 
       if (data.code === 0) {
-        const request = window.indexedDB.open("opi",1);
-
-        request.onupgradeneeded = function(){
-          const db = request.result;
-          db.createObjectStore("users", {keypath:"username"});
-
-          const transactions = db.createObjectStore("transactions", {keypath:"id"});
-          transactions.createIndex("other",["other"]);
-
-          db.createObjectStore("unsure",{keypath:"time"});
-        };
-
-
-
         // Register Service Worker
         if ("serviceWorker" in navigator) {
           
