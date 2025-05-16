@@ -33,8 +33,8 @@ async function getName(username) {
         name = data.name;
         const addRequest = store.add({ username, name });
 
-      addRequest.onsuccess = () => resolve(name);
-      addRequest.onerror = () => reject("Failed to insert default name");
+        addRequest.onsuccess = () => resolve(name);
+        addRequest.onerror = () => reject("Failed to insert default name");
        });
       }
       catch(error){
