@@ -59,21 +59,8 @@
  @require_once('getBalance.php');
  if(getBalance($sender)<$amount){handle(30);}
 
- /*
- $stmt = $GLOBALS['conn']->prepare("SELECT * FROM past_hashes WHERE hash = :hash");
- $stmt->execute(['hash' => $details_hash]);
-
- if ($stmt->fetch()) { display(34); }
- $stmt = $pdo->prepare("INSERT INTO past_hashes (sender, receiver, hash, time) 
-                           VALUES (:sender, :receiver, :hash, :time)");
-
- $stmt->execute([
-  'sender' => $sender,
-  'receiver' => $username,
-  'hash' => $details_hash,
-  'time' => $time,
- ]);
- */
+ //check Hash Expiry
+ 
  @require_once('transaction.php');
  handle(0,transaction($sender, $username, $amount, 2));
  
