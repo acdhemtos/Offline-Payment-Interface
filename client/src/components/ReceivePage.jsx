@@ -54,14 +54,15 @@ const ReceivePage = () => {
     fetchUsername();
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const value = e.target.value;
     const [integerPart, decimalPart] = value.split(".");
     if (decimalPart && decimalPart.length > 2) {
       return;
     }
     setUamount(value);
-    setQrData(generateReceiveQR(value));
+    const qr = await generateReceiveQR(value);
+    setQrData(qr);
   };
 
   const generateQRCode = async () => {
