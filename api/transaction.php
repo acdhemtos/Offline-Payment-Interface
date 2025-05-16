@@ -34,7 +34,7 @@
           transaction(0, $senderUsername, $max - $balance, 0);
       }
 
-      if($type==0){
+      if($type==2){
         $stmt = $conn->prepare("UPDATE users SET last_transaction = CURRENT_TIMESTAMP WHERE username = :username");
         $stmt->bindParam(':username', $senderUsername, PDO::PARAM_STR);
         $stmt->execute();
