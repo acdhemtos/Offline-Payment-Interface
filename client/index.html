@@ -11,7 +11,12 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <script src="./ajax.js"></script>
+    <!-- <script src="./ajax.js"></script> -->
+    <script type="module">
+      import { AJAX } from "/public/ajax.js";
+      // Example usage:
+      // AJAX('/api/some-endpoint.php', { foo: 'bar' }).then(console.log);
+    </script>
     <script src="./try.js"></script>
   </body>
 </html>
