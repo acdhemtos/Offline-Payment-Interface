@@ -84,7 +84,7 @@ const QRMirror = () => {
     requestAnimationFrame(scanQRCode);
   };
 
-  const handleScanComplete = (data) => {]
+  const handleScanComplete = (data) => {
     // if( date && lookingRef.current){
     if (data && looking) {
       console.log("Scanned QR Data:", data);
