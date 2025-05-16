@@ -45,7 +45,8 @@ const encode = (() => {
   let arr = map.slice(from,to);
   let n = BigInt(arr.length);
   let n1 = n + BigInt(1);
-  let num = BigInt(0);
+   let num = BigInt(0);
+   console.log(str.length);
   for (let i = 0; i < str.length; i++) {
     const ch = str[i];
     const idx = arr.indexOf(ch);
