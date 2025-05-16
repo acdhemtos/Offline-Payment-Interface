@@ -26,7 +26,17 @@ async function getName(username) {
 
      getRequest.onsuccess = () => resolve(getRequest.result.name);
      getRequest.onerror = () => {
-      const name = "UNGABUNGA";
+      try{
+       const name = "UNGABUNGA";
+      }
+      catch(error){
+       reject(error);
+      }
+      
+      const addRequest = store.add({ username, name });
+
+      addRequest.onsuccess = () => resolve(name);
+      addRequest.onerror = () => reject("Failed to insert default name");
      };
  });
 }
