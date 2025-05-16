@@ -56,18 +56,20 @@ const LoginSignupForm = () => {
       if (data.code === 0) {
         document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
         const db = await openDetails();
-        console.log("here");
+        console.log("1");
         const store = db.transaction("details","readwrite").objectStore("details");
         await new Promise((resolve, reject) => {
           const request = store.add({detail: 'username', value: username});
           request.onsuccess = () => resolve();
           request.onerror = (e) => reject(e.target.error);
         });
+        console.log("2");
         await new Promise((resolve, reject) => {
           const request = store.add({detail: 'session_key', value: data.session_key});
           request.onsuccess = () => resolve();
           request.onerror = (e) => reject(e.target.error);
         });     
+        console.log("3");
 
         //registering Service Worker
         if ("serviceWorker" in navigator) {
