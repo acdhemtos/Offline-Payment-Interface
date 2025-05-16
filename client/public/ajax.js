@@ -9,7 +9,7 @@ function getFromStore(detail) {
   });
 }
 
-async function AJAX(url, data,tel=true) {
+async function AJAX(url, data={},tel=true) {
 
   const username = decodeURIComponent(getFromStore('username') || "");
   const sessionKey = decodeURIComponent(getFromStore('session_key') || "");
