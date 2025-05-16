@@ -14,6 +14,11 @@ async function openDetails() {
    request.onerror = function () {
      reject(request.error);
    };
+
+   request.onblocked = function () {
+    console.warn("Database opening is blocked");
+    reject("Database opening blocked");
+};
  });
 }
 
