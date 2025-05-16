@@ -108,7 +108,7 @@ const OPIQRCodeSVG = () => {
                     setShowOverlay(true);
                     setHideQRCode(true);
                     setBackgroundColor("bg-red-500");
-                    setFailureMessage(messages[Number(code) - 1]);
+                    setFailureMessage(messages[Number(codeResult.code) - 1]);
                     console.log(failureMessage);
                     return;
                   } else if (QR.decode("code+verification_hash",string) !== false) {
