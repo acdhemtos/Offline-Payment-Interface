@@ -92,8 +92,8 @@ const renderTransactions = (div) => {
       transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : null;
 
     // Format time
-    const formattedTime = transaction.date;
-    console.log(transaction.date);
+    const formattedTime = transaction.time;
+    console.log(transaction.time);
 
     transactionDiv.innerHTML = `
    
