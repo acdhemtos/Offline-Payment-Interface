@@ -51,7 +51,7 @@ const LoginSignupForm = () => {
       }
 
       const data = await response.json();
-      console.log("Login response:", data);
+      console.log("Login response :", data);
 
       if (data.code === 0) {
         document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
