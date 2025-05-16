@@ -40,7 +40,10 @@ const encode = (() => {
   return String.fromCharCode(...base256Array);
 }
  
- function makeIndexArray(str,limits,size){
+  function makeIndexArray(str, limits, size) {
+   if (typeof str !== "string") {
+    throw new TypeError(`makeIndexArray expects a string, got ${typeof str}: ${str}`);
+  }
   let {from,to} = limits
   let arr = map.slice(from,to);
   let n = BigInt(arr.length);
