@@ -40,9 +40,10 @@ const urlsToCache = [
 async function loadTransaction(id){
   while(true){
     try{
-      console.log(id);
+      await 
     }
     catch(error){
+      console.error(error);
       continue;
     }
     break;
