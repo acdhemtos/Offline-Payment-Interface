@@ -49,8 +49,6 @@ const ReceivePage = () => {
 useEffect(() => {
   const fetchUsername = async () => {
     const qr = await generateReceiveQR();
-    console.log("GENERATE RECEOVE QR");
-    console.log(qr);
     setQrData(qr);
   };
   fetchUsername();
