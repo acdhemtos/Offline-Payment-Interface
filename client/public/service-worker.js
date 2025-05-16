@@ -147,17 +147,7 @@ const fetchInterval = 2000;
 
 async function fetchBalance() {
   try {
-    const response = await AJAX("/api/getBalance.php");
-
-    // if (!response.ok) {
-    //   throw new Error(`HTTP error! status: ${response.status}`);
-    // }
-      if (!data || typeof data.code === "undefined") {
-    throw new Error("Invalid response from server");
-  }
-
-    const data = await response.json();
-
+    const data = await AJAX("/api/getBalance.php");
     if (data.code === 0) {
       postMessageToClients({ type: "updateConnectionStatus", isConnected: true });
       //console.log("Balance fetched successfully:", data.balance);
