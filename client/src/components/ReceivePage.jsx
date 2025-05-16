@@ -46,13 +46,13 @@ const ReceivePage = () => {
     return QR.encode("username", username);
   };
 
-  useEffect(() => {
-    const fetchUsername = async () => {
-      setQrData(generateReceiveQR());
-    };
-
-    fetchUsername();
-  }, []);
+useEffect(() => {
+  const fetchUsername = async () => {
+    const qr = await generateReceiveQR();
+    setQrData(qr);
+  };
+  fetchUsername();
+}, []);
 
   const handleInputChange = async (e) => {
     const value = e.target.value;
