@@ -97,9 +97,6 @@ const Home = () => {
       const data = await response.json();
 
       if (data.code === 0) {
-        //delete IndexDB
-        window.indexedDB.deleteDatabase("opi");
-
         // Clear cookies using js-cookie
         if ("serviceWorker" in navigator) {
           const registrations =
@@ -109,6 +106,10 @@ const Home = () => {
             console.log("Service Worker unregistered.");
           }
         }
+
+        //delete IndexDB
+        window.indexedDB.deleteDatabase("opi");
+
         Cookies.remove("session_key", { path: "/" });
         Cookies.remove("username", { path: "/" });
         Cookies.remove("private_key", { path: "/" });
