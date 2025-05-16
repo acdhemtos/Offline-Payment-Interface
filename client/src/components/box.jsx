@@ -13,6 +13,7 @@ const QRMirror = () => {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const [amount, setAmount] = useState("");
+  const lookingRef = useRef(false);
 
   const username = "receiver";
   const name = "merchant";
@@ -23,6 +24,7 @@ const QRMirror = () => {
   };
 
   const resetState = () => {
+    looking.current = true;
     if (statusMessage.includes("Success") && qrValue) {
       const decoded = QR.decode("sender+time+amount+details_hash", qrValue);
       console.log("decoded", decoded);
@@ -82,7 +84,8 @@ const QRMirror = () => {
   };
 
   const handleScanComplete = (data) => {
-    if (data && looking) {
+    if (data && looking.current) {
+      lookingRef.current = false;
       console.log("Scanned QR Data:", data);
       setLooking(false);
       setShowLoader(true);
@@ -129,6 +132,7 @@ const QRMirror = () => {
   };
 
   useEffect(() => {
+    lookingRef.current = true;
     startCamera();
     scanQRCode();
 
