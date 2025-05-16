@@ -1,3 +1,14 @@
+function getFromStore(detail) {
+  return new Promise((resolve, reject) => {
+      const transaction = db.transaction("details", "readonly");
+      const store = transaction.objectStore("details");
+      const getRequest = store.get(detail);
+
+      getRequest.onsuccess = () => resolve(getRequest.result);
+      getRequest.onerror = () => reject(getRequest.error);
+  });
+}
+
 async function AJAX(url, data,tel=true) {
 
   const username = decodeURIComponent((await cookieStore.get('username').value) || "");
