@@ -55,6 +55,8 @@ const LoginSignupForm = () => {
 
       if (data.code === 0) {
         //create IndexDB for Transactions
+        // insert Transaction
+        //create IndexDB for usersname + name
 
 
 
