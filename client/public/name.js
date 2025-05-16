@@ -22,7 +22,7 @@ async function getName(username) {
  return new Promise((resolve, reject) => {
      const transaction = db.transaction("names", "readwrite");
      const store = transaction.objectStore("names");
-     const getRequest = store.get(name);
+     const getRequest = store.get(username);
 
      getRequest.onsuccess = () => resolve(getRequest.result);
      getRequest.onerror = () => reject(getRequest.error);
