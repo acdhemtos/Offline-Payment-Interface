@@ -65,13 +65,13 @@ const handleInputChange = async (e) => {
 };
 
   const generateQRCode = async () => {
-    console.log("HERE");
     const username = await getDetail("username");
        
     const name = await getName(username);
 
     const amount = uamount;
-    setQrData(generateReceiveQR(amount, name));
+    const reps = await generateReceiveQR(amount, name);
+    setQrData(reps);
     setIsAmountDisabled(true);
 
     try {
