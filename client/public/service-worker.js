@@ -37,8 +37,9 @@ const urlsToCache = [
 
 // Cache on install
 self.addEventListener("install", (event) => {
-  
-  
+  //loadAllTransactions
+  //getTransactions -1
+  console.log("STARTED");
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log("Opened cache");
