@@ -55,9 +55,7 @@ const LoginSignupForm = () => {
 
       if (data.code === 0) {
         document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
-        console.log("0");
         const db = await openDetails();
-        console.log("1");
         const store = db.transaction("details","readwrite").objectStore("details");
         await new Promise((resolve, reject) => {
           const request = store.add({detail: 'username', value: username});
