@@ -40,7 +40,8 @@ const urlsToCache = [
 async function loadTransaction(id){
   while(true){
     try{
-      await 
+      const data = await AJAX("/api/receive.php", {"id":id});
+      
     }
     catch(error){
       console.error(error);
