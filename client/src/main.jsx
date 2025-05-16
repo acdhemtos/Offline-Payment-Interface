@@ -15,7 +15,6 @@ async function init() {
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(() => {
-      console.log("Service Worker is ready. Adding message listener...");
 
       navigator.serviceWorker.addEventListener('message', event => {
         const { type, isConnected } = event.data;
