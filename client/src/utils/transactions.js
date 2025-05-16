@@ -71,9 +71,6 @@ const renderTransactions = (div) => {
       hover:shadow-md transition duration-200
     `;
 
-    // Masked ID
-    const maskedId =
-      transaction.id;
 
     // Type badge
     let typeLabel = "";
@@ -98,16 +95,16 @@ const renderTransactions = (div) => {
     console.log(transaction.date);
 
     transactionDiv.innerHTML = `
-      <!-- Top Right Badge -->
+   
       <div class="absolute top-3 right-3">
         <span class="text-xs font-medium px-3 py-1 rounded-full ${badgeColor}">
           ${typeLabel}
         </span>
       </div>
 
-      <!-- Content -->
+      
       <div class="flex flex-col space-y-2">
-        <div class="text-gray-600 font-semibold text-sm"><span class="font-medium">ID: </span>${maskedId}</div>
+        // <div class="text-gray-600 font-semibold text-sm"><span class="font-medium">ID: </span>${maskedId}</div>
 
         ${
           otherLabel
@@ -122,7 +119,7 @@ const renderTransactions = (div) => {
         </div>
       </div>
 
-      <!-- Timestamp Bottom Right -->
+    
       <div class="text-xs text-gray-500 text-right mt-4">
         ${formattedTime}
       </div>
