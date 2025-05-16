@@ -43,7 +43,8 @@ const ScanQR = () => {
 
   const handleScanComplete = (data) => {
 
-    if (scanned) return;
+    if (scannedRef.current) return;
+    scannedRef.current = true;
     setScanned(true);
     if (data) {
       // alert(`Length of scanned data: ${data.length}`);
@@ -108,7 +109,7 @@ const ScanQR = () => {
   };
 
   const drawCanvas = () => {
-    if (scanned) return;
+     if (scannedRef.current) return;
     const video = videoRef.current;
     const canvas = canvasRef.current;
 
