@@ -8,6 +8,8 @@ import jsQR from "jsqr";
 import { FaArrowLeft, FaCheckCircle } from "react-icons/fa";
 import { addTransaction } from "../utils/transactions";
 import { messages } from "../utils/loadMessages";
+import Tick from "./Tick";
+import Cross from "./Cross";
 
 const OPIQRCodeSVG = () => {
   const location = useLocation();
