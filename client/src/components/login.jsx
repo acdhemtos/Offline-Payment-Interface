@@ -115,7 +115,6 @@ const LoginSignupForm = () => {
         };
         
         document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
-        // Register Service Worker
         
       } else {
         console.error("Login failed with code:", data.code);
