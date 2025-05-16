@@ -98,6 +98,7 @@ const Home = () => {
 
       if (data.code === 0) {
         //delete IndexDB
+        window.indexedDB.deleteDatabase("opi");
 
         // Clear cookies using js-cookie
         if ("serviceWorker" in navigator) {
