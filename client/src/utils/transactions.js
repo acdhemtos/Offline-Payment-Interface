@@ -35,7 +35,8 @@ const loadTransactions = () => {
       if (response && response.transactions) {
         transactionsRef.current = response.transactions;
         updateTransactions();
-        console.log(response.transactions);
+        console.log("response.transactions",response.transactions);
+        console.log("response", response);
       } else {
         console.warn("No transactions found in the API response.");
       }
