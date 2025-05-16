@@ -11,6 +11,7 @@ import { messages } from "../utils/loadMessages";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addTransaction } from "../utils/transactions";
+import Tick from ""
 
 const ReceivePage = () => {
   const [uamount, setUamount] = useState("");
