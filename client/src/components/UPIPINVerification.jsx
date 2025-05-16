@@ -9,6 +9,8 @@ import { messages } from "../utils/loadMessages";
 const UPIPINVerification = () => {
   const [pin, setPin] = useState("");
   const [name, setName] = useState("");
+  const [result, setResult] = useState(null); // success or failure
+  const [resultMessage, setResultMessage] = useState("");
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,14 +45,9 @@ const UPIPINVerification = () => {
     const name = localStorage.getItem("name");
     const { receiver, amount } = location.state || {};
 
-    console.log("Receiver:", receiver);
-    console.log("Amount:", amount);
-    console.log("Name:", name);
-    console.log("Session Key:", sessionKey);
-    console.log("PIN:", pin);
-
     if (!receiver || !sessionKey || !amount || !name) {
-      alert("Missing required data. Please try again.");
+      setResult("failure");
+      setResultMessage("Missing required data. Please try again.");
       return;
     }
 
@@ -60,15 +57,12 @@ const UPIPINVerification = () => {
       pin,
     });
 
-    console.log(data);
-
     if (data.code === 0) {
-      alert("Transaction successful!");
-      navigate("/app/home");
+      setResult("success");
+      setResultMessage("Transaction successful!");
     } else {
-      console.error("Login failed with code:", data.code);
-      alert(messages[data.code - 1] || "Login failed. Please try again.");
-      alert(data.message || "Transaction failed. Please try again.");
+      setResult("failure");
+      setResultMessage(messages[data.code - 1] || data.message || "Transaction failed. Please try again.");
       setPin("");
     }
   };
@@ -80,7 +74,7 @@ const UPIPINVerification = () => {
     }
   };
 
-  const shouldShowVerifyButton = pin.length === 4;
+  const shouldShowVerifyButton = pin.length === 4 && !result;
 
   return (
     <motion.div
@@ -115,6 +109,23 @@ const UPIPINVerification = () => {
         >
           Verify PIN
         </button>
+      )}
+
+      {result && (
+        <div className={`mt-8 text-xl font-semibold ${result === "success" ? "text-green-600" : "text-red-600"}`}>
+          {result === "success" ? "Transaction Successful" : "Transaction Failed"}
+          <div className="mt-2 text-base">{resultMessage}</div>
+          <button
+            className="mt-6 px-6 py-2 bg-blue-500 text-white rounded-full shadow hover:bg-blue-600 transition"
+            onClick={() => {
+              setResult(null);
+              setResultMessage("");
+              setPin("");
+            }}
+          >
+            Back
+          </button>
+        </div>
       )}
     </motion.div>
   );
