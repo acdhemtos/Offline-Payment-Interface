@@ -296,7 +296,7 @@ const ReceivePage = () => {
           />
           {transactionStatus && (
             <div
-              className={`absolute inset-0 flex items-center align-middle justify-center rounded-lg text-3xl font-bold ${
+              className={`absolute inset-0 flex items-center text-center justify-center rounded-lg text-3xl font-bold ${
                 transactionStatus === "success"
                   ? "bg-white/80 text-green-700"
                   : "bg-white/80 text-red-700"
