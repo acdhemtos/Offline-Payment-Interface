@@ -52,7 +52,7 @@ function openDatabase() {
     };
 
     request.onsuccess = (event) => {
-      dbInstance = event.target.result;
+      const dbInstance = event.target.result;
       resolve(dbInstance);
     };
   });
