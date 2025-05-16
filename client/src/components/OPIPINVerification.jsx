@@ -268,9 +268,7 @@ const OPIQRCodeSVG = () => {
       {showOverlay && backgroundColor === "bg-green-500" && transactionSuccess && (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-70 z-40">
           <div className="flex items-center justify-center flex-col">
-            {/* <FaCheckCircle
-              className="text-green-500 text-6xl transform scale-0 animate-popout"
-            /> */}
+            <Tick />
             <div className="mt-4 text-xl text-green-500 font-semibold">Transaction Successful</div>
           </div>
         </div>
