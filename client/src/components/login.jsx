@@ -61,11 +61,11 @@ const LoginSignupForm = () => {
           db.createObjectStore("users", {keypath:"username"});
 
           const transactions = db.createObjectStore("transactions", {keypath:"id"});
-          transactions.createIndex("other",["other"])
+          transactions.createIndex("other",["other"]);
+
+          const unsure = db.createObjectStore("unsure",{keypath:"time"});
+          
         };
-        //create IndexDB for Transactions
-        // insert Transaction
-        //create IndexDB for usersname + name
 
 
 
