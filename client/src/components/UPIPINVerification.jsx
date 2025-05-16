@@ -105,10 +105,10 @@ const UPIPINVerification = () => {
           <div className="flex flex-col items-center justify-center flex-1 w-full mt-24 ">
             <div className={`text-2xl font-bold mb-4 text-gray-200`}>
               {result === "success" && (
-        <div className="mb-6">
-          <Tick size={120} autoplay loop={false} />
-        </div>
-      )}     
+            <div className="mb-6">
+              <Tick size={120} autoplay loop={false} />
+            </div>
+          )}     
               {result === "success" ? "Transaction Successful" : "Transaction Failed"}
             </div>
             <div className="text-base text-center">{resultMessage}</div>
