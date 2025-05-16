@@ -57,6 +57,7 @@ const LoginSignupForm = () => {
         document.cookie = `session_key=${data.session_key}; path=/; max-age=604800;`;
         document.cookie = `username=${username}; path=/; max-age=604800;`;
         document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
+        await new Promise(res => setTimeout(res, 100));
         // Register Service Worker
         if ("serviceWorker" in navigator) {
           
