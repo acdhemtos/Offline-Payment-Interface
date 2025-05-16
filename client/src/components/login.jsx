@@ -55,7 +55,7 @@ const LoginSignupForm = () => {
 
       if (data.code === 0) {
         const db = await openDetails();
-
+        const store = db.transaction("details","readwrite").objectStore("details");
         request.onupgradeneeded = function(){
           const db = request.result;
           const store = db.createObjectStore('details', { keyPath: 'detail' });
