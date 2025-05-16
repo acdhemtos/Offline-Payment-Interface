@@ -107,7 +107,7 @@ const OPIQRCodeSVG = () => {
                     stopStream(video);
                     setShowOverlay(true);
                     setHideQRCode(true);
-                    setBackgroundColor("bg-red-500");
+                    setBackgroundColor("bg-red-600");
                     setFailureMessage(messages[Number(codeResult.code) - 1]);
                     console.log(failureMessage);
                     return;
