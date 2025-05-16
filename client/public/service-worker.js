@@ -35,7 +35,6 @@ const urlsToCache = [
   "/app/success"
 ];
 
-async function insertTransaction(id){
   while(true){
     try{
       console.log(id);
