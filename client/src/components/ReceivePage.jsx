@@ -65,7 +65,9 @@ const ReceivePage = () => {
   };
 
   const generateQRCode = async () => {
-    const name = decodeURIComponent(localStorage.getItem("name"));
+    const username = await getDetail("username");
+       
+        const name = await getName(username);
 
     const amount = uamount;
     setQrData(generateReceiveQR(amount, name));
