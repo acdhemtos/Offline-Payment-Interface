@@ -26,18 +26,3 @@ CREATE TABLE `opi`.`transactions` (
  `time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
-
-CREATE TABLE `opi`.`past_hashes` (
- `sender` CHAR(15) NOT NULL ,
- `receiver` CHAR(15) NOT NULL ,
- `hash` CHAR(64) NOT NULL,
- `time` INT NOT NULL
-) ENGINE = InnoDB;
-
-SET GLOBAL event_scheduler = ON;
-
-CREATE EVENT delete_old_hashes
-ON SCHEDULE EVERY 1 SECOND
-DO
-DELETE FROM past_hashes
-WHERE time < (UNIX_TIMESTAMP(CURRENT_TIMESTAMP) * 1000 - 10000);
