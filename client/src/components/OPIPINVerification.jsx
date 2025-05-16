@@ -101,14 +101,16 @@ const OPIQRCodeSVG = () => {
                   const private_key = Cookies.get("private_key");
                   const string = code.data;
                   const n = string.length;
+                  const codeResult = Qr.decode("code", string);
 
-                  if (QR.decode("code",string).code === 1) {
+                  if (codeResult !== false && (codeResult.code === 1 || codeResult.code === 1n)) {
                     stopStream(video);
                     setShowOverlay(true);
                     setHideQRCode(true);
                     setBackgroundColor("bg-red-500");
                     setFailureMessage(messages[Number(code) - 1]);
                     console.log(failureMessage);
+                    return;
                   } else if (QR.decode("code+verification_hash",string) !== false) {
                     const {code,verification_hash} = QR.decode("code+verification_hash",string);
                     if (code === 30n) {
