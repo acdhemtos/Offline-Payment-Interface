@@ -106,7 +106,7 @@ const QRMirror = () => {
               const { id: trans_id, verification_hash } = data;
               generateQR(QR.encode("trans_id+verification_hash", trans_id, verification_hash));
             } else {
-              setStatusMessage("Transaction Failed ❌");
+              setStatusMessage("Transaction Failed ");
               if (data.code === 30) {
                 generateQR(QR.encode("code+verification_hash", 30, data.verification_hash));
               } else {
