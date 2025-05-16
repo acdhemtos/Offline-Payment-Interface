@@ -198,7 +198,17 @@ const QRMirror = () => {
              : "bg-red-100 text-red-700"
          }`}
        >
-         {statusMessage}
+          {statusMessage.includes("Success") ? (
+              <>
+                <Tick size={80} />
+                <div className="mt-2">{statusMessage}</div>
+              </>
+            ) : (
+              <>
+                <Cross size={80} />
+                <div className="mt-2">{statusMessage}</div>
+              </>
+            )}
        </div>
        
         )}
