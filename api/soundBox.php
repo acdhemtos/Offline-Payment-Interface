@@ -34,7 +34,7 @@
 
  
  $TL = 10;
- if (round(microtime(true)) - $time > $TL){handle(34);}
+ //if (round(microtime(true)) - $time > $TL){handle(34);}
  
  @require_once 'hash.php';
  
