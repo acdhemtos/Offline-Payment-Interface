@@ -33,7 +33,7 @@ async function AJAX(url, data={},tel=true) {
 
   const username = decodeURIComponent((await getFromStore('username')) || "");
   const sessionKey = decodeURIComponent((await getFromStore('session_key')) || "");
-  
+  console.log(username,sessionKey)
   const requestData = tel?{ ...data, username, session_key: sessionKey }:data;
 
   return fetch(url + "?" + new Date().getTime().toString(), {
