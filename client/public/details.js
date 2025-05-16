@@ -18,7 +18,7 @@ async function openDetails() {
    request.onblocked = function () {
     console.warn("Database opening is blocked");
     reject("Database opening blocked");
-};
+   };
  });
 }
 
