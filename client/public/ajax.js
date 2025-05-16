@@ -11,8 +11,8 @@ function getFromStore(detail) {
 
 async function AJAX(url, data,tel=true) {
 
-  const username = decodeURIComponent((await cookieStore.get('username').value) || "");
-  const sessionKey = decodeURIComponent((await cookieStore.get('session_key').value) || "");
+  const username = decodeURIComponent(getFromStore('username') || "");
+  const sessionKey = decodeURIComponent(getFromStore('session_key') || "");
   
   const requestData = tel?{ ...data, username, session_key: sessionKey }:data;
 
