@@ -38,7 +38,9 @@ const urlsToCache = [
 // Cache on install
 self.addEventListener("install", (event) => {
   //loadAllTransactions
-  AJAX("/api/receive.php", {last_id:-1});
+  AJAX("/api/receive.php", {last_id:-1})then(data => {
+    console.log(data);
+  });
   //getTransactions -1
   console.log("STARTED");
   event.waitUntil(
