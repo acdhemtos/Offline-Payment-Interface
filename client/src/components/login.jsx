@@ -54,7 +54,7 @@ const LoginSignupForm = () => {
       console.log("Login response:", data);
 
       if (data.code === 0) {
-        const request = indexedDB.open("details",1);
+        const db = await openDetails();
 
         request.onupgradeneeded = function(){
           const db = request.result;
