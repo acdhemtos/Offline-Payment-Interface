@@ -4,7 +4,7 @@ async function openName() {
 
    request.onupgradeneeded = function (event) {
      const db = event.target.result;
-     db.createObjectStore("name", { keyPath: "name" });
+     db.createObjectStore("names", { keyPath: "username" });
    };
 
    request.onsuccess = function () {
