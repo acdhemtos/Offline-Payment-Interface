@@ -36,7 +36,7 @@
 
       if($type==0){
         $stmt = $conn->prepare("UPDATE users SET last_transaction = CURRENT_TIMESTAMP WHERE username = :username");
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $senderUsername, PDO::PARAM_STR);
         $stmt->execute();
       }
 
