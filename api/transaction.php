@@ -33,6 +33,13 @@
       if ($balance < $min) {
           transaction(0, $senderUsername, $max - $balance, 0);
       }
+
+      if($type==0){
+        $stmt = $conn->prepare("UPDATE users SET last_transaction = CURRENT_TIMESTAMP WHERE username = :username");
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+      }
+
   }
 
   $stmt = $conn->prepare("UPDATE users SET balance = balance + ? WHERE id = ?");
