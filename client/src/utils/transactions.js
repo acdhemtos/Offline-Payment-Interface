@@ -90,6 +90,7 @@ const renderTransactions = (div) => {
     // Sender/Receiver
     const otherLabel =
       transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : null;
+    console.log(otherLabel);
 
     // Format time
     const formattedTime = transaction.time;
@@ -102,6 +103,7 @@ const renderTransactions = (div) => {
           ${typeLabel}
         </span>
       </div>
+      
 
       
       <div class="flex flex-col space-y-2">
