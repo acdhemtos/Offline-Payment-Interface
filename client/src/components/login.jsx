@@ -58,7 +58,7 @@ const LoginSignupForm = () => {
 
         request.onupgradeneeded = function(){
           const db = request.result;
-          db.createObjectStore("details", {keypath:"username"});
+          db.createObjectStore("details", {keypath:"detail"});
 
           const transactions = db.createObjectStore("transactions", {keypath:"id"});
           transactions.createIndex("other",["other"]);
