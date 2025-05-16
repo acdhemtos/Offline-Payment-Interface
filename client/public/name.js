@@ -25,6 +25,8 @@ async function getName(username) {
      const getRequest = store.get(username);
 
      getRequest.onsuccess = () => resolve(getRequest.result.name);
-     getRequest.onerror = () => reject(getRequest.error);
+     getRequest.onerror = () => {
+      const name = "UNGABUNGA";
+     };
  });
 }
