@@ -31,7 +31,10 @@ const SendPage = () => {
 
       // setShowOpiOption(!!username && !!name && !!amount);
       // setShowOpiOption(!!sender && !!name);
-      setShowOpiOption((!!username || !!sender || !!id) && !!amount);
+      // s setShowOpiOption((!!username || !!sender || !!id) && !!amount);
+      setShowOpiOption(
+  (!!username || !!sender || !!id) && (!!amount || (!!sender && !!name))
+);
       setIsAmountEntered(!!amount);
     }
   }, [location.state]);
@@ -165,44 +168,36 @@ const SendPage = () => {
         </div>
       </div>
 
-            {isAmountEntered && (
-        <div className="mt-80 flex flex-col items-center w-full max-w-md mx-auto px-2">
-          {showOpiOption ? (
-            <button
-              className="bg-green-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-green-600 transition w-full"
-              onClick={async () => {
-                const isAuthenticated = await biometric();
-                if (isAuthenticated) {
-                  if (!!location.state?.qrData?.sender && !!location.state?.qrData?.name) {
-                    // Redirect to fast-send if sender and name are present
-                    handleOptionClick("/fast-send");
-                  } else {
-                    // Redirect to opi-pin otherwise
-                    handleOptionClick("/app/opi-pin");
-                  }
-                } else {
-                  console.warn("Biometric authentication failed. Please try again.");
-                }
-              }}
-            >
-              Offline Send
-            </button>
-          ) : (
-            <button
-              className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition w-full"
-              //   onClick={async () => {
-              //     const isAuthenticated = await biometric();
-              //     if (isAuthenticated) {
-              //       handleOptionClick("/app/opi-pin")
-              //     }
-                // }}
-                onClick={handleOptionClick("/app/upi-pin")}
-            >
-              Offline Send
-            </button>
-          )}
-        </div>
-      )}
+           {(isAmountEntered || (!!location.state?.qrData?.sender && !!location.state?.qrData?.name)) && (
+  <div className="mt-80 flex flex-col items-center w-full max-w-md mx-auto px-2">
+    {showOpiOption ? (
+      <button
+        className="bg-green-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-green-600 transition w-full"
+        onClick={async () => {
+          const isAuthenticated = await biometric();
+          if (isAuthenticated) {
+            if (!!location.state?.qrData?.sender && !!location.state?.qrData?.name) {
+              handleOptionClick("/fast-send");
+            } else {
+              handleOptionClick("/app/opi-pin");
+            }
+          } else {
+            console.warn("Biometric authentication failed. Please try again.");
+          }
+        }}
+      >
+        Offline Send
+      </button>
+    ) : (
+      <button
+        className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition w-full"
+        onClick={() => handleOptionClick("/app/upi-pin")}
+      >
+        Online Send
+      </button>
+    )}
+  </div>
+)}
     </div>
   );
 };
