@@ -75,7 +75,7 @@ async function loadTransaction(id){
 
 // Cache on install
 self.addEventListener("install", async (event) => {
-  openDatabase();
+  await openDatabase();
   //loadAllTransactions
   AJAX("/api/receive.php", {"last_id":-1}).then(data => {
     data["ids"].forEach((id, index) => {
