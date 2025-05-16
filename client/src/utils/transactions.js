@@ -91,7 +91,7 @@ const renderTransactions = (div) => {
     const otherLabel =
       transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : null;
     console.log(otherLabel);
-    console.log(transaction.otherLabel);
+    console.log(transaction.other);
 
     // Format time
     const formattedTime = transaction.time;
