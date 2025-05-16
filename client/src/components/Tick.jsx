@@ -1,28 +1,15 @@
-import { useEffect, useRef } from "react";
-import { DotLottie } from "@lottiefiles/dotlottie-web";
+import { Player } from "lottie-react";
+import tickAnimation from "../assets/tick.json"; // Adjust path if needed
 
-const Tick = () => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const dotLottie = new DotLottie({
-      autoplay: true,
-      loop: false,
-      canvas: canvasRef.current,
-      src: "https://lottie.host/4db68bbd-31f6-4cd8-84eb-189de081159a/IGmMCqhzpt.lottie",
-    });
-
-    // Cleanup
-    return () => {
-      dotLottie.destroy(); // Release memory
-    };
-  }, []);
-
-  return (
-    <div className="flex items-center justify-center">
-      <canvas ref={canvasRef} width="150" height="150" />
-    </div>
-  );
-};
+const Tick = ({ size = 120, loop = false }) => (
+  <div className="flex items-center justify-center">
+    <Player
+      autoplay
+      loop={loop}
+      src={tickAnimation}
+      style={{ width: size, height: size }}
+    />
+  </div>
+);
 
 export default Tick;
