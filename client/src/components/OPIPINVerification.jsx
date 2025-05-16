@@ -276,8 +276,9 @@ const OPIQRCodeSVG = () => {
 
 {showOverlay && backgroundColor === "bg-red-500" && (
   <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-70 z-40">
-    <div className="text-center">
-      <p className="text-lg font-semibold text-red-500">{failureMessage}</p>
+    <div className="flex flex-col items-center">
+      <Cross size={120} />
+      <p className="mt-4 text-lg font-semibold text-red-500">{failureMessage}</p>
     </div>
   </div>
 )}
