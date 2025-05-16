@@ -96,7 +96,7 @@ const UPIPINVerification = () => {
           >
             <FaArrowLeft className="text-2xl" />
           </button>
-            <StatusDisplay
+            <Tick
       status={result === "success" ? "Transaction Successful" : "Transaction Failed"}
       message={resultMessage}
       bgColor={result === "success" ? "bg-green-500" : "bg-red-500"}
