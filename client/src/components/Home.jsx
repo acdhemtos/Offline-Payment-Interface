@@ -73,6 +73,7 @@ const Home = () => {
 
   const handleLogout = async () => {
     try {
+      
       // Get cookies
       const username = await getDetail("username");
       const session_key = await getDetail("session_key");
@@ -84,6 +85,11 @@ const Home = () => {
         alert("Session key or username is missing. Unable to log out.");
         return;
       }
+
+       //delete IndexDB
+       window.indexedDB.deleteDatabase("transactions");
+       window.indexedDB.deleteDatabase("names");
+       window.indexedDB.deleteDatabase("details");
 
       // Send logout request to the backend
       fetch("/api/logout.php", {
@@ -101,11 +107,6 @@ const Home = () => {
           console.log("Service Worker unregistered.");
         }
       }
-
-      //delete IndexDB
-      window.indexedDB.deleteDatabase("transactions");
-      window.indexedDB.deleteDatabase("names");
-      window.indexedDB.deleteDatabase("details");
 
 
       Cookies.remove("private_key", { path: "/" });
