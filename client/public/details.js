@@ -1,26 +1,42 @@
 async function openDetails() {
  return new Promise((resolve, reject) => {
-   const request = indexedDB.open("details", 1);
+     const request = indexedDB.open("details", 1);
 
-   request.onupgradeneeded = function (event) {
-     const db = event.target.result;
-     db.createObjectStore("details", { keyPath: "detail" });
-   };
+     request.onupgradeneeded = function (event) {
+         console.log("Upgrade needed");
+         const db = event.target.result;
+         if (!db.objectStoreNames.contains("details")) {
+             db.createObjectStore("details", { keyPath: "detail" });
+         }
+     };
 
-   request.onsuccess = function () {
-     resolve(request.result);
-   };
+     request.onsuccess = function (event) {
+         const db = event.target.result;
+         console.log("Database opened successfully:", db);
 
-   request.onerror = function () {
-     reject(request.error);
-   };
+         // Check if the object store exists
+         if (!db.objectStoreNames.contains("details")) {
+             console.error("Object store 'details' missing! Closing DB.");
+             db.close();
+             reject("Database exists but missing required object store.");
+             return;
+         }
 
-   request.onblocked = function () {
-    console.warn("Database opening is blocked");
-    reject("Database opening blocked");
-   };
+         resolve(db);
+     };
+
+     request.onerror = function () {
+         console.error("Error opening DB:", request.error);
+         reject(request.error);
+     };
+
+     request.onblocked = function () {
+         console.warn("Database opening is blocked!");
+         reject("Database opening blocked by another connection.");
+     };
  });
 }
+
 
 async function getDetail(detail) {
  const db = await openDetails();
