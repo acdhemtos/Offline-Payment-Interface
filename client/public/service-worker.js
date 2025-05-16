@@ -79,7 +79,7 @@ self.addEventListener("install", async (event) => {
   const db = await openDatabase();
   const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
   
-  AJAX("/api/receive.php", {"last_id":-1}).then(data => {
+  AJAX("/api/getTransactions.php", {"last_id":-1}).then(data => {
     data["ids"].forEach((id, index) => {
       insertTransaction(id,transactions);
     });
