@@ -17,7 +17,7 @@ import {
 } from "react-icons/bs";
 import People from "./People";
 import { useNavigate } from "react-router-dom";
-// import { AJAX } from "../../public/ajax";
+import { AJAX } from "../../public/ajax";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -76,8 +76,8 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       // Get cookies
-      const username = Cookies.get("username");
-      const session_key = Cookies.get("session_key");
+      const username = await getFromStore("username");
+      const session_key = await getFromStore("session_key");
       const private_key = Cookies.get("private_key");
 
       console.log("Logout Payload:", { username, session_key });
