@@ -26,13 +26,13 @@ async function getName(username) {
 
      getRequest.onsuccess = () => resolve(getRequest.result.name);
      getRequest.onerror = () => {
+      let name = "";
       try{
-       const name = "UNGABUNGA";
+       let name = await AJAX("/api/getName.php",{"name_username":username})
       }
       catch(error){
        reject(error);
       }
-      
       const addRequest = store.add({ username, name });
 
       addRequest.onsuccess = () => resolve(name);
