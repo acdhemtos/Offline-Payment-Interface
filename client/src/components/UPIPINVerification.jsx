@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import PinDisplay from "./PinDisplay";
 import { motion } from "framer-motion";
-import { AJAX } from "../../public/ajax";
+// import { AJAX } from "../../public/ajax";
 import { messages } from "../utils/loadMessages";
 import { FaArrowLeft } from "react-icons/fa";
 import Tick from "./Tick";
