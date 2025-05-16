@@ -33,8 +33,8 @@
  //if(!usernameExists($sender)){display(33);}
 
  
- $TL = 5;
- //if (round(microtime(true) * 1000) - $time > 5*1000){handle(34);}
+ $TL = 10;
+ if (round(microtime(true)) - $time > $TL){handle(34);}
  
  @require_once 'hash.php';
  
