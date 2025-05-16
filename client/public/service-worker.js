@@ -41,8 +41,10 @@ const urlsToCache = [
 
 
 
-// Cache on install
+
 self.addEventListener("install", async (event) => {
+  console.log("SERVICE WORKER STARTED");
+  
   const db = await openTransactions();
   const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
   
@@ -51,8 +53,9 @@ self.addEventListener("install", async (event) => {
       loadTransaction(id,transactions);
     });
   });
-  //getTransactions -1
-  console.log("STARTED");
+  
+  
+  //CACHE on INSTALL
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log("Opened cache");
