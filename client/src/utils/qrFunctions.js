@@ -46,9 +46,14 @@ const encode = (() => {
   let n = BigInt(arr.length);
   let n1 = n + BigInt(1);
   let num = BigInt(0);
-  for(let ch of str){
-   num *= n1;
-   num += n-BigInt(arr.indexOf(ch));
+  for (let i = 0; i < str.length; i++) {
+    const ch = str[i];
+    const idx = arr.indexOf(ch);
+    if (idx === -1) {
+      throw new Error(`Character "${ch}" not found in map range.`);
+    }
+    num *= n1;
+    num += n - BigInt(idx);
   }
   return number(num, size);
  }
