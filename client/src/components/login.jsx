@@ -65,12 +65,7 @@ const LoginSignupForm = () => {
           const request = store.add({detail: 'session_key', value: data.session_key});
           request.onsuccess = () => resolve();
           request.onerror = (e) => reject(e.target.error);
-        });
-        store.add();
-        store.add();
-      
-      
-        
+        });       
 
         //registering Service Worker
         if ("serviceWorker" in navigator) {
