@@ -4,6 +4,8 @@ import { QR } from "../utils/qrFunctions";
 import jsQR from "jsqr";
 import { ClipLoader } from "react-spinners";
 import { announce } from "../utils/announce";
+import Tick from "./Tick";
+import Cross from "./Cross";
 
 const QRMirror = () => {
   const [qrValue, setQrValue] = useState("");
