@@ -149,9 +149,12 @@ async function fetchBalance() {
   try {
     const response = await AJAX("/api/getBalance.php");
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`);
+    // }
+    if (!data || typeof data.code === "undefined") {
+  throw new Error("Invalid response from server");
+}
 
     const data = await response.json();
 
