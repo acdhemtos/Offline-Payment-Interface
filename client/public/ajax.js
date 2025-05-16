@@ -1,7 +1,13 @@
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 
 function AJAX(url, data={},tel=true) {
-  const username = decodeURIComponent(Cookies.get("username") || "");
-  const sessionKey = decodeURIComponent(Cookies.get("session_key") || "");
+  const username = decodeURIComponent(getCookie("username") || "");
+  const sessionKey = decodeURIComponent(getCookie("session_key") || "");
   
   const requestData = tel?{ ...data, username, session_key: sessionKey }:data;
 
