@@ -86,38 +86,33 @@ const Home = () => {
       }
 
       // Send logout request to the backend
-      const response = await fetch("/api/logout.php", {
+      fetch("/api/logout.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, session_key }),
       });
 
-      const data = await response.json();
-
-      if (data.code === 0) {
-        // Clear cookies using js-cookie
-        if ("serviceWorker" in navigator) {
-          const registrations =
-            await navigator.serviceWorker.getRegistrations();
-          for (const registration of registrations) {
-            await registration.unregister();
-            console.log("Service Worker unregistered.");
-          }
+      // Clear cookies using js-cookie
+      if ("serviceWorker" in navigator) {
+        const registrations =
+          await navigator.serviceWorker.getRegistrations();
+        for (const registration of registrations) {
+          await registration.unregister();
+          console.log("Service Worker unregistered.");
         }
-
-        //delete IndexDB
-        window.indexedDB.deleteDatabase("transactions");
-        window.indexedDB.deleteDatabase("names");
-        window.indexedDB.deleteDatabase("details");
-
-
-        Cookies.remove("private_key", { path: "/" });
-
-        alert("You have been logged out.");
-        window.location.href = "/";
-      } else {
-        alert("An error occurred during logout. Please try again.");
       }
+
+      //delete IndexDB
+      window.indexedDB.deleteDatabase("transactions");
+      window.indexedDB.deleteDatabase("names");
+      window.indexedDB.deleteDatabase("details");
+
+
+      Cookies.remove("private_key", { path: "/" });
+
+      alert("You have been logged out.");
+      window.location.href = "/";
+      
     } catch (error) {
       console.error("Error during logout:", error);
       alert("An error occurred. Please try again later.");
