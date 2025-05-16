@@ -7,6 +7,7 @@ import { AJAX } from "../../public/ajax";
 import { messages } from "../utils/loadMessages";
 import { FaArrowLeft } from "react-icons/fa";
 import Tick from "./Tick";
+import Cross from "./Cross";
 
 const UPIPINVerification = () => {
   const [pin, setPin] = useState("");
