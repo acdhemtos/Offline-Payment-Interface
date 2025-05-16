@@ -107,7 +107,7 @@ const UPIPINVerification = () => {
           <div className="mb-6">
             {result === "success" ? <Tick /> : <Cross />}
           </div>
-          <div className={`text-2xl font-bold mb-4 ${result === "success" ? "text-green-600" : "text-red-600"}`}>
+          <div className={`text-2xl font-bold mb-4 bg-gray-200`}>
             {result === "success" ? "Transaction Successful" : "Transaction Failed"}
           </div>
           <div className="text-base text-center">{resultMessage}</div>
