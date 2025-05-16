@@ -70,10 +70,6 @@ const LoginSignupForm = () => {
             });
         }
 
-        console.log("Session Key:", data.session_key);
-
-        // Set cookies
-        
 
         // Store credentials using Credential Management API
         if (navigator.credentials && window.PasswordCredential) {
