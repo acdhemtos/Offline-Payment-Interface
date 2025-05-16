@@ -22,12 +22,11 @@ function openTransactions() {
 //async function addTransaction())
 
 async function loadTransaction(id,transactions){
- const db = await openTransactions();
- const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
  while(true){
    try{
      const data = await AJAX("/api/getTransaction.php", {"id":id});
-     console.log(data);
+     const db = await openTransactions();
+     const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
      transactions.add(data["data"]);
    }
    catch(error){
