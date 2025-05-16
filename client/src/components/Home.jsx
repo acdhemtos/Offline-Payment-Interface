@@ -17,7 +17,6 @@ import {
 } from "react-icons/bs";
 import People from "./People";
 import { useNavigate } from "react-router-dom";
-import { getFromStore } from "../../public/ajax";
 // import { AJAX } from "../../public/ajax";
 
 const Home = () => {
@@ -32,10 +31,19 @@ const Home = () => {
 useEffect(() => {
   const fetchUsernameFromIndexedDB = async () => {
     try {
-      const result = await getFromStore("username");
-      if (result) {
-        setUsername(result.value); // or result.username depending on your schema
-      }
+      const db = await window.indexedDB.open("details", 1);
+      db.onsuccess = function () {
+        const database = db.result;
+        const transaction = database.transaction("details", "readonly");
+        const store = transaction.objectStore("details");
+        const getRequest = store.get("username");
+        getRequest.onsuccess = function () {
+          const result = getRequest.result;
+          if (result) {
+            setUsername(result.value); // or result.username depending on your schema
+          }
+        };
+      };
     } catch (error) {
       console.error("Error fetching from IndexedDB:", error);
     }
