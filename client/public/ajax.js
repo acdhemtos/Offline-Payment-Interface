@@ -1,4 +1,4 @@
-async function AJAX(url, data={},tel=true) {
+async function AJAX(url, data,tel=true) {
 
   const username = decodeURIComponent((await cookieStore.get('username').value) || "");
   const sessionKey = decodeURIComponent((await cookieStore.get('session_key').value) || "");
