@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { AJAX } from "./ajax";
+import { AJAX } from "../../public/ajax";
 
 const transactionsRef = { current: [] };
 

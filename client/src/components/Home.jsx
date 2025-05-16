@@ -17,7 +17,7 @@ import {
 } from "react-icons/bs";
 import People from "./People";
 import { useNavigate } from "react-router-dom";
-import { AJAX } from "../utils/ajax";
+import { AJAX } from "../../public/ajax";
 
 const Home = () => {
   const navigate = useNavigate();

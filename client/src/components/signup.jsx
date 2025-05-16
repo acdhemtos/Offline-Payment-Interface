@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { AJAX } from "../utils/ajax";
+import { AJAX } from "../../public/ajax";
 import { messages } from "../utils/loadMessages";
 
 const SignupForm = () => {

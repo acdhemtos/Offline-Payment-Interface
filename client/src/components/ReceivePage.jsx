@@ -4,7 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { FaRupeeSign, FaArrowLeft, FaCheckCircle } from "react-icons/fa";
 import Cookies from "js-cookie";
 import { QR } from "../utils/qrFunctions";
-import { AJAX } from "../utils/ajax";
+import { AJAX } from "../../public/ajax";
 import jsQR from "jsqr";
 import { ClipLoader } from "react-spinners";
 import { messages } from "../utils/loadMessages";

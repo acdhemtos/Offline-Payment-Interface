@@ -2,7 +2,7 @@ import { useState } from "react";
 import PinDisplay from "./PinDisplay";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
-import { AJAX } from "../utils/ajax";
+import { AJAX } from "../../public/ajax";
 import Cookies from "js-cookie";
 
 const Settings = () => {
