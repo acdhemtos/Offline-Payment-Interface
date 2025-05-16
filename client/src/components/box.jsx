@@ -172,7 +172,7 @@ const QRMirror = () => {
 
       <div
         id="camera-container"
-        className="mt-4 flex justify-center items-center relative transform-rotate-180"
+        className="mt-4 flex justify-center items-center relative "
       >
         <video
           ref={videoRef}
