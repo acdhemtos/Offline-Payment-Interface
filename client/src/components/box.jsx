@@ -178,7 +178,7 @@ const QRMirror = () => {
           ref={videoRef}
           autoPlay
           playsInline
-          className="rounded-lg border border-gray-300"
+          className="rounded-lg border border-gray-300 "
           style={{
             width: "500px",
             height: "300px",
