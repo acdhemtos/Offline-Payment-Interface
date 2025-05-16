@@ -89,7 +89,7 @@ const renderTransactions = (div) => {
 
     // Sender/Receiver
     const otherLabel =
-      transaction.type > 0 ? "sender" : transaction.type < 0 ? "Receiver" : null;
+      transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : null;
     console.log(otherLabel);
     console.log(transaction.otherLabel);
 
