@@ -85,7 +85,6 @@ const QRMirror = () => {
   };
 
   const handleScanComplete = (data) => {
-    // if( date && lookingRef.current){
     if (data && looking) {
       console.log("Scanned QR Data:", data);
       setLooking(false);
