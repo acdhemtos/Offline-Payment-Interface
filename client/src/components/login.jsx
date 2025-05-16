@@ -54,6 +54,17 @@ const LoginSignupForm = () => {
       console.log("Login response:", data);
 
       if (data.code === 0) {
+        const request = indexedDB.open("details",1);
+
+        request.onupgradeneeded = function(){
+          const db = request.result;
+          db.createObjectStore("users", {keypath:"username"});
+
+          const transactions = db.createObjectStore("transactions", {keypath:"id"});
+          transactions.createIndex("other",["other"]);
+
+          db.createObjectStore("unsure",{keypath:"time"});
+        };
         document.cookie = `session_key=${data.session_key}; path=/; max-age=604800;`;
         document.cookie = `username=${username}; path=/; max-age=604800;`;
         document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
