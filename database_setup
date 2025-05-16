@@ -13,6 +13,7 @@ CREATE TABLE `opi`.`users` (
  `private_key` CHAR(32) NULL ,
  `pin` CHAR(32) NULL ,
  `last_active` DATETIME NULL,
+ `last_transaction` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
