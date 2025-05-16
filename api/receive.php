@@ -4,6 +4,8 @@
  $details_hash = $data["details_hash"];
  @require_once('connection.php');
  
+ @require_once 'hash.php';
+ 
  $sender = $data["sender"];
  
  $stmt = $GLOBALS['conn']->prepare('SELECT private_key FROM users WHERE username = :username');
@@ -44,24 +46,35 @@
  
  validate('isLoggedIn',$username,$session_key);
  
- $TL = 5;
- //if (round(microtime(true) * 1000) - $time > 5*1000){handle(34);}
- 
- @require_once 'hash.php';
+ $TL = 10;
+ if (round(microtime(true) * 1000) - $time > 10*1000){handle(34);}
  
  $details_hash = $data["details_hash"];
  if(!isValidHash($details_hash)){display(36);}
  
  @require_once('getName.php');
  $name = getName($username);
- 
- //if($details_hash!=sha256($username.$amount.$name.$time.$private_key)){display(35);}
+ if($details_hash!=sha256($username.$amount.$name.$time.$private_key)){display(35);}
  
  @require_once('getBalance.php');
  if(getBalance($sender)<$amount){handle(30);}
 
+ /*
+ $stmt = $GLOBALS['conn']->prepare("SELECT * FROM past_hashes WHERE hash = :hash");
+ $stmt->execute(['hash' => $details_hash]);
+
+ if ($stmt->fetch()) { display(34); }*/
+ $stmt = $pdo->prepare("INSERT INTO past_hashes (sender, receiver, hash, time) 
+                           VALUES (:sender, :receiver, :hash, :time)");
+
+ $stmt->execute([
+  'sender' => $sender,
+  'receiver' => $username,
+  'hash' => $details_hash,
+  'time' => $time,
+ ]);
+
  @require_once('transaction.php');
- 
  handle(0,transaction($sender, $username, $amount, 2));
  
 ?>
