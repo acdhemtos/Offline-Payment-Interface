@@ -35,8 +35,6 @@ const urlsToCache = [
   "/app/success"
 ];
 
-let dbInstance = null;
-
 function openDatabase() {
   return new Promise((resolve, reject) => {
     if (dbInstance) {
