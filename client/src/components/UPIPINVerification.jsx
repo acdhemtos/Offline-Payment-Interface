@@ -5,6 +5,7 @@ import PinDisplay from "./PinDisplay";
 import { motion } from "framer-motion";
 import { AJAX } from "../utils/ajax";
 import { messages } from "../utils/loadMessages";
+import { FaArrowLeft } from "react-icons/fa";
 
 const UPIPINVerification = () => {
   const [pin, setPin] = useState("");
@@ -84,20 +85,18 @@ const UPIPINVerification = () => {
     >
       {result ? (
         <>
-          {/* Back button on top left */}
           <button
-            className="absolute top-6 left-6 px-4 py-2 bg-blue-500 text-white rounded-full shadow hover:bg-blue-600 transition"
+            className="absolute top-4 left-4 bg-red-500 text-white px-6 py-2 rounded-lg text-lg shadow-md hover:bg-red-600 transition z-50"
             onClick={() => {
               setResult(null);
               setResultMessage("");
               setPin("");
             }}
           >
-            Back
+            <FaArrowLeft className="text-2xl" />
           </button>
-          {/* Centered status and message */}
           <div className="flex flex-col items-center justify-center flex-1 w-full mt-24">
-            <div className={`text-2xl font-bold mb-4 ${result === "success" ? "text-green-600" : "text-red-600"}`}>
+            <div className={`text-2xl font-bold mb-4 ${result === "success" ? "text-green-600 bg-green-500 " : "text-red-600 bg-red-500"}`}>
               {result === "success" ? "Transaction Successful" : "Transaction Failed"}
             </div>
             <div className="text-base text-center">{resultMessage}</div>
