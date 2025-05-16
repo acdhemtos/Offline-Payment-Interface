@@ -112,7 +112,7 @@ const renderTransactions = (div) => {
         ${
           otherLabel
             ? `<div class="text-sm text-gray-600">
-                <span class="font-medium">${otherLabel}:</span> ${transaction.otherLabel || "N/A"}
+                <span class="font-medium">${otherLabel}:</span> ${transaction.other || "N/A"}
               </div>`
             : ""
         }
