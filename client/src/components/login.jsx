@@ -54,6 +54,7 @@ const LoginSignupForm = () => {
       console.log("Login response:", data);
 
       if (data.code === 0) {
+        document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
         const db = await openDetails();
         const store = db.transaction("details","readwrite").objectStore("details");
         await new Promise((resolve, reject) => {
@@ -66,7 +67,6 @@ const LoginSignupForm = () => {
           request.onsuccess = () => resolve();
           request.onerror = (e) => reject(e.target.error);
         });     
-        document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
 
         //registering Service Worker
         if ("serviceWorker" in navigator) {
