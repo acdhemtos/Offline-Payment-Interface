@@ -147,7 +147,7 @@ const fetchInterval = 2000;
 
 async function fetchBalance() {
   try {
-    const response = await AJAX("/api/getBalance.php",{});
+    const response = await AJAX("/api/getBalance.php");
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
