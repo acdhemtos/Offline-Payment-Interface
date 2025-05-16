@@ -1,6 +1,6 @@
 function openTransactions() {
  return new Promise((resolve, reject) => {
-   const request = indexedDB.open("transactions",3);
+   const request = indexedDB.open("transactions",4);
 
    request.onupgradeneeded = function(){
      const db = request.result;
