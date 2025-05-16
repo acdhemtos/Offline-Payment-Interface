@@ -97,6 +97,9 @@ const Home = () => {
       const data = await response.json();
 
       if (data.code === 0) {
+        //delete IndexDB
+        //delete IndexDB
+
         // Clear cookies using js-cookie
         if ("serviceWorker" in navigator) {
           const registrations =
