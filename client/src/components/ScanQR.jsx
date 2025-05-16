@@ -47,7 +47,8 @@ const ScanQR = () => {
     //scannedRef.current = true;
     setScanned(true);
     if (data) {
-       alert(`Length of scanned data: ${data.length}`);
+      alert(`Length of scanned data: ${data.length}`);
+      console.log("1");
       let obj = QR.decode("username", data);
       
       
