@@ -32,8 +32,9 @@ const ReceivePage = () => {
   const [failureMessage, setFailureMessage] = useState("");
   const [showCheckmark, setShowCheckmark] = useState(false);
 
-  const generateReceiveQR = (amount = "", name = false) => {
-    const username = Cookies.get("username");
+  const generateReceiveQR = async(amount = "", name = false) => {
+    const username = await getDetail("username");
+      
     if (amount != "") {
       let amt = amount * 100;
       if (name !== false) {
