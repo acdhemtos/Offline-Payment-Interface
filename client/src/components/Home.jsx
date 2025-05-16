@@ -74,8 +74,8 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       // Get cookies
-      const username = await getFromStore("username");
-      const session_key = await getFromStore("session_key");
+      const username = await getDetail("username");
+      const session_key = await getDetail("session_key");
       const private_key = Cookies.get("private_key");
 
       console.log("Logout Payload:", { username, session_key });
