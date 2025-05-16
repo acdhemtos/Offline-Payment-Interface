@@ -172,13 +172,13 @@ const QRMirror = () => {
 
       <div
         id="camera-container"
-        className="mt-4 flex justify-center items-center relative"
+        className="mt-4 flex justify-center items-center relative transform-rotate-180"
       >
         <video
           ref={videoRef}
           autoPlay
           playsInline
-          className="rounded-lg border border-gray-300 transform-rotate-180"
+          className="rounded-lg border border-gray-300 "
           style={{
             width: "500px",
             height: "300px",
