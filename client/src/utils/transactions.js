@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { AJAX } from "./ajax";
 
 const transactionsRef = { current: [] };
@@ -35,7 +35,7 @@ const loadTransactions = () => {
       if (response && response.transactions) {
         transactionsRef.current = response.transactions;
         updateTransactions();
-        console.log("response.transactions",response.transactions);
+        console.log("response.transactions", response.transactions);
         console.log("response", response);
       } else {
         console.warn("No transactions found in the API response.");
@@ -72,11 +72,9 @@ const renderTransactions = (div) => {
       hover:shadow-md transition duration-200
     `;
 
-
     // Type badge
     let typeLabel = "";
     let badgeColor = "";
-  
     if (transaction.type === 0) {
       typeLabel = "Top Up";
       badgeColor = "bg-blue-100 text-blue-600";
@@ -88,32 +86,33 @@ const renderTransactions = (div) => {
       badgeColor = "bg-green-200 text-green-500";
     }
 
-    // Sender/Receiver
-    const otherLabel =
-      transaction.type > 0 ? "Sender" : transaction.type < 0 ? "Receiver" : null;
-    console.log(otherLabel);
-    console.log(transaction.other);
+    // Determine sender or receiver label and value
+    let otherLabel = "";
+    let otherValue = "";
+
+    if (transaction.type > 0) {
+      otherLabel = "Sender";
+      otherValue = transaction.sender;
+    } else if (transaction.type < 0) {
+      otherLabel = "Receiver";
+      otherValue = transaction.receiver;
+    }
 
     // Format time
     const formattedTime = transaction.time;
-    console.log(transaction.time);
 
     transactionDiv.innerHTML = `
-   
       <div class="absolute top-3 right-3">
         <span class="text-xs font-medium px-3 py-1 rounded-full ${badgeColor}">
           ${typeLabel}
         </span>
       </div>
-      
 
-      
       <div class="flex flex-col space-y-2">
-
         ${
           otherLabel
             ? `<div class="text-sm text-gray-600">
-                <span class="font-medium">${otherLabel}:</span> ${transaction.other || "N/A"}
+                <span class="font-medium">${otherLabel}:</span> ${otherValue || "N/A"}
               </div>`
             : ""
         }
@@ -123,7 +122,6 @@ const renderTransactions = (div) => {
         </div>
       </div>
 
-    
       <div class="text-xs text-gray-500 text-right mt-4">
         ${formattedTime}
       </div>
