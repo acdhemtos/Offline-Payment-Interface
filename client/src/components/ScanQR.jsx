@@ -11,6 +11,7 @@ const ScanQR = () => {
   const streamRef = useRef(null);
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const [scanned, setScanned] = useState(false);
 
   useEffect(() => {
     const startCamera = async () => {
@@ -36,6 +37,9 @@ const ScanQR = () => {
   }, []);
 
   const handleScanComplete = (data) => {
+
+    if (scanned) return;
+    setScanned(true);
     if (data) {
       // alert(`Length of scanned data: ${data.length}`);
       let obj = QR.decode("username", data);
@@ -99,6 +103,7 @@ const ScanQR = () => {
   };
 
   const drawCanvas = () => {
+    if (scanned) return;
     const video = videoRef.current;
     const canvas = canvasRef.current;
 
