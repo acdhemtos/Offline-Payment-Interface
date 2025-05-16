@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { DotLottie } from "@lottiefiles/dotlottie-web";
 
-const TickCanvas = () => {
+const Tick = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -25,4 +25,4 @@ const TickCanvas = () => {
   );
 };
 
-export default TickCanvas;
+export default Tick;
