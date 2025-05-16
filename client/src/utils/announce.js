@@ -7,7 +7,7 @@ function speakAsync(text) {
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.rate = 1.25;
    utterance.pitch = 1;
-   utterance.volume = 1;
+   utterance.volume = 2;
   utterance.onend = () => { resolve(); };
   utterance.onerror = (event) => { reject(event.error); };
   window.speechSynthesis.speak(utterance);
