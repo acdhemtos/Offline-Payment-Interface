@@ -1,10 +1,10 @@
 async function openName() {
  return new Promise((resolve, reject) => {
-   const request = indexedDB.open("details", 1);
+   const request = indexedDB.open("names", 1);
 
    request.onupgradeneeded = function (event) {
      const db = event.target.result;
-     db.createObjectStore("details", { keyPath: "detail" });
+     db.createObjectStore("name", { keyPath: "name" });
    };
 
    request.onsuccess = function () {
