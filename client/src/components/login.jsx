@@ -62,61 +62,61 @@ const LoginSignupForm = () => {
 
           store.add({detail: 'username', value: username});
           store.add({detail: 'session_key', value: data.session_key});
-          
+
+          //registering Service Worker
+          if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+              .register("/service-worker.js")
+              .then((registration) => {
+                //console.log("Service Worker registered with scope:", registration.scope);
+              })
+              .catch((error) => {
+                console.error("Service Worker registration failed:", error);
+              });
+          }
+  
+  
+          // Store credentials using Credential Management API
+          if (navigator.credentials && window.PasswordCredential) {
+            const credential = new PasswordCredential({
+              id: username,
+              password: data.private_key,
+              name: "Private Key Credential",
+            });
+  
+            navigator.credentials
+              .store(credential)
+              .then(() => {
+                console.log("Private key stored in credentials.");
+                console.log(credential);
+              })
+              .catch((error) => {
+                console.error("Error storing private key in credentials:", error);
+              });
+          }
+  
+          // Request Notification Permission
+          if ("Notification" in window) {
+            Notification.requestPermission()
+              .then((permission) => {
+                if (permission === "granted") {
+                  console.log("Notification permission granted.");
+                } else {
+                  console.warn("Notification permission denied.");
+                }
+              })
+              .catch((error) => {
+                console.error("Error requesting notification permission:", error);
+              });
+          }
+  
+          alert("Login successful!");
+          navigate("/app/home");
         };
-        document.cookie = `session_key=${data.session_key}; path=/; max-age=604800;`;
-        document.cookie = `username=${username}; path=/; max-age=604800;`;
+        
         document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
         // Register Service Worker
-        if ("serviceWorker" in navigator) {
-          
-          navigator.serviceWorker
-            .register("/service-worker.js")
-            .then((registration) => {
-              //console.log("Service Worker registered with scope:", registration.scope);
-            })
-            .catch((error) => {
-              console.error("Service Worker registration failed:", error);
-            });
-        }
-
-
-        // Store credentials using Credential Management API
-        if (navigator.credentials && window.PasswordCredential) {
-          const credential = new PasswordCredential({
-            id: username,
-            password: data.private_key,
-            name: "Private Key Credential",
-          });
-
-          navigator.credentials
-            .store(credential)
-            .then(() => {
-              console.log("Private key stored in credentials.");
-              console.log(credential);
-            })
-            .catch((error) => {
-              console.error("Error storing private key in credentials:", error);
-            });
-        }
-
-        // Request Notification Permission
-        if ("Notification" in window) {
-          Notification.requestPermission()
-            .then((permission) => {
-              if (permission === "granted") {
-                console.log("Notification permission granted.");
-              } else {
-                console.warn("Notification permission denied.");
-              }
-            })
-            .catch((error) => {
-              console.error("Error requesting notification permission:", error);
-            });
-        }
-
-        alert("Login successful!");
-        navigate("/app/home");
+        
       } else {
         console.error("Login failed with code:", data.code);
         alert(messages[data.code - 1] || "Login failed. Please try again.");
