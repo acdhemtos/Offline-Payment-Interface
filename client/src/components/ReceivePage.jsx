@@ -10,9 +10,7 @@ import { ClipLoader } from "react-spinners";
 import { messages } from "../utils/loadMessages";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  addTransaction,
-} from "../utils/transactions";
+import { addTransaction } from "../utils/transactions";
 
 const ReceivePage = () => {
   const [uamount, setUamount] = useState("");
@@ -37,12 +35,12 @@ const ReceivePage = () => {
     if (amount != "") {
       let amt = amount * 100;
       if (name !== false) {
-        return QR.encode("username+amount+name",username,amt,name);
+        return QR.encode("username+amount+name", username, amt, name);
       }
-      return QR.encode("username+amount",username,amount);
+      return QR.encode("username+amount", username, amount);
     }
-    
-    return QR.encode("username",username);
+
+    return QR.encode("username", username);
   };
 
   useEffect(() => {
@@ -104,14 +102,14 @@ const ReceivePage = () => {
             requestAnimationFrame(scan);
             return;
           }
-          
+
           console.log("here");
           let dat = QR.decode("sender+time+details_hash", rawValue);
           console.log("Decoded data:", dat);
-          
+
           console.log(dat);
 
-          if (dat===false) {
+          if (dat === false) {
             requestAnimationFrame(scan);
             return;
           }
@@ -164,16 +162,20 @@ const ReceivePage = () => {
           if (code === 0) {
             setTransactionStatus("success");
             addTransaction(data.id, sender, amount, 2, time);
-            qrString = QR.encode("trans_id+hash", data.id, data.verification_hash);
+            qrString = QR.encode(
+              "trans_id+hash",
+              data.id,
+              data.verification_hash
+            );
             // setShowCheckmark(true);
             // setTimeout(() => setShowCheckmark(false), 2000);
           } else {
             setFailureMessage("Transaction Failed\n" + messages[code - 1]);
             setTransactionStatus("failure");
             if (code == 30) {
-              qrString = QR.encode("code+hash",30,data.verification_hash);
+              qrString = QR.encode("code+hash", 30, data.verification_hash);
             } else {
-              qrString = QR.encode("code",1);
+              qrString = QR.encode("code", 1);
             }
           }
           //makeQR
@@ -302,15 +304,15 @@ const ReceivePage = () => {
                   : "bg-white/80 text-red-700"
               }`}
             >
-              {transactionStatus === "success"
-  ? "Transaction Successful"
-  : (
-    <>
-      Transaction Failed<br />
-      {failureMessage}
-    </>
-  )
-}
+              {transactionStatus === "success" ? (
+                "Transaction Successful"
+              ) : (
+                <>
+                  Transaction Failed
+                  <br />
+                  {failureMessage}
+                </>
+              )}
             </div>
           )}
         </div>
