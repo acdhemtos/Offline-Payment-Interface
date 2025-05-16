@@ -54,7 +54,7 @@ const LoginSignupForm = () => {
       console.log("Login response:", data);
 
       if (data.code === 0) {
-        
+        //create IndexDB for Transactions
 
 
 
