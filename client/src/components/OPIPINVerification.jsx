@@ -101,7 +101,7 @@ const OPIQRCodeSVG = () => {
                   const private_key = Cookies.get("private_key");
                   const string = code.data;
                   const n = string.length;
-                  const codeResult = Qr.decode("code", string);
+                  const codeResult = QR.decode("code", string);
 
                   if (codeResult !== false && (codeResult.code === 1 || codeResult.code === 1n)) {
                     stopStream(video);
