@@ -135,8 +135,9 @@ const ReceivePage = () => {
           setHideQRCode(true);
           setShowOverlay(true);
 
-          const sessionKey = Cookies.get("session_key");
-          const username = Cookies.get("username");
+          const sessionKey = await getDetail("session_key");
+          const username = await getDetail("username");
+       
           const amount = uamount * 100;
 
           let data, code;
