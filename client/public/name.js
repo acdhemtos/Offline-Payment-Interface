@@ -43,8 +43,5 @@ async function getName(username) {
        resolve(getRequest.result.name);
       }
      };
-     getRequest.onerror = () => {
-      
-     };
  });
 }
