@@ -79,7 +79,13 @@ const UPIPINVerification = () => {
 
   return (
     <motion.div
-      className={`flex flex-col min-h-screen items-center justify-center ${result === "success" ? "bg-green-500" :"bg-gray-100"} w-full px-4 relative`}
+      className={`flex flex-col min-h-screen items-center justify-center w-full px-4 relative ${
+        result === "success"
+          ? "bg-green-500"
+          : result === "failure"
+          ? "bg-red-500"
+          : "bg-gray-100"
+      }`}
       initial={{ x: "100vw" }}
       animate={{ x: 0 }}
       transition={{ type: "tween", ease: "easeOut", duration: 0.1 }}
