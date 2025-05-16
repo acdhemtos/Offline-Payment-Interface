@@ -17,6 +17,7 @@ import {
 } from "react-icons/bs";
 import People from "./People";
 import { useNavigate } from "react-router-dom";
+import { getFromStore } from "../../public/ajax";
 // import { AJAX } from "../../public/ajax";
 
 const Home = () => {
@@ -26,6 +27,22 @@ const Home = () => {
   const [balance, setBalance] = useState(null);
   const [isPinSet, setIsPinSet] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+
+  
+useEffect(() => {
+  const fetchUsernameFromIndexedDB = async () => {
+    try {
+      const result = await getFromStore("username");
+      if (result) {
+        setUsername(result.value); // or result.username depending on your schema
+      }
+    } catch (error) {
+      console.error("Error fetching from IndexedDB:", error);
+    }
+  };
+
+  fetchUsernameFromIndexedDB();
+}, []);
 
   useEffect(() => {
     const fetchUsername = async () => {
