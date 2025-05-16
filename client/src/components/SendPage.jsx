@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaRupeeSign, FaArrowLeft, FaIdCard } from "react-icons/fa";
-import { AJAX } from "../../public/ajax";
+// import { AJAX } from "../../public/ajax";
 import biometric from "../utils/biometric";
 
 const SendPage = () => {
