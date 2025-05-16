@@ -50,6 +50,12 @@ self.addEventListener("install", (event) => {
 
 console.log("INSIDEE SERVICE WORKER");
 
+async function insertTransaction(id){
+  while(true){
+    break;
+  }
+}
+
 // Activate and clean old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
