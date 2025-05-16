@@ -95,7 +95,7 @@ const UPIPINVerification = () => {
           >
             <FaArrowLeft className="text-2xl" />
           </button>
-                   // ...existing code...
+                   
           <div className="flex flex-col items-center justify-center flex-1 w-full mt-24">
             {result === "success" && (
               <div className="mb-6 flex items-center justify-center">
