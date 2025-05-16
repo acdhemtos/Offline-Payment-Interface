@@ -193,7 +193,7 @@ const SendPage = () => {
         className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-blue-600 transition w-full"
         onClick={() => handleOptionClick("/app/upi-pin")}
       >
-        Offline Send
+        Online Send
       </button>
     )}
   </div>
