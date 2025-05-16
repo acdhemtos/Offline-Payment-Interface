@@ -53,7 +53,7 @@ async function loadTransaction(id){
 // Cache on install
 self.addEventListener("install", (event) => {
   //loadAllTransactions
-  AJAX("/api/receive.php", {last_id:-1}).then(data => {
+  AJAX("/api/receive.php", {"last_id":-1}).then(data => {
     data["ids"].forEach((id, index) => {
       insertTransaction(id);
     });
