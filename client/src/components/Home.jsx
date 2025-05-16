@@ -109,6 +109,7 @@ const Home = () => {
 
         //delete IndexDB
         window.indexedDB.deleteDatabase("opi");
+        window.indexedDB.deleteDatabase("details");
 
         Cookies.remove("session_key", { path: "/" });
         Cookies.remove("username", { path: "/" });
