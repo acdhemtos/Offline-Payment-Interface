@@ -129,6 +129,7 @@ const ScanQR = () => {
         const imageData = context.getImageData(x, y, boxSize, boxSize);
         if (imageData && imageData.data) {
           const code = jsQR(imageData.data, boxSize, boxSize);
+          console.log(code);
 
           if (code) {
             handleScanComplete(code.data);
