@@ -95,7 +95,6 @@ const UPIPINVerification = () => {
           >
             <FaArrowLeft className="text-2xl" />
           </button>
-          {/* Centered status and message */}
           <div className="flex flex-col items-center justify-center flex-1 w-full mt-24">
             <div className={`text-2xl font-bold mb-4 ${result === "success" ? "text-green-600 bg-green-500 " : "text-red-600 bg-red-500"}`}>
               {result === "success" ? "Transaction Successful" : "Transaction Failed"}
