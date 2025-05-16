@@ -43,8 +43,8 @@ const ScanQR = () => {
 
   const handleScanComplete = (data) => {
 
-    if (scannedRef.current) return;
-    scannedRef.current = true;
+    if (scanned) return;
+    //scannedRef.current = true;
     setScanned(true);
     if (data) {
       // alert(`Length of scanned data: ${data.length}`);
@@ -109,7 +109,7 @@ const ScanQR = () => {
   };
 
   const drawCanvas = () => {
-     if (scannedRef.current) return;
+     if (scannedRef) return;
     const video = videoRef.current;
     const canvas = canvasRef.current;
 
@@ -141,7 +141,7 @@ const ScanQR = () => {
   };
 
   useEffect(() => {
-    scannedRef.current = false; // reset on mount
+    //scannedRef.current = false; // reset on mount
     drawCanvas();
     return () => {
       if (animationFrameRef.current) {
