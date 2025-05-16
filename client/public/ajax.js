@@ -26,6 +26,7 @@ async function openDetails() {
 }
 
 async function getFromStore(detail) {
+  const db = openDetails();
   return new Promise((resolve, reject) => {
       const transaction = db.transaction("details", "readonly");
       const store = transaction.objectStore("details");
