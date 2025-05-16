@@ -47,7 +47,7 @@
  validate('isLoggedIn',$username,$session_key);
  
  $TL = 10;
- if (round(microtime(true) * 1000) - $time > 10*1000){handle(34);}
+ if (round(microtime(true)) - $time > 10){handle(34);}
  
  $details_hash = $data["details_hash"];
  if(!isValidHash($details_hash)){display(36);}
