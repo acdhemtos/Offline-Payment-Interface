@@ -127,7 +127,7 @@ const decode = (() => {
    return ret==0 ? false : ret;
   },
   time: (arr) => {
-    let ret = Math.floor(Date.now()/tc)*tc+Number(number(arr));
+    let ret = Math.floor(Math.floor(Date.now() / 1000)/tc)*tc+Number(number(arr));
     console.log(ret);
     if(ret>Date.now()){
      ret -= tc;
