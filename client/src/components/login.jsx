@@ -54,6 +54,9 @@ const LoginSignupForm = () => {
       console.log("Login response:", data);
 
       if (data.code === 0) {
+        document.cookie = `session_key=${data.session_key}; path=/; max-age=604800;`;
+        document.cookie = `username=${username}; path=/; max-age=604800;`;
+        document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
         // Register Service Worker
         if ("serviceWorker" in navigator) {
           
@@ -70,9 +73,7 @@ const LoginSignupForm = () => {
         console.log("Session Key:", data.session_key);
 
         // Set cookies
-        document.cookie = `session_key=${data.session_key}; path=/; max-age=604800;`;
-        document.cookie = `username=${username}; path=/; max-age=604800;`;
-        document.cookie = `private_key=${data.private_key}; path=/; max-age=604800;`;
+        
 
         // Store credentials using Credential Management API
         if (navigator.credentials && window.PasswordCredential) {
