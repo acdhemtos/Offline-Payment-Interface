@@ -37,7 +37,7 @@ const urlsToCache = [
 
 function openDatabase() {
   return new Promise((resolve, reject) => {
-    const request = window.indexedDB.open("opi",1);
+    const request = indexedDB.open("opi",1);
 
     request.onupgradeneeded = function(){
       const db = request.result;
