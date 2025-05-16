@@ -11,7 +11,8 @@ import { messages } from "../utils/loadMessages";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addTransaction } from "../utils/transactions";
-import Tick from ""
+import Tick from "./Tick";
+import Cross from "./Cross";
 
 const ReceivePage = () => {
   const [uamount, setUamount] = useState("");
@@ -283,41 +284,44 @@ const ReceivePage = () => {
             )} */}
 
       {isAmountDisabled && (
-        <div className="w-full max-w-md relative">
-          <video
-            ref={videoRef}
-            autoPlay
-            playsInline
-            className="rounded-lg border border-gray-300"
-            style={{
-              width: "100vw",
-              height: "300px",
-              maxHeight: "100vh",
-              objectFit: "cover",
-              transform: "rotateY(180deg)",
-            }}
-          />
-          {transactionStatus && (
-            <div
-              className={`absolute inset-0 flex items-center text-center justify-center rounded-lg text-3xl font-bold ${
-                transactionStatus === "success"
-                  ? "bg-white/80 text-green-700"
-                  : "bg-white/80 text-red-700"
-              }`}
-            >
-              {transactionStatus === "success" ? (
-                "Transaction Successful"
-              ) : (
-                <>
-                  Transaction Failed
-                  <br />
-                  {failureMessage}
-                </>
-              )}
-            </div>
-          )}
-        </div>
-      )}
+  <div className="w-full max-w-md relative">
+    <video
+      ref={videoRef}
+      autoPlay
+      playsInline
+      className="rounded-lg border border-gray-300"
+      style={{
+        width: "100vw",
+        height: "300px",
+        maxHeight: "100vh",
+        objectFit: "cover",
+        transform: "rotateY(180deg)",
+      }}
+    />
+    {transactionStatus && (
+      <div
+        className={`absolute inset-0 flex flex-col items-center text-center justify-center rounded-lg text-3xl font-bold ${
+          transactionStatus === "success"
+            ? "bg-white/80 text-green-700"
+            : "bg-white/80 text-red-700"
+        }`}
+      >
+        {transactionStatus === "success" ? (
+          <>
+            <Tick size={100} />
+            <div className="mt-2">Transaction Successful</div>
+          </>
+        ) : (
+          <>
+            <Cross size={100} />
+            <div className="mt-2">Transaction Failed</div>
+            <div className="text-base font-normal">{failureMessage}</div>
+          </>
+        )}
+      </div>
+    )}
+  </div>
+)}
       <ToastContainer />
     </div>
   );
