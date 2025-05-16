@@ -46,12 +46,9 @@ const urlsToCache = [
 self.addEventListener("install", async (event) => {
   console.log("SERVICE WORKER STARTED");
   
-  const db = await openTransactions();
-  const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
-  
   AJAX("/api/getTransactions.php", {"last_id":-1}).then(data => {
     data["ids"].forEach((id, index) => {
-      loadTransaction(id,transactions);
+      loadTransaction(id);
     });
   });
   
