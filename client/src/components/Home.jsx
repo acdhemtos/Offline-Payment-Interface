@@ -31,10 +31,9 @@ const Home = () => {
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const username = Cookies.get("username" );
-        const data = await AJAX("/api/getName.php", {
-          name_username: username,
-        });
+        const user = await getDetail("username");
+       
+        const data = await getName(user);
 
         if (data && data.name) {
           // console.log("S", data);
