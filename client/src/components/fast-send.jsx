@@ -21,6 +21,7 @@ const FastSend = () => {
   const { receiver, amount, rN } = location.state || {};
   const detailsHashRef = useRef("");
   const ti = useRef("");
+  const scannedRef = useRef(false);
   // const [privateKey, setPrivateKey] = useState(null);
 
   const adjustedAmount = amount ? Math.round(amount * 100) : 0;
@@ -78,6 +79,7 @@ const FastSend = () => {
               const ctx = canvas.getContext("2d", { willReadFrequently: true });
               console.log("1");
               const scanQRCode = () => {
+                if (scannedRef.current) return;
                 if (video.readyState !== 4) {
                   requestAnimationFrame(scanQRCode);
                   return;
@@ -96,6 +98,7 @@ const FastSend = () => {
                 const code = jsQR(imageData.data, canvas.width, canvas.height);
 
                 if (code) {
+                  scannedRef.current = true;
                  console.log("code", code);
                   const private_key = Cookies.get("private_key");
                  const string = code.data;
