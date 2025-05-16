@@ -35,11 +35,25 @@ const urlsToCache = [
   "/app/success"
 ];
 
+async function insertTransaction(id){
+  while(true){
+    try{
+      console.log(id);
+    }
+    catch(error){
+      continue;
+    }
+    break;
+  }
+}
+
 // Cache on install
 self.addEventListener("install", (event) => {
   //loadAllTransactions
-  AJAX("/api/receive.php", {last_id:-1})then(data => {
-    console.log(data);
+  AJAX("/api/receive.php", {last_id:-1}).then(data => {
+    data["ids"].forEach((id, index) => {
+      console.log(id);
+    });
   });
   //getTransactions -1
   console.log("STARTED");
@@ -52,18 +66,6 @@ self.addEventListener("install", (event) => {
 });
 
 console.log("INSIDEE SERVICE WORKER");
-
-async function insertTransaction(id){
-  while(true){
-    try{
-      console.log(id);
-    }
-    catch(error){
-      continue;
-    }
-    break;
-  }
-}
 
 // Activate and clean old caches
 self.addEventListener("activate", (event) => {
