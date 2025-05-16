@@ -14,7 +14,7 @@ const ScanQR = () => {
   const [scanned, setScanned] = useState(false);
   const animationFrameRef = useRef(null);
   const scannedRef = useRef(false);
-  
+
   useEffect(() => {
     const startCamera = async () => {
       navigator.mediaDevices
@@ -34,6 +34,9 @@ const ScanQR = () => {
     return () => {
       if (streamRef.current) {
         streamRef.current.getTracks().forEach((track) => track.stop());
+      }
+       if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
       }
     };
   }, []);
