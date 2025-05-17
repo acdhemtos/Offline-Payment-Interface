@@ -168,7 +168,8 @@ const handleInputChange = async (e) => {
 
           if (code === 0) {
             setTransactionStatus("success");
-            addTransaction(data.id, sender, amount, 2, time);
+            addTransaction(data.id, amount, 2, sender, time);
+            
             qrString = QR.encode(
               "trans_id+hash",
               data.id,
