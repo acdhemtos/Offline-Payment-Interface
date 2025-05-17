@@ -157,13 +157,13 @@ const OPIQRCodeSVG = () => {
                         // setTimeout(() => {
                         //   setTransactionSuccess(false);
                         // }, 1000);
-                        // addTransaction(
-                        //   id,
-                        //   receiverName,
-                        //   amount,
-                        //   -2,
-                        //   ti.current
-                        // );
+                        addTransaction(
+                          id,
+                          amount,
+                          -2,
+                          receiverName,
+                          ti.current
+                        );
                       } else {
                         console.log(
                           "HASH FAILED",
