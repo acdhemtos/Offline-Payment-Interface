@@ -62,7 +62,7 @@ const UPIPINVerification = () => {
 
     if (data.code === 0) {
       setResult("success");
-      addTransaction(data.id, amount * 100, 2, receiver, Math.floor(Date.now()/1000));
+      addTransaction(data.id, amount * 100, -1, receiver, Math.floor(Date.now()/1000));
     } else {
       setResult("failure");
       setResultMessage(messages[data.code - 1] || data.message || "Transaction failed. Please try again.");
