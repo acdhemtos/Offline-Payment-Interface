@@ -20,7 +20,7 @@ const UPIPINVerification = () => {
 
   const fetchUsername = async () => {
     try {
-      const username = Cookies.get("username");
+      const username = await getDetail("username");
       const response = await fetch("/api/getName.php", {
         method: "POST",
         headers: {
