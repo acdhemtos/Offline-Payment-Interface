@@ -100,6 +100,7 @@ const UPIPINVerification = () => {
               setResult(null);
               setResultMessage("");
               setPin("");
+              navigate("/app/home");
             }}
           >
             <FaArrowLeft className="text-2xl" />
