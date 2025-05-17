@@ -35,6 +35,7 @@ function formatEpoch(seconds) {
 
 
 async function addTransaction(id,amount,type,other,time){
+ time = formatEpoch(time);
  const db = await openTransactions();
  const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
  transactions.add({ id,amount,type,other,time});
