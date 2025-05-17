@@ -10,7 +10,6 @@ import { ClipLoader } from "react-spinners";
 import { messages } from "../utils/loadMessages";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addTransaction } from "../utils/transactions";
 import Tick from "./Tick";
 import Cross from "./Cross";
 
@@ -168,7 +167,8 @@ const handleInputChange = async (e) => {
 
           if (code === 0) {
             setTransactionStatus("success");
-            addTransaction(data.id, sender, amount, 2, time);
+            addTransaction(data.id, amount, 2, sender, time);
+            
             qrString = QR.encode(
               "trans_id+hash",
               data.id,

@@ -20,7 +20,7 @@ const UPIPINVerification = () => {
 
   const fetchUsername = async () => {
     try {
-      const username = Cookies.get("username");
+      const username = await getDetail("username");
       const response = await fetch("/api/getName.php", {
         method: "POST",
         headers: {
@@ -44,8 +44,8 @@ const UPIPINVerification = () => {
   }, []);
 
   const verifyPin = async () => {
-    const sessionKey = Cookies.get("session_key");
-    const name = localStorage.getItem("name");
+    const sessionKey = await getDetail("session_key");
+    const name = await getDetail("username")
     const { receiver, amount } = location.state || {};
 
     if (!receiver || !sessionKey || !amount || !name) {
@@ -62,6 +62,7 @@ const UPIPINVerification = () => {
 
     if (data.code === 0) {
       setResult("success");
+      addTransaction(data.id, amount * 100, -1, receiver, Math.floor(Date.now()/1000));
     } else {
       setResult("failure");
       setResultMessage(messages[data.code - 1] || data.message || "Transaction failed. Please try again.");
@@ -99,6 +100,7 @@ const UPIPINVerification = () => {
               setResult(null);
               setResultMessage("");
               setPin("");
+              navigate("/app/home");
             }}
           >
             <FaArrowLeft className="text-2xl" />
@@ -107,7 +109,7 @@ const UPIPINVerification = () => {
           <div className="mb-6">
             {result === "success" ? <Tick /> : <Cross />}
           </div>
-          <div className={`text-2xl font-bold mb-4 bg-gray-200`}>
+          <div className={`text-2xl font-bold mb-4 text-gray-200`}>
             {result === "success" ? "Transaction Successful" : "Transaction Failed"}
           </div>
           <div className="text-base text-center">{resultMessage}</div>
