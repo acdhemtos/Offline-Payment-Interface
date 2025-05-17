@@ -45,7 +45,7 @@ const UPIPINVerification = () => {
 
   const verifyPin = async () => {
     const sessionKey = await getDetail("session_key");
-    const name = localStorage.getItem("name");
+    const name = await getDetail("username")
     const { receiver, amount } = location.state || {};
 
     if (!receiver || !sessionKey || !amount || !name) {
