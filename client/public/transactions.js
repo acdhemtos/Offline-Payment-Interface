@@ -1,10 +1,10 @@
 function openTransactions() {
  return new Promise((resolve, reject) => {
-   const request = indexedDB.open("transactions",5);
+   const request = indexedDB.open("transactions",4);
 
    request.onupgradeneeded = function(){
      const db = request.result;
-     const transactions = db.createObjectStore("transactions", {keyPath:"id"});
+     const transactions = db.createObjectStore("transactions", {keypath:"id"});
      transactions.createIndex("other",["other"]);
 
      db.createObjectStore("unsure",{keypath:"time"});
@@ -16,6 +16,23 @@ function openTransactions() {
    };
  });
 }
+
+function formatEpoch(seconds) {
+ const date = new Date(seconds * 1000); // Convert to milliseconds
+
+ const pad = n => String(n).padStart(2, '0');
+
+ const year = String(date.getFullYear()).slice(2); // Get last two digits
+ const month = pad(date.getMonth() + 1); // Months are 0-indexed
+ const day = pad(date.getDate());
+
+ const hours = pad(date.getHours());
+ const minutes = pad(date.getMinutes());
+ const secondsStr = pad(date.getSeconds());
+
+ return `${year}-${month}${day} ${hours}:${minutes}:${secondsStr}`;
+}
+
 
 async function addTransaction(id,amount,type,other,time){
  const db = await openTransactions();
