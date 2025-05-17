@@ -44,7 +44,7 @@ const UPIPINVerification = () => {
   }, []);
 
   const verifyPin = async () => {
-    const sessionKey = Cookies.get("session_key");
+    const sessionKey = await getDetail("session_key");
     const name = localStorage.getItem("name");
     const { receiver, amount } = location.state || {};
 
