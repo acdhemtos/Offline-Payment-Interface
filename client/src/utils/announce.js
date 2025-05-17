@@ -16,7 +16,7 @@ function speakAsync(text) {
 
 async function announce(amt){
   const beep = audioCache.cloneNode();
-  beep.volume = 0.3;
+  beep.volume = 0.25;
   beep.play();
   beep.onended = async () => {
     if(amt>99){
