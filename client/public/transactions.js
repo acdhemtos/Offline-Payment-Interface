@@ -1,10 +1,10 @@
 function openTransactions() {
  return new Promise((resolve, reject) => {
-   const request = indexedDB.open("transactions",4);
+   const request = indexedDB.open("transactions",7);
 
    request.onupgradeneeded = function(){
      const db = request.result;
-     const transactions = db.createObjectStore("transactions", {keypath:"id"});
+     const transactions = db.createObjectStore("transactions", {keypPath:"id"});
      transactions.createIndex("other",["other"]);
 
      db.createObjectStore("unsure",{keypath:"time"});
