@@ -1,13 +1,13 @@
 function openTransactions() {
  return new Promise((resolve, reject) => {
-   const request = indexedDB.open("transactions",11);
+   const request = indexedDB.open("transactions",12);
 
    request.onupgradeneeded = function(){
      const db = request.result;
-     const transactions = db.createObjectStore("transactions", {keypPath:"id"});
+     const transactions = db.createObjectStore("transactions", {keyPath:"id"});
      transactions.createIndex("other",["other"]);
 
-     db.createObjectStore("unsure",{keypath:"time"});
+     db.createObjectStore("unsure",{keyPath:"time"});
    };
 
    request.onsuccess = (event) => {
@@ -15,6 +15,27 @@ function openTransactions() {
      resolve(dbInstance);
    };
  });
+}
+
+
+async function loadTransaction(id){
+ while(true){
+   try{
+     const data = await AJAX("/api/getTransaction.php", {"id":id});
+     if(data.other===undefined){
+      data.other = null;
+     }
+     console.log({ id:id,...data["data"]});
+     const db = await openTransactions();
+     const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
+     transactions.add({ id:id,...data["data"]});
+   }
+   catch(error){
+     console.error(error);
+     continue;
+   }
+   break;
+ }
 }
 
 function formatEpoch(seconds) {
@@ -39,24 +60,4 @@ async function addTransaction(id,amount,type,other,time){
  const db = await openTransactions();
  const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
  transactions.add({ id,amount,type,other,time});
-}
-
-async function loadTransaction(id){
- while(true){
-   try{
-     const data = await AJAX("/api/getTransaction.php", {"id":id});
-     if(data.other===undefined){
-      data.other = null;
-     }
-     console.log({ id:id,...data["data"]});
-     const db = await openTransactions();
-     const transactions = db.transaction('transactions',"readwrite").objectStore("transactions");
-     transactions.add({ id:id,...data["data"]});
-   }
-   catch(error){
-     console.error(error);
-     continue;
-   }
-   break;
- }
 }
