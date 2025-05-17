@@ -41,7 +41,7 @@ async function addTransaction(id,amount,type,other,time){
  transactions.add({ id,amount,type,other,time});
 }
 
-async function loadTransaction(id,transactions){
+async function loadTransaction(id){
  while(true){
    try{
      const data = await AJAX("/api/getTransaction.php", {"id":id});
